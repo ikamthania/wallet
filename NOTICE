@@ -1,0 +1,51 @@
+LivelyGig ProductWebUI
+Copyright 2015-2016 LivelyGig, Inc.
+
+This product bundles the following open source components:
+
+Bootstrap v3.3.4
+  Available under MIT license.
+  See http://getbootstrap.com
+  and https://github.com/twbs/bootstrap/blob/master/LICENSE
+
+Font Awesome 4.4.0
+  Available under MIT and SIL OFL licenses.
+  See http://fontawesome.io and http://fontawesome.io/license
+
+jQuery v2.1.4
+  Available under MIT license.
+  See http://jquery.org and http://jquery.org/license
+
+jQuery UI v1.11.1
+  Available under MIT license.
+  See http://jqueryui.com
+
+perfect-scrollbar v0.6.2
+  Available under MIT license.
+  See https://noraesae.github.io/perfect-scrollbar
+
+Touch Splitter JQuery
+  Available under Creative Commons license.
+  See https://github.com/ZombieHippie/Touch-Splitter-jQuery
+  and http://creativecommons.org/licenses/by-sa/3.0/
+
+jQuery Tokenize
+  Available under Creative Commons license.
+  See https://www.zellerda.com/projects/jquery/tokenize
+  and https://github.com/zellerda/Tokenize
+    Copyright (c) 2005-2012, David Zeller
+    All rights reserved.
+
+jquery dynatree v1.2.5
+  Available under MIT and GPL licenses
+  See http://wwwendt.de/tech/dynatree/doc/dynatree-doc.html
+  and https://code.google.com/p/dynatree/wiki/LicenseInfo
+
+Selectize.js
+  Copyright 2013-2016 Brian Reavis & Contributors
+  Available under Apache License, version 2.0
+  See https://github.com/selectize/selectize.js
+
+Selectize Facade
+  Available under Mozilla Public License, version 2.0
+  See https://github.com/antonkulaga/selectize-facade

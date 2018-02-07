@@ -1,0 +1,2790 @@
+@import "lib/bootstrap/less/bootstrap.less";
+@import "lib/font-awesome/less/font-awesome.less";
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: "brandon-grotesque", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1em;
+}
+
+img {
+    max-width: 100%;
+    border: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+//font-size variables
+@base-font: 13px;
+@base-font1: 14px;
+@base-font2: 16px;
+@base-font11: 11px;
+@base-font9: 9px;
+@base-font10: 10px;
+@base-font12: 12px;
+@base-font11: 11px;
+@base-font20: 20px;
+
+
+.ellipseText{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.wallet-main {
+    padding: 0;
+    margin: 0;
+    @media screen and (min-width: 500px) {
+        display: block;
+    }
+    .wallet-inner {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        .wallet-inner-navigation {
+            margin: 0 -15px;
+            padding: 5px 15px;
+            .togglebtn {
+                font-size: 20px;
+                line-height: 55px;
+                cursor: pointer;
+                @media screen and (min-width:500px){
+                    line-height:80px;
+                    font-size:35px;
+                }
+            }
+            #mySidenav {
+               margin-top: 0;
+                #menu {
+                    li {
+                        padding: 10px 0 0;
+                        a {
+                            background: transparent;
+                            position: relative;
+                            display: block;
+                            text-decoration: none;
+                            font-size: @base-font2;
+                            font-weight: normal;
+                            padding: 5px 10px;
+                            margin-bottom: 0px;
+                            font-weight: normal;
+                            cursor: pointer;
+                            &:hover {
+                                background: transparent;
+                            }
+                            span {
+                                position: absolute;
+                                right: 15px;
+                                top: 10px;
+                                font-size: @base-font1;
+                            }
+
+
+                        }
+                        &#exchange{
+                            border-bottom: none;
+                        }
+                        ul {
+                            margin: 5px 0 0;
+                            padding: 2px 0;
+                            li {
+                                padding: 3px 0;
+                                border: 0;
+                                a {
+                                    padding: 3px 8px 3px 30px;
+                                    margin: 0;
+
+                                }
+                                ul {
+                                    margin-left: 20px;
+                                    border: 0;
+                                }
+
+                                &#language,&#la_langue,&#exchange,&#display_theme{
+                                    ul{
+                                        margin-top:-2px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                &:before{
+                    content: "";
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    top: 0;
+                    width: 100%;
+                    //filter: blur(20px);
+                     @media screen and (min-width:1280px){
+                       display:none;
+                     }
+                }
+            }
+            .wallet-information {
+                text-align: center;
+                position: relative;
+                @media screen and (min-width:667px){
+                    margin:14px 0;
+                }
+                .back-to {
+                    position: absolute;
+                    left: 0;
+                    font-size: @base-font2;
+                    top: 8px;
+                }
+                p{
+                       margin-bottom: 3px;
+                       text-transform:capitalize;
+                }
+                h2 {
+
+                    margin: 0;
+                    padding: 0 0 5px;
+                    font-size: @base-font1;
+                    font-weight: bold;
+                }
+                h3 {
+                    margin: 0;
+                    padding: 0;
+                    font-size: @base-font1;
+                    font-weight: normal;
+                }
+            }
+            .wallet-user-icon {
+                display:flex;
+                position: inherit;
+                right: 70%;
+                
+                @media screen and (max-width:360px){
+                    right: 90%;
+                 }
+                @media screen and (max-width:320px){
+                    right: 120%;
+                 }
+
+
+                @media screen and (min-width:768px){
+                    position:relative;
+                    right:auto;
+                    justify-content: flex-end;
+                    margin:13px 0;
+                }
+                a{
+                  margin-right: 60%;
+                  @media screen and (max-width:360px){
+                    margin-right: 100%;
+                 }
+                  @media screen and (min-width:1100px){
+                         margin-right: 10%;
+                  }
+                  @media only screen and (max-width:1090px) and (min-width:768px){
+                         margin-right: 20%;
+                  }
+                  i {
+                    font-size: 20px;
+                    line-height: 55px;
+                     @media screen and (min-width:500px){
+                        margin-right: 17%;
+                        font-size: 30px;
+                        vertical-align: middle;
+                        margin-top:0;
+                     }
+                }
+            }
+           }
+            .wallet-page{
+                display: inline-flex;
+                i{
+                    margin: 3px 7px;
+                    align-self: center;
+                }
+                h3{
+                    align-self: center;
+                }
+            }
+        }
+        .wallet-information-bottom {
+            padding: 0;
+            position: relative;
+            .wallet-information-total {
+                .heading-currency {
+                    margin-bottom: 0;
+                    padding: 10px 0;
+                    label {
+                        font-size: @base-font2;
+                        text-transform: capitalize;
+                        font-weight: 300;
+                        margin: 0;
+                        line-height:25px;
+                    }
+                }
+                .select-currency {
+                    text-align: right;
+                    display: flex;
+                    justify-content: space-between;
+                    @media only screen and (max-width:360px) and (min-width:340px){
+                        padding-right:0;
+                    }
+                    label {
+                        font-size: @base-font2;
+                        font-weight: 300;
+                        line-height: 25px;
+                        margin-left: 3px;
+                        width:73%;
+                        padding-left: 2px;
+                        @media screen and (min-width:500px){
+                            width:85%;
+                        }
+                        @media screen and (max-width:360px){
+                            width:68%;
+                        }
+                    }
+                    select {
+                        margin-left: 0;
+                        background: none;
+                        font-size: @base-font2;
+                        border: 0;
+                        outline: none;
+                        @media screen and (min-width: 1280px) {
+                            margin-left:3px;
+                        }
+                        @media screen and (max-width: 380px) {
+                            margin-left: 0;
+                        }
+                        @media screen and (max-width: 360px) {
+                            margin-right: 5px;
+                        }
+                        @media screen and (max-width: 320px) {
+                            margin-right: -8px;
+                        }
+                    }
+                }
+                .currency-info-scrollbar {
+                    height: calc(~"100vh - 190px");
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    padding: 0 15px;
+                    margin: 0 -15px;
+                    &::-webkit-scrollbar {
+                        width: 8px;
+
+                    }
+                    &::-webkit-scrollbar-thumb{
+
+                        border: none !important;
+                    }
+                     @media only screen and (max-width: 1500px) and (min-width: 1100px)  {
+                         height: calc(~"100vh - 200px");
+                     }
+                     @media only screen and (max-width: 1024px) and (min-width: 768px)  {
+                         height: calc(~"100vh - 220px");
+                     }
+                     @media screen and (max-width:375px){
+                         height: calc(~"100vh - 185px");
+                     }
+                     @media screen and (max-width:360px){
+                         height: calc(~"100vh - 170px");
+                     }
+                     @media screen and (max-width:320px){
+                         height: calc(~"100vh - 165px");
+                     }
+
+                }
+                .select-currency-info {
+                    padding:15px 6px;
+                    label {
+                        font-size: @base-font2;
+                        text-transform: none;
+                        line-height: 15px;
+                        font-weight: 300;
+                    }
+                    span {
+                        text-align: left;
+                        font-size: @base-font2;
+                        text-transform: none;
+                        line-height: 16px;
+                        font-weight: 400;
+                        text-align: left;
+                        padding: 3px 15px;
+                        &.symbol{
+                            padding-left: 15px;
+                            text-align:right;
+                            padding-right: 30px;
+                            @media screen and (min-width:500px){
+                                float:right;
+                                width:auto;
+                            }
+                            @media screen and (max-width:420px){
+                                width:20%;
+                            }
+                            @media screen and (max-width:360px){
+                                padding-right: 21px;
+                            }
+                        }
+                        &.tokenUSDValue{
+                             text-align: right;
+                             padding-right: 0;
+                             @media screen and (min-width:1400px){
+                                width:27.5%;
+                             }
+                             @media only screen and (max-width:1399px) and (min-width:1200px){
+                                width:27%;
+                             }
+                             @media only screen and (max-width:1199px) and (min-width:1024px){
+                                width:25.5%;
+                             }
+                             @media only screen and (max-width:768px) and (min-width:750px){
+                                width:23%;
+                             }
+                             @media only screen and (max-width:740px) and (min-width:500px){
+                                width:54.5%;
+                             }
+                             @media screen and (max-width: 420px){
+                                 width: 46%;
+                             }
+                             @media screen and (max-width: 320px){
+                                 width: 42%;
+                             }
+                         }
+                        @media only screen and (max-width: 1366px) and (min-width: 1270px)  {
+                            padding-left:15px;
+                        }
+
+                        @media only screen and (max-width: 1200px) and (min-width: 1024px)  {
+                              padding-left:16px;
+                        }
+                    }
+                    h4 {
+                        font-size: @base-font2;
+                        text-transform: none;
+                        line-height: 20px;
+                        margin-left: 25px;
+                    }
+                }
+            }
+            .wallet-information-total-btn {
+                position: fixed;
+                right: 0;
+                left: 0;
+                padding-right:7px;
+                @media screen and (min-width:1025px){
+                    bottom : 7%;
+                }
+                @media only screen and (max-width:1024px) (min-width:667px){
+                    bottom : 10%;
+                }
+            }
+        }
+    }
+}
+
+#menu {
+    .menuToggle-inner {
+        padding: 0;
+        width: 85%;
+        position: absolute;
+        top: 65px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow-y: auto;
+         @media screen and (min-width:1100px){
+            width:20%;
+            top: 95px;
+         }
+         @media screen and  (max-width:1024px) and (min-width:667px){
+             width:30%;
+             top:78px;
+         }
+        .off {
+            i.fa.fa-chevron-down {
+                text-align: right;
+                float: right;
+                padding-right: 0;
+            }
+            &.active {
+                i.fa.fa-chevron-down {
+                    &:before {
+                        content: "\f077";
+                    }
+                }
+            }
+            &.collapsed {
+                i.fa.fa-chevron-down {
+                    &:before {
+                        content: "\f078";
+                    }
+                }
+            }
+        }
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+    }
+}
+
+
+
+//media query
+
+@media only screen and (max-width: 1700px) and (min-width: 1100px){
+//.hand-cuure-left{
+//    width: 85%;
+//}
+//.select-currency{
+//    width: 15%;
+//}
+.row.left-info label.col-lg-11.col-md-10.col-sm-9.col-xs-7 {
+    width: 85%;
+}
+.row.left-info span.col-lg-1.col-md-2.col-sm-3.col-xs-5{
+     width: 15%;
+}
+
+}
+@media screen and (max-width: 320px) {
+    // .hand-cuure-left,
+    //.select-currency,
+    //.row.left-info label,
+    //.row.left-info span,
+     //.payment-section-bottom-head .his-left,
+     //.payment-section-bottom-head .his-right{
+        //width: 50%;
+    //}
+}
+
+
+
+
+#closebtnContainer{
+    position: fixed;
+    z-index:1;
+    top:0;
+    transition: 0.5s;
+    width:0;
+    left:-45px;
+     .closebtn{
+       width:85%;
+        @media screen and (min-width:1030px){
+          width:20%;
+        }
+        @media screen and (max-width:1024px) and (min-width:667px){
+           width:30%;
+        }
+    }
+    &.active{
+        width:100%;
+        left:0;
+    }
+}
+
+.blurBackground{
+    filter: blur(2px);
+}
+
+//silde bar less open here
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 20px;
+    .closebtn {
+        text-align: left;
+        padding-top:12px;
+        padding-bottom:11px;
+        padding-left: 15px;
+        text-decoration: none;
+        font-size: 30px;
+        color: #000;
+        display: block;
+        cursor: pointer;
+        width:15%;
+        &:hover {
+            color: black;
+        }
+        @media screen and (min-width:667px){
+            line-height: 75px;
+            font-size: 60px;
+        }
+    }
+}
+
+.fullWidth {
+    width: 100%;
+}
+//silde bar less closed here
+
+
+@media screen and (max-height: 450px) {
+    .sidenav {
+        padding-top: 15px;
+        a {
+            font-size: 18px;
+        }
+    }
+}
+
+
+
+// Bottom section UI code start here
+
+@clr-header: #b8b8b8;
+@color_2: #00aff0;
+@clr-transparent: transparent;
+
+
+.sendView {
+     margin-top: 2%;
+     @media screen and (min-width:1025px){
+        margin: 2% auto 0;
+        max-width: 700px;
+     }
+     @media only screen and (max-width:1024px) and (min-width:768px){
+        width:97%;
+        margin: 2% auto 0;
+     }
+     #headerFrom, #detailsmain{
+        i{
+            font-size: 12px;
+            margin-bottom: 2px
+        }
+        label{
+            font-size: 16px;
+            font-weight:normal;
+            text-align:center;
+            margin-left: 10px;
+        }
+        &.active{
+            i.fa.fa-chevron-down {
+                &:before {
+                    content: "\f077";
+                }
+            }
+            label{
+                display:none !important;
+            }
+        }
+        &.collapsed.active{
+            i.fa.fa-chevron-down {
+                &:before {
+                     content: "\f078";
+                }
+            }
+        }
+    }
+
+    h4{
+        font-size:@base-font2;
+    }
+
+    .accountInfoFrom {
+        margin-top: 3%;
+        margin-left: 2%;
+        width: 97%;
+        @media screen and (min-width:768px){
+            width:97%;
+        }
+        @media only screen and (max-width:767px) and (min-width:360px){
+            width: 95%;
+        }
+    }
+
+    .accountItem {
+        font-size: 16px;
+        margin-bottom: 5px;
+        font-weight: normal;
+        label{
+            font-weight: normal;
+        }
+    }
+    .accountItem {
+        select {
+        float: right;
+        border: none;
+        padding-bottom: 5px;
+        width: 70%;
+        outline:none;
+        option{
+            color:#000;
+        }
+    }
+}
+    .accountSpendable{
+        label {
+            font-size: 16px;
+            font-weight: normal;
+        }
+    }
+
+    .accountSpendableResult {
+        float: right;
+        width: 69%;
+        p {
+            font-size: 16px;
+            font-weight: normal;
+            float: left;
+            @media screen and (min-width:1025px){
+                margin-left:-3px;
+            }
+            @media only screen and (max-width:1024px) and  (min-width:768px){
+                margin-left:-5px;
+            }
+        }
+    }
+    .accountTo {
+        margin-top: 5%;
+        width: 93%;
+        @media screen and (min-width:767px){
+            width: 96%;
+        }
+        input[type="text"] {
+            padding-bottom:0;
+            padding-top:15px;
+            padding-right:0;
+            padding-left:0;
+            margin-left: 17%;
+            width: 71%;
+            border: none;
+            display: block;
+            font-size: 12px;
+            text-decoration: none;
+            float: left;
+            border-radius: 0;
+            outline:none;
+            box-shadow:none;
+            &:focus {
+                border: none;
+                text-decoration: none;
+            }
+            @media screen and (min-width:1200px){
+                width:84%;
+                margin-left:11%;
+            }
+            @media only screen and (max-width:1199px) and (min-width:1025px){
+                width:80%;
+                margin-left:11%;
+            }
+            @media only screen and (max-width:1024px) and (min-width:800px){
+                width:86%;
+                margin-left:11%;
+            }
+            @media only screen and (max-width:780px) and (min-width:767px){
+                width:84%;
+                margin-left:11%;
+            }
+            @media only screen and (max-width:360px){
+                width:70%;
+                margin-left: 17%;
+            }
+            @media only screen and (max-width:320px){
+                width:68%;
+                margin-left: 17%;
+            }
+           
+        }
+        i {
+            position: relative;
+            left: 3%;
+            float: right;
+            font-size: 30px;
+            margin-top: 2%;
+            @media only screen and (max-width:1150px) and (min-width:1025px){
+                left:0;
+            }
+            @media screen and (min-width:1025px){
+                margin-top: 1%;
+            }
+            @media only screen and (max-width:1024px) and (min-width:768px){
+                margin-top: 1%;
+                left: 4.2%;
+            }
+            @media only screen and (max-width:767px) and (min-width:500px){
+                left: -4%;
+            }
+        }
+    }
+    .accountAmount {
+        margin-top: 5%;
+        width: 94.8%;
+        @media screen and (min-width:767px){
+            width: 98%;
+        }
+        h4{
+            i{
+                font-size: 12px;
+            }
+        }
+    }
+
+.passwordSection{
+    display: none;
+    }
+    .accountAmountItem {
+        width:94.5%;
+        margin-bottom: 3%;
+        margin-left: 7%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        @media screen and  (min-width:1200px){
+            width: 98.5%;
+        }
+        @media only screen and (max-width:1024px) and (min-width:768px){
+            width: 100%;
+        }
+        .maxButton{
+            align-self: center;
+            padding: 2px;
+            margin-right: 20px;
+            position: absolute;
+            right: 10.5%;
+            font-size: 14px;
+            background: #0096c3;
+            color: white;
+            border-radius: 4px;
+            @media only screen and (max-width:767px) and (min-width:421px){
+                right: 12.5%;
+            }
+            &.maxButtonHidden {
+                display: none !important;
+            }
+        }
+        input[type="text"] {
+            margin-left: 10%;
+            margin-right: -3%;
+            padding-left: 0;
+            padding-top: 10px;
+            padding-bottom: 0;
+            width: 74%;
+            border: none;
+            display: block;
+            font-size: @base-font2;
+            text-indent: 20px;
+            padding-right: 6%;
+            border-radius:0;
+            outline:none;
+            box-shadow:none;
+            &:focus {
+                border: none;
+                text-decoration: none;
+            }
+            @media screen and (min-width:1025px){
+               width: 83.5%;
+               padding-bottom:10px;
+               padding-left:10px;
+               margin-left:4%;
+            }
+            @media only screen and (max-width:1024px) and (min-width:996px){
+               width: 84%;
+               margin-right: 0;
+               margin-left: 4%;
+               padding-top: 0;
+               padding-left:10px;
+            }
+            @media only screen and (max-width:995px) and (min-width:768px){
+               width: 82%;
+               margin-right: 0;
+               margin-left: 4%;
+               padding-top: 0;
+               padding-left:10px;
+            }
+            @media screen and (max-width:320px){
+               margin-left:11%;
+            }
+        }
+        img{
+            height:27px;
+            position: absolute;
+            left:9.2%;
+            bottom: 15%;
+            @media screen  and (min-width: 1025px){
+                left:4%;
+            }
+            @media only screen and (max-width:1024px) and (min-width: 768px){
+                left:4%;
+            }
+            @media only screen and (max-width:767px) and (min-width: 421px){
+                left:10%;
+            }
+            @media only screen and(max-width: 320px){
+                height:25px;
+            }
+        }
+        i {
+            position: absolute;
+            font-size: @base-font2;
+            left: 10%;
+            padding-bottom: 6px;
+            padding-left: 2px;
+            @media screen and (min-width:1025px){
+                left:6%;
+            }
+        }
+        i.fa.fa-btc{
+               top: 22%;
+               padding-bottom: 10px;
+               @media screen and (min-width:1500px){
+                   top:21%;
+               }
+               @media only screen and (max-width:1450px) and (min-width:768px){
+                   top:21%;
+               }
+               @media only screen and (max-width:1024px) and (min-width:768px){
+                left:4%;
+              }
+               @media screen and (max-width:320px){
+                   padding-bottom:9px;
+               }
+        }
+
+         i.fa.fa-lock{
+           top: 22%;
+           padding-bottom: 10px;
+           @media screen and (min-width:1500px){
+               top:21%;
+           }
+           @media only screen and (max-width:1450px) and (min-width:768px){
+               top:21%;
+           }
+           @media screen and (max-width:320px){
+               padding-bottom:9px;
+           }
+        }
+        i.fa.fa-usd, .currency-icn{
+            top: 25%;
+            padding-bottom: 9px;
+            @media screen and (min-width:413px){
+                padding-bottom:0;
+                top: 20%;
+            }
+            @media screen and (max-width:320px){
+                padding-bottom:8px;
+            }
+             @media only screen and (max-width:1024px) and (min-width:768px){
+                top: 17%;
+                left:5%;
+            }
+        }
+        .xicon{
+           position:relative;
+           padding-top: 2px;
+           left: -2%;
+           border:0;
+           &.btc{
+            margin-right:1px;
+           }
+           @media screen and (min-width:1500px){
+                left: 1.5%;
+           }
+           @media only screen and (max-width:1450px) and (min-width:1200px){
+                left: 1%;
+                left: 1%;
+           }
+
+           &.eraseButtonHidden{
+               visibility: hidden;
+           }
+        }
+        h5{
+           margin-left: 4%;
+           font-size:@base-font2;
+           margin-top: 15px;
+           @media screen and (min-width:1500px){
+                margin-top: 15px;
+           }
+           @media only screen and (max-width:1024px) and (min-width:768px){
+                margin-left: 2%;
+           }
+           @media only screen and (max-width:414px) and (min-width:413px){
+               margin-left: 5.4%;
+          }
+        }
+       &.accountAmountItem-aprox{
+           h4{
+            margin-left:3.5%;
+                @media screen and (min-width:768px){
+                     margin-left: 0;
+                     position: absolute;
+                     left: 4%;
+                }
+                @media only screen and (max-width:767px) and (min-width:421px){
+                     margin-left: 6%;
+                }
+
+           }
+        input[type="text"] {
+             margin-left: 4%;
+             padding-top:8px;
+             padding-bottom:0;
+             text-transform:capitalize;
+             @media screen and (min-width:1025px){
+                 width: 83.7%;
+                 margin-left: 4%;
+                 padding-bottom:0;
+                 padding-top:0;
+             }
+             @media only screen and (max-width:1024px) and (min-width:996px){
+                margin-left: 4%;
+                width: 84%;
+                padding-top:0;
+                padding-bottom:5px;
+             }
+             @media only screen and (max-width:995px) and (min-width:768px){
+                 width: 82%;
+                 margin-left: 4%;
+                 padding-top:0;
+                 padding-bottom:5px;
+             }
+             @media only screen and (max-width:767px) and (min-width:500px){
+                 margin-left: 3%;
+             }
+        }
+       }
+
+        button {
+            position: relative;
+        }
+    }
+
+    .details {
+        margin-top: 5%;
+        #detailGroup{
+            width:93%;
+            @media screen and (min-width:768px){
+                width:100%;
+            }
+            @media only screen and (max-width:767px) and (min-width:670px){
+                width:89.7%;
+            }
+            @media only screen and (max-width:667px) and (min-width:421px){
+                width:91%;
+            }
+        }
+        h4{
+            i{
+                font-size: 12px;
+            }
+        }
+        table {
+            margin-top: 2%;
+            margin-left: 14%;
+            border-collapse: collapse;
+            font-size: 14px;
+            width: 89%;
+            @media screen and (min-width:1024px){
+                margin-right:5px;
+            }
+            @media screen and (min-width:768px){
+                width: 93%;
+                margin-left: 0%;
+                float:right;
+            }
+            @media only screen and (max-width:767px) and (min-width:421px){
+                width:90%;
+                margin-left: 0%;
+                float:right;
+            }
+            td{
+                padding-left: 5px;
+                text-align: right;
+                font-size:@base-font2;
+                position:relative;
+                @media screen and (min-width:768px){
+                    width:3%;
+                }
+                @media only screen and (max-width:767px) and (min-width:421px){
+                    width:3%;
+                }
+                #ethTotal{
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                    width: 100%;
+                    overflow: hidden;
+                    margin: auto;
+                    padding: 0;
+                    bottom: 0;
+                    left: 0;
+                }
+                &.fee{
+                    border-bottom: 1px solid @clr-header;
+                    @media screen and (min-width:768px){
+                        width: 42%;
+                    }
+                    @media only screen and (max-width:767px) and (min-width:420px){
+                        width: 42%;
+                    }
+                    @media screen and (max-width:414px){
+                        width: 60%;
+                    }
+                    @media screen and (max-width:375px){
+                        width: 60%;
+                    }
+                    @media screen and (max-width:360px){
+                        width: 59%;
+                    }
+                    @media screen and (max-width:320px){
+                        width: 53%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// Bottom section UI end  start here
+
+//Transaction View CSS
+
+.transactions-history-list {
+height            : 40px !important;
+margin-bottom     : 5px;
+}
+
+.transactions-message-div {
+//height          :22px;
+//margin-top      : 4px;
+}
+
+.transactions-status {
+height          :22px;
+width           :100%;
+margin-top      :4px;
+}
+
+.transaction-view-margin {
+margin-top      :20px;
+margin-bottom   :10px;
+}
+
+.transaction-font-size {
+font-size       :14px;
+overflow        :hidden;
+white-space     :nowrap;
+text-overflow   :ellipsis;
+}
+
+li.list-group-item {
+&:hover {
+
+  }
+}
+.transactions-status-btn {
+height          : 25px;
+font-size       : 10px;
+font-weight     : 700;
+padding-top     : 5px;
+margin-top      : -3px;
+}
+
+.transactions-list-alignment {
+margin-left     : 8px;
+height          : 26vh;
+overflow        : scroll;
+}
+
+ .btnDefault-container {
+     position: absolute;
+     bottom: 1.5%;
+     left:0;
+     right:0%;
+     height: 45px;
+     width:100%;
+     display:flex;
+     justify-content: flex-end;
+
+     @media screen and (min-width:1500px){
+        padding-right:1.1%;
+     }
+    
+     h4{
+        align-self:center;
+        flex:1;
+     }
+     h5{
+        flex:1;
+        align-self:center;
+        font-size:@base-font2;
+        span{
+            font-weight:bold;
+        }
+        @media screen and (min-width:1200px){
+            margin-left:0;
+        }
+        @media screen and (max-width:420px){
+            //margin-left:8%;
+        }
+     }
+
+     &.homeButtonContainer{
+        justify-content: space-between;
+        @media only screen and (max-width:768px) and (min-width:500px){
+            justify-content: flex-end;
+        }
+     }
+ }
+
+.btn{
+    font-weight: 600;
+    outline:none;
+    &::active{
+        outline:none;
+    }
+}
+
+.btnDefault{
+    text-align: center;
+    border: 0;
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 10px;
+    transition: 0.3s;
+    padding-right: 0;
+    padding-left: 0;
+    outline: none !important;
+    text-transform: initial;
+    @media only screen and (max-width: 1150px) and (min-width: 768px){
+         font-size:16px;
+    }
+    @media only screen and (max-width: 767px) and (min-width: 500px){
+         margin-top:6px;
+    }
+    @media screen and (min-width:500px){
+         padding:6px 15px;
+    }
+    @media screen and (max-width:414px){
+        font-size:16px;
+        width: 108px;
+      }
+    @media screen and (max-width:412px){
+      font-size:16px;
+      width: 107px;
+    }
+    @media screen and (max-width:380px){
+        font-size:14px;
+        width: 90px;
+       
+    }
+    @media screen and (max-width:320px){
+       font-size:12px;
+        width: 75px;
+    }
+    &:hover{
+       transform: scale(1.05);
+    }
+    &.decline{
+       &:hover{
+           transform: scale(1.05);
+       }
+    }
+
+    &.btn-next {
+        float: right;
+        border-radius: 5px;
+        border: none;
+        font-size: 14px;
+        font-weight: normal;
+        width: 100px;
+        transition: 0.3s;
+        outline: none;
+    }
+
+    &.btn-next:hover {
+        -webkit-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        transform: scale(1.05);
+        outline: none;
+    }
+
+    &.btn-account{
+        text-align: center;
+        width: 110px;
+        outline: none;
+    }
+    
+    &.btn-account-camera{
+        width:35px;
+        outline: none;
+        i{
+            position: relative;
+        }
+    }
+        
+    &.btn-account-camera{
+       width:35px;
+        @media screen and (min-width:500px){
+            width:auto;
+        }
+    }
+
+    &.btn-request-icon{
+       outline: none;
+       margin-left:0;
+       margin-right: 4px;
+       font-size: 16px;
+       width: 32%;
+    }
+
+    &.btn-identity{
+        width:90px;
+
+        @media screen and (max-width:375px){
+            width:80px;
+        }
+        @media screen and (max-width:360px){
+            width:77px;
+        }
+        @media screen and (max-width:320px){
+            width:65px;
+        }
+    }
+
+    &.btnHidden{
+       visibility: hidden;
+    }
+
+    &.goupButton{
+        margin-right: .6vh;
+        margin-left: .6vh;
+
+        @media screen and (max-width:414px){
+            margin-right: .4vh;
+            margin-left: .4vh;
+        }
+        @media screen and (max-width:412px){
+          margin-right: .4vh;
+          margin-left: .4vh;
+        }
+        @media screen and (max-width:380px){
+            margin-right: .4vh;
+            margin-left: .4vh;
+        }
+        @media screen and (max-width:360px){
+            margin-right: .4vh;
+            margin-left: .4vh;
+        }
+        @media screen and (max-width:320px){
+            margin-right: .6vh;
+            margin-left: .6vh;
+        }
+    }
+    &.accountBtn{
+        @media screen and (max-width:414px){
+            width:90px;
+        }
+        @media screen and (max-width:412px){
+            width:89px;
+        }
+        @media screen and (max-width:380px){
+            width:79px;
+        }
+        @media screen and (max-width:360px){
+            width:77px;
+        }
+        @media screen and (max-width:320px){
+            width:65px;
+        }
+    }
+
+    &.btnAction{
+        width:100%;
+        padding: 3px 0;
+        margin: 6px 0;
+    }
+}
+.notAlpha{
+    display: none !important;
+}
+.notAlphaV{
+    visibility: hidden !important;
+    @media only screen and (min-width:769px){
+        display: none;
+    }
+}
+// payment history page start here
+.payment-history{
+    margin:0 -15px;
+    padding:0 15px;
+    position:relative;
+
+   
+    .payment-select {
+     margin-top: 5px;
+     margin-bottom: 5px;
+             label{
+              text-align: left;
+              font-size: @base-font2;
+              text-transform:capitalize;
+             }
+             select {
+                background: transparent;
+                 font-size: @base-font2;
+                 margin-bottom: 0;
+                 margin-left: 5px;
+                 padding-bottom: 1px;
+                 text-transform:capitalize;
+                 border: none !important;
+                 outline:none;
+
+             }
+         i{
+          font-size: 20px;
+           display:block;
+           text-align:right;
+        }
+
+    }
+    .payment-section-bottom{
+        .payment-section-bottom-head{
+            margin-bottom:10px;
+            h3{
+                font-size: @base-font2;
+                padding: 0;
+                margin: 0;
+                text-transform:capitalize;
+                font-weight:600;
+                @media screen and (max-width:360px){
+                    font-size: 15px;
+                }
+
+            }
+            .his-right{
+                text-align:right;
+            }
+        }
+        .payment-section-bottom-midd{
+            height: 69vh;
+            overflow-y: auto;
+            padding: 0 15px;
+            margin: 0 -15px;
+            height:81vh;
+            @media screen and(min-width:1450px){
+                height:82vh;
+            }
+            @media only screen and (max-width:1400px) and (min-width:767px){
+                height:82vh;
+            }
+            @media screen and (min-width:414px){
+                 height:83vh;
+            }
+            // @media screen and (max-width:412px){
+            //     height:82vh;
+            // }
+            // @media screen and (max-width:375px){
+            //      height:82vh;
+            // }
+            // @media screen and (max-width:360px){
+            //      height:82vh;
+            // }
+            // @media screen and (max-width:320px){
+            //      height:82vh;
+            // }
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+            .row{
+                padding: 10px 0;
+                label{
+                    display: block;
+                    font-size: @base-font2;
+                    text-transform: capitalize;
+                    margin: 0;
+                    font-weight:normal;
+                }
+                p{
+                    display: block;
+                    font-size: @base-font2;
+                    text-transform: capitalize;
+                    font-weight:normal;
+                }
+                span{
+                    display: block;
+                    font-size: @base-font2;
+                    text-transform: capitalize;
+                    font-weight:normal;
+                }
+                .section-right{
+                    label{
+                            text-align:right;
+                     }
+                      span{
+                         text-align:right;
+                         font-weight: 800;
+                       }
+                  }
+            }
+        }
+    }
+    .click-view{
+        padding:5px 15px;
+        text-align:right;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        h4{
+            font-size: 13px;
+            text-transform: capitalize;
+            padding: 0;
+            margin: 0 0 10px;
+            font-weight:normal;
+            text-align:left;
+        }
+        .btn{
+            text-transform: initial;
+            text-align: center;
+            font-weight:300;
+            border: 0;
+            font-size: 13px;
+            margin-left: 10px;
+            transition: .3s;
+        }
+    }
+}
+// payment history page end here
+
+
+// request starts here
+.request-screen-main {
+    .request-screen-inner {
+        width: 98%;
+        @media screen and (min-width:1100px){
+            padding:2% 10%;
+        }
+        @media only screen and (max-width:1099px) and (min-width:768px){
+            padding:2% 5%;
+        }
+        .section-heading {
+            padding: 10px 0;
+            font-size: @base-font2;
+            font-weight: bold;
+            text-transform: capitalize;
+            cursor:pointer;
+        }
+        #advanced{
+            &.active {
+                i.fa.fa-chevron-down {
+                    &:before {
+                        content: "\f077";
+                    }
+                }
+            }
+            &.collapsed.active {
+                i.fa.fa-chevron-down {
+                    &:before {
+                        content: "\f078";
+                    }
+                }
+            }
+        }
+        .request-section-scancode {
+            .reqscancode {
+                img {
+                    max-width: 65%;
+                    border: 0;
+                    margin-left:9%;
+                    border: 3px solid white;
+                }
+            }
+            .reqscancode-text {
+                p {
+                    margin-left: -50%;
+                    padding: 0;
+                    font-size: @base-font2;
+                    font-weight: 300;
+                }
+            }
+        }
+        .request-section-middle {
+            .request-section-middle-inner {
+
+                padding-left: 0;
+                h4 {
+                    margin-bottom: 2px;
+                    padding: 0;
+                    font-size: @base-font2;
+                    font-weight: 600;
+                    span {
+                        font-weight: 300;
+                    }
+                    @media screen and (min-width:768px){
+                        margin-bottom:10px;
+                    }
+                }
+                .copy-secure-main{
+                    text-align:center;
+                    .btnDefault.btn-request-icon{
+                        outline: none;
+                        margin-left: 0;
+                        margin-right: 4px;
+                        font-size: @base-font2;
+                        width: 32%;
+                        @media screen and (max-width: 320px){
+                            font-size:12px;
+                            width:31%;
+                        }
+                    }
+                }
+                .scoller-main{
+                    padding-right:1%;
+                    .req-amount-main {
+                        margin-top: 5px;
+                        margin-bottom: 10px;
+                        @media screen and (min-width:768px){
+                            margin-bottom: 10px;
+                        }
+                        .calculate {
+                            padding-left: 15px;
+                            .row-1 {
+                                margin-bottom: 5px;
+                                display: flex;
+
+                                input[type="text"]{
+                                    width:66%;
+                                    padding-right:6%;
+                                    margin-left: 6.4%;
+                                    padding-top: 2px;
+                                    display: block;
+                                    font-size: @base-font2;
+                                    background-color: @clr-transparent;
+                                    text-decoration: none;
+                                    text-align:right;
+                                    outline: none;
+
+                                    @media screen and (min-width: 414px){
+                                        margin-left: 5.5%;
+                                    }
+                                }
+                                i {
+                                    float: right;
+                                    font-size: 16px;
+                                    margin-top: 7px;
+                                    padding-top: 0;
+                                    padding-left:5px;
+                                    margin-left:-6%;
+                                    &.eraseButtonHidden{
+                                        visibility: hidden;
+                                    }
+                                }
+
+                                .form-control {
+                                   border-radius: 0;
+                                    margin: 0;
+                                    width: 26%;
+                                    border: 0;
+                                    outline: none;
+                                    background: none;
+                                    font-size:@base-font2;
+                                    box-shadow:none;
+                                    @media screen and (max-width: 360px){
+                                        width: 27%;
+                                    }
+                                    @media screen and (max-width: 320px){
+                                        width: 31%;
+                                    }
+                                    @media screen and (min-width:1200px){
+                                        width:10%;
+                                    }
+                                  }
+
+                                  span{
+                                    font-size: @base-font2;
+                                    margin-right: 3.5%;
+                                    padding-top:6px;
+                                    @media only screen and (max-width:1400px) and (min-width:1100px){
+                                        margin-right: 0;
+                                    }
+                                    @media only screen and (max-width:1024px) and (min-width:997px){
+                                        margin-right: 32px;
+                                    }
+                                    @media only screen and (max-width:996px) and (min-width:667px){
+                                        margin-right: 18px;
+                                    }
+                                    @media only screen and  (min-width:414px){
+                                        margin-right: 3%;
+                                    }
+                                  }
+
+                                  &.aprox{
+                                    input[type="text"]{
+                                        margin-left: 0;
+                                        width:66%;
+                                        padding-right:6%;
+                                        @media screen and (min-width:1400px){
+                                             width: 64.5%;
+                                             padding-right: 1.7%;
+                                        }
+                                        @media only screen and (max-width:1400px) and (min-width:1100px){
+                                            width: 64%;
+                                            padding-right: 1.5%;
+                                        }
+                                        @media only screen and (max-width:1024px) and (min-width:667px){
+                                            margin-left: 0;
+                                            width: 60%;
+                                            padding-right: 0;
+                                        }
+                                    }
+                                    i{
+                                        margin-left: -6%;
+                                        @media screen and (min-width:1200px){
+                                             margin-left: -1.6%;
+                                        }
+                                        @media only screen and (max-width:1024px) and (min-width:667px){
+                                            margin-left: 0;
+                                        }
+                                    }
+                                    select{
+                                        @media screen and (min-width:1200px){
+                                           width:10.5%;
+                                        }
+                                    }
+                                    @media screen and (min-width:1200px){
+                                        margin-left: 4.5%;
+                                    }
+                                  }
+
+                            }
+                        }
+                    }
+                    .reaciving-add {
+                        margin-top:2%;
+                        margin-bottom: 10px;
+                        @media screen and (min-width:768px){
+                            margin-bottom: 10px;
+                        }
+                        // label {
+                        //     margin: 0;
+                        //     padding: 0 0 0 15px;
+                        //     font-size: @base-font2;
+                        //     font-weight: 300;
+                        //     @media screen and (max-width:320px){
+                        //         text-overflow: ellipsis;
+                        //         overflow: hidden;
+                        //         white-space: nowrap;
+                        //     }
+
+                        // }
+                        input{
+                            text-decoration: none;
+                            font-size: 16px;
+                            margin-left: 3%;
+                            width: 97%;
+                            outline: none;
+                        }
+                    }
+                     .desscription {
+                        margin-bottom: 4px;
+                        @media screen and (min-width:768px){
+                            margin-bottom: 10px;
+                        }
+                        .form-control {
+                            margin: 0;
+                            width: 97%;
+                            margin-left: auto;
+                            border:none;
+                            border-radius:0;
+                            box-shadow: none;
+                        }
+                    }
+
+                    .send-credentials {
+                        .form-control {
+                            border-radius: 0;
+                            margin: 0;
+                            width: 97%;
+                            margin-left: auto;
+                            border:none;
+                            outline:none;
+                            border-radius:0;
+                            box-shadow: none;
+                        }
+                    }
+                }
+                .expiresIn{
+                 margin-bottom: 4px;
+                 @media screen and (min-width:768px){
+                     margin-bottom: 10px;
+                 }
+                    .form-control {
+                        border-radius: 0;
+                        margin: 0;
+                        width: 97%;
+                        margin-left: auto;
+                        border:none;
+                        box-shadow: none;
+                        outline:none;
+                    }
+               }
+            }
+        }
+    }
+    #showQRCode{
+        @media screen and (min-width:667px){
+            margin-top:0 !important;
+        }
+        .modal-dialog {
+            @media screen and (min-width:667px){
+                transform: translate(0, 30%);
+            }
+        }
+
+    }
+}
+// request ends here
+
+
+// identities screen less open here
+.identify-screen-main {
+    padding: 0;
+    margin:0 -15px;
+    .identify-screen-inner {
+        .identify-screen-profileslist {
+            height:81.5vh !important;
+            width:inherit !important;
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+            ul {
+                margin: 0;
+                padding: 0;
+                li {
+                    padding: 10px 15px;
+                    a {
+                        display: block;
+                        cursor:pointer;
+                    }
+                    img {
+                        max-width: 100%;
+                    }
+                    p {
+                        font-size: @base-font2;
+                        margin: 0;
+                        padding: 10px ;
+                        font-weight: 400;
+                        text-align: left;
+                        position: relative;
+                        right: 10%;
+                        &.accAddress{
+                            position: relative;
+                            right: 5%;
+                            padding: 5px 0;
+                        }
+                        &.publicAdd{
+                               right: 0;
+                               padding: 0 5px;
+                        }
+                        @media screen and (min-width:1024px){
+                            right: 9%;
+                        }
+                    }
+                    .profileslist-settings {
+                        img {
+                            margin: 15px auto 0;
+                            display: block;
+                        }
+
+                        i{
+                            font-size: 30px;
+                            color: @clr-header;
+                            margin-top: 40%;
+                            left: 20%;
+                            position: relative;
+                            @media screen and (min-width:667px){
+                                margin: 15px auto 0;
+                                display: block;
+                                position:static;
+                                left: auto;
+                                right: auto;
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .identify-screen-bottom {
+            padding: 10px 0;
+            text-align: right;
+            position: absolute;
+            left: 0;
+            right: 10px;
+            bottom: 0;
+            .btn {
+                text-transform: initial;
+                text-align: center;
+                font-size: @base-font;
+                margin-left: 10px;
+                transition: .3s;
+            }
+        }
+        .identify-screen-profileslis-btn{
+            right:0;
+            padding: 0 10px;
+            @media only screen and (max-width:1024px) and (min-width:667px){
+                   bottom:1.5%;
+            }
+            @media only screen and (max-width:420px) and (min-width:413px){
+                   bottom:2.5%;
+            }
+            @media only screen and (max-width:412px) and (min-width:400px){
+                   bottom:1.5%;
+            }
+            @media only screen and (max-width:375px) and (min-width:370px){
+                   bottom:2%;
+            }
+            @media screen and (max-width: 320px){
+                   bottom:1%;
+            }
+        }
+    }
+}
+// identities screen less ends here
+
+.img-userIcon{
+    position: relative;
+    height: 30px;
+    margin-top: 32%;
+    @media screen and (min-width:1400px){
+        right:auto;
+         margin-top:3%;
+    }
+     @media only screen and (max-width:1399px) and (min-width:1200px){
+             margin-top:4%;
+    }
+    @media only screen and (max-width:1199px) and (min-width:500px){
+        margin-top:6%;
+        height:40px;
+    }
+    @media screen and (max-width:360px){
+         right: 32%;
+     }
+
+}
+
+
+    &.modal.fade{
+        .modal-dialog{
+            transform: translate(0,100%);
+            &.dialog-QRCode{
+                transform: translate(0,50%);
+                @media only screen and (min-width:500px) {
+                    transform: translate(0,25%);
+                }
+            }
+        }
+    }
+    &.modal.in{
+        .modal-dialog{
+         transform: translate(0,100%);
+    }
+   }
+
+.modal-dialog{
+    .modal-content{
+        .modal-header{
+            padding:7px;
+            width: 96%;
+            button{
+                right:-3%;
+            }
+        }
+        .modal-body{
+            padding:15px 0;
+            img{
+                height: 500px;
+                display: block;
+                margin: 0 auto;
+                border: 5px solid white;
+                @media screen and (max-width:411px){
+                    height: 250px;
+                }
+                @media screen and (min-width:412px) and (max-width:499px){
+                    height: 300px;
+                }
+                @media only screen and (min-width:500px) and (max-width:800px){
+                    height: 450px;
+                }
+            }
+            h5{
+              margin-bottom: 5px;
+            }
+            .dateInputGroup{
+                padding-right: 0;
+             }
+            .formGroup{
+                margin-left:15px;
+            label{
+                font-size: 13px;
+                margin-left:0;
+                margin-bottom: 5px;
+                input[type="radio"]{
+                  margin-top: 4px;
+                }
+            }
+
+            .dateInput{
+                margin-bottom: 10px;
+                label{
+                     font-size: 13px;
+                     font-weight: normal;
+                }
+
+                input[type="date"]{
+                    font-size:13px;
+                    float:right;
+                    width: 65%;
+                    margin-top:-3px;
+                    &::-webkit-clear-button {
+                        display:none;
+                    }
+                    &::-webkit-inner-spin-button {
+                        display:none;
+                    }
+                    &::-webkit-calendar-picker-indicator {
+                        cursor: pointer;
+                    }
+                }
+            }
+
+         }
+         .confirmContainer{
+            margin-left: 10%;
+            width: 83%;
+            font-size:14px;
+
+            .messageContainer{
+                margin-bottom:10px;
+
+                h4{
+                    margin-left: 5%;
+                }
+                p{
+                    margin-left: 5%;
+                    margin-top: 5%;
+                }
+            }
+
+            .passwordContainer{
+              margin-bottom: 10px;
+            p{
+                font-size:13px;
+                margin-bottom: 5px;
+            }
+                input[type="password"]{
+                  width:100%;
+                  padding-right: 20px;
+                  outline: none;
+                  box-shadow: none;
+            }
+
+            i{
+                position: absolute;
+                right:8%;
+                font-size: 16px;
+            }
+           }
+         }
+
+          .notificationContainer{
+             margin-bottom:10px;
+             width: 97%;
+             .title{
+                 margin-left: 5%;
+             }
+             .message{
+                font-size: 12px;
+                margin-left: 5%;
+                margin-top: 5%;
+             }
+         }
+       }
+       .modal-footer {
+            padding:7px;
+       }
+    }
+
+}
+
+//notification view starts here
+ .notifications{
+     margin:0 -15px;
+     padding:0 15px;
+     position:relative;
+     overflow-y: auto;
+     height: 89.9vh;
+     @media only screen and (max-width:1400px) and (min-width:767px){
+         height:87.8vh;
+     }
+     @media screen and(max-width:414px){
+        height: 90vh;
+      }      
+      @media screen and(max-width:375px){
+          height: 89.7vh;
+        }
+        
+        @media screen and(max-width:320px){
+            height: 88vh;
+          }
+      
+      
+      
+       &::-webkit-scrollbar {
+         width: 8px;
+     }
+
+     .row{
+         padding: 10px 0;
+         border-left: 10px solid @clr-transparent;
+         h5{
+            font-size: 16px;
+            margin-bottom: 5px;
+         }
+         p{
+             display: block;
+             font-size: 14px;
+             padding: 0;
+             margin: 0;
+             font-weight:normal;
+             &.messageTimeReceived{
+                font-size: 12px;
+             }
+         }
+         i{
+            font-size: 24px;
+            position: relative;
+            top: 15px;
+            @media screen and (min-width:1200px){
+                display:block;
+                text-align:center;
+            }
+         }
+     }
+ }
+//notification view ends here
+
+
+//i18n
+.langBtn{
+ color: black;
+}
+
+
+.addNewAccount-main {
+   color: #B8B8B8;
+   .addNewAccount-inner {
+     margin-top: 5%;
+     #errorMessage{
+         display: none;
+         color:red;
+         font-size: 16px;
+         @media screen and (max-width: 320px) {
+             font-size: 14px;
+         }
+     }
+     .radio {
+       font-size: 16px;
+       @media screen and (max-width: 320px) {
+         font-size: 14px;
+     }
+       margin-top: 0;
+       p {
+         margin-top: 2%;
+         margin-left: 5%;
+         font-size: 14px;
+         overflow: hidden;
+         text-overflow: ellipsis;
+         white-space: nowrap;
+         &#id {
+           margin-bottom: 2%;
+         }
+       }
+       a {
+         font-size: 16px;
+         margin-left: 5%;
+         background: transparent;
+         color: #00AFF0;
+       }
+ 
+       input[type="radio"] {
+         padding: 5px 0;
+         background: #00AFF0;
+       }
+ 
+       .form-control {
+         width: 85%;
+         margin-left: 5%;
+         box-shadow: none;
+         border: none;
+         border-radius: 0;
+         background: #1E1E1E;
+         color: #B8B8B8;
+         resize: none;
+ 
+       }
+       &.radio-top{
+         margin-top:0;
+       }
+     }
+     .btnImptAdvOpt {
+       margin: 3% 0;
+       border: none;
+       padding: 10px 0;
+       outline: none;
+       float: none;
+       background: transparent;
+       color: #0096c3;
+       display: block;
+       text-align: left;
+       font-size:16px;
+       font-weight: bold;
+       cursor: pointer;
+       &.active {
+         i.fa.fa-chevron-down {
+           &:before {
+             content: "\f077";
+           }
+         }
+       }
+       &.collapsed.active {
+         i.fa.fa-chevron-down {
+           &:before {
+             content: "\f078";
+           }
+         }
+       }
+     }
+     .existingIdOptions {
+       margin-left: 5%;
+       input[type="file"] {
+         display: none;
+       }
+     }
+     #getInfoModal {
+       .modal-popup-input {
+         border: none;
+         border-bottom: 1px solid #b8b8b8;
+         color: #B8B8B8;
+         font-size: @base-font1;
+         background-color: transparent;
+         text-decoration: none;
+         margin-top: 0;
+         outline: none;
+       }
+       .container {
+         width: 100%;
+         div#file_field{
+             padding-left:0;
+         }
+       }
+       .modal-content {
+         h5 {
+           margin: 0;
+           line-height: 1.42857143;
+           padding: 0 15px;
+           font-size: @base-font1;
+           color:#B8B8B8;
+         }
+         h4 {
+           margin: 0;
+           line-height: 1.42857143;
+           padding: 0;
+           font-size: @base-font1;
+           color:#B8B8B8;
+         }
+         input {
+           outline: none;
+            color:#B8B8B8;
+         }
+         .info {
+           margin-top: 5px;
+           font-size: @base-font1;
+           color:#B8B8B8;
+           margin-bottom:10px;
+         }
+       }
+     }
+   }
+ }
+
+
+//canvas
+.img-userIcon canvas{
+    height: 30px;
+    margin-top: 9%;
+    position: relative;
+    right: 7px;
+    border-radius: 20px;
+    @media screen and (max-width:480px){
+        margin:0;
+    }
+}
+
+ .backupView-main{
+    .backupView-start{
+        margin-top: 4%;
+        margin-right:4%;
+        p{
+           font-size: 16px;
+        }
+
+        @media screen and (max-width:320px){
+        height:79vh;
+        overflow: scroll;
+
+        p{
+                font-size: 14px;
+            }
+        }
+    }
+
+    p{
+        font-size: 16px;
+        font-weight: normal;
+        margin-bottom:4%;
+
+    }
+  }
+
+
+
+  .backupIdentity-header {
+      height: 14vh;
+      width: 108%;
+      margin-left: -4%;
+      @media only screen and (max-width: 1400px) and (min-width:1025px){
+          height: 20vh;
+      }
+      @media screen and (min-width:768px){
+          width: 100%;
+          margin-left: 0;
+      }
+      ul {
+          margin-top: 2%;
+          margin-left: 13%;
+          text-align: center;
+          @media screen and (min-width:768px){
+               margin-top: 2.5%;
+          }
+          li {
+              display: inline-block;
+              border-radius: 100%;
+              width: 50px;
+              height: 50px;
+              margin-right: 15%;
+              @media screen and (max-width:320px){
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 20%;
+              }
+              i {
+                  font-size: 35px;
+                  margin-top: 5px;
+                  @media screen and (max-width:360px){
+                        margin-top: 7px;
+                  }
+              }
+              p{
+                margin-top: 15px;
+                margin-left: -5px;
+                font-size: 16px;
+                @media screen and (max-width:320px){
+                    font-size: @base-font;
+                }
+              }
+          }
+      }
+      .line1 {
+          width: 12%;
+          position: absolute;
+          height: 2px;
+          bottom: 63%;
+          left: 32%;
+          @media screen and (min-width:1025px){
+              bottom: 44%;
+              left: 37%;
+              width: 10%;
+          }
+          @media only screen and (max-width:1024px) and (min-width:768px){
+              bottom: 55%;
+              left: 36%;
+              width: 10%;
+          }
+          @media screen and (max-width:360px){
+              width: 12%;
+              bottom: 63%;
+              left: 31%;
+          }
+      }
+      .line2 {
+        width: 12%;
+        position: absolute;
+        height: 2px;
+        bottom: 63%;
+        left: 56%;
+        @media screen and (min-width:1025px){
+             bottom: 45%;
+             left: 53%;
+             width: 10%;
+       }
+       @media only screen and (max-width:1024px) and (min-width:768px){
+             bottom: 55%;
+             left: 54%;
+             width: 10%;
+       }
+       @media screen and (max-width:360px){
+             width: 12%;
+             bottom: 63%;
+             left: 57%;
+       }
+    }
+  }
+
+  // backupIdentity  screen less
+
+.backupView-generate{
+    margin-top:2%;
+    margin-right:4%;
+    display:none;
+    .generate-section-content{
+        @media screen and (max-width:320px){
+            margin-bottom: 5%;
+            overflow: auto;
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+        }
+    }
+    .generate-section-middle{
+        margin: 10px 0 0;
+        .mnemonicLangage{
+            margin-left: -4.5%;
+            padding-bottom: 10%;
+
+            @media screen and (max-width:320px){
+                margin-left: -5%;
+            }
+            @media screen and (min-width:375px){
+                margin-left: -4%;
+            }
+        }
+        h4{
+            margin:0 0 10px;
+            padding:0;
+            font-size:@base-font2;
+            font-weight:normal;
+        }
+        p.backup-phr-txt{
+            margin:0 0 10px;
+            padding:10px;
+            font-size:18px;
+            font-weight:600;
+            p{
+                font-weight:600;
+            }
+        }
+        span{
+            margin:0;
+            padding:0;
+            font-size:@base-font12;
+            font-weight:normal;
+            @media screen and (max-width:380px){
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+        }
+        label{
+            margin: 0;
+            font-size:@base-font2;
+            font-weight:normal;
+        }
+        select{
+            margin-top: 0.5%;
+            padding-right:0;
+            padding-left:0;
+            margin-left: -15%;
+            font-size:@base-font2;
+            font-weight:normal;
+            border:0;
+            display:block;
+            color:#fff;
+            outline:none;
+                option{
+                    margin:0;
+                    padding:0;
+                    color:#000;
+                }
+
+            @media screen and (max-width:320px){
+                margin-left: -10%;
+            }
+            @media screen and (min-width:1400px){
+                width:70%;
+            }
+        }
+    }
+    .generate-section-bottom{
+        form{
+            position: absolute;
+            left: 15px;
+            width: 70%;
+            top: -10px;
+            @media only screen and (max-width:1024px) and (min-width:667px){
+                padding-left:15 px;
+            }
+            .checkbox{
+                label{
+                    font-size:14px;
+                    font-weight:normal;
+                    padding-left: 40px;
+                    line-height: 14px;
+                    @media screen and (max-width:320px){
+                        font-size:13px;
+                    }
+                }
+                input{
+                    height: 20px;
+                    width: 20px;
+                    margin-left: -30px;
+                    margin-top: 3px;
+                    @media screen and (min-width:667px){
+                        margin-top:-3px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.backupView-phrase{
+    display: none;
+    margin-top:4%;
+    margin-right:4%;
+h3{
+    font-size: 16px;
+font-weight: normal}
+    .backupPhrase-section{
+        margin-right:0;
+        .backupPhrase-container{
+            padding-right: 0;
+            margin-top: 7%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            border:none;
+            border-radius:0;
+            height:20vh;
+            p{
+                margin:5px auto;
+                text-align: center;
+                width:31%;
+                height:16%;
+            }
+        }
+    }
+    ul{
+        margin-top:0;
+        li{
+            float:left;
+            width: 30%;
+            margin-left:2%;
+            margin-top: 6%;
+            text-align: center;
+            font-size:16px;
+
+            &.disabled {
+                opacity:0.2;         
+            }
+            @media screen and (max-width:320px){
+                margin-top: 8%;
+                font-size:14px;
+            }
+
+            @media screen and (min-width:412px){
+                
+            }
+        &::first-child{
+            margin-left:0;
+        }
+
+        &::nth-child{
+            margin-left:0;
+            margin-right:0;
+        }
+     }
+    }
+
+    #errorMessage{
+        visibility: hidden;
+    }
+}
+
+.backupView-confirm{
+    display:none;
+    margin-top:2%;
+    margin-right:4%;
+    .confirm-square{
+        height:20vh;
+        i{
+            width:100%;
+            text-align:center;
+            margin-top:10%;
+            font-size:70px;
+        }
+    }
+
+    .confirm-message{
+        margin-top: 5%;
+        h3{
+            text-align: center;
+        }
+        p{
+            font-size: 16px;
+            text-align: justify;
+            margin-top: 5%;
+        }
+    }
+    .confirm-section-content{
+        h3{
+            margin:0 0 10px;
+            padding:0;
+            font-size:@base-font2;
+            font-weight:400;
+            text-transform:capitalize;
+            text-align:center;
+        }
+        .divider{
+            margin:30px 0;
+            border-top:2px solid;
+            height:2px;
+            position:relative;
+            i{
+                position:absolute;
+                right:0;
+                top:-18px;
+                font-size:@base-font20;
+                padding: 5px 10px;
+            }
+        }
+
+    }
+    .confirm-section-middle{
+        .confirm-list{
+             ul {
+                width: 33.33%;
+                float: left;
+                text-align: center;
+                li{
+                    a{
+                        font-size:@base-font2;
+                        font-weight:600;
+                        text-transform:capitalize;
+                        padding:5px 0;
+                        margin:0;
+                        display:block;
+                    }
+                }
+             }
+        }
+    }
+}
+
+
+.termsofservice-main{
+    .termsofservice-section{
+        margin-right:4%;
+        p{
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 5%;
+
+            @media screen and (max-width:320px){
+                font-size:14px;
+            }
+        }
+
+        h4{
+            margin-top: 5%;
+        }
+
+    }
+
+}
+
+.amtAddressContainer{
+    word-wrap: break-word;
+    width: 66%
+}
+
+.scrollableArea{
+    height:80.5vh;
+    overflow-y: overlay;
+    overflow-x: hidden;
+    width: 104%;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb{
+        border: none !important;
+    }
+    @media screen and (min-width:767px){
+        width:100%;
+    }
+    @media only screen and (max-width:767px) and (min-width:500px){
+        width: 102%;
+        height: 60vh;
+    }
+
+}
+
+.loading-img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30vh;
+    bottom: 0;
+    margin: auto;
+    z-index:10
+}
+
+.warn-text{
+    color: #f00;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    margin-top: 44px;
+    font-weight: 800;
+ }
+
+// popup container width code start here
+.container{
+            width:100%;
+    }
+// popup container width code end here
+
+
+.dsply-none{
+    display:none;
+}
+
+.addSharedWalletMain{
+    margin-top: 2%;
+    h4{
+        font-size:@base-font2;
+        margin-bottom:2%;
+    }
+    &.scrollableArea {
+        width: inherit;
+    }
+    input[type="text"], 
+    input[type="number"] {
+        margin-bottom:5%;
+        padding-right: 13%;
+        width: 100%;
+        border: none;
+        display: block;
+        font-size: 14px;
+        text-decoration: none;
+        float: left;
+        border-radius: 0;
+        outline:none;
+        box-shadow:none;
+        &:focus {
+            border: none;
+            text-decoration: none;
+        }
+    }
+    .addressSection{
+        display: flex;
+        i{
+            margin-top:3%;
+            margin-left: -10%;
+            align-self: baseline;
+            font-size:20px;
+            
+        }
+    }
+
+    .ownersList{
+        margin-top: 3%;
+        cursor:pointer;
+        h4{
+            width: 20%;
+        }
+        p{
+            font-size: 16px;
+            padding: 3px 0;
+            margin: 10px 0;
+
+            &.ownerName,&.ownerAddress{
+                margin-left: -7px;
+            }
+        }
+        #oList{
+            &.active{
+                i.fa.fa-chevron-down {
+                    &:before {
+                        content: "\f077";
+                    }
+                }
+            }
+            &.collapsed.active{
+                i.fa.fa-chevron-down {
+                    &:before {
+                         content: "\f078";
+                    }
+                }
+            }
+           
+        }
+        
+    }
+}

@@ -1,0 +1,53 @@
+@()(implicit config: play.api.Configuration,webJarAssets: WebJarAssets)
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ubunda Wallet</title>
+
+    <style type="text/css">
+    </style>
+    <script type="text/javascript" src="@routes.WebJarAssets.at(webJarAssets.locate("jquery.min.js"))"></script>
+    <script type="text/javascript" src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))"></script>
+
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/grid.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/version.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/detector.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/formatinf.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/errorlevel.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/bitmat.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/datablock.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/bmparser.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/datamask.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/rsdecoder.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/gf256poly.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/gf256.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/decoder.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/qrcode.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/findpat.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/alignpat.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/databr.js")"></script>
+
+    <script src="@routes.Assets.versioned("javascripts/wallet/qrscan/data.js")"></script>
+    <script src="@routes.Assets.versioned("javascripts/wallet/landing_view.js")"></script>
+
+
+</head>
+
+<body id="body">
+<div class="container">
+
+    <object  id="iembedflash" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="320" height="240">
+        <param name="movie" id="camcanvas" value="@routes.Assets.versioned("javascripts/wallet/qrscan/camcanvas.swf")" />
+        <param name="quality" value="high" />
+        <param name="allowScriptAccess" value="always" />
+        <embed  allowScriptAccess="always"  id="embedflash" src="@routes.Assets.versioned("javascripts/wallet/qrscan/camcanvas.swf")" quality="high" width="320" height="240" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" mayscript="true"  />
+    </object>
+
+</div>
+<button id="captureQRID" >Capture</button><br>
+<canvas id="qr-canvas" width="640" height="480" hidden></canvas>
+
+
+</body>
+
+</html>

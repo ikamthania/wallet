@@ -1,0 +1,30 @@
+[
+  {
+    "contractAddress":"ethereum",
+    "symbol":"ETH",
+    "tokenName":"Ethereum",
+    "decimal":18,
+    "balance":"0"
+  },
+  {
+    "contractAddress":"0xec5a3314ac5e3ac7fd696d66133aac3a8e6b71ba",
+    "symbol":"bth",
+    "tokenName":"Bethereum",
+    "decimal":5,
+    "balance":"0"
+  },
+  {
+    "contractAddress":"0xc9a5fabed74cb8f7683f26a3a9e56995c761477e",
+    "symbol":"EDT",
+    "tokenName":"FakeRhocs",
+    "decimal":0,
+    "balance":"0"
+  },
+  {
+    "contractAddress":"0xd060e8492cc5b27d3d5e0c878499cc6b2238fb86",
+    "symbol":"Vin",
+    "tokenName":"VinCoin",
+    "decimal":10,
+    "balance":"0"
+  }
+]

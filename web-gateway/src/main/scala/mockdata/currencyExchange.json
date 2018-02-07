@@ -1,0 +1,171 @@
+{
+  "coin" :"",
+  "currencies" :
+[
+  {
+    "symbol": "ETH",
+    "price": 0,
+    "icon":""
+  },
+  {
+    "symbol": "USD",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "EUR",
+    "price": 0,
+    "icon":"€"
+  },
+  {
+    "symbol": "INR",
+    "price": 0,
+    "icon":"₹"
+  },
+  {
+    "symbol": "AUD",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "BRL",
+    "price": 0,
+    "icon":"R$"
+  },
+  {
+    "symbol": "CAD",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "CHF",
+    "price": 0,
+    "icon":"₣"
+  },
+  {
+    "symbol": "CLP",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "CNY",
+    "price": 0,
+    "icon":"¥"
+  },
+  {
+    "symbol": "CZK",
+    "price": 0,
+    "icon":"Kč"
+  },
+  {
+    "symbol": "DKK",
+    "price": 0,
+    "icon":"kr"
+  },
+  {
+    "symbol": "GBP",
+    "price": 0,
+    "icon":"£"
+  },
+  {
+    "symbol": "HKD",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "HUF",
+    "price": 0,
+    "icon":"Ft"
+  },
+  {
+    "symbol": "IDR",
+    "price": 0,
+    "icon":"Rp"
+  },
+  {
+    "symbol": "JPY",
+    "price": 0,
+    "icon":"¥"
+  },
+  {
+    "symbol": "ILS",
+    "price": 0,
+    "icon":"₪"
+  },
+  {
+    "symbol": "KRW",
+    "price": 0,
+    "icon":"₩"
+  },
+  {
+    "symbol": "MXN",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "MYR",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "NOK",
+    "price": 0,
+    "icon":"kr"
+  },
+  {
+    "symbol": "NZD",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "PHP",
+    "price": 0,
+    "icon":"₱"
+  },
+  {
+    "symbol": "PKR",
+    "price": 0,
+    "icon":"₨"
+  },
+  {
+    "symbol": "PLN",
+    "price": 0,
+    "icon":"zł"
+  },
+  {
+    "symbol": "RUB",
+    "price": 0,
+    "icon":"₽"
+  },
+  {
+    "symbol": "SGD",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "SEK",
+    "price": 0,
+    "icon":"kr"
+  },
+  {
+    "symbol": "THB",
+    "price": 0,
+    "icon":"฿"
+  },
+  {
+    "symbol": "TRY",
+    "price": 0,
+    "icon":"₺"
+  },
+  {
+    "symbol": "TWD",
+    "price": 0,
+    "icon":"$"
+  },
+  {
+    "symbol": "ZAR",
+    "price": 0,
+    "icon":"R"
+  }
+]
+}

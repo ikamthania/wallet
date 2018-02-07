@@ -1,0 +1,32 @@
+[
+  {
+    "type": "ContentResponse",
+    "uuid": "1c39f3b5-5319-43ef-8cf8-f77df82ae51b",
+    "content": {
+      "srcCnxn": {
+        "uri": "4d50fae39bbfe51ec234f0dfc0d11a9e213ecd56e53ed3c3d7b7ce612f89009b",
+        "alias": "alias3",
+        "avatar": "",
+        "email": "",
+        "name": ""
+      },
+      "targetCnxns": [
+        {
+          "uri": "7840f5e1e10163de534e425859f95b38bf97d8801fe246c98c46a3b08c5c70d5",
+          "alias": "alias4",
+          "avatar": "",
+          "email": "alias4@mailinator.com",
+          "name": ""
+        }
+      ],
+      "posttime": 1493633674530,
+      "value": {
+        "type": "Profile",
+        "name": "sdfsd",
+        "title": "fsdfsd",
+        "capabilities": "fsdfs",
+        "video": "sdfsdf"
+      }
+    }
+  }
+]

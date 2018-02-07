@@ -1,0 +1,118 @@
+@()(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+@import helper._
+@import b3.inline.fieldConstructor
+
+@moreScripts = {
+<script src="@routes.Assets.versioned("javascripts/wallet/backup_view.js")"></script>
+<script type="text/javascript" src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))"></script>
+}
+
+@moreStylesheets = {
+<!--<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/wallet/wallet-landing.min.css")">-->
+}
+
+@walletMain(Messages("wallet"), false, moreStyleSheets = moreStylesheets, moreScripts = moreScripts)  {
+<div class="wallet-inner-navigation">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="wallet-information">
+                <h2>Wallet</h2>
+                <h3>Back up Identity</h3>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="backupIdentity-header">
+    <div class="col-xs-12">
+        <ul>
+            <li class="passed"><i aria-hidden="true" class="fa fa-check"></i>
+                <p>Start</p>
+            </li>
+            <li><i aria-hidden="true" class="fa fa-check"></i>
+                <p>Generate</p>
+            </li>
+            <li><i aria-hidden="true" class="fa fa-check"></i>
+                <p>Confirm</p>
+            </li>
+        </ul>
+        <div class="line1"></div>
+        <div class="line2"></div>
+    </div>
+</div>
+<div class="backupView-main scrollableArea backup-identity">
+    <div class="backupView-start">
+        <p>On the following screen you'll see a set of 12 words that can generate the private keys of your first digital identity on Ubunda as well as accounts it owns. This is your identity’s backup phrase, also known as a mnemonic phrase or master seed phrase, which follows the BIP-44 standard. It can be later entered into any version of Ubunda (and some other applications) in order to restore your digital identity and its owned accounts.Make sure you are in a private place and not being watched.Write down the exact Backup Phrase and keep it in a secure location. Do not take a picture or screenshot, since that might be too easily replicated. Do not share the Backup Phrase with anyone else unless you want them to access your credentials and funds. Anyone with access to your Backup Phrase can impersonate you (make claims based on your attributes and credentials) and gain access to your account's funds.If you fail to maintain a copy of this phrase or lose access to this wallet, you will permanently lose access to all your credentials and funds.</p>
+        <div class="container btnDefault-container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button id="btnNextStart" name='btnNxt' type="button" class="btn btnDefault setdefault">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="backupView-generate">
+        <div class="generate-section-content">
+            <p>This is your Backup Phrase. Now write it on paper and keep it in a secure place.</p>
+        </div>
+        <div class="generate-section-middle">
+            <h4>your backup phrase</h4>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <p class="backup-phr-txt">Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+                </div>
+                <label class="col-lg-3 col-md-4 col-sm-4 col-xs-4">language</label>
+                <select class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+                    <option>English</option>
+                    <option>Japanese</option>
+                    <option>Korean</option>
+                    <option>Spanish</option>
+                    <option>Chinese (Simplified)</option>
+                    <option>Chinese (Traditional)</option>
+                    <option>French</option>
+                    <option>Italian</option>
+                </select>
+            </div>
+        </div>
+        <div class="generate-section-bottom">
+            <div class="container btnDefault-container">
+                    <form>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" id="chkbSecure" value="on">
+                                <!-- react-text: 214 -->I have copied and stored my backup phrase in a secure place.
+                                <!-- /react-text -->
+                            </label>
+                        </div>
+                    </form>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <button id="btnNextGenerate" name='btnNxt' type="button" class="btn btnDefault setdefault">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="backupView-confirm">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="confirm-square"><i aria-hidden="true" class="fa fa-check-circle-o"></i></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="confirm-message">
+                    <h3>Your identity is backed up.</h3>
+                    <p>If this app is deleted or you lose access to your account, your identity and associated accounts can be recovered using the Backup Mnemonic Phrase you have just secured.</p>
+                </div>
+            </div>
+        </div>
+        <div class="container btnDefault-container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                     <button id="btnNextConfirm" name='btnNxt' type="button" class="btn btnDefault setdefault">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

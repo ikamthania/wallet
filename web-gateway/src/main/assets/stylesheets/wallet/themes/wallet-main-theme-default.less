@@ -1,0 +1,1039 @@
+@clr-bg: #1a1a1a;
+@clr-black:#000;
+@clr-black-shadow:rgba(0, 0, 0, 0.6);
+@clr-white:#fff;
+@clr-blueDrk:#164382;
+@clr-grayDrk:#1E1E1E;
+@clr-gray:#7F7F7F;
+@clr-yellow:#FFC90E;
+@clr-silver:#B8B8B8;
+@clr-transparent:transparent;
+@clr-orangeDrk:#E76F22;
+@clr-Nevada:#6A6E74;
+@clr-lightGray: #393939;
+@clr-hoverBackgroundGray: #464646;
+@clr-btnBackground: #0096c3;
+@clr-btnBackgroundDecline:#091b21;
+@clr-btnText: #b8b8b8;
+@clr-btnHover: #00384c;
+@clr-scrollBarBackground: #171717;
+@clr-hoverBackgroundLightGray: #bcbcbc;
+@clr-MineShaft:#262626;
+@clr-MineShaft-light:#393939;
+@clr-CodGray:#171717;
+@clr-CodGrayDark:#1A1A1A;
+@clr-Cerulean:#00AFF0;
+@clr-Boulder:#747474;
+@clr-red:#F00;
+@clr-lightBackgroundSidebar: #F0F3F8;
+@clr-skyblue:#99D9EA;
+@clr-CatskillWhite:#F0F4F8;
+@clr-PigeonPost:#B8CBDB;
+@clr-FrenchPass:#C7EDFC;
+@clr-btnBackgroundDecline:#091b21;
+@clr-Madang:#C4F0CD;
+@clr-Horizon:#628CA9;
+@clr-sail:#a1e3f7;
+@clr-btnTxtBoxDelete: #616161;
+@clr-greenPositive: #1cc11c;
+@clr-filterModalBackground: #3a3a3a;
+@clr-Loblolly: #C5D4D8;
+@clr-anchor:#337ab7;
+@clr-GreenAccepted: #09a755;
+@base-font12: 12px;
+@base-font9: 9px;
+
+
+.wallet-main {
+  .wallet-inner {
+    background: @clr-black;
+    .wallet-inner-navigation {
+      border-bottom: 1px solid @clr-lightGray;
+      .togglebtn {
+          color: @clr-silver;
+      }
+      
+        #mySidenav {
+          /*background: @clr-black-shadow;*/
+          #menu {
+            li {
+
+              &.openSubmenu {
+                 border-top:1px solid @clr-lightGray;
+                 border-bottom:1px solid @clr-lightGray;
+                 background-color:@clr-scrollBarBackground !important;
+              }
+              &:hover{
+                background: @clr-MineShaft;
+              }
+              a {
+                background: @clr-transparent;
+                color:@clr-silver;
+                &:hover {
+                  background: @clr-transparent;
+                }
+              }
+
+              ul {
+                background: @clr-CodGray;
+                li {
+                  border-left: 5px solid @clr-transparent;
+                  a{
+                      color:@clr-silver;
+                       &:hover{
+                         color:@clr-CodGrayDark;
+                      }
+                    }
+
+                    &.active{
+                      border-left-color: @clr-yellow;
+                   }
+                  &:hover{
+                    a{ color:@clr-CodGrayDark; }
+                    background-color: @clr-hoverBackgroundLightGray;
+                  }
+
+                  &#language,&#la_langue,&#exchange,&#display_theme{
+                      background-color: @clr-transparent;
+                      a{
+                         color:@clr-silver;
+                         &:hover{
+                          background: @clr-MineShaft;
+                        }
+                      }
+
+                     &:hover{
+                          background-color: @clr-transparent;
+                     }
+
+                     ul{
+                         background-color: @clr-transparent;
+                         li{
+                            &:hover{
+                              a{
+                                 color:@clr-CodGrayDark;
+                                 background-color: @clr-hoverBackgroundLightGray;
+                                }
+                              background-color: @clr-hoverBackgroundLightGray;
+                            }
+                         }
+                     }
+                   }
+                }
+              }
+            }
+          }
+          &:before{
+                background:@clr-black-shadow;
+          }
+        }
+      .wallet-information {
+
+        .back-to {
+          color: @clr-silver;
+        }
+        p{
+            color:@clr-red;
+        }
+        h2, h3, i {
+          color: @clr-silver;
+        }
+      }
+      .wallet-user-icon {
+        i {
+          color: @clr-silver;
+        }
+      }
+    }
+    .wallet-information-bottom {
+      .wallet-information-total {
+        .heading-currency {
+          background: @clr-grayDrk;
+          border-bottom: 1px solid @clr-lightGray;
+          label {
+            color: @clr-white;
+          }
+        }
+        .select-currency {
+          select {
+            color: @clr-white;
+            background:@clr-grayDrk;
+            option {
+              color: @clr-black;
+              background:@clr-white;
+            }
+          }
+        }
+        .currency-info-scrollbar {
+          &::-webkit-scrollbar-track
+          {
+            -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+            background-color: @clr-scrollBarBackground;
+          }
+          &::-webkit-scrollbar
+          {
+            background-color: @clr-silver;
+          }
+          &::-webkit-scrollbar-thumb
+          {
+            background-color: @clr-lightGray;
+            border: 2px solid @clr-lightGray;
+          }
+        }
+        .select-currency-info {
+          border-left: 10px solid @clr-transparent;
+
+          label {
+            color: @clr-white;
+          }
+          span {
+            color: @clr-white;
+          }
+          h4 {
+            color: @clr-white;
+          }
+          .left-info{
+            label{
+              color: @clr-skyblue;
+            }
+          }
+          &:nth-child(2n+1){
+            background: @clr-grayDrk;
+          }
+          &:hover{
+            background: @clr-hoverBackgroundGray;
+          }
+          &.active{
+            border-left-color: @clr-yellow;
+          }
+        }
+      }
+    }
+  }
+}
+
+.wallet-information-total-btn{
+    border-top:2px solid @clr-lightGray;
+}
+
+#menuToggle {
+  .hamburger-menu {
+    background: @clr-silver;
+  }
+}
+
+
+#menuToggle input:checked~.hamburger-menu {
+  background: @clr-white;
+}
+
+#menu {
+  background: @clr-black;
+  .menuToggle-inner {
+    background: @clr-CodGrayDark;
+    &::-webkit-scrollbar-track
+    {
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+      background-color: @clr-scrollBarBackground
+    }
+
+    &::-webkit-scrollbar
+    {
+      background-color: @clr-CodGray;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+      background-color: @clr-MineShaft-light;
+      border: 2px solid @clr-MineShaft-light;
+    }
+  }
+}
+#closebtnContainer{
+    background-color:@clr-CodGrayDark;
+     .closebtn{
+       border-bottom: 1px solid @clr-MineShaft-light;
+       background-color:@clr-CodGrayDark;
+    }
+    &.active{
+        background-color:@clr-black-shadow;
+         @media screen and (min-width:1280px){
+            background:@clr-transparent;
+         }
+    }
+}
+
+//silde bar less open here
+.sidenav {
+    .closebtn {
+        color: @clr-silver;
+        &:hover {
+            color: @clr-silver;
+        }
+    }
+}
+
+//silde bar less closed here
+
+//welcome screen code
+.welcome-wallet{
+  #myCarousel{
+    .carousel-inner{
+      .item{
+        p{
+          color: @clr-white;
+        }
+      }
+    }
+  }
+  button.btn.btn-next {
+    color:@clr-white;
+    background: @clr-btnBackground;
+  }
+}
+
+//eula page less css
+.eula-main{
+  .eula-topsection{
+
+    h3{
+      color: @clr-silver;
+    }
+    p{
+      color: @clr-silver;
+    }
+  }
+  .eula-accordion-section{
+    #accordion{
+      .panel-default{
+        background: @clr-transparent;
+        .panel-heading{
+            i{
+              color: @clr-silver;
+           }
+          background: @clr-transparent;
+          a{
+            color: @clr-silver;
+          }
+        }
+      }
+    }
+  }
+  .eula-bottom-section{
+    .row{
+      .btn{
+         float: right !important;
+            margin-right: 3%;
+            border-radius: 5px;
+            border: none;
+            background: @clr-btnBackground;
+            color: @clr-btnText;
+            font-size: 14px;
+            font-weight: normal;
+            width: 100px;
+            transition: 0.3s;
+            &:hover{
+                   -webkit-transform: scale(1.05);
+                   -ms-transform: scale(1.05);
+                   transform: scale(1.05);
+                   background: @clr-btnHover;
+                   color: @clr-btnText;
+                  }
+      }
+
+    }
+  }
+}
+
+.btnDefault-container{
+    border-top:1px solid @clr-lightGray;
+    &.container-NoBorder{
+        border:none;
+    }
+    h5{
+       color: @clr-btnText;
+    }
+}
+
+.btnDefault{
+    background: @clr-btnBackground;
+    color: @clr-white;
+
+    &:hover{
+         background: @clr-btnHover;
+         color: @clr-btnText;
+     }
+
+     &.decline{
+        background: @clr-btnBackgroundDecline;
+        &:hover{
+            background: @clr-btnHover;
+        }
+     }
+
+     &.btn-next {
+        background: @clr-btnBackground;
+        color: @clr-btnText;
+    }
+
+    &.btn-next:hover {
+        background: @clr-btnHover;
+        color: @clr-btnText;
+    }
+}
+
+
+
+
+
+
+// payment history page start here
+.payment-history{
+    background:@clr-black;
+    color: @clr-silver;
+    .payment-select {
+        select {
+            background: transparent;
+            border: 1px solid @clr-lightGray;
+            color:@clr-silver;
+            option{
+                color:@clr-black;
+            }
+        }
+    }
+    .payment-section-bottom{
+        .payment-section-bottom-head{
+            margin-bottom:10px;
+            h3{
+                color:@clr-silver;
+            }
+        }
+        .payment-section-bottom-midd{
+            border-top: 1px solid @clr-lightGray;
+            &::-webkit-scrollbar-track
+            {
+              -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+              background-color: @clr-scrollBarBackground;
+            }
+            &::-webkit-scrollbar
+            {
+              background-color: @clr-silver;
+            }
+            &::-webkit-scrollbar-thumb
+            {
+              background-color: @clr-lightGray;
+              border: 2px solid @clr-lightGray;
+            }
+            .row{
+                label{
+                    color:@clr-white;
+                }
+                p{
+                    color:@clr-silver;
+                }
+                span{
+                    color:@clr-white;
+                    &.positive{color: @clr-greenPositive;}
+                    &.negative{color: red;}
+                }
+
+                &:nth-child(2n+1){
+                    background:@clr-grayDrk;
+                }
+
+                &:hover{
+                    background: @clr-hoverBackgroundGray;
+                }
+            }
+        }
+    }
+    .click-view{
+        border-top:1px solid @clr-lightGray;
+        h4{
+            color:@clr-white;
+        }
+        .btn{
+            background: @clr-btnBackground;
+            color: @clr-white;
+        }
+    }
+}
+// payment history page end here
+
+
+
+// request starts here
+.request-screen-main {
+    background: @clr-black;
+    .request-screen-inner {
+        .section-heading {
+            color: @clr-btnText;
+
+            &#advanced{
+                color: @clr-btnBackground;
+            }
+        }
+        .request-section-scancode {
+            .reqscancode-text {
+                p {
+                    color:@clr-silver;
+                }
+            }
+        }
+        .request-section-middle {
+            .request-section-middle-inner {
+                h4 {
+                    color: @clr-silver;
+                }
+                .scoller-main{
+                     &::-webkit-scrollbar-track
+                     {
+                       -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+                       background-color: @clr-scrollBarBackground
+                     }
+
+                     &::-webkit-scrollbar
+                     {
+                       background-color: @clr-CodGray;
+                     }
+
+                     &::-webkit-scrollbar-thumb
+                     {
+                       background-color: @clr-MineShaft-light;
+                       border: 2px solid @clr-MineShaft-light;
+                     }
+                .req-amount-main {
+                     color: @clr-silver;
+                    .calculate {
+                     h4 {
+                       color: @clr-silver;
+                       }
+                        .row-1 {
+                         input[type="text"]{
+                          border:none;
+                          border-bottom: 1px solid @clr-silver;
+                          color: @clr-white;
+                         }
+                            i{
+                                color: @clr-btnTxtBoxDelete;
+                            }
+                            span {
+                                color: @clr-silver;
+                                }
+                                label {
+                                    color: @clr-silver;
+                                }
+                                .form-control {
+                                    background: transparent;
+                                    color: @clr-white;
+                                    option {
+                                        color: @clr-black;
+                                    }
+                                }
+
+                        }
+                    }
+                }
+                .reaciving-add {
+                    h4, label {
+                        color: @clr-silver;
+                    }
+                    input{
+                        border:none;
+                        background: @clr-transparent;
+                        color:@clr-silver;
+                    }
+                }
+                .desscription {
+                    h4 {
+                      color: @clr-silver;
+                    }
+                    .form-control {
+                        background: @clr-grayDrk;
+                        color: @clr-silver;
+                    }
+                }
+                .send-credentials {
+                     h4 {
+                     color: @clr-silver;
+                    }
+                    .form-control {
+                        background: @clr-grayDrk;
+                        color: @clr-silver;
+                    }
+                }
+
+                .expiresIn{
+                 h4 {
+                  color: @clr-silver;
+                  }
+                  .form-control {
+                    background: @clr-grayDrk;
+                    color: @clr-silver;
+                  }
+                }
+                }
+            }
+        }
+        .request-section-bottom {
+            label {
+                color: @clr-white;
+            }
+            .btn {
+                background: @clr-btnBackground;
+                color: @clr-white;
+            }
+        }
+    }
+}
+// request ends here
+
+// identities screen less open here
+.identify-screen-main {
+    background: @clr-black;
+    .identify-screen-inner {
+        .identify-screen-profileslist {
+            &::-webkit-scrollbar-track
+            {
+              -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+              background-color: @clr-bg;
+            }
+            &::-webkit-scrollbar
+            {
+              background-color: @clr-silver;
+            }
+            &::-webkit-scrollbar-thumb
+            {
+              background-color: @clr-lightGray;
+              border: 2px solid @clr-lightGray;
+            }
+            ul {
+                li {
+                    border-left: 10px solid @clr-transparent;
+                    &:hover {
+                        border-left-color: @clr-yellow;
+                    }
+                    &:nth-child(2n+1) {
+                        background: @clr-grayDrk;
+                    }
+                    &.active{
+                        border-left-color: @clr-yellow;
+                    }
+                    &.selected{
+                        border-left-color: @clr-btnBackground;
+                    }
+                    p {
+                        color: @clr-white;
+                    }
+                }
+            }
+        }
+        .identify-screen-bottom {
+            .btn {
+                background: @clr-btnBackground;
+                color: @clr-silver;
+            }
+        }
+    }
+}
+// identities screen less ends here
+
+.sendView {
+        #headerFrom{
+            color: @clr-silver;
+        }
+
+        #detailsmain {
+            color: @clr-btnBackground;
+        }
+        .accountInfoFrom{
+            color: @clr-silver;
+        }
+
+        .accountItem select{
+                background-color: @clr-transparent;
+                 color: @clr-silver;
+        }
+
+        .accountTo{
+                color: @clr-silver;
+                input[type="text"] {
+                    border-bottom: 1px solid @clr-silver;
+                    color: @clr-silver;
+                    background-color: @clr-transparent;
+                    &:focus {
+                        border-bottom: 1px solid @clr-silver;
+                    }
+                }
+
+        }
+
+        .accountAmount {
+            color: @clr-silver;
+        }
+
+        .accountAmountItem {
+            input[type="text"] {
+                border-bottom: 1px solid @clr-silver;
+                color: @clr-white;
+                background-color: @clr-transparent;
+                &:focus {
+                    border-bottom: 1px solid @clr-silver;
+                }
+            }
+            .xicon{
+               color: @clr-btnTxtBoxDelete;
+            }
+        }
+
+        .details {
+            color: @clr-silver;
+
+            table {
+                td{
+                    &.fee{
+                       border-bottom: 1px solid @clr-silver;
+                     }
+                }
+            }
+        }
+}
+
+
+.modal-dialog{
+    .modal-content{
+        background-color: @clr-filterModalBackground;
+        .modal-header{
+            border-bottom:none;
+            span{
+                color: @clr-white;
+                }
+        }
+        .modal-body{
+         .radioGroup{
+            color: @clr-silver;
+         }
+
+         .dateInput{
+               input[type="date"]{
+                background-color: @clr-transparent;
+                color: @clr-white;
+                border: none;
+                border-bottom: 1px solid @clr-silver;
+
+                 &::-webkit-calendar-picker-indicator {
+                    background-color: @clr-transparent;
+                    color: @clr-white;
+                 }
+               }
+              }
+        }
+
+        .confirmContainer{
+            .messageContainer{
+                h5{
+                    span{
+                        border-bottom: 1px solid @clr-silver;
+                    }
+                }
+            }
+
+          .passwordContainer{
+            input[type="password"]{
+                color: @clr-white;
+                background-color: @clr-transparent;
+                border: none;
+                border-bottom: 1px solid @clr-silver;
+            }
+        }
+      }
+        .modal-footer{
+            border:none;
+        }
+    }
+}
+
+ .notifications{
+    border-bottom: 1px solid @clr-transparent;
+    &::-webkit-scrollbar-track
+    {
+      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+      background-color: @clr-scrollBarBackground;
+    }
+    &::-webkit-scrollbar
+    {
+      background-color: @clr-silver;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+      background-color: @clr-lightGray;
+      border: 2px solid @clr-lightGray;
+    }
+    .row{
+        h5{
+            color:@clr-white;
+        }
+        p{
+            color:@clr-white;
+            &.messageTimeReceived{
+                color:@clr-skyblue;
+            }
+        }
+        &:nth-child(2n+1){
+            background:@clr-grayDrk;
+        }
+
+        &:hover{
+            background-color: @clr-hoverBackgroundGray;
+        }
+
+        &.active{
+            border-left-color: @clr-yellow;
+        }
+
+    }
+ }
+
+ .initialSetup-main{
+      color: @clr-silver;
+      form{
+       .radio{
+            a{
+               background: @clr-transparent;
+               color: @clr-Cerulean;
+           }
+           input[type="radio"]{
+             background: @clr-Cerulean;
+           }
+          .form-control{
+              background: @clr-grayDrk;
+              color: @clr-silver;
+          }
+       }
+        .btnAdvOpt{
+           background: @clr-transparent;
+           color: @clr-Cerulean;
+      }
+    }
+  }
+
+
+  .backupIdentity-header {
+    border-bottom: 1px solid  @clr-silver;
+    ul {
+        li {
+            background-color: @clr-CodGrayDark;
+            i{
+               color: @clr-black;
+            }
+            p {
+                color: @clr-silver;
+             }
+            &.passed{
+                background-color: @clr-GreenAccepted;
+            }
+        }
+    }
+    .line1, .line2  {
+        background-color: @clr-CodGrayDark;
+    }
+}
+
+  .backupView-main{
+      p{
+        color: @clr-silver;
+
+        &.warning{
+            color: @clr-red;
+        }
+      }
+    }
+
+ // backupIdentity  screen less
+.backupView-generate{
+    .generate-section-content{
+         &::-webkit-scrollbar-track
+             {
+               -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+               background-color: @clr-scrollBarBackground
+             }
+
+             &::-webkit-scrollbar
+             {
+               background-color: @clr-CodGray;
+             }
+
+             &::-webkit-scrollbar-thumb
+             {
+               background-color: @clr-MineShaft-light;
+               border: 2px solid @clr-MineShaft-light;
+             }
+        p{
+             color: @clr-silver;
+        }
+    }
+    .generate-section-middle{
+        h4{
+            color:@clr-silver;
+        }
+        p.backup-phr-txt{
+             color: @clr-btnBackground;
+             border-color:@clr-transparent;
+             background: @clr-CodGrayDark;
+             p{
+                color: @clr-btnBackground;
+             }
+        }
+        span{
+             color: @clr-silver;
+        }
+        label{
+            color: @clr-silver;
+        }
+        select{
+             color: @clr-silver;
+            background:none;
+                option{
+                     color: @clr-silver;
+                }
+        }
+    }
+    .generate-section-bottom{
+        form{
+            .checkbox{
+                label{
+                     color: @clr-silver;
+                }
+            }
+        }
+    }
+}
+.backupView-phrase{
+    h3{
+        color: @clr-silver;
+    }
+    
+    .backupPhrase-section{
+        .backupPhrase-container{
+            background: @clr-grayDrk;
+            p{
+                color: @clr-grayDrk;
+                background: @clr-anchor;
+            }
+        }
+    }
+}
+.wordsList{
+ul{
+    li{
+        color: @clr-grayDrk;
+        background: @clr-silver;
+    }
+}
+}
+
+.backupView-confirm{
+    .confirm-square{
+        background: @clr-blueDrk;
+        i{
+           color: @clr-GreenAccepted;
+        }
+    }
+
+    .confirm-message{
+        h3{
+            color: @clr-silver;
+        }
+        p{
+            color: @clr-silver;
+        }
+    }
+
+    .confirm-section-content{
+        h3{
+            color:@clr-silver;
+        }
+        .divider{
+            border-color:@clr-silver;
+            i{
+                background: @clr-silver;
+                color: @clr-black;
+            }
+        }
+    }
+    .confirm-section-middle{
+        .confirm-list{
+             ul {
+                li{
+                    a{
+                        color:@clr-anchor;
+                    }
+                }
+             }
+        }
+    }
+}
+
+.termsofservice-section{
+    h4,p{
+        color: @clr-silver;
+    }
+
+}
+
+.scrollableArea{
+    &::-webkit-scrollbar-track
+    {
+      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+      box-shadow: inset 0 0 2px rgba(0,0,0,0.3);
+      background-color: @clr-scrollBarBackground;
+    }
+    &::-webkit-scrollbar
+    {
+      background-color: @clr-silver;
+    }
+    &::-webkit-scrollbar-thumb
+    {
+      background-color: @clr-lightGray;
+      border: 2px solid @clr-lightGray;
+    }
+}
+
+
+
+.addSharedWalletMain {
+    h4{
+        color: @clr-silver;
+    }
+    input[type="text"],
+    input[type="number"]  {
+        border-bottom: 1px solid @clr-silver;
+        color: @clr-silver;
+        background-color: @clr-transparent;
+        &:focus {
+            border-bottom: 1px solid @clr-silver;
+        }
+    }
+    .addressSection{
+        i{
+           color:@clr-anchor;
+        }
+    }
+    .ownersList{
+       h4{
+           color:@clr-btnBackground;
+       }
+       p{
+           color:@clr-silver;
+       }
+       .row{
+           &.walletData{
+            border-left:8px solid @clr-transparent;
+            display: block;
+            &.active, &:hover{
+                border-left:8px solid @clr-yellow;
+            }
+        }
+      }
+    }
+}

@@ -1,0 +1,885 @@
+// @import "lib/bootstrap/less/bootstrap.less";
+// @import "lib/font-awesome/less/font-awesome.less";
+@clr-bg: #1a1a1a;
+@clr-black: #000;
+@clr-black-shadow: rgba(0, 0, 0, 0.8);
+@clr-white: #fff;
+@clr-white-shadow: rgba(255, 255, 255, 0.6);
+@clr-blueDrk: #164382;
+@clr-purpleDrk: #925399;
+@clr-purplelit: #f1effa;
+@clr-grayDrk: #1E1E1E;
+@clr-gray: #7F7F7F;
+@clr-skyblue: #99D9EA;
+@clr-yellow: #FFC90E;
+@clr-silver: #B8B8B8;
+@clr-transparent: transparent;
+@clr-orangeDrk: #E76F22;
+@clr-Mirage: #191F27;
+@clr-Nevada: #6A6E74;
+@clr-lightGray: #393939;
+@clr-hoverBackgroundGray: #262626;
+@clr-btnBackground: #0096c3;
+@clr-btnText: #b8b8b8;
+@clr-btnHover: #00384c;
+@clr-scrollBarBackground: #171717;
+@clr-hoverBackgroundLightGray: #bcbcbc;
+@clr-MineShaft: #262626;
+@clr-MineShaft-light: #393939;
+@clr-CodGray: #171717;
+@clr-CodGrayDark: #1A1A1A;
+@clr-Cerulean: #00AFF0;
+@clr-Boulder: #747474;
+@clr-red: #F00;
+@clr-lightBackground: #F0F3F8;
+@clr-scrollBarBackground: #F1F4FB;
+@clr-CatskillWhite: #F0F4F8;
+@clr-PigeonPost: #B8CBDB;
+@clr-FrenchPass: #C7EDFC;
+@clr-BackgroundLine: #f4fcff;
+@clr-btnBackgroundDecline: #091b21;
+@clr-Madang: #C4F0CD;
+@clr-Horizon: #628CA9;
+@clr-sail: #a1e3f7;
+@clr-Loblolly: #C5D4D8;
+@clr-greenPositive: #1cc11c;
+@clr-anchor: #337ab7;
+@base-font12: 12px;
+@base-font9: 9px;
+.wallet-main {
+    .wallet-inner {
+        background: @clr-white;
+        .wallet-inner-navigation {
+            border-bottom: 1px solid @clr-lightGray;
+            .togglebtn {
+                color: @clr-black;
+            }
+            #mySidenav {
+                background: @clr-white-shadow;
+                #menu {
+                    li {
+                        &.openSubmenu {
+                            border-top: 1px solid @clr-lightGray;
+                            border-bottom: 1px solid @clr-lightGray;
+                        }
+                        a {
+                            background: @clr-transparent;
+                            color: @clr-black;
+                            &:hover {
+                                background: @clr-transparent;
+                            }
+                        }
+                        ul {
+                            li {
+                                border-left: 5px solid @clr-transparent;
+                                a {
+                                    color: @clr-black;
+                                    &:hover {
+                                        color: @clr-black;
+                                    }
+                                }
+                                &.active {
+                                    border-left-color: @clr-black;
+                                }
+                                &:hover {
+                                    background-color: @clr-FrenchPass;
+                                }
+                                &#language,
+                                &#la_langue,
+                                &#exchange,
+                                &#display_theme {
+                                    background-color: @clr-CatskillWhite;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            .wallet-information {
+                .back-to {
+                    color: @clr-black;
+                }
+                p {
+                    color: @clr-red;
+                }
+                h2 {
+                    color: @clr-black;
+                }
+                h3 {
+                    color: @clr-black;
+                }
+            }
+            .wallet-user-icon {
+                i {
+                    color: @clr-black;
+                }
+            }
+            .wallet-page {
+                i {
+                    color: black;
+                }
+            }
+        }
+        .wallet-information-bottom {
+            .wallet-information-total {
+                .heading-currency {
+                    background: @clr-white;
+                    border-bottom: 1px solid @clr-lightGray;
+                    label {
+                        color: @clr-black;
+                    }
+                }
+                .select-currency {
+                    select {
+                        color: @clr-black;
+                        background: @clr-white;
+                        option {
+                            color: @clr-white;
+                            background: @clr-black;
+                        }
+                    }
+                }
+                .currency-info-scrollbar {
+                    &::-webkit-scrollbar-track {
+                        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                        background-color: @clr-scrollBarBackground;
+                    }
+                    &::-webkit-scrollbar {
+                        background-color: @clr-silver;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background-color: @clr-PigeonPost;
+                        border: 2px solid @clr-PigeonPost;
+                    }
+                }
+                .select-currency-info {
+                    border-left: 10px solid @clr-transparent;
+                    background: @clr-white;
+                    label {
+                        color: @clr-black;
+                    }
+                    span {
+                        color: @clr-black;
+                    }
+                    h4 {
+                        color: @clr-black;
+                    }
+                    .left-info {
+                        label {
+                            color: @clr-black;
+                        }
+                    }
+                    &:nth-child(2n+1) {
+                        background: @clr-BackgroundLine;
+                    }
+                    &:hover {
+                        background: @clr-Loblolly;
+                    }
+                    &.active {
+                        border-color: @clr-lightGray;
+                    }
+                }
+            }
+            .wallet-information-total-btn {
+                background: @clr-CatskillWhite;
+            }
+        }
+    }
+}
+
+.btnDefault-container {
+    border-top: 1px solid @clr-black;
+    &.container-NoBorder {
+        border: none;
+    }
+    h5 {
+        color: @clr-btnBackground;
+    }
+}
+
+#menuToggle {
+    .hamburger-menu {
+        background: @clr-white;
+    }
+}
+
+#menuToggle input:checked~.hamburger-menu {
+    background: @clr-white;
+}
+
+#menu {
+    background: @clr-CatskillWhite;
+    .menuToggle-inner {
+        background: @clr-lightBackground;
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: @clr-scrollBarBackground;
+        }
+        &::-webkit-scrollbar {
+            background-color: @clr-PigeonPost;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: @clr-PigeonPost;
+            border: 2px solid @clr-PigeonPost;
+        }
+    }
+}
+
+#closebtnContainer {
+    background-color: @clr-CatskillWhite;
+    .closebtn {
+        border-bottom: 1px solid @clr-MineShaft-light;
+        background-color: @clr-CatskillWhite;
+    }
+    &.active {
+        background: @clr-transparent;
+    }
+}
+
+//silde bar less open here
+.sidenav {
+    .closebtn {
+        color: @clr-black;
+        &:hover {
+            color: @clr-black;
+        }
+    }
+}
+
+.btnDefault {
+    background: @clr-btnBackground;
+    color: @clr-white;
+    &:hover {
+        background: @clr-btnHover;
+        color: @clr-btnText;
+    }
+    &.decline {
+        background: @clr-btnBackgroundDecline;
+        &:hover {
+            background: @clr-btnHover;
+        }
+    }
+    &.btn-next {
+        background: @clr-btnBackground;
+        color: @clr-btnText;
+    }
+    &.btn-next:hover {
+        background: @clr-btnHover;
+        color: @clr-btnText;
+    }
+}
+
+// .btn-next {
+//     background: @clr-btnBackground;
+//     color: @clr-btnText;
+// }
+// .btn-next:hover {
+//     background: @clr-btnHover;
+//     color: @clr-btnText;
+// }
+//  .btnDefault{
+//      text-transform: capitalize;
+//      background: @clr-btnBackground;
+//      color: @clr-white;
+//      text-align: center;
+//      border: 0;
+//      font-size: 16px;
+//      margin-left: 10px;
+//      transition: 0.3s;
+//      padding-right: 0;
+//      padding-left: 0;
+//      @media screen and (min-width:667px){
+//          padding:6px 15px;
+//        }
+//       @media only screen and (max-width: 1150px) and (min-width: 768px){
+//           font-size:16px;
+//       }
+//       @media screen and (max-width:414px){
+//         font-size:16px;
+//         width: 108px;
+//         margin-left:7px;
+//       }
+//       @media screen and (max-width:380px){
+//           font-size:14px;
+//           width: 90px;
+//           margin-left:13px;
+//       }
+//       @media screen and (max-width:360px){
+//           margin-left:9px;
+//       }
+//       @media screen and (max-width:320px){
+//          font-size:12px;
+//           width: 75px;
+//           margin-left:11px;
+//       }
+//      &:hover{
+//         transform: scale(1.05);
+//          background: @clr-btnHover;
+//          color: @clr-btnText;
+//      }
+//      &.decline{
+//         background: @clr-btnBackgroundDecline;
+//         &:hover{
+//             transform: scale(1.05);
+//             background: @clr-btnHover;
+//         }
+//      }
+//      &.btn-account-camera{
+//         width:35px;
+//      }
+//  }
+.sellView {
+    #headerFrom {
+        color: @clr-black;
+    }
+    .accountInfoFrom {
+        color: @clr-black;
+    }
+    .accountItem select {
+        background-color: @clr-transparent;
+    }
+    .accountTo {
+        color: @clr-black;
+        input[type="text"] {
+            border-bottom: 1px solid @clr-black;
+            color: @clr-black;
+            background-color: @clr-transparent;
+            &:focus {
+                border-bottom: 1px solid @clr-black;
+            }
+        }
+    }
+    .accountAmount {
+        color: @clr-black;
+    }
+    .accountAmountItem {
+        input[type="text"] {
+            border-bottom: 1px solid @clr-black;
+            color: @clr-black;
+            background-color: @clr-transparent;
+            &:focus {
+                border-bottom: 1px solid @clr-black;
+            }
+        }
+        button {
+            position: relative;
+        }
+    }
+    .details {
+        color: @clr-black;
+        table {
+            border: 1px solid @clr-black;
+        }
+    }
+} // payment history page start here
+.payment-history {
+    background: @clr-white;
+    .payment-select {
+        color: @clr-black;
+        select {
+            background: transparent;
+            border: 1px solid @clr-black;
+            color: @clr-black;
+        }
+        i {
+            color: black;
+        }
+    }
+    .payment-section-bottom {
+        .payment-section-bottom-head {
+            margin-bottom: 10px;
+            h3 {
+                color: @clr-black;
+            }
+        }
+        .payment-section-bottom-midd {
+            border-top: 1px solid @clr-lightGray;
+            &::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+                background-color: @clr-scrollBarBackground;
+            }
+            &::-webkit-scrollbar {
+                background-color: @clr-silver;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: @clr-PigeonPost;
+                border: 2px solid @clr-PigeonPost;
+            }
+            .row {
+                label {
+                    color: @clr-black;
+                }
+                p {
+                    color: @clr-CodGray;
+                }
+                span {
+                    color: @clr-black;
+                    &.positive {
+                        color: @clr-greenPositive;
+                    }
+                    &.negative {
+                        color: red;
+                    }
+                }
+                &:nth-child(2n+1) {
+                    background: @clr-BackgroundLine;
+                }
+                &:hover {
+                    background: @clr-Loblolly;
+                }
+            }
+        }
+    }
+    .click-view {
+        border-top: 1px solid @clr-black;
+        h4 {
+            color: @clr-black;
+        }
+        .btn {
+            background: @clr-btnBackground;
+            color: @clr-white;
+        }
+    }
+} // payment history page end here
+// request starts here
+.request-screen-main {
+    background: @clr-white;
+    .request-screen-inner {
+        .section-heading {
+            color: @clr-black;
+            &#advanced {
+                color: @clr-btnBackground;
+            }
+        }
+        .request-section-scancode {
+            .reqscancode-text {
+                p {
+                    color: @clr-black;
+                }
+            }
+        }
+        .request-section-middle {
+            .request-section-middle-inner {
+                h4 {
+                    color: @clr-black;
+                }
+                .scoller-main {
+                    &::-webkit-scrollbar-track {
+                        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+                        background-color: @clr-scrollBarBackground;
+                    }
+                    &::-webkit-scrollbar {
+                        background-color: @clr-PigeonPost;
+                    }
+                    &::-webkit-scrollbar-thumb {
+                        background-color: @clr-PigeonPost;
+                        border: 2px solid @clr-PigeonPost;
+                    }
+                    .req-amount-main {
+                        .calculate {
+                            .row-1 {
+                                i {
+                                    color: @clr-silver;
+                                    border-bottom: 1px solid @clr-black;
+                                }
+                                .form-control {
+                                    background: transparent;
+                                    color: @clr-black;
+                                    box-shadow: none;
+                                    option {
+                                        color: @clr-black;
+                                    }
+                                }
+                                span {
+                                    color: @clr-black;
+                                }
+                                input[type="text"] {
+                                    border: none;
+                                    border-bottom: 1px solid @clr-black;
+                                    color: @clr-black;
+                                }
+                            }
+                        }
+                    }
+                    .reaciving-add {
+                        label {
+                            color: @clr-black;
+                        }
+                        input {
+                            border: none;
+                            background: @clr-transparent;
+                            color: @clr-silver;
+                        }
+                    }
+                    .desscription {
+                        .form-control {
+                            background: @clr-silver;
+                            color: @clr-black;
+                            box-shadow: none;
+                        }
+                    }
+                    .send-credentials {
+                        .form-control {
+                            background: @clr-silver;
+                            color: @clr-black;
+                            box-shadow: none;
+                        }
+                    }
+                    .expiresIn {
+                        .form-control {
+                            background: @clr-silver;
+                            color: @clr-black;
+                            box-shadow: none;
+                        }
+                    }
+                }
+            }
+        }
+        .request-section-bottom {
+            label {
+                color: @clr-black;
+            }
+            .btn {
+                background: @clr-btnBackground;
+                color: @clr-white;
+            }
+        }
+    }
+}
+
+// request ends here
+// identities screen less open here
+.identify-screen-main {
+    background: @clr-white;
+    .identify-screen-inner {
+        .identify-screen-profileslist {
+            &::-webkit-scrollbar-track {
+                -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+                background-color: @clr-scrollBarBackground;
+            }
+            &::-webkit-scrollbar {
+                background-color: @clr-silver;
+            }
+            &::-webkit-scrollbar-thumb {
+                background-color: @clr-PigeonPost;
+                border: 2px solid @clr-PigeonPost;
+            }
+            ul {
+                li {
+                    border-left: 10px solid @clr-transparent;
+                    &:hover {
+                        border-left-color: @clr-sail;
+                    }
+                    &:nth-child(2n+1) {
+                        background: @clr-BackgroundLine;
+                    }
+                    &.active {
+                        border-left-color: @clr-sail;
+                    }
+                    &.selected {
+                        border-left-color: @clr-btnBackground;
+                    }
+                    p {
+                        color: @clr-black;
+                    }
+                }
+            }
+        }
+        .identify-screen-bottom {
+            .btn {
+                background: @clr-btnBackground;
+                color: @clr-silver;
+            }
+        }
+    }
+}
+
+// identities screen less ends here
+.sendView {
+    #headerFrom {
+        color: @clr-black;
+    }
+    #detailsmain {
+        color: @clr-btnBackground;
+    }
+    .accountInfoFrom {
+        color: @clr-black;
+    }
+    .accountItem select {
+        background-color: @clr-transparent;
+    }
+    .accountTo {
+        color: @clr-black;
+        input[type="text"] {
+            border-bottom: 1px solid @clr-black;
+            color: @clr-black;
+            background-color: @clr-transparent;
+            &:focus {
+                border-bottom: 1px solid @clr-black;
+            }
+        }
+    }
+    .accountAmount {
+        color: @clr-black;
+    }
+    .accountAmountItem {
+        input[type="text"] {
+            border-bottom: 1px solid @clr-black;
+            color: @clr-black;
+            background-color: @clr-transparent;
+            &:focus {
+                border-bottom: 1px solid @clr-black;
+            }
+        }
+        .xicon {
+            color: @clr-silver;
+        }
+    }
+    .details {
+        color: @clr-black;
+        table {
+            td {
+                &.fee {
+                    border-bottom: 1px solid @clr-black;
+                }
+            }
+        }
+    }
+}
+
+.modal-dialog {
+    .modal-content {
+        background-color: @clr-BackgroundLine;
+        .modal-header {
+            border-bottom: none;
+            color: @clr-black;
+            span {
+                color: @clr-black;
+            }
+        }
+        .modal-body {
+            color: @clr-black;
+            .dateInput {
+                input[type="date"] {
+                    background-color: @clr-transparent;
+                    color: @clr-black;
+                    border: none;
+                    border-bottom: 1px solid @clr-silver;
+                    &::-webkit-calendar-picker-indicator {
+                        background-color: @clr-transparent;
+                        color: @clr-black;
+                    }
+                }
+            }
+            .confirmContainer {
+                .messageContainer {
+                    h5 {
+                        span {
+                            border-bottom: 1px solid @clr-silver;
+                        }
+                    }
+                }
+                .passwordContainer {
+                    input[type="password"] {
+                        color: @clr-black;
+                        background-color: @clr-transparent;
+                        border: none;
+                        border-bottom: 1px solid @clr-silver;
+                    }
+                    i {
+                        color: @clr-silver;
+                        ;
+                    }
+                }
+            }
+        }
+        .modal-footer {
+            border: none;
+        }
+    }
+}
+
+.notifications {
+    border-bottom: 1px solid @clr-lightGray;
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 2px rgba(0, 0, 0, 0.3);
+        background-color: @clr-scrollBarBackground;
+    }
+    &::-webkit-scrollbar {
+        background-color: @clr-silver;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: @clr-PigeonPost;
+        border: 2px solid @clr-PigeonPost;
+    }
+    .row {
+        h5 {
+            color: @clr-black;
+        }
+        p {
+            color: @clr-black;
+            &.messageTimeReceived {
+                color: @clr-Horizon;
+            }
+        }
+        &:nth-child(2n+1) {
+            background: @clr-BackgroundLine;
+        }
+        &:hover {
+            background: @clr-Loblolly;
+        }
+        &.active {
+            border-left-color: @clr-yellow;
+        }
+        i {
+            color: @clr-black;
+        }
+    }
+}
+
+.initialSetup-main {
+    form {
+        .btnAdvOpt {
+            background: @clr-transparent;
+            color: @clr-black;
+        }
+    }
+} // backupIdentity  screen less
+.backupView-generate {
+    .generate-section-content {
+        &::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+            background-color: @clr-scrollBarBackground;
+        }
+        &::-webkit-scrollbar {
+            background-color: @clr-PigeonPost;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: @clr-PigeonPost;
+            border: 2px solid @clr-PigeonPost;
+        }
+        p {
+            color: @clr-black;
+        }
+    }
+    .generate-section-middle {
+        h4 {
+            color: @clr-black;
+        }
+        p.backup-phr-txt {
+            color: @clr-btnBackground;
+            border-color: @clr-black;
+        }
+        span {
+            color: @clr-black;
+        }
+        label {
+            color: @clr-black;
+        }
+        select {
+            color: @clr-black;
+            background: none;
+            option {
+                color: @clr-black;
+            }
+        }
+    }
+    .generate-section-bottom {
+        form {
+            .checkbox {
+                label {
+                    color: @clr-black;
+                }
+            }
+        }
+    }
+}
+
+.backupView-confirm {
+    .confirm-square {
+        background: @clr-blueDrk;
+        i {
+            color: @clr-greenPositive;
+        }
+    }
+    .confirm-message {
+        h3 {
+            color: @clr-black;
+        }
+        p {
+            color: @clr-black;
+        }
+    }
+    .confirm-section-content {
+        h3 {
+            color: @clr-black;
+        }
+        .divider {
+            border-color: @clr-silver;
+            i {
+                background: @clr-silver;
+                color: @clr-black;
+            }
+        }
+    }
+    .confirm-section-middle {
+        .confirm-list {
+            ul {
+                li {
+                    a {
+                        color: @clr-anchor;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.scrollableArea {
+    &::-webkit-scrollbar-track {
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+        background-color: @clr-scrollBarBackground;
+    }
+    &::-webkit-scrollbar {
+        background-color: @clr-silver;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: @clr-PigeonPost;
+        border: 2px solid @clr-PigeonPost;
+    }
+}
+
+.addSharedWalletMain {
+    h4{
+        color: @clr-black;
+    }
+    input[type="text"],
+    input[type="number"] {
+        border-bottom: 1px solid @clr-black;
+        color: @clr-black;
+        background-color: @clr-transparent;
+        &:focus {
+            border-bottom: 1px solid @clr-black;
+        }
+    }
+    .addressSection{
+        i{
+           color:@clr-anchor;
+        }
+    }
+    .ownersList{
+        h4{
+            color:@clr-btnBackground;
+        }
+        p{
+            color:@clr-black;
+        }
+        .row{
+            &.walletData{
+             &:hover{
+                 border-left:8px solid @clr-yellow;
+             }
+         }
+       }
+    }
+}

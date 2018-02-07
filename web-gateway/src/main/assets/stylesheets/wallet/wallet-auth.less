@@ -1,0 +1,1793 @@
+@import "lib/bootstrap/less/bootstrap.less";
+@import "lib/font-awesome/less/font-awesome.less";
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    font-size: 1em;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    font-family: "brandon-grotesque", sans-serif;
+    overflow: hidden;
+    height:100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+p {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 1em;
+}
+
+img {
+    max-width: 100%;
+    border: 0;
+}
+
+.clear {
+    clear: both;
+}
+
+//font-size variables
+@base-font: 13px;
+@base-font1: 14px;
+@base-font2: 16px;
+@base-font11: 11px;
+@base-font9: 9px;
+@base-font12: 12px;
+@base-font20: 12px;
+@base-font20: 20px;
+
+.wallet-main {
+    padding: 0;
+    margin: 0;
+    @media screen and (min-width: 500px) {
+        display: block;
+    }
+    .wallet-inner {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+}
+
+
+
+//welcome screen code
+.welcome-wallet {
+    // position: relative;
+    #myCarousel {
+        margin-top: 16px;
+        .carousel-indicators {
+            position: relative;
+            left:0;
+            margin-left: 0;
+            margin-top: 32px;
+            margin-bottom: 14px;
+            width:100%;
+            li {
+                pointer-events: none;
+                margin: 1px 20px;
+                &.active {
+                    margin: 1px 20px;
+                }
+        }
+        a {
+            display: none;
+        }
+    }
+       .carousel-inner {
+        height:79vh;
+        
+
+        &.scrollableArea{
+            overflow-y: overlay;
+            overflow-x: hidden;
+            width: 104%;
+
+            &::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            &::-webkit-scrollbar-thumb{
+                border: none !important;
+            }
+            @media only screen and (max-width:767px) and (min-width:421px){
+                    width: 102%;
+                    height:65vh;
+
+            }
+            @media only screen and (max-width:420px) and (min-width:414px){
+                height:80vh;
+                width: 103.7%;
+            }
+
+        }
+            .item {
+                .form-control{
+                    background: #1e1e1e;
+                    color: @clr-header;
+                    width: 70%;
+                    margin: 11.7% auto;
+                    border: none;
+                    border-radius: none;
+                    box-shadow: none;
+
+                    @media screen and (min-width: 480px) {
+                        margin: 4% auto;
+                    }
+                }
+                img{
+                    display: block;
+                    margin: 0 auto;
+                    height: 105px;
+                }
+                h4{
+                    margin: 2% 0;
+                    text-align: center;
+                }
+
+                p {
+                    text-align: left;
+                    font-size: 16px;
+                    margin: 0;
+                    padding: 0;
+
+                    @media screen and (max-width: 320px) {
+                        font-size: 14px;
+                    }
+                }
+
+                .itemSetup{
+                    margin-bottom: 10%;
+                    top:0;
+                    @media only screen and (min-width:667px) {
+                        margin-bottom: 2%;
+                    }
+                    @media screen and (max-width: 320px) {
+                        margin-bottom: 4%;
+                    }
+
+                    img{
+                        height: auto;
+                        @media screen and (min-width:667px){
+                            width: 150px;
+                            height: 150px;
+                        }
+                    }
+
+                    #imgRight{
+                        left:64% !important;
+                        @media screen and (max-width: 320px) {
+                            margin-top:14%;
+                        }
+                    }
+
+                    h4{
+                        margin: 2% 0;
+                        text-align: left;
+                    }
+
+                    p{
+                        padding-right:4%;
+                        padding-left:4%;
+                        color: @clr-header;
+                        @media screen and (max-width: 320px) {
+                            padding-right:5%;
+                            padding-left:5%;
+                        }
+                    }
+                }
+                .dg-wallet{
+                     .col-md-pull-2{
+                         @media screen and (min-width:1000px){
+                              right: 12%;
+                         }
+                         @media only screen and (max-width:999px) and (min-width:667px){
+                              right: 18%;
+                         }
+                     }
+                     p{
+                         @media screen and (min-width:1000px){
+                             padding-left:1%;
+                         }
+                         @media only screen and (max-width:999px) and (min-width:667px){
+                             padding-left:2%;
+                         }
+                     }
+
+                }
+            }
+        }
+   }
+    button.btn.btn-next {
+        float: right;
+        text-align: center;
+        text-transform: initial;
+        background: no-repeat;
+        border: 0;
+        font-size: @base-font1;
+        font-weight: normal;
+        margin-top: 50px;
+    }
+}
+
+
+
+//eula page less css
+.eula-main {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    .eula-topsection {
+        h3 {
+            margin: 0;
+            padding: 20px 0;
+            //font-size: @base-font2;
+            text-align: center;
+        }
+        p {
+            margin: 0;
+            padding: 20px 10px;
+            text-align: left;
+            font-size: @base-font2;
+            line-height: 20px;
+        }
+    }
+    .eula-accordion-section {
+        #accordion {
+            .panel-default {
+                border-radius: 0;
+                border: 0;
+                .panel-heading {
+                    cursor: pointer;
+                    display:flex;
+                    padding:10px;
+                      i{
+                           align-self: center;
+                           margin-left: 5px;
+                     }
+                    .panel-title {
+                        cursor: pointer;
+                        a {
+                            font-size: @base-font2;
+                            text-decoration: none;
+                            cursor: pointer;
+                            text-transparent:capitalize;
+                        }
+                    }
+                }
+                .panel-body {
+                    font-size: @base-font2;
+                    border: 0;
+                    overflow-y: auto;
+                    height: 20vh;
+                    background: #1e1e1e;
+                    color: @clr-header;
+                }
+            }
+        }
+    }
+    .eula-bottom-section {
+        padding: 10px 15px;
+        margin: auto;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        .row {
+            .btn {
+                font-size: @base-font;
+                margin: 0;
+                border-radius: 0;
+                outline: 0;
+                text-transform: uppercase;
+            }
+        }
+    }
+}
+
+
+// setTimeout css welcome and spalsh screen open
+.hideSplash {
+    display: none;
+}
+
+.showSplash {
+    display: block;
+}
+.container.main.showSplash.hideSplash {
+    display: none;
+}
+// setTimeout css welcome and spalsh screen closed
+
+
+
+// Bottom section UI code start here
+
+@clr-header: #b8b8b8;
+@color_2: #00aff0;
+@clr-transparent: transparent;
+@clr-red:#F00;
+
+.setup {
+    h3 {
+        color: @clr-header;
+        text-align: center;
+        margin-top: 10%;
+        margin-bottom: 8%;
+    }
+    h4 {
+        color: @clr-header;
+        text-align: left;
+        margin-left: 5%;
+        font-size:@base-font2;
+    }
+    #newAccountHeader {
+        margin-top: 15%;
+    }
+    #existingAccountHeader {
+        margin-top: 3%;
+        margin-bottom: 5%;
+        margin-left: 0;
+        font-size:@base-font2;
+    }
+    p {
+        color: @clr-header;
+        text-align: justify;
+        font-size:@base-font2;
+    }
+    label {
+        color: @clr-header;
+        font-size:@base-font2;
+    }
+    .radioChecks {
+        font-size: 20px;
+        margin-top: 6%;
+        margin-left: 5%;
+        label {
+            font-size:@base-font2;
+            font-weight: normal;
+        }
+    }
+
+    .form-check {
+        &:after{
+            clear: both;
+        }
+        &:before{
+            content: " ";
+            display: table;
+        }
+        margin-bottom: 7%;
+        label {
+            display: block;
+            margin-bottom: 0;
+            font-size:@base-font2;
+            label{
+                margin-top  : 15px;
+                font-size:@base-font2;
+            }
+        }
+        input {
+            /*flex: 0 0 auto;*/
+            margin: 0 10px 0 0;
+            vertical-align: middle;
+        }
+        span {
+            width:86%;
+            font-size:@base-font2;
+            float:left;
+        }
+        .form-check-input{
+            width:10%;
+           float:left;
+           margin-top: 5px;
+        }
+
+    }
+    .setConfirm {
+        width: 80%;
+    }
+    .setConfirmItem {
+        label {
+            font-size: @base-font2;
+            margin-left: 15%;
+            padding-top: 2%;
+        }
+        input[type="text"] {
+            margin-top: -21px;
+            width: 54%;
+            border: none;
+            border-bottom: 1px solid #b8b8b8;
+            color: @clr-header;
+            display: block;
+            font-size: 13px;
+            background-color: @clr-transparent;
+            text-decoration: none;
+            outline: none;
+            float: right;
+            &:focus {
+                border: none;
+                border-bottom: 1px solid #b8b8b8;
+                text-decoration: none;
+            }
+        }
+    }
+    footer {
+        position: fixed !important;
+        bottom: 3%;
+        right: 3%;
+    }
+
+    .btn.focus {
+        color: @color_2;
+    }
+    .btn {
+        &:focus {
+            color: @color_2;
+        }
+        &:hover {
+            color: @color_2;
+        }
+    }
+    .btn-advancedOptions {
+        position: relative;
+        text-decoration: none;
+        background-color: @clr-transparent;
+        border: none;
+        color: @color_2;
+        border-radius: 0;
+        padding: 0;
+        font-size:@base-font2;
+    }
+}
+
+
+.importAccount {
+    h4 {
+        color: #b8b8b8;
+        margin-left: 5%;
+        margin-top: 10%;
+        font-size:@base-font2;
+        @media screen and (max-width:767px) and (min-width:450px){
+            margin-top: 3%;
+        }
+    }
+    #impAccHeader {
+        margin-left: 0;
+        font-size:@base-font2;
+    }
+    .login-heading{
+        margin-left: 4%;
+    }
+    h4 i {
+        margin-left: 20px;
+        color: #00aff0;
+    }
+
+    h4 span input {
+        z-index: 999;
+        line-height: 0;
+        font-size: 50px;
+        position: absolute;
+        top: -2px;
+        left: -700px;
+        opacity: 0;
+        -ms-filter: "alpha(opacity=0)";
+        cursor: hand;
+        margin: 0;
+        padding: 0;
+    }
+
+    .file {
+        margin-top: 10%;
+        width: 70%;
+        @media screen and (max-width:767px) and (min-width:450px){
+            margin-top: 3%;
+        }
+    }
+
+    .file>p {
+        color: #b8b8b8;
+        margin-top: 2%;
+        margin-left: 8%;
+        word-wrap: break-word;
+    }
+
+    .account .form-group input {
+        border: none;
+        border-bottom: 1px solid #b8b8b8;
+        color: #b8b8b8;
+        font-size: 16px;
+        background-color: @clr-transparent;
+        text-decoration: none;
+        margin-top: 3%
+    }
+
+    .account input[type="text"]:focus {
+        border: none;
+        border-bottom: 1px solid #b8b8b8;
+        text-decoration: none;
+    }
+
+    footer {
+        position: fixed !important;
+        bottom: 3%;
+        right: 3%;
+    }
+    .account{
+          @media screen and (max-width:767px) and (min-width:450px){
+              margin-top:0;
+          }
+          h1{
+              @media screen and (max-width:767px) and (min-width:450px){
+                    margin-top:0;
+              }
+          }
+    }
+}
+
+
+
+
+ .main {
+     margin-top: 20%;
+     @media only screen and (max-width:1024px) and (min-width:1024px){
+          margin-top:15%;
+     }
+     @media only screen and (max-width:767px) and (min-width:500px){
+          margin-top:0;
+     }
+     text-align: center;
+     #confidential{
+        color: red;
+        margin-bottom:10%;
+        @media only screen and (max-width:767px) and (min-width:500px){
+              margin-bottom:3%;
+        }
+     }
+     img{
+         height: 24vh;
+         display: block;
+         margin: 0 auto;
+     }
+     h3{
+         color: @clr-header;
+         margin-top:10%;
+         @media only screen and (max-width:767px) and (min-width:500px){
+               margin-top:3%;
+         }
+     }
+     .networkOption{
+         margin-top:10%;
+         display: flex;
+         justify-content:space-evenly;
+         @media only screen and (max-width:767px) and (min-width:500px){
+              margin-top:3%;
+         }
+        p{
+            color: @clr-header;
+            font-size: 16px;
+            font-weight: normal;
+            align-self: center;
+         }
+         .form-control{
+            margin: 0;
+            background: #1e1e1e;
+            color: @clr-header;
+            width: 50%;
+            border: none;
+            box-shadow: none;
+            font-size: 16px;
+            font-weight: normal;
+        }
+     }
+
+     .btn {
+         margin-top: 10%;
+         float: none;
+         &.btnDefault{
+             text-transform: none;
+             margin-left: 0;
+
+             @media screen and (max-width: 320px) {
+                font-size:12px;
+                width: 90px;
+            }
+
+         }
+     }
+     .btnDefault-container{
+        border:0;
+     }
+ }
+
+
+// Bottom section UI end  start here
+
+
+ .btnDefault-container{
+    position: absolute;
+     left:0;
+     right:0;
+     bottom: 1.5%;
+     height: 45px;
+     width:100%;
+     display:flex;
+     justify-content: flex-end;
+ }
+
+.btn{
+    font-weight: normal;
+    float: right;
+    outline:none;
+    &::active{
+        outline:none;
+    }
+    &.btnPrevious{
+        background: #091b21;
+     }
+}
+
+.btnDefault{
+    text-align: center;
+    border: 0;
+    font-size: 16px;
+    font-weight: normal;
+    margin-top: 10px;
+    transition: 0.3s;
+    padding-right: 0;
+    padding-left: 0;
+    outline: none !important;
+    text-transform: initial;
+     @media only screen and (max-width: 1150px) and (min-width: 768px){
+         font-size:16px;
+     }
+     @media only screen and (max-width: 767px) and (min-width: 500px){
+             margin-top:6px;
+     }
+     @media screen and (min-width:500px){
+             padding:6px 15px;
+     }
+     @media screen and (max-width:414px){
+         font-size:16px;
+         width: 108px;
+        
+     }
+     @media screen and (max-width:412px){
+       font-size:16px;
+       width: 108px;
+      
+     }
+     @media screen and (max-width:380px){
+         font-size:14px;
+         width: 90px;
+         
+     }
+     @media screen and (max-width:320px){
+        font-size:12px;
+         width: 75px;
+     }
+
+    &:hover{
+        transform: scale(1.05);
+     }
+     &.decline{
+        &:hover{
+            transform: scale(1.05);
+        }
+    }
+
+    &.goupButton{
+        margin-right: .6vh;
+        margin-left: .6vh;
+
+        @media screen and (max-width:414px){
+            margin-right: .4vh;
+            margin-left: .4vh;
+        }
+        @media screen and (max-width:412px){
+          margin-right: .4vh;
+          margin-left: .4vh;
+        }
+        @media screen and (max-width:380px){
+            margin-right: .4vh;
+            margin-left: .4vh;
+        }
+        @media screen and (max-width:360px){
+            margin-right: .4vh;
+            margin-left: .4vh;
+        }
+        @media screen and (max-width:320px){
+            margin-right: .6vh;
+            margin-left: .6vh;
+        }
+    }
+}
+
+
+.alert {
+margin-top: 20px;
+}
+
+.info {
+margin-top: 5px;
+font-size: @base-font2;
+color: #b8b8b8;
+
+}
+
+div.help-block.with-errors {
+margin-left: 12px;
+}
+
+.margin{
+margin-left: 12px !important;
+margin-top: 12px !important;
+}
+
+.email_field{
+display:none;
+}
+
+.app-download {
+text-align: right;
+margin-top: 10px;
+font-size:@base-font1;
+text-align: right;
+}
+
+.app-link {
+margin-left: 12px;
+font-size:@base-font1;
+}
+
+.dowloaded-apk-section{
+    .dowloaded-apk-link-section{
+        display:block;
+        width:100%;
+        text-align: center;
+    }
+    .getstarted {
+        display:inline-block;
+        width:100%;
+        margin-top:10px;
+        button{
+            background: #0096c3;
+            border: 0;
+            text-align: center;
+            text-transform: capitalize;
+            color: #fff;
+            font-size:@base-font1;
+            padding: 6px 12px;
+            margin:0 auto;
+            line-height: 1.42857143;
+            border-radius: 4px;
+        }
+    }
+}
+
+.download-apk{
+    display: none;
+    @media screen and (min-width: 768px) {
+        display: block;
+    }
+}
+
+
+fieldset.col-md-6.col-md-offset-3 {
+    .btnDefault-container {
+        border: 0;
+    }
+    .btn{
+        margin-left:10px;
+    }
+}
+
+.initialSetup-password{
+    margin-top: 5%;
+
+    h4 {
+        margin: 0;
+        line-height: 1.42857143;
+        padding: 0;
+        font-size: 16px;
+        color:#B8B8B8;
+        @media screen and (max-width: 320px) {
+            font-size: 14px;
+        }
+
+        &#messageError{
+            margin-top:5%;
+            color: red;
+            display: none;
+        }
+      }
+
+    input[type="password"] {
+        width: 100%;
+        padding:0;
+        margin-top:5%;
+        border: none;
+        border-bottom: 1px solid #b8b8b8;
+        border-radius:0;
+        box-shadow: none;
+        color: @clr-header;
+        display: block;
+        font-size: 14px;
+        background-color: @clr-transparent;
+        text-decoration: none;
+        outline: none;
+        &:focus {
+            border: none;
+            border-bottom: 1px solid #b8b8b8;
+            text-decoration: none;
+        }
+    }
+
+}
+
+// InitialSetup screen less start here
+.initialSetup-main {
+   display: none;
+ 
+  color: #B8B8B8;
+  .initialSetup-inner {
+    margin-top: 5%;
+    #errorMessage{
+        display: none;
+        color:red;
+        font-size: 16px;
+        @media screen and (max-width: 320px) {
+            font-size: 14px;
+        }
+    }
+    .accountNameSection{
+        margin-bottom:2%;
+        input[type="text"] {
+            margin:3% 0;
+            padding-left:12px;
+            padding-bottom: 10px; 
+            width: 90%;
+            border: none;
+            border-bottom: 1px solid #b8b8b8;
+            color: @clr-header;
+            display: block;
+            font-size: 16px;
+            background-color: @clr-transparent;
+            text-decoration: none;
+            outline: none;
+            &:focus {
+                border: none;
+                border-bottom: 1px solid #b8b8b8;
+                text-decoration: none;
+            }
+        }
+    }
+    
+    .radio {
+      font-size: 16px;
+      @media screen and (max-width: 320px) {
+        font-size: 14px;
+    }
+      margin-top: 0;
+      p {
+        margin-top: 2%;
+        margin-left: 5%;
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        &#id {
+          margin-bottom: 2%;
+        }
+      }
+      a {
+        font-size: 16px;
+        margin-left: 5%;
+        background: transparent;
+        color: #00AFF0;
+      }
+
+      input[type="radio"] {
+        padding: 5px 0;
+        background: #00AFF0;
+      }
+
+      .form-control {
+        width: 85%;
+        margin-left: 5%;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        background: #1E1E1E;
+        color: #B8B8B8;
+        resize: none;
+
+      }
+      &.radio-top{
+        margin-top:0;
+      }
+    }
+    .btnAdvOpt {
+      margin: 3% 0;
+      border: none;
+      padding: 10px 0;
+      outline: none;
+      float: none;
+      background: transparent;
+      color: #0096c3;
+      display: block;
+      text-align: left;
+      font-size:16px;
+      font-weight: bold;
+      cursor: pointer;
+      &.active {
+        i.fa.fa-chevron-down {
+          &:before {
+            content: "\f077";
+          }
+        }
+      }
+      &.collapsed.active {
+        i.fa.fa-chevron-down {
+          &:before {
+            content: "\f078";
+          }
+        }
+      }
+    }
+    .existingIdOptions {
+      margin-left: 5%;
+      input[type="file"] {
+        display: none;
+      }
+    }
+    #getInfoModal {
+      .modal-popup-input {
+        border: none;
+        border-bottom: 1px solid #b8b8b8;
+        color: #B8B8B8;
+        font-size: @base-font1;
+        background-color: transparent;
+        text-decoration: none;
+        margin-top: 0;
+        outline: none;
+      }
+      .container {
+        width: 100%;
+        div#file_field{
+            padding-left:0;
+        }
+      }
+      .modal-content {
+        h5 {
+          margin: 0;
+          line-height: 1.42857143;
+          padding: 0 15px;
+          font-size: @base-font1;
+          color:#B8B8B8;
+        }
+        h4 {
+          margin: 0;
+          line-height: 1.42857143;
+          padding: 0;
+          font-size: @base-font1;
+          color:#B8B8B8;
+        }
+        input {
+          outline: none;
+           color:#B8B8B8;
+        }
+        .info {
+          margin-top: 5px;
+          font-size: @base-font1;
+          color:#B8B8B8;
+          margin-bottom:10px;
+        }
+      }
+    }
+  }
+}
+
+// InitialSetup screen less end here
+
+
+//canvas
+.img-userIcon canvas{
+    height: 30px;
+    margin-top: 9%;
+    position: relative;
+    right: 7px;
+    border-radius: 20px;
+    @media screen and (max-width:480px){
+        margin:0;
+    }
+}
+
+
+
+// backupIdentity middle screen less start here
+ .backupView-main{
+    .backupView-start{
+        margin-top: 2%;
+        margin-right:4%;
+        @media screen and (min-width:500px){
+            margin-right:0;
+        }
+        p{
+            font-size: 16px;
+            color: #B8B8B8;
+           @media only screen and (max-width:767px) and (min-width:500px){
+                padding-right:10px;
+           }
+           &.warning{
+               color: #F00;
+           }
+        }
+        ul{
+            li{
+                list-style:disc;
+                margin-left:6%;
+                margin-bottom:3%;
+                font-size: 16px;
+                color: #B8B8B8;
+                @media screen and (min-width:421px){
+                    margin-left:20px;
+                    margin-bottom: 10px;
+                }
+                @media screen and (max-width:320px){
+                    font-size: 14px;
+                }
+            }
+        }
+        @media screen and (max-width:320px){
+        height:79vh;
+        overflow: scroll;
+        p{
+                font-size: 14px;
+            }
+        }
+    }
+    p{
+        font-size: 16px;
+        font-weight: normal;
+        margin-bottom:3%;
+        &#errorMessage{
+            color:red;
+            margin-bottom:0;
+        }
+    }
+  }
+// backupIdentity middle screen less end here
+
+
+
+// backupIdentity screen less start here
+  .backupIdentity-header {
+      height: 14vh;
+      width: 108%;
+      margin-left: -4%;
+      border-bottom: 1px solid  #B8B8B8;
+      @media only screen and (max-width: 1400px) and (min-width:1025px){
+          height: 20vh;
+      }
+      @media screen and (min-width:768px){
+          width: 100%;
+          margin-left: 0;
+      }
+      @media only screen and (max-width: 767px) and (min-width:500px){
+          height: 22vh;
+          margin-left: -6%;
+      }
+      ul {
+          margin-top: 4%;
+          margin-left: 13%;
+          text-align: center;
+          @media screen and (min-width:768px){
+               margin-top: 2.5%;
+          }
+          @media only screen and (max-width: 767px) and (min-width:700px){
+               margin-top: 1.5%;
+          }
+          @media only screen and (max-width: 699px) and (min-width:650px){
+              margin-top: 1%;
+          }
+          @media only screen and (max-width: 640px) and (min-width:500px){
+              margin-top: 0.5%;
+          }
+          @media screen and (max-width:360px){
+              margin-top: 2%;
+          }
+          @media screen and (max-width:320px){
+              margin-top: 4%;
+          }
+          li {
+              display: inline-block;
+              border-radius: 100%;
+              width: 50px;
+              height: 50px;
+              margin-right: 15%;
+              background-color: #1A1A1A;
+              @media only screen and (max-width: 599px) and (min-width:500px){
+                    width: 35px;
+                    height: 35px;
+              }
+              @media screen and (max-width:320px){
+                    width: 30px;
+                    height: 30px;
+                    margin-right: 20%;
+              }
+              i {
+                  font-size: 35px;
+                  margin-top: 5px;
+                  color: #000;
+                  @media only screen and (max-width: 599px) and (min-width:500px){
+                       font-size:22px;
+                  }
+                  @media screen and (max-width:360px){
+                        margin-top: 7px;
+                  }
+                  @media screen and (max-width:320px){
+                        font-size: 18px;
+                  }
+              }
+              p{
+                margin-top: 15px;
+                margin-left: -5px;
+                font-size: 16px;
+                color: #B8B8B8;
+                @media screen and (max-width:320px){
+                    font-size: @base-font;
+                }
+              }
+              &.passed{
+                  background-color: #09a755;
+              }
+          }
+      }
+      .line1 {
+          width: 12%;
+          position: absolute;
+          height: 2px;
+          bottom: 63%;
+          left: 32%;
+          background-color: #1A1A1A;
+          @media screen and (min-width:1025px){
+              bottom: 44%;
+              left: 37%;
+              width: 10%;
+          }
+          @media only screen and (max-width:1024px) and (min-width:768px){
+              bottom: 55%;
+              left: 36%;
+              width: 10%;
+          }
+          @media only screen and (max-width: 767px) and (min-width:500px){
+              left: 35%;
+              width:10%;
+          }
+          @media screen and (max-width:420px){
+              width: 10%;
+              bottom: 55%;
+              left: 33%
+          }
+          @media screen and (max-width:360px){
+              width: 10%;
+              bottom: 63%;
+              left: 32%;
+          }
+          @media screen and (max-width:320px){
+              left: 29%;
+              width:12%;
+          }
+      }
+      .line2 {
+        width: 12%;
+        position: absolute;
+        height: 2px;
+        bottom: 63%;
+        left: 56%;
+        background-color: #1A1A1A;
+        @media screen and (min-width:1025px){
+             bottom: 45%;
+             left: 53%;
+             width: 10%;
+       }
+       @media only screen and (max-width:1024px) and (min-width:768px){
+             bottom: 55%;
+             left: 54%;
+             width: 10%;
+       }
+       @media only screen and (max-width: 767px) and (min-width:500px){
+             left: 55%;
+             width:10%;
+       }
+       @media screen and (max-width:420px){
+             width: 10%;
+             bottom: 55%;
+             left: 57%
+       }
+       @media screen and (max-width:360px){
+             width: 10%;
+             bottom: 63%;
+             left: 58%;
+       }
+       @media screen and (max-width:320px){
+             left: 55%;
+             width:12%;
+       }
+    }
+  }
+
+  // backupIdentity  screen less end here
+
+
+
+  // backupView generate  screen less start here
+ .backupView-generate{
+     margin-top:2%;
+     margin-right:4%;
+     display:none;
+     @media screen and (min-width:500px){
+         margin-right:0;
+     }
+     .generate-section-content{
+         &::-webkit-scrollbar-track
+          {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #171717;
+          }
+
+          &::-webkit-scrollbar
+          {
+            background-color: #171717;
+          }
+
+          &::-webkit-scrollbar-thumb
+          {
+            background-color: #393939;
+            border: 2px solid #393939;
+          }
+         @media screen and (max-width:320px){
+             margin-bottom: 5%;
+             overflow: auto;
+             &::-webkit-scrollbar {
+                 width: 8px;
+             }
+         }
+         p{
+             color:#B8B8B8;
+         }
+     }
+     .generate-section-middle{
+         margin: 10px 0 0;
+         .mnemonicLangage{
+             padding-bottom: 4%;
+             @media screen and (min-width:768px){
+                padding-bottom: 1%;
+             }
+         }
+         h4{
+             margin:0 0 10px;
+             padding:0;
+             font-size:@base-font2;
+             font-weight:normal;
+             color:#B8B8B8;
+         }
+         p.backup-phr-txt{
+             margin:0 0 10px;
+             padding:10px;
+             font-size:18px;
+             font-weight:600;
+             color: #0096c3;
+             border-color:transparent;
+             background: #1A1A1A;
+                  @media only screen and (max-width:640px) and (min-width:500px){
+                         margin-right:2%;
+                  }
+             p{
+                 color: #0096c3;
+                 font-weight:600;
+             }
+         }
+         span{
+             margin:0;
+             padding:0;
+             font-size:@base-font12;
+             font-weight:normal;
+             color: #B8B8B8;
+             @media screen and (max-width:380px){
+                 text-overflow: ellipsis;
+                 white-space: nowrap;
+                 overflow: hidden;
+             }
+         }
+         label{
+             margin: 0;
+             font-size:@base-font2;
+             font-weight:normal;
+             color: #B8B8B8;
+         }
+         select{
+             margin-top: 0.5%;
+             padding-right:0;
+             padding-left:0;
+             margin-left: -12%;
+             font-size:@base-font2;
+             font-weight:normal;
+             border:0;
+             display:block;
+             color:#fff;
+             outline:none;
+                 option{
+                     margin:0;
+                     padding:0;
+                     color:#000;
+                 }
+             @media screen and (min-width:421px){
+                 margin-top:0;
+                 width:20%;
+             }
+             @media screen and (max-width:320px){
+                 margin-left: -10%;
+             }
+         }
+     }
+     .generate-section-bottom{
+         form{
+             position: absolute;
+             left: 5px;
+             width: 70%;
+             top: 0;
+             @media only screen and (max-width:1024px) and (min-width:667px){
+                 padding-left:15 px;
+             }
+             .checkbox{
+                 label{
+                     font-size:14px;
+                     font-weight:normal;
+                     padding-left: 40px;
+                     line-height: 14px;
+                     color: #B8B8B8;
+                     @media screen and (max-width:320px){
+                         font-size:13px;
+                     }
+                 }
+                 input{
+                     height: 20px;
+                     width: 20px;
+                     margin-left: -30px;
+                     margin-top: 3px;
+                     @media screen and (min-width:667px){
+                         margin-top:-3px;
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+// backupView generate  screen less end here
+
+
+// backupView phrase  screen less start here
+.backupView-phrase{
+    display: none;
+    margin-top:2%;
+    margin-right:4%;
+    @media screen and (min-width:500px){
+        margin-right:0;
+    }
+h3{
+    font-size: 16px;
+    color: #B8B8B8;
+font-weight: normal}
+    .backupPhrase-section{
+        margin-right:0;
+        .backupPhrase-container{
+            padding-right: 0;
+            margin-top: 3%;
+            border:none;
+            border-radius:0;
+            height:25vh;
+            background: #1E1E1E;
+            overflow-y: scroll;
+            @media screen and (min-width:768px){
+                height:40vh;
+                margin-top: 1%;
+            }
+            @media only screen and (max-width:767px) and (min-width:500px){
+                height:50vh;
+            }
+
+            &::-webkit-scrollbar-track{
+                background-color: #1e1e1e;
+            }
+            &::-webkit-scrollbar {
+                width: 8px;
+                //background-color: #B8B8B8;
+            }
+            &::-webkit-scrollbar-thumb{
+                background-color: #393939;
+                border: 2px solid #393939;
+            }
+            p{
+                display: grid;
+                align-items: center;
+                margin-top: 1.3%;
+                margin-left:2.3%;
+                margin-right: 0;
+                margin-bottom:1%;
+                text-align: center;
+                width:31%;
+                height:20%;
+                @media screen and (min-width:768px){
+                    padding:10px;
+                }
+                @media screen and (min-width:500px){
+                    height:auto;
+                }
+            }
+        }
+    }
+    ul{
+        margin-top:0;
+        li{
+            display: grid;
+            align-items:center;
+            float:left;
+            width: 32.3%;
+            height:40px;
+            margin-left:0.5%;
+            margin-right:0.5%;
+            margin-top: 5%;
+            text-align: center;
+            font-size:16px;
+            color: #1E1E1E;
+            background: #B8B8B8;
+            &.disabled {
+                opacity:0.2;
+            }
+            @media screen and (min-width:768px){
+                padding:10px;
+            }
+            @media screen and (min-width:500px){
+                width: 32%;
+                height: auto;
+                margin-top: 1%;
+            }
+            @media screen and (max-width:320px){
+                font-size:14px;
+            }
+        &::first-child{
+            margin-left:0;
+        }
+
+        &::nth-child{
+            margin-left:0;
+            margin-right:0;
+        }
+     }
+    }
+
+    #errorMessage{
+        visibility: hidden;
+    }
+}
+// backupView phrase  screen less end here
+
+
+
+// backupView confirm  screen  start here
+.backupView-confirm{
+    display:none;
+    margin-top:2%;
+    margin-right:4%;
+    @media screen and (min-width:500px){
+         margin-right:0;
+    }
+    .confirm-square{
+        height:20vh;
+        background: #164382;
+        position:relative;
+        @media only screen and (max-width:767px) and (min-width:500px){
+            height:30vh;
+            margin-right:15px;
+        }
+        i{
+            width:100%;
+            text-align:center;
+            font-size:70px;
+            color: #09a755;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            height: 70px;
+            margin: auto;
+        }
+    }
+
+    .confirm-message{
+        margin-top: 5%;
+        @media screen and (min-width:421px){
+            margin-top:15px;
+        }
+        h3{
+            text-align: center;
+            color: #B8B8B8;
+        }
+        p{
+            font-size: 16px;
+            margin-top: 5%;
+            color: #B8B8B8;
+            @media screen and (min-width:421px){
+                margin:15px 0;
+            }
+        }
+    }
+    .confirm-section-content{
+        h3{
+            margin:0 0 10px;
+            padding:0;
+            font-size:@base-font2;
+            font-weight:400;
+            text-transform:capitalize;
+            text-align:center;
+            color:#B8B8B8;
+        }
+        .divider{
+            margin:30px 0;
+            border-top:2px solid;
+            height:2px;
+            position:relative;
+            border-color:#B8B8B8;
+            i{
+                position:absolute;
+                right:0;
+                top:-18px;
+                font-size:@base-font20;
+                padding: 5px 10px;
+                background: #B8B8B8;
+                color: #000;
+            }
+        }
+
+    }
+    .confirm-section-middle{
+        .confirm-list{
+             ul {
+                width: 33.33%;
+                float: left;
+                text-align: center;
+                li{
+                    a{
+                        font-size:@base-font2;
+                        font-weight:600;
+                        text-transform:capitalize;
+                        padding:5px 0;
+                        margin:0;
+                        display:block;
+                        color:#337ab7;
+                    }
+                }
+             }
+        }
+    }
+}
+// backupView confirm  screen end here
+
+
+// termsofservice  screen  less start  here
+.termsofservice-main{
+    .termsofservice-section{
+        margin-right:4%;
+        p{
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 5%;
+            color:#B8B8B8;
+            @media screen and (min-width:500px){
+               margin-top:2%
+            }
+            @media screen and (max-width:320px){
+                font-size:14px;
+            }
+        }
+        h1{
+           font-size:20px;
+           margin-top:5%;
+           @media screen and (min-width:500px){
+               margin-top:2%
+           }
+
+        }
+        h4{
+            margin-top: 5%;
+            color: #B8B8B8;
+            font-weight: 600;
+            @media screen and (min-width:500px){
+               margin-top:2%
+            }
+        }
+
+    }
+
+}
+
+// termsofservice  screen  less start  here
+
+
+.amtAddressContainer{
+    word-wrap: break-word;
+    width: 66%
+}
+
+.scrollableArea{
+    height:79vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 104%;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb{
+        border: none !important;
+    }
+
+    @media screen and (min-width:360px){
+        height:81vh;
+        width: 104.2%;
+    }
+    @media screen and (min-width:375px){
+        height:82vh;
+        width: 104.2%;
+    }
+    @media screen and (min-width:412px){
+        height:81.6vh;
+        width: 104%;
+    }
+    @media screen and (min-width:414px){
+        height:80vh;
+        width: 103.7%;
+    }
+    @media screen and (min-width:667px){
+        width: 100%;
+    }
+    @media only screen and (max-width:760px) and (min-width:650px){
+        height: 68vh;
+        width:100%;
+    }
+    @media only screen and (max-width:640px) and (min-width:500px){
+        height: 68vh;
+        width:102%;
+    }
+    &.backup-identity{
+         @media only screen and (max-width:760px) and (min-width:700px){
+            height: 46vh;
+         }
+         @media only screen and (max-width:699px) and (min-width:600px){
+            height: 43vh;
+         }
+         @media only screen and (max-width:599px) and (min-width:500px){
+            height: 38vh;
+         }
+         @media screen and (max-width: 412px){
+            height: 65vh;
+         }
+         @media screen and (max-width: 320px){
+            height: 60vh;
+         }
+    }
+}
+
+.loading-img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30vh;
+    bottom: 0;
+    margin: auto;
+    z-index:10
+}
+
+.warn-text{
+    color: #f00;
+    font-size: 16px;
+    width: 100%;
+    text-align: center;
+    margin-top: 44px;
+    font-weight: 800;
+ }
+
+ // top header less start here
+.wallet-inner-navigation {
+     margin: 0 -14px;
+     padding: 15px 14px;
+     border-bottom: 1px solid #393939;
+     .wallet-information {
+         text-align: center;
+         position: relative;
+         margin:0;
+         @media screen and (min-width:667px){
+             margin: 0;
+         }
+         h2 {
+
+             margin: 0;
+             padding: 0 0 5px;
+             font-size: @base-font1;
+             font-weight: bold;
+             color: #B8B8B8;
+         }
+         h3 {
+             margin: 0;
+             padding: 0;
+             font-size: @base-font1;
+             font-weight: normal;
+             color: #B8B8B8;
+         }
+     }
+ }
+ // top header less end here
+
+
+ // login form main css start here
+ .login-main{
+     @media screen and (min-width:1025px){
+        width: 40%;
+        margin: 0 auto;
+     }
+     @media only screen and (max-width:1024px) and (min-width:768px){
+         width: 80%;
+         margin: 0 auto;
+     }
+     .not_signup{
+         margin-top: 15px;
+         margin-right: 15px;
+         @media screen and (max-width:360px){
+            margin-right: 5px;
+         }
+     }
+ }
+ // login form main css end here
+
+
+ .notAlpha{
+    display: none !important;
+}
+.notAlphaV{
+    visibility: hidden !important;
+}

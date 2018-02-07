@@ -1,0 +1,220 @@
+@()(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+@import helper._
+@import b3.inline.fieldConstructor
+
+@moreScripts = {
+
+<script src="@routes.Assets.versioned("javascripts/wallet/ethereumjs-wallet-0.6.0.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/wallet/lightWallet/lightwallet.js")"></script>
+<script src="@routes.Assets.versioned("javascripts/wallet/ubunda-wallet-auth.js")"></script>
+<script type="text/javascript" src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))"></script>
+<script src="@routes.WebJarAssets.at(webJarAssets.fullPath("github-com-1000hz-bootstrap-validator","dist/validator.min.js"))"></script>
+}
+
+@moreStylesheets = {
+<!--<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/wallet/wallet-landing.min.css")">-->
+}
+
+@walletMain(Messages("wallet"), false, moreStyleSheets = moreStylesheets, moreScripts = moreScripts)  {
+<fieldset>
+    <div class="wallet-inner-navigation">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="wallet-information">
+                    <h2>Wallet</h2>
+                    <h3>Create new account</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Password -->
+    <div class="initialSetup-password">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h4>Please create the password that will be used to unlock the ubunda application.
+                    This password will also be used to locally encrypt the application.
+                    Your password must be at least 4 characters long.</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <input id="txtPassword" class="form-control" type="password" placeholder="Enter your password" />
+                <input id="txtPasswordConfirm" class="form-control" type="password" placeholder="Confirm your password" />
+                <h4 id="messageError"></h4>
+            </div>
+        </div>
+        <div class="container btnDefault-container container-NoBorder">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button id="btnSetPassword" type="button" class="btn btnDefault goupButton">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--registration screen -->
+
+    <div class="initialSetup-main scrollableArea">
+        <div class="initialSetup-inner">
+            <div class="starter-template row">
+                @request.flash.get("error").map { msg =>
+                <div class="col-md-6 col-md-offset-3 alert alert-danger">
+                    <a href="javascript:void(0)" class="close" data-dismiss="alert">&times;</a>
+                    <strong>@Messages("error")</strong> @msg
+                </div>
+                } @request.flash.get("info").map { msg =>
+                <div class="col-md-6 col-md-offset-3 alert alert-info">
+                    <a href="javascript:void(0)" class="close" data-dismiss="alert">&times;</a>
+                    <strong>@Messages("info")</strong> @msg
+                </div>
+                } @request.flash.get("success").map { msg =>
+                <div class="col-md-6 col-md-offset-3 alert alert-success">
+                    <a href="javascript:void(0)" class="close" data-dismiss="alert">&times;</a>
+                    <strong>@Messages("success")</strong> @msg
+                </div>
+                }
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 accountNameSection">
+                    <h4>Account name</h4>
+                    <input id="accountName" type="text" />
+                </div>
+            </div>
+            <div class="radio radio-top">
+                <label>
+                    <input type="radio" id="newId" name="initialIdentifier" value="on" checked="checked">
+                    <!-- react-text: 64 -->Create a new account
+                    <!-- /react-text -->
+                </label>
+                <!-- <p>account address has been created for you:</p> -->
+                <!-- <p id="id" class="ellipseText">0x12345678901234567890123456789012345678901234567890</p> -->
+            </div>
+            <button id="btnAdvOpt" type="button" data-toggle="collapse" data-target="#advOpt" class="btn btnAdvOpt">
+                <!-- react-text: 68 -->Advanced
+                <!-- /react-text -->
+                <i aria-hidden="true" class="fa fa-chevron-down"></i>
+            </button>
+            <div id="advOpt" class="collapse">
+                <div class="radio">
+                    <label>
+                        <input type="radio" id="existingId" name="initialIdentifier" value="on">
+                        <!-- react-text: 74 -->Use existing account:
+                        <!-- /react-text -->
+                    </label>
+                </div>
+                <div class="existingIdOptions">
+                    <div class="radio">
+                        <label>
+                            <input id="passPhrase" type="radio" name="initialIdentifierExisting" disabled="" data-toggle="collapse" data-target="#passphraseText"
+                                   value="on">
+                            <!-- react-text: 89 -->Mnemonic phrase
+                            <!-- /react-text -->
+                        </label>
+                        <div id="passphraseText" class="collapse">
+                            <textarea id="passphraseTxt" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input id="privateKey" type="radio" name="initialIdentifierExisting" disabled="" data-toggle="collapse" data-target="#privateKeyText"
+                                   value="on">
+                            <!-- react-text: 95 -->Private key
+                            <!-- /react-text -->
+                        </label>
+                        <div id="privateKeyText" class="collapse">
+                            <textarea id="privateKeyTexta" rows="1" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input id="keyStoreJson" type="radio" name="initialIdentifierExisting" disabled="" data-toggle="collapse" data-target="#jsonText"
+                                   value="on">
+                            <!-- react-text: 83 -->Keystore text (UTC / JSON)
+                            <!-- /react-text -->
+                        </label>
+                        <div id="jsonText" class="collapse">
+                            <textarea id="jsonTxt" rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="radio">
+                        <label>
+                            <input id="keyStoreFile" type="radio" name="initialIdentifierExisting" disabled="" value="on">
+                            <!-- react-text: 79 -->Keystore file (UTC / JSON)
+                            <!-- /react-text -->
+                        </label>
+                    </div>
+                    <div class="radio">
+                            <label>
+                                <input id="sharedWallet" type="radio" name="initialIdentifierExisting" disabled="" data-toggle="collapse" data-target="#shrdWallet"
+                                value="on">
+                                <!-- react-text: 79 -->Join shared wallet
+                                <!-- /react-text -->
+                            </label>
+                            <div id="shrdWallet" class="collapse">
+                                <textarea id="sharedWalletKeyText" rows="1" class="form-control"></textarea>
+                            </div>
+                        </div>
+                    <div class="radio notAlpha">
+                        <label>
+                            <input id="web3Provider" type="radio" name="initialIdentifierExisting" disabled="" value="on">
+                            <!-- react-text: 101 -->Web3 provider (Mist, Metamask, Parity, etc.)
+                            <!-- /react-text -->
+                        </label>
+                    </div>
+                    <div class="radio notAlpha">
+                        <label>
+                            <input id="ledgerWallet" type="radio" name="initialIdentifierExisting" disabled="" value="on">
+                            <!-- react-text: 105 -->Ledger hardware wallet
+                            <!-- /react-text -->
+                        </label>
+                    </div>
+                </div>
+                <div class="radio notAlpha">
+                    <label>
+                        <input type="radio" id="restoreApp" name="initialIdentifier" value="on">
+                        <!-- react-text: 109 -->Restore entire application from backup
+                        <!-- /react-text -->
+                    </label>
+                </div>
+            </div>
+            <p id="errorMessage"></p>
+            <div class="container btnDefault-container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                        <button id="setSelectedItem" data-toggle="modal" data-target="#myModal" type="button" class="btn btnDefault">Next</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Modal Header</h4>
+        </div>
+        <div class="modal-body">
+            <input id="keyStorePassword" class="form-control" type="password" placeholder="Enter your password" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" id="setUpbtnNext" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</fieldset>
+}
