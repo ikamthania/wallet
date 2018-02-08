@@ -21,7 +21,7 @@
                 <h4 id="impAccHeader" class="login-heading">@Messages("log.in.credentials")</h4>
             </div>
         </div>
-       @helper.form(action = controllers.api.v1.wallet.auth.routes.WalletAuthController.walletLogin(),Symbol("data-toggle")-> "validator") {
+       @helper.form(action = controllers.api.v1.wallet.routes.WalletController.dummy(),Symbol("data-toggle")-> "validator") {
     @helper.CSRF.formField@helper.CSRF.formField
     <div class="starter-template row">
         @request.flash.get("error").map { msg =>

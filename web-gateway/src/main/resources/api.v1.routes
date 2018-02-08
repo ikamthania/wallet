@@ -3,6 +3,8 @@
 
 ### Mobile API
 
+
+
 POST        /wallet/mobile/auth/signup                                  controllers.api.v1.wallet.auth.MobileWalletController.signup()
 GET        /wallet/mobile/auth/login                                    controllers.api.v1.wallet.auth.MobileWalletController.walletLogin()
 POST       /wallet/mobile/walletapp                                     controllers.api.v1.wallet.auth.MobileWalletController.walletApp()
@@ -16,3 +18,7 @@ GET        /wallet/mobile/language/:lang                                controll
 GET        /wallet/mobile/status/:txnHash                               controllers.api.v1.wallet.MobileApiWalletController.mobileGetTransactionStatus(txnHash:String)
 POST        /wallet/mobile/:publicKey/nonce                              controllers.api.v1.wallet.MobileApiWalletController.mobileGetNonce(publicKey:String)
 POST       /wallet/mobile/signedTxn                                     controllers.api.v1.wallet.MobileApiWalletController.mobileSendTransaction()
+
+## adding a dummy route for twirl template actions
+
+POST       /wallet/dummy                                                controllers.api.v1.wallet.WalletController.dummy()

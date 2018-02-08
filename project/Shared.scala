@@ -47,7 +47,9 @@ object Shared {
 
   lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).settings(commonSettings: _*).settings(
     libraryDependencies ++= Seq(
-      "com.chuusai" %%% "shapeless" % SharedDependencies.shapelessVersion
+      "com.chuusai" %%% "shapeless" % SharedDependencies.shapelessVersion,
+      SharedDependencies.macwire,
+      "org.scalatest" %%% "scalatest" % SharedDependencies.scalaTestVersion % "test"
     )
   )
     .jvmSettings(

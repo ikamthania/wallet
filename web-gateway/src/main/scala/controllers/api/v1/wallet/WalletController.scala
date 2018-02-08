@@ -60,5 +60,10 @@ class WalletController(
     )
   }
 
+  def dummy() = Action.async { implicit request =>
+    log.debug("in dummy")
+    Future(Ok)
+  }
+
 }
 

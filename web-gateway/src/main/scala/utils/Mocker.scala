@@ -1,6 +1,5 @@
 package utils
 
-import com.livelygig.product.shared.models._
 import com.livelygig.product.shared.models.wallet.{CoinExchange, CurrencyList, ERC20ComplientToken, Transaction}
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.{CloseableHttpClient, HttpClients}
@@ -12,53 +11,6 @@ import play.api.libs.json.Json
  */
 trait Mocker extends AppLogger {
   val mockdataLocation: String = ""
-  def getMockNotificationsResponse = {
-    try {
-      val mock = scala.io.Source.fromFile(s"${mockdataLocation}/notifications.json", "utf-8").mkString
-      Json.parse(mock).validate[Seq[NotificationResponse]]
-        .asEither match {
-          case Left(err) =>
-            log.error(err.toString())
-            Nil
-          case Right(res) =>
-            res
-        }
-    } catch {
-      case e: Exception =>
-        log.error(s"Error in loading mock file at ${mockdataLocation}/notifications.json")
-        Nil
-    }
-  }
-
-  def getMockConnectionResponse = {
-    try {
-      val mock = scala.io.Source.fromFile(s"${mockdataLocation}/connections.json", "utf-8").mkString
-      Json.parse(mock).validate[Seq[Connection]]
-        .getOrElse(Nil)
-    } catch {
-      case e: Exception =>
-        log.error(s"Error in loading mock file at ${mockdataLocation}/connections.json")
-        Nil
-    }
-  }
-
-  def getMockContentResponse(responseType: String) = {
-    try {
-      val mock = scala.io.Source.fromFile(s"${mockdataLocation}/${responseType}.json", "utf-8").mkString
-      Json.parse(mock).validate[Seq[ContentResponse]]
-        .asEither match {
-          case Left(err) =>
-            log.error(s"Error in parsing content for $responseType : ${err}")
-            Nil
-          case Right(res) =>
-            res
-        }
-    } catch {
-      case e: Exception =>
-        log.error(s"Error in loading mock file at ${mockdataLocation}/${responseType}.json")
-        Nil
-    }
-  }
 
   def getMockWalletTokenListResponse(responseType: String) = {
     try {

@@ -7,9 +7,6 @@
 # Views
 
 
-#terms
-->          /terms                                  terms.Routes
-
 # api
 ->          /v1                                     api.v1.Routes
 
@@ -45,8 +42,8 @@ GET         /wallet/web/login                           controllers.ViewControll
 GET         /wallet/web/:alias                          controllers.ViewController.walletWeb(alias: String)
 
 #app
-GET         /:alias                                 controllers.ViewController.app(alias: String)
-GET         /:alias/                                controllers.ViewController.app(alias: String)
+# GET         /:alias                                 controllers.ViewController.app(alias: String)
+# GET         /:alias/                                controllers.ViewController.app(alias: String)
 
 #wallet app
 GET         /wallet/app/:os                         controllers.ViewController.serveAppFile(os: String)

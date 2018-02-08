@@ -1,0 +1,96 @@
+@(walletSignUpForm: Form[forms.UserForms.WalletRegistrationData])(implicit request: RequestHeader, messages: Messages, webJarAssets: WebJarAssets)
+@import helper._
+@import b3.inline.fieldConstructor
+
+@moreScripts = {
+<script src="@routes.Assets.versioned("javascripts/wallet/landing_view.js")"></script>
+<script type="text/javascript" src="@routes.WebJarAssets.at(webJarAssets.locate("bootstrap.min.js"))"></script>
+<script src="@routes.WebJarAssets.at(webJarAssets.fullPath("github-com-1000hz-bootstrap-validator","dist/validator.min.js"))"></script>
+}
+
+@moreStylesheets = {
+<!--<link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/wallet/wallet-landing.min.css")">-->
+}
+
+@walletMain(Messages("wallet"), false, moreStyleSheets = moreStylesheets, moreScripts = moreScripts) {
+<fieldset class="login-main">
+    @helper.form(action = controllers.api.v1.wallet.routes.WalletController.dummy(), 'enctype -> "multipart/form-data",  Symbol("data-toggle")-> "validator") {
+        @helper.CSRF.formField
+            <div class="importAccount">
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h4 id="impAccHeader">@Messages("signup")</h4>
+                    </div>
+                </div>
+
+
+                <div class="starter-template row">
+                    @request.flash.get("error").map { msg =>
+                    <div class="col-md-6 col-md-offset-3 alert alert-danger">
+                        <a href="javascript:void(0)" class="close" data-dismiss="alert">&times;</a>
+                        <strong>@Messages("error")</strong> @msg
+                    </div>
+                    }
+                    @request.flash.get("info").map { msg =>
+                    <div class="col-md-6 col-md-offset-3 alert alert-info">
+                        <a href="javascript:void(0)" class="close" data-dismiss="alert">&times;</a>
+                        <strong>@Messages("info")</strong> @msg
+                    </div>
+                    }
+                    @request.flash.get("success").map { msg =>
+                    <div class="col-md-6 col-md-offset-3 alert alert-success">
+                        <a href="javascript:void(0)" class="close" data-dismiss="alert">&times;</a>
+                        <strong>@Messages("success")</strong> @msg
+                    </div>
+                    }
+                </div>
+
+                <div class="row">
+                <input type="radio" id="test1"  name="fields" class="test1 margin info" checked=true>
+                <label class="info">I have a keystore file.</label>
+                    <div id="file_field" class="col-lg-12 file registration-fields form-group">
+                        <div id="input_file_div">
+                         <h4>File</h4>
+                         <input type="file" name=@Messages("wallet.fileName") class="col-xs-12 info"  data-error="Valid wallet file is required">
+                           <div class="help-block with-errors " style="font-size: 16px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                <input type="radio" id="test2" name="fields" class="test1 margin info">
+                <label class="info">Create an account using email address</label>
+                <div class="col-lg-12 account">
+                 <h4 class="email_field">Email address:</h4>
+                    <div class="col-lg-12 col-xs-12 form-group email_field">
+                <input type="email" class="col-md-12 col-xs-12 " id="emailAddress" name="emailAddress" value=" " data-error="valid email is required">
+                 <div class="help-block with-errors" style="font-size: 16px;"></div>
+                 </div>
+
+
+                        <h4>Unlocking password:</h4>
+                        <div class="form-group  col-md-12 col-xs-12" id="password_field">
+                            <input type="password" class="col-md-12 col-xs-12" id="password" name="password" value=""  required="true" data-error="valid unlocking password is required">
+                            <div class="help-block with-errors " style="font-size: 16px;"></div>
+                        </div>
+                        <h4>Default identity:</h4>
+                        <div class="form-group  col-md-12 col-xs-12" id="defaultAlias_field">
+                            <input type="text"  class="col-md-12 col-xs-12" id="defaultAlias" name="defaultAlias" value="" required="true" data-error="default alias required!">
+                            <div class="help-block with-errors " style="font-size: 16px;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container btnDefault-container info">
+                <div class="not_signup">
+                 <span>
+                  @Messages("already.a.member")
+                  </span>
+                 <a href="@routes.ViewController.walletOldLogin">@Messages("log.in.now")</a>
+                  </div>
+                    <button class="btn  btnDefault" type="submit" >@Messages("wallet.sign.up")</button>
+                     </div>
+            </div>
+</fieldset>
+    }
+}
