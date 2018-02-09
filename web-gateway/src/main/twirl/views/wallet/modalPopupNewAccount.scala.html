@@ -5,7 +5,7 @@
 <fieldset class="col-md-6 col-md-offset-3">
 	<div id="newAccountPopup" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" class="modal fade in" style="padding-right: 17px;">
 		@helper.form(action = controllers.api.v1.wallet.routes.WalletController.dummy(), 'enctype -> "multipart/form-data",  Symbol("data-toggle")-> "validator") {
-		@helper.CSRF.formField
+
 		<div role="document" class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">

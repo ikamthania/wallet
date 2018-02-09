@@ -6,7 +6,6 @@ import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.livelygig.product.content.api.WalletService
 import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode}
 import controllers.api.v1.wallet._
-
 import scala.collection.immutable
 import scala.concurrent.ExecutionContext
 import com.softwaremill.macwire.wire
@@ -15,20 +14,15 @@ import controllers.{Assets, ViewController, WebJarAssets}
 import play.api.ApplicationLoader.Context
 import play.api.http.{HttpErrorHandler, HttpRequestHandler}
 import play.api.i18n.I18nComponents
-import play.api.libs.ws.WSClient
 import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.mvc.EssentialFilter
-import play.filters.cors.CORSComponents
-import play.filters.csrf.CSRFComponents
 import play.filters.gzip.GzipFilterComponents
-import play.filters.headers.SecurityHeadersComponents
 import utils.web.{Filters, RequestHandler, WebGatewayErrorHandler}
 import utils.AppLogger
 import router.Routes
 
 abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext(context)
     with LagomServiceClientComponents
-    with SecurityHeadersComponents
     with GzipFilterComponents with AhcWSComponents with I18nComponents {
   LoggerConfigurator(context.environment.classLoader).foreach {
     _.configure(context.environment)
@@ -49,10 +43,6 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
       val prefix = "/v1"
       wire[api.v1.Routes]
     }
-    /*lazy val termsRoute: terms.Routes = {
-      val prefix = "/terms"
-      wire[terms.Routes]
-    }*/
     val prefix = "/"
     wire[Routes]
   }

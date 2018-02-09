@@ -15,7 +15,7 @@
 @walletMain(Messages("wallet"), false, moreStyleSheets = moreStylesheets, moreScripts = moreScripts) {
 <fieldset class="login-main">
     @helper.form(action = controllers.api.v1.wallet.routes.WalletController.dummy(), 'enctype -> "multipart/form-data",  Symbol("data-toggle")-> "validator") {
-        @helper.CSRF.formField
+
             <div class="importAccount">
 
                 <div class="row">
