@@ -5,24 +5,14 @@ import com.typesafe.sbt.gzip.Import._
 import com.typesafe.sbt.jse.JsEngineImport.JsEngineKeys
 import com.typesafe.sbt.less.Import._
 import com.typesafe.sbt.packager.Keys._
-import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
-import com.typesafe.sbt.packager.debian.DebianPlugin
-import com.typesafe.sbt.packager.docker.DockerPlugin
-import com.typesafe.sbt.packager.jdkpackager.JDKPackagerPlugin
-import com.typesafe.sbt.packager.linux.LinuxPlugin
-import com.typesafe.sbt.packager.rpm.RpmPlugin
-import com.typesafe.sbt.packager.universal.UniversalPlugin
-import com.typesafe.sbt.packager.windows.WindowsPlugin
 import com.typesafe.sbt.web.Import._
 import com.typesafe.sbt.web.SbtWeb
 import play.routes.compiler.InjectedRoutesGenerator
-import play.sbt.PlayImport.PlayKeys
 import play.sbt.PlayImport.PlayKeys._
 import play.sbt.PlayLayoutPlugin
 import play.sbt.routes.RoutesKeys.routesGenerator
 import sbt.Keys._
 import sbt._
-import sbtassembly.AssemblyPlugin.autoImport._
 import webscalajs.WebScalaJS.autoImport.{scalaJSPipeline, devCommands, scalaJSProjects}
 
 object Server {
@@ -33,15 +23,14 @@ object Server {
       Authentication.silhouette, Authentication.hasher, Authentication.persistence, Authentication.crypto,
       WebJars.fontAwesome, WebJars.selectize, WebJars.datepicker, WebJars.toastr, WebJars.blockies, WebJars.validator,
       Utils.crypto, Utils.commonsIo, SharedDependencies.macwire, Akka.testkit, Play.playTest,
-      lagomScaladslServer, Play.scalajsScripts, SharedDependencies.scalaTest,Utils.scrImage, Wallet.web3j, Wallet.qrgen,Wallet.webcam
+      lagomScaladslServer, Play.scalajsScripts, SharedDependencies.scalaTest,Wallet.web3j
     )
   }
 
   private[this] lazy val serverSettings = Shared.commonSettings ++ Seq(
     name := "WebGateway",
-    maintainer := "Livelygig Admin <admin@livelygig.com>",
-    description := "Livelygig WebGateway",
-
+    maintainer := "Ubunda Admin <admin@ubunda.com>",
+    description := "Ubunda WebGateway",
     resolvers += Resolver.jcenterRepo,
     libraryDependencies ++= dependencies,
     compile in Compile := ((compile in Compile) dependsOn scalaJSPipeline).value,
@@ -57,14 +46,8 @@ object Server {
     JsEngineKeys.engineType := JsEngineKeys.EngineType.Node,
     includeFilter in (Assets, LessKeys.less) := "*.less",
     excludeFilter in (Assets, LessKeys.less) := "_*.less",
-    LessKeys.compress in Assets := true,
+    LessKeys.compress in Assets := true
 
-    // Fat-Jar Assembly
-    fullClasspath in assembly += Attributed.blank(PlayKeys.playPackageAssets.value),
-    mainClass in assembly := Some(Shared.projectName)
-
-    // Code Quality
-    //    scapegoatIgnoredFiles := Seq(".*/Row.scala", ".*/Routes.scala", ".*/ReverseRoutes.scala", ".*/JavaScriptReverseRoutes.scala", ".*/*.template.scala")
   )
 
   lazy val webGateway = (project in file("web-gateway"))

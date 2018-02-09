@@ -9,7 +9,7 @@ object WalletImpl {
   private[this] val dependencies = {
     Seq(
       SharedDependencies.scalaTest,
-      lagomScaladslTestKit, Wallet.web3j , Wallet.qrgen
+      lagomScaladslTestKit, Wallet.web3j
     )
   }
 

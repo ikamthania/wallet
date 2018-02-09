@@ -66,36 +66,14 @@ object Dependencies {
 
   }
 
-  object Metrics {
-    val metrics = "nl.grons" %% "metrics-scala" % "3.5.5"
-    val jvm = "io.dropwizard.metrics" % "metrics-jvm" % "3.1.2"
-    val ehcache = "io.dropwizard.metrics" % "metrics-ehcache" % "3.1.2" intransitive ()
-    val healthChecks = "io.dropwizard.metrics" % "metrics-healthchecks" % "3.1.2" intransitive ()
-    val json = "io.dropwizard.metrics" % "metrics-json" % "3.1.2"
-    val jettyServlet = "org.eclipse.jetty" % "jetty-servlet" % "9.3.11.v20160721"
-    val servlets = "io.dropwizard.metrics" % "metrics-servlets" % "3.1.2" intransitive ()
-    val graphite = "io.dropwizard.metrics" % "metrics-graphite" % "3.1.2" intransitive ()
-
-
-  }
-
   object Utils {
     val scapegoatVersion = "1.3.0"
     val commonsIo = "commons-io" % "commons-io" % "2.6"
     val crypto = "xyz.wiedenhoeft" %% "scalacrypt" % "0.4.0"
-    val scrImage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
-  }
-
-  object Testing {
-    val gatlingCore = "io.gatling" % "gatling-test-framework" % "2.1.7" % "test"
-    val gatlingCharts = "io.gatling.highcharts" % "gatling-charts-highcharts" % "2.1.7" % "test"
   }
 
   object Wallet {
-    val ethereumj = "org.ethereum" % "ethereumj-core" % "1.5.0-RELEASE"
     val web3j = "org.web3j" % "core" % "2.3.1"
-    val qrgen = "net.glxn" % "qrgen" % "1.4"
-    val webcam  = "com.github.sarxos" % "webcam-capture" % "0.3.11"
   }
 
 
