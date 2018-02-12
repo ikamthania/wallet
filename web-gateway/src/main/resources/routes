@@ -24,8 +24,8 @@ GET         /wallet/setup2                          controllers.ViewController.s
 GET         /wallet/signup                          controllers.ViewController.walletSignup(email:Option[String] = None)
 GET         /wallet/login                           controllers.ViewController.walletLogin()
 
-GET         /wallet/web/                           controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-GET         /wallet/web                           controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
+GET         /wallet/web/                            controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
+GET         /wallet/web                             controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
 
 
 GET         /wallet/mobile/:publickey               controllers.ViewController.walletMobileApp(publickey:String)
@@ -35,11 +35,11 @@ GET         /wallet/:alias/captureQRCode            controllers.ViewController.q
 #
 #Wallet old web based application
 
-GET         /wallet/web/                           controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-GET         /wallet/web                           controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-GET         /wallet/web/signup                          controllers.ViewController.walletSignup(email:Option[String] = None)
-GET         /wallet/web/login                           controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-GET         /wallet/web/:alias                          controllers.ViewController.walletWeb(alias: String)
+GET         /wallet/web/                            controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
+GET         /wallet/web                             controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
+GET         /wallet/web/signup                      controllers.ViewController.walletSignup(email:Option[String] = None)
+GET         /wallet/web/login                       controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
+GET         /wallet/web/:alias                      controllers.ViewController.walletWeb(alias: String)
 
 #app
 # GET         /:alias                                 controllers.ViewController.app(alias: String)

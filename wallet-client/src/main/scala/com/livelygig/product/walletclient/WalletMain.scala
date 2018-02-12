@@ -1,6 +1,7 @@
 package com.livelygig.product.walletclient
 
 import com.livelygig.product.shared.models.wallet.UserDetails
+import com.livelygig.product.walletclient.facades.PullToRefresh
 import com.livelygig.product.walletclient.handler.GetUserDetails
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
@@ -11,8 +12,13 @@ import play.api.libs.json.Json
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
 
-object WalletMain extends js.JSApp {
-  def main(): Unit = {
+object WalletMain {
+  def main(args: Array[String]): Unit = {
+
+    // initialize pulldowntorefresh.js
+    PullToRefresh.init(js.Dictionary(
+      "mainElement" -> "body"
+    ))
 
     CoreApi.mobileGetUserDetails().map { userDetails =>
       Json.parse(userDetails).validate[UserDetails].asOpt match {
