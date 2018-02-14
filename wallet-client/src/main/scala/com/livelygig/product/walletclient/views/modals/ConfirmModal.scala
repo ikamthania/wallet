@@ -53,7 +53,6 @@ object ConfirmModal {
           ^.className := "messageContainer",
           <.h5(^.className := "amtAddressContainer")(s"Please confirm the send of ${p.etherPropsTransaction.amount} " +
             s"${p.symbol.toUpperCase} + ${p.ethFees} ETH fees to ${p.etherPropsTransaction.receiver} .")
-
         ),
         <.div(
           <.input(^.id := "txAmount", ^.`type` := "hidden", ^.value := p.etherPropsTransaction.amount, ^.onChange ==> updatePassword, ^.className := ""),

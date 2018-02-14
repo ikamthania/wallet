@@ -19,8 +19,9 @@ object WalletMain {
     PullToRefresh.init(js.Dictionary(
       "mainElement" -> "body"
     ))
+    ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
 
-    CoreApi.mobileGetUserDetails().map { userDetails =>
+    /*CoreApi.mobileGetUserDetails().map { userDetails =>
       Json.parse(userDetails).validate[UserDetails].asOpt match {
         case Some(response) =>
           WalletCircuit.dispatch(GetUserDetails(response))
@@ -32,7 +33,7 @@ object WalletMain {
       .recover {
         case e: Exception => ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
 
-      }
+      }*/
   }
 
 }

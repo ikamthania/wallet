@@ -1,11 +1,13 @@
 
 
+import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
 import com.lightbend.lagom.scaladsl.api.{ServiceAcl, ServiceInfo}
 import com.lightbend.lagom.scaladsl.client.{ConfigurationServiceLocatorComponents, LagomServiceClientComponents}
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.livelygig.product.content.api.WalletService
 import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode}
 import controllers.api.v1.wallet._
+
 import scala.collection.immutable
 import scala.concurrent.ExecutionContext
 import com.softwaremill.macwire.wire
@@ -73,10 +75,10 @@ class WebGatewayLoader extends ApplicationLoader with AppLogger {
 
   override def load(context: Context) = context.environment.mode match {
     case Mode.Dev =>
-      new WebGateway(context) with LagomDevModeComponents {}.application
-    /*new WebGateway(context) {
-  override def serviceLocator = NoServiceLocator
-}.application*/
+      //      new WebGateway(context) with LagomDevModeComponents {}.application
+      new WebGateway(context) {
+        override def serviceLocator = NoServiceLocator
+      }.application
 
     case _ =>
       (new WebGateway(context) with ConfigurationServiceLocatorComponents).application

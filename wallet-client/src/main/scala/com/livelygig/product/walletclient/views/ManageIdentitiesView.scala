@@ -292,7 +292,6 @@ object ManageIdentitiesView {
                 )
               )
             )
-
           )
         ),
         <.div(

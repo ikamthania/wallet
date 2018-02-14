@@ -1,6 +1,6 @@
 package com.livelygig.product.shared.json
 
-import play.api.libs.json.{OFormat, OWrites, Reads}
+import play.api.libs.json.{ OFormat, OWrites, Reads }
 import shapeless.Lazy
 
 package object derived {

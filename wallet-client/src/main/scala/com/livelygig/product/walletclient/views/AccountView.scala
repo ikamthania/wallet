@@ -159,7 +159,6 @@ object AccountView {
               )
             }.toVdomArray
           )
-
         )
       }
       <.div(^.id := "bodyWallet")(
@@ -198,7 +197,6 @@ object AccountView {
                     <.option(^.value := currency.symbol, currency.symbol)
                       .when(!s.currencySelected.equalsIgnoreCase(currency.symbol))*/
                   }).toVdomArray
-
                 )
               )
             ),
@@ -213,7 +211,6 @@ object AccountView {
               <.div()(
                 <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img")
               ))
-
           )
         ),
         <.div(

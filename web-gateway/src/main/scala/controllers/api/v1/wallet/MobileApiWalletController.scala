@@ -98,7 +98,6 @@ class MobileApiWalletController(
         Json.fromJson[EtherTransaction](json).fold(
           _ => Future.successful(BadRequest("Error in parsing json")),
           etherTransaction => postTxnInfo(publicKey, etherTransaction)
-
         )
       }
       case None => Future.successful(BadRequest("No Json Found"))
@@ -119,7 +118,6 @@ class MobileApiWalletController(
         Json.fromJson[String](json).fold(
           _ => Future.successful(BadRequest("Error in parsing json")),
           signedTxn => mobilePostTransaction(signedTxn)
-
         )
       }
       case None => Future.successful(BadRequest("No Json Found"))
