@@ -1,3 +1,5 @@
+// DO NOT USE THIS FILE DIRECTLY CREATE A COPY TO config.json MODIFY REQUIRED VARIABLES
+
 {
-  "URI": "http://192.168.1.100:9000/wallet/" //change it to your local running server url eg hostname -I | awk '{print $1;}'
+  "URI": "http://change_it_to_your_ip/wallet/" //change it to your local running server url eg hostname -I | awk '{print $1;}'
 }
