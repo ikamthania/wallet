@@ -1,17 +1,20 @@
 import React from 'react';
 import { StyleSheet, Text, WebView } from 'react-native';
+import Config from './config.json';
+
+// see config json and configure it to the running instance of server
+var URI = (__DEV__) ? Config.URI : "https://www.ubunda.com"
 
 export default class App extends React.Component {
   render() {
     return (
       <WebView
-        source={{uri: 'http://10.0.2.2:63376/wallet/'}}
+        source={{uri: URI}}
         style={{marginTop: 20}}
       />
     );
   }
 }
-
 
 const styles = StyleSheet.create({
   container: {

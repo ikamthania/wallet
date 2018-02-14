@@ -1,0 +1,3 @@
+{
+  "URI": "http://your_running_server_ip:9000/wallet/" //change it to your local running server url eg hostname -I | awk '{print $1;}'
+}
