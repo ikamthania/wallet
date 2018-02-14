@@ -1,51 +1,36 @@
-![LivelyGig](http://static1.squarespace.com/static/55b995e0e4b04667a1da39a2/t/563b8a93e4b0a7b5800300e2/1450968381054/?format=400w)
+## Watchman
 
-[LivelyGig](http://www.livelygig.com/)'s freelance marketplace front end. Please join LivelyGig at [Slack](https://livelygig.slack.com/messages/general/) or [Twitter](https://twitter.com/LivelyGig/) for more information, community updates and the latest development.
+We have currently two clients. One is a web client which is based on `scalajs-react` library this project is currently in the walletClient directory  and another is a `react-native` application which is currently in wallet-native-client directory. These two are connected with each other with a simple web view component similar to this
 
-[![Build Status](https://travis-ci.org/LivelyGig/ProductWebUI.svg?branch=master)](https://travis-ci.org/LivelyGig/ProductWebUI)
+```
+<WebView
+    source={{uri: 'http://10.0.2.2:9000/wallet/'}}
+    style={{marginTop: 20}}
+/>
+```
+Where the uri is the url of the running web gateway. It runs on `9000` port usually but at times the error in wallet service can result in web gateway to not load properly resulting in connection refused error. In that case look at terminal for output similar to
 
-## Application Structure
-    TODO
+```
+[info] Service WebGateway listening for HTTP on 0:0:0:0:0:0:0:0:63376
+```
+and use that port instead.
 
-## Building
-The build process requires several pieces of software to be installed on the host system:
+Both project has hot reloading enabled, that is if you make changes in wallet-client scala files or any scala file `Lagom` framework is going to take care of triggering the recompilation. Same is the case for the wallet-native-client which has hot reloading based on `watchman`. However there is a disconnect between system, where javascript automatic bundling cannot be done if scala sources change. To solve this issue we can do a workaround. Simply attach a watchman to watch over changes in scala files and trigger hot reloading in react native by adding garbage comment in a file.
 
-* [Java Development Kit](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) 8.0 or above
-* [SBT](http://www.scala-sbt.org/download.html) 0.13.13 or above - This will download rest of the required softwares i.e. scala etc.
-* Git client
+Watchman command for unix like systems.
 
-Before running the application you need to have node.js installed
+`watchman-make --run 'echo "//" > wallet-native-client/trigger.js' -p '**/*.scala'`
 
-Then do npm install at the project root to install jsdom
+You should have output similar to
 
-To run the application, open a command line interface (CLI) follow the step below (run individual each command): 
+```
+# Relative to /home/shubham/project/livelygig/wallet
+# Changes to files matching **/*.scala will execute `echo "//" > wallet-native-client/trigger.js`
+# waiting for changes
+```
 
-    sbt runAll
+Hit `CTRL + D` to get out of watchman shell.
 
-Then visit the home page at http://localhost:9000/
+You would need to explicitly delete the watchman watch with this command
 
-To edit source code using IntelliJ IDEA editor please follow the instruction in Google Docs [here] (https://docs.google.com/document/d/1VyU5XtWzXugTa7R3odUEa8I1kmj_nVUa7VgrnkDHnQE/edit)
-
-To install 'sbt', you may need to use [Homebrew](http://brew.sh/) on your mac:
-
-    brew install sbt
-
-Or you can configure after downloading and unzipping 'sbt' to your executable path by editing '.bash_profile' if using bash shell on unix or linux or mac system
-
-    export PATH=$PATH:<SBT_DOWNLOADED_UNZIPPED_PATH>/sbt/bin
-
-or in Windows system
-
-    set PATH=%PATH%;<SBT_DOWNLOADED_UNZIPPED_PATH>\sbt\bin
-    
-Mobile project uses SRI for the mobile build on ios and android
-
-    Start Andrtoid emulator
-    cd mobile   
-    yarn install
-    npm start
-    // open another terminal
-    sbt ~android:dev
-    react-native run-android
-    
-
+`watchman watch-del ./`

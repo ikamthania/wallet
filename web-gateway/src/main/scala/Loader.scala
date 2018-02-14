@@ -72,7 +72,6 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
 
 class WebGatewayLoader extends ApplicationLoader with AppLogger {
   log.info(s"Web gateway is loading.")
-
   override def load(context: Context) = context.environment.mode match {
     case Mode.Dev =>
       //      new WebGateway(context) with LagomDevModeComponents {}.application
