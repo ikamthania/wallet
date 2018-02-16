@@ -21,3 +21,16 @@ yarn-debug.log*
 yarn-error.log*
 
 config.json
+
+# Preserving folder structure in git for production apk
+
+assets_for_webview/assets/stylesheets/*
+!/assets_for_webview/assets/stylesheets/.placeholder
+
+assets_for_webview/assets/images/*
+!/assets_for_webview/assets/images/.placeholder
+
+assets_for_webview/assets/javascripts/*
+!/assets_for_webview/assets/javascripts/.placeholder
+
+

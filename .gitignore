@@ -51,3 +51,8 @@ private/
 # wallet-native-client trigger.js file
 
 trigger.js
+
+# preserving temp folder
+
+temporary/*
+!temporary/.placeholder
