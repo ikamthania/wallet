@@ -44,7 +44,7 @@ A very good resource to understand how these interact with each other and in gen
 
 ## Wallet native client
 
-This react native application is based on the expo platform. Head over to the wallet-native-client directory for comprehensive [readme](/blob/master/wallet-native-client/README.md) of the setup.
+This react native application is based on the expo platform. Head over to the wallet-native-client directory for comprehensive [readme](/wallet-native-client/README.md) of the setup.
 
 ## Hot Reloading
 
