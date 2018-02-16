@@ -3,7 +3,7 @@ import { StyleSheet, Text, WebView } from 'react-native';
 import Config from './config.json';
 
 // see config json and configure it to the running instance of server
-var URI = (__DEV__) ? Config.URI : "https://www.ubunda.com"
+var URI = (__DEV__) ? Config.LOCAL_URI : Config.PRODUCTION_URI
 
 export default class App extends React.Component {
   render() {
@@ -15,6 +15,7 @@ export default class App extends React.Component {
     );
   }
 }
+
 
 const styles = StyleSheet.create({
   container: {

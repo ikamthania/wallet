@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient
 
 import com.livelygig.product.shared.models.wallet.UserDetails
-import com.livelygig.product.walletclient.facades.PullToRefresh
+//import com.livelygig.product.walletclient.facades.PullToRefresh
 import com.livelygig.product.walletclient.handler.GetUserDetails
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
@@ -15,10 +15,10 @@ import scala.scalajs.js
 object WalletMain {
   def main(args: Array[String]): Unit = {
 
-    // initialize pulldowntorefresh.js
-    PullToRefresh.init(js.Dictionary(
-      "mainElement" -> "body"
-    ))
+    //    // initialize pulldowntorefresh.js
+    //    PullToRefresh.init(js.Dictionary(
+    //      "mainElement" -> "body"
+    //    ))
     ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
 
     /*CoreApi.mobileGetUserDetails().map { userDetails =>
