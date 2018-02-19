@@ -12,7 +12,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
-import org.scalajs.dom
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -53,13 +52,14 @@ object ConfirmModal {
           ^.className := "messageContainer",
           <.h5(^.className := "amtAddressContainer")(s"Please confirm the send of ${p.etherPropsTransaction.amount} " +
             s"${p.symbol.toUpperCase} + ${p.ethFees} ETH fees to ${p.etherPropsTransaction.receiver} .")
+
         ),
         <.div(
           <.input(^.id := "txAmount", ^.`type` := "hidden", ^.value := p.etherPropsTransaction.amount, ^.onChange ==> updatePassword, ^.className := ""),
           <.input(^.id := "txTo", ^.`type` := "hidden", ^.value := p.etherPropsTransaction.receiver, ^.onChange ==> updatePassword, ^.className := ""),
           <.input(^.id := "txSymbol", ^.`type` := "hidden", ^.value := p.symbol.toUpperCase, ^.onChange ==> updatePassword, ^.className := ""),
           ^.className := "passwordContainer",
-          <.p(s"To confirm, enter password for your address ${userDetails.value.walletDetails.publicKey}"),
+          <.p(s" You are sending from: ${userDetails.value.walletDetails.publicKey} To confirm, enter your application password."),
           <.input(^.id := "txPassword", ^.`type` := "password", ^.value := s.etherTransaction.password, ^.onChange ==> updatePassword, ^.className := ""),
           <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal")
         )
@@ -77,7 +77,7 @@ object ConfirmModal {
         ),
         <.div(
           ^.className := "passwordContainer",
-          <.p(s"To approve the transaction, enter password"),
+          <.p(s"To approve the transaction, enter your application password"),
           <.input(^.id := "txPassword", ^.`type` := "password", ^.value := s.etherTransaction.password, ^.onChange ==> updatePassword, ^.className := ""),
           <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal")
         )
@@ -136,9 +136,17 @@ object ConfirmModal {
             .asOpt match {
               case Some(signedTxnParams) =>
                 //                Toastr.info(s"$signedTxnParams")
-                val address = if (etherTxn.txnType.equalsIgnoreCase("eth")) etherTxn.receiver else etherTxn.txnType
+                val (address, encodedFunction) = if (etherTxn.txnType.equalsIgnoreCase("eth")) {
+                  (etherTxn.receiver, signedTxnParams.encodedFunction)
+                } else {
+                  if (etherTxn.receiver.isEmpty()) {
+                    ("0x0", etherTxn.txnType)
+                  } else {
+                    (etherTxn.txnType, signedTxnParams.encodedFunction)
+                  }
+                }
                 val signedTxn = WalletJS.postRawTxn(etherTxn.password, signedTxnParams.amntInWei, address,
-                  etherTxn.txnType, signedTxnParams.nonce, signedTxnParams.encodedFunction)
+                  etherTxn.txnType, signedTxnParams.nonce, encodedFunction)
 
                 if (signedTxn != "") {
                   //  Toastr.info(s"signed raw transaction ----> $signedTxn")

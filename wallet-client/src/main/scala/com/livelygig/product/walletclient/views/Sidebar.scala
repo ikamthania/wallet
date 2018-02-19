@@ -21,6 +21,8 @@ import scala.util.{Failure, Success}
 
 object Sidebar {
 
+  val userDetails = WalletCircuit.zoom(_.user.userDetails)
+
   case class Props(c: RouterCtl[Loc], r: Resolution[Loc])
 
   case class State(lang: js.Dynamic = WalletCircuit.zoom(_.i18n.language).value, ethNetInfo: String = "", walletPublicKey: String = "")
@@ -274,7 +276,7 @@ object Sidebar {
                       ^.className := "fa fa-arrow-right",
                       VdomAttr("aria-hidden") := "true"
                     ),
-                    <.h3(state.lang.selectDynamic("SAVINGS").toString), <.i(
+                    <.h3(userDetails.value.alias), <.i(
                       ^.className := "fa fa-arrow-right",
                       VdomAttr("aria-hidden") := "true"
                     ), {

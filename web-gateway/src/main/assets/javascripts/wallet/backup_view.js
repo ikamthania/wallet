@@ -44,8 +44,10 @@ $(document)
 
       function generateMnemonicPhrase() {
         phrase = lightwallet.keystore.generateRandomSeed("");
+        $("#mnemonic-phrase").html(phrase);
+      }
+function registerNewAccount(){
        var p = localStorage.getItem("ubunda-psswd");
-       console.log("generateMnemonicPhrase => " + p);
 
         lightwallet.keystore.createVault({
           password: p,
@@ -57,8 +59,7 @@ $(document)
           generateAddressAndPrivateKey(p);
         });
 
-        $("#mnemonic-phrase").html(phrase);
-      }
+}
 
       function generateAddressAndPrivateKey(password) {
 
@@ -67,7 +68,6 @@ $(document)
            arrAddresses = _keystore.getAddresses();
            privateKey = _keystore.exportPrivateKey(arrAddresses[0], pwDerivedKey);
 
-           console.log("password => " + password + "privateKey => " + privateKey);
                    newRegistration(password,privateKey,arrAddresses[0]);
                   // window.location.assign(arrAddresses[0]);
           // window.postMessage("address~" + arrAddresses[0]);
@@ -123,16 +123,17 @@ $(document)
               $(".backupView-phrase").hide();
               $(".backupView-confirm").show();
             } else {
-              $("#errorMessage").css("visibility","visible");
+ toastr.error("Mnemonic phrase provided is not matched!!!", "", {
+                              "timeOut": "5000",
+                              "extendedTImeout": "5000",
+                              "positionClass" : "toast-top-full-width"
+                          });
               sectionPage--;
             };
             break;
           case nextScreen:
-//          $(".initialSetup-main").show();
-           window.location.href = "./walletmain.html"
-
-//              $("#hideCls" ).removeClass( "initialSetup-main" )
-            //navigate to next screen.
+          registerNewAccount()
+//           window.location.href = "./login.html"
 
             break;
           default:

@@ -18,6 +18,8 @@ import scala.scalajs.js
 
 object RequestView {
 
+  val userDetails = WalletCircuit.zoom(_.user.userDetails)
+
   case class Props(router: RouterCtl[Loc], publicKey: String = WalletCircuit.zoom(_.user.userDetails.walletDetails.publicKey).value)
 
   case class State(qrCode: String, showModal: Boolean = false)
@@ -198,7 +200,7 @@ object RequestView {
                     ^.className := "reaciving-add",
                     <.h4(
                       "Receiving address ",
-                      <.span("(Savings)")
+                      <.span(userDetails.value.alias)
                     ),
                     <.input(
                       ^.id := "lblReceivingAddress",

@@ -77,6 +77,7 @@ object FilterModal {
                     )
                   )
                 )
+
               )
             ),
             <.div(

@@ -1,6 +1,8 @@
 
 package com.livelygig.product.walletclient.views
-import com.livelygig.product.shared.models.wallet._
+import com.livelygig.product.shared.models.Contracts.MultiSigWalletWithDailyLimit
+import com.livelygig.product.shared.models.Solidity._
+import com.livelygig.product.shared.models.wallet.EtherTransaction
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
@@ -10,21 +12,18 @@ import scala.scalajs.js
 import japgolly.scalajs.react.extra.router.RouterCtl
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.views.facades.Bootstrap._
-import diode.data.Pot
-import diode.react.ModelProxy
-import diode.react.ReactPot._
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
+import com.livelygig.product.walletclient.views.facades.{EthereumjsABI, EthereumjsUnits}
 
 object AddSharedWalletView {
 
-  final case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], rc: RouterCtl[ApplicationRouter.Loc]) {
+  final case class Props(rc: RouterCtl[ApplicationRouter.Loc]) {
     @inline def render: VdomElement = component(this)
   }
 
   final case class State(
     sharedWalletName: String,
     requiredConfirmations: Int,
-    dailyLimitEth: Int,
+    dailyLimitEth: BigDecimal,
     ownerName: String,
     ownerAddress: String,
     owners: List[Owner],
@@ -33,12 +32,12 @@ object AddSharedWalletView {
 
   final case class Owner(
     name: String,
-    address: String
+    address: Address
   )
 
   object State {
     def init: State =
-      State("", 2, 0, "", "", Nil, EtherTransaction("", "", "", "eth", 0))
+      State("", 2, 0, "", "", Nil, EtherTransaction("", "", "", "", 0))
   }
 
   def onSelectOwner(e: ReactEventFromHtml): react.Callback = {
@@ -62,7 +61,7 @@ object AddSharedWalletView {
         ),
         <.div(
           ^.className := "col-lg-6 col-md-6 col-sm-6 col-xs-6",
-          <.p(^.className := "ownerAddress ellipseText", owner.address)
+          <.p(^.className := "ownerAddress ellipseText", owner.address.toString())
         ),
         <.div(
           ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
@@ -86,8 +85,8 @@ object AddSharedWalletView {
     }
 
     def onDailyLimitETHChange(e: ReactEventFromInput) = {
-      val newValue = e.target.valueAsNumber
-      t.modState(_.copy(dailyLimitEth = newValue))
+      val newValue = e.target.value
+      t.modState(_.copy(dailyLimitEth = BigDecimal(newValue)))
     }
 
     def onOwnerNameChange(e: ReactEventFromInput) = {
@@ -102,14 +101,20 @@ object AddSharedWalletView {
 
     def addOwner(e: ReactEventFromInput) = {
       t.modState(
-        s => State(
-          s.sharedWalletName,
-          s.requiredConfirmations,
-          s.dailyLimitEth,
-          "", "",
-          s.owners :+ Owner(s.ownerName, s.ownerAddress),
-          EtherTransaction("", "", "", "eth", 0)
-        )
+        s =>
+          if (s.owners.exists(_.address == s.ownerAddress)) {
+            //TODO: display some error, we can't have two owners with the same address
+            s
+          } else {
+            State(
+              s.sharedWalletName,
+              s.requiredConfirmations,
+              s.dailyLimitEth,
+              "", "",
+              s.owners :+ Owner(s.ownerName, new Address(s.ownerAddress)),
+              s.etherTransaction
+            )
+          }
       )
     }
 
@@ -118,14 +123,18 @@ object AddSharedWalletView {
     }
 
     def createSharedWallet(): Callback = {
-      val olLength = t.state.runNow().owners.length
-      val reqConfirmations = t.state.runNow().requiredConfirmations
-      println("1")
-      if (olLength > 1 && olLength >= reqConfirmations) {
-        println("2")
-        $("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
-      }
-      Callback.empty
+      t.modState(
+        s => {
+          val ownerAddresses: Array[Address] = new Array(s.owners.map(_.address))
+          val required = new Uint(s.requiredConfirmations)
+          val dailyLimit = new Uint(EthereumjsUnits.convert(s.dailyLimitEth.toString, "eth", "wei"))
+          val multiSigWallet = new MultiSigWalletWithDailyLimit(ownerAddresses, required, dailyLimit)
+          val encodedConstructor: String = EthereumjsABI.rawEncode(multiSigWallet.constructorArgs).toString("hex")
+
+          $("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+          s.copy(etherTransaction = EtherTransaction("", "", "", MultiSigWalletWithDailyLimit.BYTE_CODE + encodedConstructor, 0))
+        }
+      )
     }
 
     def render(p: Props, state: State): VdomElement =
@@ -159,7 +168,7 @@ object AddSharedWalletView {
             ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
             <.h4("Daily limit (ETH)"),
             <.input.number(
-              ^.value := state.dailyLimitEth,
+              ^.value := state.dailyLimitEth.toString,
               ^.onChange ==> onDailyLimitETHChange,
               ^.placeholder := "0 (unlimited)",
               ^.className := "form-control ellipseText",

@@ -68,5 +68,5 @@ class WalletServiceImpl(
       .sendSignedTransaction(signedTxn)
       .map { e => e }
   }
-
 }
+

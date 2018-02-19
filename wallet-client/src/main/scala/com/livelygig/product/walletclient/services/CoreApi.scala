@@ -16,11 +16,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 object CoreApi {
   private val apiVersion = "/v1"
   private var userUriForApi: Option[String] = None
-  //  private val publicKey: String = WalletCircuit.zoom(_.user.userDetails.alias).value
   private val urlPath = dom.window.location.pathname
-  private val pattern = "(0x[0-9A-Za-z]+)".r
-  private val publicKey = window.localStorage.getItem("pubKey") // pattern.findFirstIn(urlPath).getOrElse("")
-  //  window.alert(publicKey)
   private def ajaxPost(requestContent: String, apiUrl: String): Future[String] = {
     Ajax.post(
       url = apiUrl,
@@ -70,7 +66,7 @@ object CoreApi {
 
   def getETHNetInfo() = ajaxGet(s"${apiVersion}/wallet/ethnet/info")
 
-  def captureQRCode() = ajaxGet(s"${apiVersion}/wallet/ethnet/info")
+  def captureQRCode() = ajaxGet(s"${apiVersion}/wallet/qrcode")
 
   def getLivePrices() = ajaxGet(s"${apiVersion}/wallet/coin/prices")
 

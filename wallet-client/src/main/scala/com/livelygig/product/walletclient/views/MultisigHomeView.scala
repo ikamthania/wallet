@@ -3,9 +3,11 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.handler.{GetCurrencies, GetUserDetails, UpdateAccountTokenList}
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
+import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc, _}
 import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
-import com.livelygig.product.walletclient.views.facades.{Toastr, WalletJS}
+import com.livelygig.product.walletclient.views.components.SidebarMenu.toggleNav
+import com.livelygig.product.walletclient.views.facades.Toastr
 import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy
@@ -17,12 +19,11 @@ import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
 import org.querki.jquery.$
 import org.scalajs.dom
 import org.scalajs.dom.raw.Element
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
-//import japgolly.scalajs.react.vdom.Implicits._
 
-object AccountView {
+object MultisigHomeView {
 
   /* Toastr options */
   Toastr.options.timeOut = 5000; // How long the toast will display without user interaction
@@ -31,44 +32,16 @@ object AccountView {
   Toastr.options.positionClass = "toast-top-full-width"
   case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc], loc: String = "")
 
-  final case class State(currencySelected: String, coinExchange: CoinExchange, /*userDetails: UserDetails = UserDetails("", WalletDetails("", "")),*/ alias: String)
+  final case class State(currencySelected: String, coinExchange: CoinExchange, userDetails: UserDetails = UserDetails("", WalletDetails("", "")))
 
   final class Backend(t: BackendScope[Props, State]) {
-
-    //    //#todo : create a new model for JSON data
-    //    def updateAccountList(): Callback = {
-    //      //      val keystoreContent = dom.window.localStorage.getItem("keystoreData")
-    //      val keystoreContent = "[{\"alias\":\"john1\",\"keystorePvtKey\":\"john1\",\"keystorePubKey\":\"0x13427c61c0b4391a54b6405cc3bb014d38887f4a\" , \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"alias\":\"john1\",\"keystorePvtKey\":\"john2\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"alias\":\"john1\",\"keystorePvtKey\":\"john3\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"}]"
-    //      println(keystoreContent)
-    //      val json: JsValue = Json.parse(keystoreContent)
-    //      val alias = (json \\ "alias").map(_.as[String])
-    //      val pubkey = (json \\ "keystorePubKey").map(_.as[String])
-    //
-    //      val getalias = pubkey.zipWithIndex.filter(_._1 == dom.window.localStorage.getItem("pubKey")).map(e => alias(e._2)).head
-    //      println(">>>>>>>>>>>> " + getalias)
-    //      t.modState(s => s.copy(alias = getalias))
-    //      //      WalletCircuit.dispatch(GetUserDetails(userDetails = UserDetails(getalias)))
-    //
-    //    }
-
     def getLiveCurrencyUpdate() = {
-      val state = t.state.runNow()
-      //      val keystoreContent = dom.window.localStorage.getItem("keystoreData")
-      val keystoreContent = "[{\"alias\":\"john1\",\"keystorePvtKey\":\"john1\",\"keystorePubKey\":\"0x13427c61c0b4391a54b6405cc3bb014d38887f4a\" , \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"alias\":\"john1\",\"keystorePvtKey\":\"john2\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"alias\":\"john1\",\"keystorePvtKey\":\"john3\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"}]"
-      println(keystoreContent)
-      val json: JsValue = Json.parse(keystoreContent)
-      val alias = (json \\ "alias").map(_.as[String])
-      val pubkey = (json \\ "keystorePubKey").map(_.as[String])
-
-      val getalias = pubkey.zipWithIndex.filter(_._1 == dom.window.localStorage.getItem("pubKey")).map(e => alias(e._2)).head
-      println(">>>>>>>>>>>> " + getalias)
-
       CoreApi.mobileGetUserDetails().map { userDetails =>
         Json.parse(userDetails).validate[UserDetails].asOpt match {
-          case Some(response) => {
-            WalletCircuit.dispatch(GetUserDetails(UserDetails(getalias, response.walletDetails)))
-            //            t.modState(s => s.copy(userDetails = response)).runNow()
-          }
+          case Some(response) =>
+            WalletCircuit.dispatch(GetUserDetails(response))
+            t.modState(s => s.copy(userDetails = response)).runNow()
+
           case None => println("Error in parsing user details response")
         }
       }
@@ -108,7 +81,6 @@ object AccountView {
     }
 
     def componentDidMount(props: Props): Callback = {
-      //      updateAccountList
       $(".select-currency-info").removeClass("active")
       $(".select-currency-info").first().addClass("active")
       getLiveCurrencyUpdate
@@ -127,11 +99,12 @@ object AccountView {
     }
 
     def updateURL(loc: String): Callback = {
-
+      val baseUrl = dom.window.location.href
+      val updatedUrl = baseUrl.split("#").head
       loc match {
-        case "SendLoc" => t.props.runNow().router.set(SendLoc).runNow()
-        case "HistoryLoc" => t.props.runNow().router.set(HistoryLoc).runNow()
-        case "RequestLoc" => t.props.runNow().router.set(RequestLoc).runNow()
+        case "SendLoc" => dom.window.location.href = s"${updatedUrl}#/send"
+        case "HistoryLoc" => dom.window.location.href = s"${updatedUrl}#/history"
+        case "RequestLoc" => dom.window.location.href = s"${updatedUrl}#/request"
       }
       Callback.empty
     }
@@ -154,6 +127,10 @@ object AccountView {
       Callback.empty
     }
 
+    def toggleDropdownArrow(id: String) = Callback {
+      $(s"#$id").toggleClass("active")
+    }
+
     def render(p: Props, s: State): VdomElement = {
       val coinList = s.coinExchange.coinExchangeList
 
@@ -167,7 +144,7 @@ object AccountView {
             <.div(
               ^.className := "row left-info",
               <.label(^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4", userERCToken.tokenName),
-              <.span(^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText", WalletJS.getnumberFormat(BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString)),
+              <.span(^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText", BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString()),
               <.span(^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol", s"${userERCToken.symbol}")
             ),
             coin.map { e =>
@@ -179,7 +156,7 @@ object AccountView {
                 ),
                 <.span(
                   ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText",
-                  WalletJS.getnumberFormat(BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString())
+                  BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString()
                 ),
                 <.span(
                   ^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol",
@@ -195,50 +172,102 @@ object AccountView {
         <.div(
           ^.className := "wallet-information-bottom",
           <.div(
-            ^.className := "wallet-information-total",
+            ^.className := "multisigWallet-transactions scrollableArea",
+            <.h4(
+              "Pending transactions ",
+              ^.id := "headerPendingTx", VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#pendingTxList", ^.onClick --> toggleDropdownArrow("headerPendingTx"),
+              <.i(^.className := "fa fa-chevron-up", VdomAttr("aria-hidden") := "true")
+            ),
             <.div(
-              ^.className := "row heading-currency",
+              ^.id := "pendingTxList", ^.className := "txList collapse in",
               <.div(
-                ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4 hand-cuure-left",
-                <.label("total:")
+                ^.className := "row data-pendingTransactions ",
+                <.div(
+                  ^.className := "col-xs-7 col-xs-offset-1",
+                  <.p(
+                    ^.className := "ellipseTextMultiLines txStatus",
+                    "Status: bla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla bla"
+                  ),
+                  <.p(
+                    ^.className := "ellipseText txDate",
+                    "Date: 01/02/2018"
+                  )
+                ),
+                <.div(
+                  ^.className := "col-xs-3 col-xs-offset-1",
+                  <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Reject"),
+                  <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Hide")
+                )
               ),
               <.div(
-                ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-8 select-currency",
-                <.label(
-                  ^.className := "ellipseText",
-                  p.proxy().render(tokenList =>
-
-                    WalletJS.getnumberFormat(BigDecimal.apply(tokenList.accountTokenDetails.map { token =>
-                      val coin = coinList.filter(_.coin.equalsIgnoreCase(token.symbol))
-                        .flatMap { e => e.currencies.filter(c => c.symbol.equalsIgnoreCase(s.currencySelected)) }
-                      token.balance.toDouble * coin.map(_.price).sum
-                    }.sum).setScale(2, BigDecimal.RoundingMode.UP).toString))
+                ^.className := "row data-pendingTransactions",
+                <.div(
+                  ^.className := "col-xs-7 col-xs-offset-1",
+                  <.p(
+                    ^.className := "ellipseTextMultiLines txStatus",
+                    "Status: bla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blablabla bla blabla bla blabla bla blabla bla blabla bla blabla bla bla"
+                  ),
+                  <.p(
+                    ^.className := "ellipseText txDate",
+                    "Date: 01/02/2018"
+                  )
                 ),
-                <.select(^.id := "selectOption", ^.onChange ==> updateCurrencyState)(
-                  s.coinExchange.coinExchangeList.filter(e => e.coin.equalsIgnoreCase("ETH")).flatMap(_.currencies
-                  .map { currency =>
-                    if (s.currencySelected.equalsIgnoreCase(currency.symbol)) {
-                      <.option(^.value := currency.symbol, currency.symbol, ^.selected := "selected")
-                    } else {
-                      <.option(^.value := currency.symbol, currency.symbol)
-                    }
-                  }).toVdomArray
-
+                <.div(
+                  ^.className := "col-xs-3 col-xs-offset-1",
+                  <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Approve"),
+                  <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Hide")
                 )
               )
             ),
-            p.proxy().render(tokenList =>
-              <.div(^.className := "currency-info-scrollbar")(
-                tokenList.accountTokenDetails.filter(e => e.symbol.equalsIgnoreCase("ETH") || !e.balance.equalsIgnoreCase("0")) reverseMap createItem: _*
-              )),
-            p.proxy().renderFailed(ex => <.div()(
-              <.label(^.className := "warn-text", "Error while loading available token list")
-            )),
-            p.proxy().renderPending(e =>
-              <.div()(
-                <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img")
-              ))
+            <.div(
+              ^.className := "wallet-information-total container",
+              <.div(
+                ^.className := "row heading-currency",
+                <.div(
+                  ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4 hand-cuure-left",
+                  <.label("total:")
+                ),
+                <.div(
+                  ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-8 select-currency",
+                  <.label(
+                    ^.className := "ellipseText",
+                    p.proxy().render(tokenList =>
 
+                      BigDecimal.apply(tokenList.accountTokenDetails.map { token =>
+                        val coin = coinList.filter(_.coin.equalsIgnoreCase(token.symbol))
+                          .flatMap { e => e.currencies.filter(c => c.symbol.equalsIgnoreCase(s.currencySelected)) }
+
+                        token.balance.toDouble * coin.map(_.price).sum
+
+                      }.sum).setScale(2, BigDecimal.RoundingMode.UP).toString)
+
+                  ),
+                  <.select(^.id := "selectOption", ^.onChange ==> updateCurrencyState)(
+                    s.coinExchange.coinExchangeList.filter(e => e.coin.equalsIgnoreCase("ETH")).flatMap(_.currencies
+                    .map { currency =>
+                      if (s.currencySelected.equalsIgnoreCase(currency.symbol)) {
+                        <.option(^.value := currency.symbol, currency.symbol, ^.selected := "selected")
+                      } else {
+                        <.option(^.value := currency.symbol, currency.symbol)
+                      }
+                    }).toVdomArray
+
+                  )
+                )
+              ),
+              p.proxy().render(tokenList =>
+                <.div(^.className := "currency-info-scrollbar")(
+                  tokenList.accountTokenDetails.filter(e => e.symbol.equalsIgnoreCase("ETH") || !e.balance.equalsIgnoreCase("0")) reverseMap createItem: _*
+                )),
+              p.proxy().renderFailed(ex => <.div()(
+                <.label(^.className := "warn-text", "Error while loading available token list")
+              )),
+              p.proxy().renderPending(e =>
+                <.div()(
+                  <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img")
+                ))
+
+            )
           )
         ),
         <.div(
@@ -256,11 +285,12 @@ object AccountView {
           )
         )
       )
+
     }
   }
 
-  val component = ScalaComponent.builder[Props]("AccountView")
-    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), ""))
+  val component = ScalaComponent.builder[Props]("MultisigHomeView")
+    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), UserDetails("", WalletDetails("", "0"))))
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.updateCurrency())
     .componentDidMount(scope => scope.backend.updateTheme())

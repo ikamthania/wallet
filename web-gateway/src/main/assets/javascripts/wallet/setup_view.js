@@ -7,8 +7,6 @@ $(document)
 
         $("#setUpbtnNext").click(() => onNextClicked(""));
 
-
-
         $("#btnSetPassword").click(() => onSetPasswordClicked());
         $("#btnAdvOpt").click(() => onbtnShowAdvancedClicked());
         $("input[name='initialIdentifierExisting']").click((arg) => collpaseTextArea(arg));
@@ -148,7 +146,7 @@ $(document)
                     _keystore.generateNewAddress(pwDerivedKey, 1);
                      var arrAddresses  = _keystore.getAddresses();
                     var privateKey = _keystore.exportPrivateKey(arrAddresses[0], pwDerivedKey);
-                    nemonicLogin(password,privateKey,arrAddresses[0]);
+                    nemonicLogin(password,privateKey);
                     // window.postMessage("address~" + arrAddresses[0]);
                     // window.postMessage("privateKey~" + privateKey);
                 });
@@ -157,27 +155,23 @@ $(document)
         function onNextClicked(id) {
             if (_rdbAdvOption != "")
                 _rdbSelected = _rdbAdvOption;
-//                else
-//                _rdbSelected = id;
-
             console.log("In onNextClixked " + _rdbSelected);
             switch (_rdbSelected) {
                 case "newId":
                     window
                         .location
-                        .assign("backupAccount");
+                        .href="./backupAccount.html";
                     break;
                 case "keyStoreFile":
-                        window.location.assign("login");
+                      window.location.href="./login.html";
                     break;
                 case "keyStoreJson": {
-
-
-                   var jsonTxt = $("#jsonText").val();
+                   var jsonTxt = $("#jsonTxt").val();
                                     var pwd = localStorage.getItem("ubunda-psswd");
-                                   alert("privateKeyTexta => " + jsonTxt + "pwd => " + pwd)
+//                                    alert("privateKeyTexta => " + jsonTxt + "pwd => " + pwd)
                                     keyStoreJSONREG(pwd , jsonTxt);
-                                    //                        window.location.assign("login");
+                                                                       window.location.href="./login.html";
+
                                                         break;
                 }
 
@@ -185,24 +179,34 @@ $(document)
                 recoverFromMnemonicPhrase();
                     //window.location.assign("login");
                     //redirect to home page.
+                                                        window.location.href="./login.html";
+
                     break;
                 case "privateKey":{
                     var privateKeyTexta = $("#privateKeyTexta").val();
                     var pwd = localStorage.getItem("ubunda-psswd");
 //                    alert("privateKeyTexta => " + privateKeyTexta + "pwd => " + pwd)
-                    nemonicLogin(pwd , privateKeyTexta,"");
+                    nemonicLogin(pwd , privateKeyTexta);
                                   //  window.location.assign("login");
+                                                                      window.location.href="./login.html";
+
                                     break;
                 }
 
                 case "web3Provider":
-                window.location.assign("login");
+//                window.location.assign("login");
+                                    window.location.href="./login.html";
+
                     break;
                 case "ledgerWallet":
-                window.location.assign("login");
+//                window.location.assign("login");
+                                    window.location.href="./login.html";
+
                     break;
                 case "restoreApp":
-                window.location.assign("login");
+//                window.location.assign("login");
+                                    window.location.href="./login.html";
+
                     break;
                 default:
                     break;

@@ -27,6 +27,8 @@ import scala.scalajs.js
 
 object SendView {
 
+  val userDetails = WalletCircuit.zoom(_.user.userDetails)
+
   case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], rc: RouterCtl[ApplicationRouter.Loc], to: String = "")
 
   final case class State(etherTransaction: EtherTransaction, userUri: String, etherBalance: String,
@@ -395,7 +397,7 @@ object SendView {
                 <.select(
                   ^.id := "slctAccount",
                   ^.onChange ==> onSelectAccountChange,
-                  <.option(s"Savings ${userDetails.value.walletDetails.publicKey}")
+                  <.option(s"${userDetails.value.alias}  ${userDetails.value.walletDetails.publicKey}")
                 )
               ),
               <.div(
@@ -403,7 +405,7 @@ object SendView {
                 <.label("Token: "),
                 t.props.runNow().proxy().render(e =>
                   <.select(^.onChange ==> onStateChange("txnType"))(
-                    e.accountTokenDetails.reverseMap { ercToken =>
+                    e.accountTokenDetails.filter(e => e.balance.equalsIgnoreCase("ETH") || e.balance > "0").reverseMap { ercToken =>
                     <.option(^.id := ercToken.contractAddress, ^.key := ercToken.contractAddress, ^.value := ercToken.contractAddress,
                       ercToken.tokenName)
                   }.toVdomArray

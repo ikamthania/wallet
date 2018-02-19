@@ -1,24 +1,97 @@
 $(document)
   .ready(function () {
-var pubKey=""
+
+    var baseUrl = window.location.href;
+
+    if(baseUrl.includes("q=addAccount")){
+    $(".initialSetup-password").hide();
+     $(".initialSetup-main").show();
+    }
+
     $("#newId").click(() => onrdbChecked("newId"));
     $("#existingId").click(() => onrdbChecked("existingId"));
     $("#restoreApp").click(() => onrdbChecked("restoreApp"));
 
     $("#setUpbtnNext").click(() => onNextClicked(""));
+    $("#setSelectedItem").click(() => setSelectedItem());
 
     $("#btnSetPassword").click(() => onSetPasswordClicked());
     $("#btnAdvOpt").click(() => onbtnShowAdvancedClicked());
     $("input[name='initialIdentifierExisting']").click((arg) => collpaseTextArea(arg));
 
-    $("#newId").prop("checked", true);
-    
     setDefaultJsonContent();
 
-    var _password = "";
+//    var _password = "";
     var hdString = "m/44'/60'/0'/0";
     var _keystore;
     var _rdbSelected = "newId";
+
+    window.document.addEventListener('message', function(e) {
+                               var messageSplit = e.data.split("~")
+
+                               //alert("message ===> " + messageSplit[0] + "  " + messageSplit[1] + " " + messageSplit[2] );
+
+                                if(messageSplit[0]=="success"){
+                                window.localStorage.setItem("pubKey",messageSplit[1]);
+                                window.localStorage.setItem("keystoreData",messageSplit[2]);
+
+                                ////alert("In addEventListener ==> message" + messageSplit[0]);
+
+                                ////alert(window.localStorage.getItem("pubKey"));
+                                ////alert(window.localStorage.getItem("keystoreData"));
+                                  window.location.href="./walletmain.html";
+                                }else if(messageSplit[0]=="existingAccSuccess"){
+
+                                  window.localStorage.setItem("pubKey",messageSplit[1]);
+                                  window.localStorage.setItem("keystoreData",messageSplit[2]);
+
+                                 var pubk = localStorage.getItem("pubKey")
+
+                                   if(pubk || pubk === ""){
+                                    // sideBar defined, maybe even as empty String
+                                   ////alert("if ======> " + pubk)
+                                     var priKey = localStorage.getItem("keystoreData");
+                                              ////alert("private key ==>>> " + localStorage.getItem("keystoreData"))
+                                            var jsonData = JSON.parse(priKey);
+                                           ////alert("jsonData ==>>> " + jsonData)
+                                             for (var i = 0, len = jsonData.length; i < len; i++) {
+                                              var keyStoreData = jsonData[i];
+                                                   if(keyStoreData.keystorePubKey == pubk){
+                                                   ////alert("In loginform setting privateKey")
+                                                    window.localStorage.setItem("priKey",keyStoreData.keystorePvtKey);
+                                                   }
+                                             }
+                                             window.location.href="./walletmain.html";
+                                 //  window.postMessage("login~" + password + "~" + window.localStorage.getItem("pubKey") +  "~" + 'getLoginView');
+                                   }
+                                  else{
+                                   window.location.href="./login.html";
+                                   // sideBar not set in localStorage
+                                  ////alert("else if => " + pubk)
+                                 //  window.postMessage("login~" + password + "~" + '' +  "~" + 'getLoginView');
+                                  }
+                                }else if(messageSplit[0]=="failure")
+                                {
+                                     toastr.error(messageSplit[1], "", {
+                                                              "timeOut": "5000",
+                                                              "extendedTImeout": "5000",
+                                                              "positionClass" : "toast-top-full-width"
+                                                          });
+                                }else if(messageSplit[0]=="deleted")
+                                {
+                                        if(messageSplit[2] != ''){
+                                        //alert("not null" + messageSplit[2])
+                                          window.localStorage.setItem("pubKey",messageSplit[2]);
+                                      }
+
+                                     window.localStorage.setItem("keystoreData",messageSplit[3]);
+                                     toastr.error(messageSplit[1], "", {
+                                                              "timeOut": "5000",
+                                                              "extendedTImeout": "5000",
+                                                              "positionClass" : "toast-top-full-width"
+                                                          });
+                                }
+                      });
 
     function onrdbChecked(id) {
       _rdbSelected = id;
@@ -27,15 +100,22 @@ var pubKey=""
         $("#setUpbtnNext").text("Next")
         $("input[name='initialIdentifierExisting']").attr("disabled", true);
 
-        if ($("#jsonText").hasClass("in")) 
+        if ($("#jsonText").hasClass("in"))
           $("#jsonText").removeClass("in");
-        
-        if ($("#passphraseText").hasClass("in")) 
+
+        if ($("#passphraseText").hasClass("in"))
           $("#passphraseText").removeClass("in");
-        
-        if ($("#privateKeyText").hasClass("in")) 
+
+        if ($("#privateKeyText").hasClass("in"))
           $("#privateKeyText").removeClass("in");
+
+           if ($("#shrdWallet").hasClass("in"))
+                  $("#shrdWallet").removeClass("in")
         }
+
+
+
+
       else if (_rdbSelected == "existingId") {
         _rdbSelected = "passPhrase";
 
@@ -46,47 +126,52 @@ var pubKey=""
           .getElementById("passPhrase")
           .checked = true;
 
-        if (!$("#passphraseText").hasClass("in")) 
+        if (!$("#passphraseText").hasClass("in"))
           $("#passphraseText").addClass("in");
-        
-        if ($("#jsonText").hasClass("in")) 
+
+        if ($("#jsonText").hasClass("in"))
           ("#jsonText").removeClass("in");
-        
-        if ($("#privateKeyText").hasClass("in")) 
+
+        if ($("#privateKeyText").hasClass("in"))
           $("#privateKeyText").removeClass("in");
+
+           if ($("#shrdWallet").hasClass("in"))
+                  $("#shrdWallet").removeClass("in")
         }
       else {
-        if ($("#jsonText").hasClass("in")) 
+        if ($("#jsonText").hasClass("in"))
           ("#jsonText").removeClass("in");
-        
-        if ($("#passphraseText").hasClass("in")) 
+
+        if ($("#passphraseText").hasClass("in"))
           $("#passphraseText").removeClass("in");
-        
-        if ($("#privateKeyText").hasClass("in")) 
+
+        if ($("#privateKeyText").hasClass("in"))
           $("#privateKeyText").removeClass("in");
+
+           if ($("#shrdWallet").hasClass("in"))
+                  $("#shrdWallet").removeClass("in")
         }
-      
+
       $("#setUpbtnNext").attr("data-target", "");
     }
 
     function collpaseTextArea(arg) {
       _rdbSelected = arg.target.id;
 
-      if ($("#jsonText").hasClass("in")) 
+      if ($("#jsonText").hasClass("in"))
         $("#jsonText").removeClass("in")
 
-      if ($("#passphraseText").hasClass("in")) 
+      if ($("#passphraseText").hasClass("in"))
         $("#passphraseText").removeClass("in")
 
-      if ($("#privateKeyText").hasClass("in")) 
+      if ($("#privateKeyText").hasClass("in"))
         $("#privateKeyText").removeClass("in")
-
-        if ($("#shrdWallet").hasClass("in")) 
+      if ($("#shrdWallet").hasClass("in"))
         $("#shrdWallet").removeClass("in")
 
-      if (_rdbSelected === "pasteJson" || _rdbSelected === "passphrase") 
+      if (_rdbSelected === "pasteJson" || _rdbSelected === "passphrase")
         $("#setUpbtnNext").attr("data-target", "#confirmModal")
-      else 
+      else
         $("#setUpbtnNext").attr("data-target", "")
     }
 
@@ -136,32 +221,39 @@ var pubKey=""
       validatePassword();
     }
 
-    function recoverFromMnemonicPhrase() {
+    function recoverFromMnemonicPhrase(password) {
       var mnemonicPhrase = $.trim($("#passphraseTxt").val());
       $("#errorMessage").hide();
-      
+
       if (mnemonicPhrase == "") {
-       $("#errorMessage").text("mnemonic phrase is empty");
-       $("#errorMessage").show();
+      toastr.error("Please provide valid mnemonic phrase", "", {
+                                  "timeOut": "5000",
+                                  "extendedTImeout": "5000",
+                                  "positionClass" : "toast-top-full-width"
+                              });
         return;
       }
 
       var arrWords = mnemonicPhrase.split(' ');
       if (arrWords.length != 12) {
-        $("#errorMessage").text("mnemonic phrase doensn't have 12 words.");
-        $("#errorMessage").show();
+       toastr.error("mnemonic phrase doensn't have 12 words.", "Invalid mnemonic phrase!!!!", {
+                                   "timeOut": "5000",
+                                   "extendedTImeout": "5000",
+                                   "positionClass" : "toast-top-full-width"
+                               });
+
         return;
       }
 
       lightwallet
         .keystore
         .createVault({
-          password: _password,
+          password: password,
           seedPhrase: mnemonicPhrase,
           hdPathString: hdString
         }, function (err, ks) {
           _keystore = ks
-          generateAddressAndPrivateKey(_password);
+          generateAddressAndPrivateKey(password);
         });
 
     }
@@ -172,37 +264,56 @@ var pubKey=""
           _keystore.generateNewAddress(pwDerivedKey, 1);
           var arrAddresses = _keystore.getAddresses();
           var privateKey = _keystore.exportPrivateKey(arrAddresses[0], pwDerivedKey);
-          nemonicLogin(password, privateKey);
+          mnemonicPhraseReg(privateKey);
         });
     }
 
+    function setSelectedItem(){
+        if(document.getElementById('newId').checked){
+                    localStorage.setItem("selectedRegItem", 'newId');
+        } else    if(document.getElementById('keyStoreFile').checked){
+                    localStorage.setItem("selectedRegItem",'keyStoreFile' );
+        } else    if(document.getElementById('keyStoreJson').checked){
+
+                    localStorage.setItem("selectedRegItem", 'keyStoreJson');
+        } else    if(document.getElementById('passPhrase').checked){
+                    localStorage.setItem("selectedRegItem",'passPhrase' );
+        } else    if(document.getElementById('privateKey').checked){
+                    localStorage.setItem("selectedRegItem", 'privateKey');
+        } else
+        {
+        }
+
+        onNextClicked("")
+
+    }
+
     function onNextClicked(id) {
-      switch (_rdbSelected) {
+
+        var getSelectedRegItem = localStorage.getItem("selectedRegItem");
+
+      switch (getSelectedRegItem) {
         case "newId":
-          window
-            .location
-            .assign("backupAccount");
+          window.location.href = "./backupAccount.html"
           break;
         case "keyStoreFile":
           window
             .location
-            .assign("login");
+            .href = "./login.html"
           break;
         case "keyStoreJson":
           {
-            var jsonTxt = $("#jsonTxt").val();
-            var pwd = localStorage.getItem("ubunda-psswd");
-            keyStoreJSONREG(pwd, jsonTxt);
-            break;
+            $('#keyStoreContent').modal({      show: 'true'   });
+           break;
           }
         case "passPhrase":
-          recoverFromMnemonicPhrase();
+          $('#mnemonicPhrase').modal({      show: 'true'   });
+
           break;
         case "privateKey":
           {
             var privateKeyTexta = $("#privateKeyTexta").val();
-            var pwd = localStorage.getItem("ubunda-psswd");
-            nemonicLogin(pwd, privateKeyTexta);
+            privateKeyReg(privateKeyTexta);
             break;
           }
           // case "web3Provider":     window         .location         .assign("login");
@@ -243,33 +354,60 @@ var pubKey=""
     function validatePassword() {
       var minLength = 4;
       var messageError = $("#messageError");
-      var password = $("#txtPassword").val(),
+      var password = $("#txtPassword").val();
+      var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{4,}$/;
+
         confirmpassword = $("#txtPasswordConfirm").val();
 
       if (password == "") {
-        messageError.text("Password is empty.");
-        messageError.show();
+        toastr.error("Please provide new password", "", {
+                                     "timeOut": "5000",
+                                     "extendedTImeout": "5000",
+                                     "positionClass" : "toast-top-full-width"
+                                 });
         return;
       }
 
       if (password.length < minLength) {
-        messageError.text("Please enter at least 4 characters");
-        messageError.show();
+       toastr.error("Please enter at least 4 characters", "", {
+                                      "timeOut": "5000",
+                                      "extendedTImeout": "5000",
+                                      "positionClass" : "toast-top-full-width"
+                                  });
         return;
       }
+          if(!re.test(password)){
+           toastr.error("password must contain at least one upper and lower case with combinations of atleast one number and special character", "", {
+                                                "timeOut": "5000",
+                                                "extendedTImeout": "5000",
+                                                "positionClass" : "toast-top-full-width"
+                                            });
+                  return;
+
+          }
 
       if (confirmpassword == "") {
-        messageError.text("Confirm passwod is empty.");
-        messageError.show();
+       toastr.error("Confirm passwod is empty.", "", {
+                                              "timeOut": "5000",
+                                              "extendedTImeout": "5000",
+                                              "positionClass" : "toast-top-full-width"
+                                          });
+
         return;
       }
 
       if (password != confirmpassword) {
-        messageError.text("The passwords do not match.");
-        messageError.show();
+      toastr.error("The passwords do not match.", "", {
+                                                      "timeOut": "5000",
+                                                      "extendedTImeout": "5000",
+                                                      "positionClass" : "toast-top-full-width"
+                                                  });
+
+
         return;
       }
-      _password = password;
+
+      _password = password ,   //$("#keyStorePassword").val(), //;
       localStorage.setItem("ubunda-psswd", password);
       $(".initialSetup-password").hide();
       $(".initialSetup-main").show();
@@ -280,71 +418,148 @@ var pubKey=""
         var password = document
           .getElementById("password")
           .value;
-        window.postMessage("login~" + password);
-        window.localStorage.setItem("pubKey",pubKey)
-       // window.location.href="../views/walletmain.html"
+         var pubk = localStorage.getItem("pubKey")
+
+         if(pubk || pubk === ""){
+          // sideBar defined, maybe even as empty String
+         ////alert("if ======> " + pubk)
+           var priKey = localStorage.getItem("keystoreData");
+                    ////alert("private key ==>>> " + localStorage.getItem("keystoreData"))
+                  var jsonData = JSON.parse(priKey);
+                 ////alert("jsonData ==>>> " + jsonData)
+                   for (var i = 0, len = jsonData.length; i < len; i++) {
+                    var keyStoreData = jsonData[i];
+                         if(keyStoreData.keystorePubKey == pubk){
+                         ////alert("In loginform setting privateKey")
+                          window.localStorage.setItem("priKey",keyStoreData.keystorePvtKey);
+                         }
+                   }
+         window.postMessage("login~" + password + "~" + window.localStorage.getItem("pubKey") +  "~" + 'getLoginView');
+         }
+        else{
+         // sideBar not set in localStorage
+        ////alert("else if => " + pubk)
+         window.postMessage("login~" + password + "~" + '' +  "~" + 'getLoginView');
+        }
+      });
+
+      $("#mnemonicPhraseBtn").click(function(){
+          var password = $("#mnemonicPassword").val()
+
+                recoverFromMnemonicPhrase(password);
+
+      });
+      $("#keyStoreContentBtn").click(function(){
+       var password = $("#keyStorePassword").val()
+                  var jsonTxt = $("#jsonTxt").val();
+                  //var pwd = localStorage.getItem("keystore-psswd");
+                  keyStoreJSONREG(password, jsonTxt);
+
       });
 
   });
 
-function mnemonicReg(password, privateKeyString) {
+function newRegistration(password, privateKeyString, publicKeyString) {
 
-  var privKeyBuffer = ethereumjs
-    .Buffer
-    .Buffer
-    .from(privateKeyString, 'hex');
-  if (privKeyBuffer != "") {
+    var privKeyBuffer = ethereumjs.Buffer.Buffer.from(privateKeyString, 'hex');
+
+    if (privKeyBuffer != "") {
+      $("#errorMessage").hide();
+       toastr.info("Registration for new account is processing...", "Registration", {
+                                       "timeOut": "10000",
+                                       "extendedTImeout": "10000",
+                                       "positionClass" : "toast-top-full-width"
+                                   });
+       window.postMessage("registration~" + password + "~" + privateKeyString + "~" + publicKeyString + "~" + "newAcc");
+                  window.location.href = "./login.html"
+
+//       window.postMessage("registration~" + password + "~" + privateKeyString + "~" + publicKeyString + "~" + "newAcc");
+    } else {
+    toastr.error("Encountered problem while creating new account", "", {
+                              "timeOut": "5000",
+                              "extendedTImeout": "5000",
+                              "positionClass" : "toast-top-full-width"
+                          });
+    }
+};
+
+function privateKeyReg(privateKeyString) {
+try{
+  var privKeyBuffer = ethereumjs.Buffer.Buffer.from(privateKeyString, 'hex');
     var wallet = new ethereumjs.Wallet(privKeyBuffer);
-    var keystoreJsonString = wallet.toV3String(password);
+    var pubKeyWallet= wallet.getChecksumAddressString();
     $("#errorMessage").hide();
-    console.warn("Keystore Json String -> " + keystoreJsonString);
-    localStorage.setItem("keystoreContent", keystoreJsonString);
-    window.postMessage("registration~" + password + "~" + keystoreJsonString);
+    console.warn("Keystore Json String -> " + pubKeyWallet);
+            var pwd = localStorage.getItem("ubunda-psswd");
+     ////alert("password " + password + "privKey " + privateKeyString + "JSON.parse(keystoreJsonString).address " + pubKeyWallet)
+     toastr.info("Registration using private key is processing...", "Registration", {
+                                 "timeOut": "10000",
+                                 "extendedTImeout": "10000",
+                                 "positionClass" : "toast-top-full-width"
+                             });
+    window.postMessage("registration~" + pwd + "~" + privateKeyString + "~" + pubKeyWallet + "~" + "existingAcc");
+
+
+  }
+  catch(err){  toastr.error("Please provide valid private key", "Invalid private key !!!!", {
+                          "timeOut": "5000",
+                          "extendedTImeout": "5000",
+                          "positionClass" : "toast-top-full-width"
+                      });}
+};
+
+function mnemonicPhraseReg(privateKeyString) {
+  var privKeyBuffer = ethereumjs.Buffer.Buffer.from(privateKeyString, 'hex');
+  if (privKeyBuffer != "") {
+
+    var wallet = new ethereumjs.Wallet(privKeyBuffer);
+var pubKeyWallet= wallet.getChecksumAddressString();
+    $("#errorMessage").hide();
+     var privKey = wallet.getPrivateKeyString();
+      privKeyWithout0x = privKey.substring(2);
+//           //alert("password " + pwd + "privKey " + privKey + " public key" +"pubkey"+pubKeyWallet)
+    var pwd=localStorage.getItem("ubunda-psswd")
+    toastr.info("Registration using mnemonic phrase is processing...", "Registration", {
+                                "timeOut": "10000",
+                                "extendedTImeout": "10000",
+                                "positionClass" : "toast-top-full-width"
+                            });
+    window.postMessage("registration~" + pwd + "~" + privKeyWithout0x + "~" + pubKeyWallet+ "~" + "existingAcc");
+
   } else {
-    $("#errorMessage").text("private key not found");
-    $("#errorMessage").show();
+   toastr.error("Please provide valid mnemonic phrase and password", "Invalid invalid phrase!!!!", {
+                             "timeOut": "5000",
+                             "extendedTImeout": "5000",
+                             "positionClass" : "toast-top-full-width"
+                         });
   }
 
 };
 
-function nemonicLogin(password, privateKeyString) {
-  var privKeyBuffer = ethereumjs
-    .Buffer
-    .Buffer
-    .from(privateKeyString, 'hex');
-  if (privKeyBuffer != "") {
-    var wallet = new ethereumjs.Wallet(privKeyBuffer);
-    var keystoreJsonString = wallet.toV3String(password);
-    $("#errorMessage").hide();
-    console.warn("Keystore Json String -> " + keystoreJsonString);
-    localStorage.setItem("keystoreContent", keystoreJsonString);
-    window.postMessage("registration~" + password + "~" + keystoreJsonString);
-    var pubKey = JSON
-      .parse(keystoreJsonString)
-      .address;
-    var setPubKey = "0x" + pubKey;
-    window
-      .location
-      .assign(setPubKey);
+function keyStoreJSONREG(password, keystoreJSONString) {
+try{     var wallet = ethereumjs
+        .Wallet
+        .fromV3(keystoreJSONString, password, true);
+      privKey = wallet.getPrivateKeyString();
+      privKeyWithout0x = privKey.substring(2);
+      var pwd=localStorage.getItem("ubunda-psswd")
 
-  } else {
-    $("#errorMessage").text("private key not found");
-    $("#errorMessage").show();
-  }
+  toastr.info("Registration using keystore content is processing...", "Registration", {
+                            "timeOut": "10000",
+                            "extendedTImeout": "10000",
+                            "positionClass" : "toast-top-full-width"
+                        });
+                          window.postMessage("registration~" + pwd + "~" + privKeyWithout0x + "~" + "0x"+JSON.parse(keystoreJSONString).address + "~" + "existingAcc");
 
-};
+}
+catch(err){
+toastr.error("Please provide valid keystore text and password!!!!", "", {
+                          "timeOut": "5000",
+                          "extendedTImeout": "5000",
+                          "positionClass" : "toast-top-full-width"
+                      });
+}
 
-function keyStoreJSONREG(password, privateKeyString) {
-  console.warn("Keystore Json String -> " + privateKeyString);
-  localStorage.setItem("keystoreContent", privateKeyString);
-  window.postMessage("registration~" + password + "~" + privateKeyString);
-  var pubKey = JSON
-    .parse(privateKeyString)
-    .address;
-  var setPubKey = "0x" + pubKey;
-  window
-    .location
-    .assign(setPubKey);
 }
 
 walletjs = function () {
@@ -358,34 +573,27 @@ walletjs = function () {
   walletjs.privKey = '';
   walletjs.privKeyWithout0x = '';
   walletjs.privKeyBuffer = '';
-  walletjs.getcurr = '';
+  walletjs.getPrvtKey = '';
+  walletjs.getPrvtKeyHex = '';
+   walletjs.getcurr = '';
 
   walletjs.postRawTxn = function (userPassword, amount, txTo, txnType, nonce, encodedFunction) {
 
-    console.log("userPassword-" + userPassword + "amount-" + amount + "txTo-txTotxnType" + txnType)
-    window.postMessage("signTx~" + userPassword + "~" + amount + "~" + txTo + "~" + txnType);
+    ////alert("userPassword-" + userPassword + "amount-" + amount + "txTo-txTotxnType" + txnType)
 
-    //         window.document.addEventListener('message', function(e) {
-    // walletjs.keystoreJson = JSON.parse(e.data);
-    walletjs.keystoreJson = JSON.parse(localStorage.getItem("keystoreContent"));
-    window.postMessage("txnType= " + txnType + "---- nonce=> " + nonce + "encodedFunction => " + encodedFunction);
-    //                                      walletjs.pubAdd = '0x' +
-    // walletjs.keystoreJson.address;
-    walletjs.wallet = ethereumjs
-      .Wallet
-      .fromV3(localStorage.getItem("keystoreContent"), userPassword, true);
-    //                                      walletjs.privKey =
-    // walletjs.wallet.getPrivateKeyString(); walletjs.privKeyWithout0x =
-    // walletjs.privKey.substring(2);                   walletjs.privKeyBuffer =
-    // ethereumjs.Buffer.Buffer.from(walletjs.privKeyWithout0x, 'hex');
-    privKey = walletjs
-      .wallet
-      .getPrivateKeyString();
-    privKeyWithout0x = privKey.substring(2);
-    privKeyBuffer = ethereumjs
-      .Buffer
-      .Buffer
-      .from(privKeyWithout0x, 'hex');
+    getPrvtKey = window.localStorage.getItem("priKey");
+    ////alert("privateKeyString => " + getPrvtKey)
+
+    getPrvtKeyHex = ethereumjs.Buffer.Buffer.from(window.localStorage.getItem("priKey"), 'hex');
+    ////alert("privKeyBuffer" + getPrvtKeyHex );
+
+//    walletjs.wallet = new ethereumjs.Wallet(getPrvtKeyHex);
+//    walletjs.wallet = ethereumjs.Wallet.fromV3(localStorage.getItem("keystoreContent"), userPassword, true);
+//    privKey = walletjs.wallet.getPrivateKeyString();
+//    ////alert("privKey" + privKey );
+//    privKeyWithout0x = privKey.substring(2);
+//    privKeyBuffer = ethereumjs.Buffer.Buffer.from(privKeyWithout0x, 'hex');
+//    ////alert("privKeyBuffer" + privKeyBuffer );
 
     switch (txnType) {
 
@@ -401,14 +609,14 @@ walletjs = function () {
             data: encodedFunction,
             chainId: 3
           }
-          window.postMessage("Start transaction signing");
-          window.postMessage("params message -> " + JSON.stringify(txParams))
+         // window.postMessage("Start transaction signing");
+         // window.postMessage("params message -> " + JSON.stringify(txParams))
           var txn = new ethereumjs.Tx(txParams);
-          txn.sign(privKeyBuffer)
+          txn.sign(getPrvtKeyHex)
           walletjs.serializedTx = txn
             .serialize()
             .toString('hex');
-          window.postMessage("signed message -> " + walletjs.serializedTx)
+         // window.postMessage("signed message -> " + walletjs.serializedTx)
           break;
         }
       default:
@@ -421,16 +629,15 @@ walletjs = function () {
             data: encodedFunction,
             chainId: 3
           }
-          window.postMessage("Start transaction signing");
-          window.postMessage("params message -> " + JSON.stringify(txParams))
+        //  window.postMessage("Start transaction signing");
+         // window.postMessage("params message -> " + JSON.stringify(txParams))
           var txn = new ethereumjs.Tx(txParams);
-          txn.sign(privKeyBuffer)
+          txn.sign(getPrvtKeyHex)
           walletjs.serializedTx = txn
             .serialize()
             .toString('hex');
-          window.postMessage("signed message -> " + walletjs.serializedTx)
+         // window.postMessage("signed message -> " + walletjs.serializedTx)
         }
-
     }
 
     //
@@ -463,10 +670,15 @@ walletjs = function () {
     return walletjs.serializedTx;
   };
 
-  walletjs.getnumberFormat = function(curr) {
+ walletjs.getnumberFormat = function(curr) {
     walletjs.getcurr = curr.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
   return walletjs.getcurr;
   }
 
+    walletjs.deleteAccount = function(publicKey,currentAccount) {
+            //alert(publicKey)
+            var pwd = localStorage.getItem("ubunda-psswd");
+         window.postMessage("deleteAccount~" + pwd + "~" + publicKey + "~" + currentAccount);
+    }
   return walletjs;
 }();

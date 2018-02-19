@@ -49,8 +49,11 @@ object ApplicationRouter {
   case object AddNewAccountLoc extends Loc
   case object AllAccountsLoc extends Loc
   case object AddSharedWalletLoc extends Loc
+  case object MultisigHomeLoc extends Loc
+  case object AddTokenLoc extends Loc
 
   case object TestLoc extends Loc
+
   case class PopulateQRCodeLoc(to: String) extends Loc
 
   private val walletaccountProxy = WalletCircuit.connect(_.ERCToken)
@@ -72,9 +75,11 @@ object ApplicationRouter {
       | staticRoute(s"#/backupIdentity", BackupIdentityLoc) ~> renderR(ctl => BackupIdentityView(BackupIdentityView.Props()))
       | staticRoute(s"#/backupAccount", BackupAccountLoc) ~> renderR(ctl => BackupAccountView(BackupAccountView.Props()))
       | staticRoute(s"#/notification", NotificationLoc) ~> renderR(ctl => NotificationView(NotificationView.Props()))
-      | staticRoute(s"#/termsOfService", TermsOfServiceLoc) ~> renderR(ctl => TermsOfServiceView(TermsOfServiceView.Props()))
+      //      | staticRoute(s"#/termsOfService", TermsOfServiceLoc) ~> renderR(ctl => TermsOfServiceView(TermsOfServiceView.Props()))
       | staticRoute(s"#/allAccounts", AllAccountsLoc) ~> renderR(ctl => AllAccountsView(AllAccountsView.Props(ctl)))
-      | staticRoute(s"#/addSharedWallet", AddSharedWalletLoc) ~> renderR(ctl => walletaccountProxy(proxy => AddSharedWalletView.component(AddSharedWalletView.Props(proxy, ctl))))
+      | staticRoute(s"#/addSharedWallet", AddSharedWalletLoc) ~> renderR(ctl => AddSharedWalletView.component(AddSharedWalletView.Props(ctl)))
+      | staticRoute(s"#/multisig", MultisigHomeLoc) ~> renderR(ctl => walletaccountProxy(proxy => MultisigHomeView.component(MultisigHomeView.Props(proxy, ctl))))
+      | staticRoute(s"#/addToken", AddTokenLoc) ~> renderR(ctl => AddTokenView(AddTokenView.Props()))
       | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props()))
       | dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
         walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}")))))

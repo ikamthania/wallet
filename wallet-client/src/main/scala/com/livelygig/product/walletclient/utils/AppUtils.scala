@@ -11,6 +11,5 @@ object AppUtils {
     val mapstring = parts.map(_.split("=")).map(arr => arr(0) -> arr(1)).toMap
     mapstring.get(name)
   }
-
   lazy val errorMessage = "We having trouble in loading results at this time. Please try after sometime"
 }
