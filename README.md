@@ -1,10 +1,12 @@
 # Ubunda Wallet Application
 
-This is the main repository where the code for the ubunda wallet application lives.
+This is the main repository where the code for the ubunda wallet application lives. There are three part
 
-## Overview
+* Web client - based on `scalajs-react` library in wallet-client directory
+* Native client - based on `react-native` applicationin wallet-native-client directory
+* Pass through server
 
-This wallet application. One is a web client which is based on `scalajs-react` library this project is currently in the walletClient directory  and another is a `react-native` application which is currently in wallet-native-client directory. These two are connected with each other with a simple web view component similar to this
+Web client and Native client are connect with each other with a simple web view component similar to this in "wallet-native-client\App.js"
 
 ```
 <WebView
