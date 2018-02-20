@@ -64,7 +64,7 @@ Linux requires some more setup, follow this blog post https://saintcoder.wordpre
 
 3. In separate terminal `cd wallet-native-client` and do `npm install // you can use yarn as well` and `npm start // can use yarn as well`
 
-What this command does can be found (here)[/wallet-native-client/package.json#L12] 
+What this command does can be found [here](/wallet-native-client/package.json#L12)
 
 4. We have used another config file, you can see it (here)[/wallet-native-client/App.js#L3] . To use that there is a comment in header in this file . It reads `// DO NOT USE THIS FILE DIRECTLY CREATE A COPY TO config.json MODIFY REQUIRED VARIABLES`. 
 You might ask why would I need to put ip, can't I put just localhost, answer is you can't. Because the emulator or the expo client doesn't know what localhost server is.
