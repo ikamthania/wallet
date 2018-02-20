@@ -50,7 +50,7 @@ sudo apt-get install sbt
 
 Install watchman
 
-On windows follow instruction (watchman download section)[https://facebook.github.io/watchman/docs/install.html#download-for-windows-beta] 
+On windows follow instruction watchman download section https://facebook.github.io/watchman/docs/install.html#download-for-windows-beta
 
 On OSX
 ```
@@ -58,7 +58,7 @@ brew update
 brew install watchman
 ```
 
-Linux requires some more setup, follow this (blog post)[https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/] to configure it 
+Linux requires some more setup, follow this blog post https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/ to configure it 
 
 2. Once packages are installed in project root do `sbt runAll` This starts the microservices, web gateway, scalajs-react project compilation
 
