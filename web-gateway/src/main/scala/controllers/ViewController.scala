@@ -22,103 +22,18 @@ class ViewController(
 )
     extends Controller with AppLogger with I18nSupport {
 
-  def walletApp(alias: String) = Action { implicit request =>
-    Ok(views.html.wallet.wallet())
-  }
-  def walletWeb(alias: String) = Action { implicit request =>
-    Ok(views.html.wallet.walletWeb())
-  }
-
-  def walletSignup(email: Option[String] = None) = Action { implicit request =>
-    val form = UserForms.walletRegistrationForm.fill(WalletRegistrationData(
-      alias = "",
-      emailAddress = None,
-      password = ""
-    ))
-    Ok(views.html.wallet.walletSignUp(form))
-  }
-
-  /*Action*/
-  def walletOldLogin(publicAddr: Option[String]) = Action { implicit request =>
-    val form = UserForms.walletLogInForm.fill(WalletLoginData(
-      walletIdentity = publicAddr.getOrElse(""),
-      password = "",
-      rememberMe = false
-    ))
-    Ok(views.html.wallet.walletOldLogin(form))
-  }
-  def walletLogin() = Action { implicit request =>
-    val form = UserForms.walletLogInForm.fill(WalletLoginData(
-      walletIdentity = "",
-      password = "",
-      rememberMe = false
-    ))
-    Ok(views.html.wallet.mobileWalletLogin(form))
-  }
-
   def wallet() = Action { implicit request =>
     Ok(views.html.wallet.wallet())
   }
 
-  def eulaView() = Action { implicit request =>
-    Ok(views.html.wallet.eulaView())
+  // @(projectName: String, assets: String => String, resourceExists: String => Boolean,htmlAttributes: Html = Html(""))
+
+  def bundleUrl(projectName: String): Option[String] = {
+    val name = projectName.toLowerCase
+    Seq(s"$name-opt.js", s"$name-fastopt.js")
+      .find(name => getClass.getResource(s"/public/$name") != null)
+      .map(controllers.routes.Assets.versioned(_).url)
   }
 
-  def qrScan(alias: String) = Action { implicit request =>
-    Ok(views.html.wallet.qrScan())
-  }
-
-  def setUpView1() = Action { implicit request =>
-    Ok(views.html.wallet.setUp1())
-  }
-  def setUpSignUpView(email: Option[String] = None) = Action { implicit request =>
-    val form = UserForms.walletRegistrationForm.fill(WalletRegistrationData(
-      alias = "",
-      emailAddress = None,
-      password = ""
-    ))
-    Ok(views.html.wallet.setUp())
-  }
-  def termsOfServiceView() = Action { implicit request =>
-    Ok(views.html.wallet.termService())
-  }
-
-  def backupAccountView() = Action { implicit request =>
-    Ok(views.html.wallet.backupAccount())
-  }
-
-  def backupIdentityView() = Action { implicit request =>
-    Ok(views.html.wallet.backupIdentity())
-  }
-
-  def setUpView2() = Action { implicit request =>
-    Ok(views.html.wallet.setUp2())
-  }
-  def serveAppFile(os: String) = Action { request =>
-    val filePath = if (env.mode != Mode.Dev) {
-      "/home/ubuntu/work/livelygig/mobile-app/"
-    } else BadRequest("Ubunda mobile version not available")
-
-    os match {
-      case "android" =>
-        val file = new java.io.File(s"$filePath/$os/app-release.apk")
-        if (file.exists()) {
-          Ok.sendFile(
-            content = file,
-            fileName = _ => "Ubunda.apk"
-          )
-        } else
-          Redirect(controllers.routes.ViewController.walletOldLogin()).flashing("error" -> Messages("wallet.error"))
-
-      case "ios" => Redirect(controllers.routes.ViewController.walletOldLogin()).flashing("info" -> Messages("wallet.ios.unavailable"))
-      case _ => Redirect(controllers.routes.ViewController.walletOldLogin()).flashing("error" -> Messages("wallet.error"))
-    }
-  }
-
-  //Mobile-App --->
-
-  def walletMobileApp(publicKey: String) = Action { implicit request =>
-    Ok(views.html.wallet.wallet())
-  }
 }
 

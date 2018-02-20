@@ -11,42 +11,7 @@
 ->          /v1                                     api.v1.Routes
 
 # wallet
-
-GET         /wallet                                 controllers.ViewController.wallet()
 GET         /wallet/                                controllers.ViewController.wallet()
-GET         /wallet/eula                            controllers.ViewController.eulaView()
-GET         /wallet/termsservice                    controllers.ViewController.termsOfServiceView()
-GET         /wallet/backupAccount                   controllers.ViewController.backupAccountView()
-GET         /wallet/backupIdentity                  controllers.ViewController.backupIdentityView()
-GET         /wallet/setup                           controllers.ViewController.setUpSignUpView(email:Option[String] = None)
-GET         /wallet/setup1                          controllers.ViewController.setUpView1()
-GET         /wallet/setup2                          controllers.ViewController.setUpView2()
-GET         /wallet/signup                          controllers.ViewController.walletSignup(email:Option[String] = None)
-GET         /wallet/login                           controllers.ViewController.walletLogin()
-
-GET         /wallet/web/                            controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-GET         /wallet/web                             controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-
-
-GET         /wallet/mobile/:publickey               controllers.ViewController.walletMobileApp(publickey:String)
-GET         /wallet/:alias                          controllers.ViewController.walletApp(alias: String)
-GET         /wallet/:alias/                         controllers.ViewController.walletApp(alias: String)
-GET         /wallet/:alias/captureQRCode            controllers.ViewController.qrScan(alias: String)
-#
-#Wallet old web based application
-
-GET         /wallet/web/                            controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-GET         /wallet/web                             controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-GET         /wallet/web/signup                      controllers.ViewController.walletSignup(email:Option[String] = None)
-GET         /wallet/web/login                       controllers.ViewController.walletOldLogin(publicAddr:Option[String] = None)
-GET         /wallet/web/:alias                      controllers.ViewController.walletWeb(alias: String)
-
-#app
-# GET         /:alias                                 controllers.ViewController.app(alias: String)
-# GET         /:alias/                                controllers.ViewController.app(alias: String)
-
-#wallet app
-GET         /wallet/app/:os                         controllers.ViewController.serveAppFile(os: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /webjars/*file                          controllers.WebJarAssets.at(file)

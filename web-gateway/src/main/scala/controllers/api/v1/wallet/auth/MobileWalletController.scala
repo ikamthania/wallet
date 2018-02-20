@@ -32,7 +32,7 @@ class MobileWalletController(
       password = "",
       rememberMe = false
     ))
-    Future.successful(Ok(views.html.wallet.mobileWalletLogin(form)))
+    Future.successful(Ok( /*views.html.wallet.mobileWalletLogin(form)*/ ""))
   }
 
   def walletApp = Action.async { implicit request =>

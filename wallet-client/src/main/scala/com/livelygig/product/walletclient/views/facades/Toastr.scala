@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views.facades
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSGlobal
 
-@JSGlobal("toastr")
+@JSGlobal("Toastr")
 @js.native
 object Toastr extends js.Object {
   def success(message: String, title: Option[String] = None, overrideOptions: Option[String] = None): Unit = js.native

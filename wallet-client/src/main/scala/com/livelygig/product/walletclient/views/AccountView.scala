@@ -24,7 +24,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object AccountView {
 
-  /* Toastr options */
+  // Toastr options
   Toastr.options.timeOut = 5000; // How long the toast will display without user interaction
   Toastr.options.extendedTimeOut = 60; // How long the toast will display after a user hovers over it
   Toastr.options.closeButton = true

@@ -21,7 +21,7 @@
     <body>
         <div id="root">
         </div>
-        @scalajs.html.scripts(projectName = "wallet-client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)
+        @addScripts(projectName = "wallet-client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)
         <script src="@routes.Assets.versioned("javascripts/wallet/pseudoloc.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/wallet/qrcode.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/wallet/ubunda-wallet-auth.js")"></script>

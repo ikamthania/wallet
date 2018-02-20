@@ -1,8 +1,11 @@
-import org.scalajs.sbtplugin.ScalaJSPlugin
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt._
 import webscalajs.ScalaJSWeb
+import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+
+import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
+
 
 object WalletClient {
   private[this] val clientSettings = Shared.commonSettings ++ Seq(
@@ -10,6 +13,15 @@ object WalletClient {
     libraryDependencies ++= WalletClientDependencies.scalajsDependencies.value,
     jsDependencies ++= WalletClientDependencies.jsDependencies.value,
     jsDependencies ++= WalletClientDependencies.provided.value.map(ProvidedJS / _),
+    npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
+    useYarn := true,
+    webpackBundlingMode := BundlingMode.LibraryOnly(),
+    // Add a dependency to the expose-loader (which will expose react to the global namespace)
+    npmDevDependencies in Compile += "expose-loader" -> "0.7.1",
+
+    // Use a custom config file to export the JS dependencies to the global namespace,
+    // as expected by the scalajs-react facade
+    webpackConfigFile := Some(baseDirectory.value / "webpack.config.js"),
 
     // yes, we want to package JS dependencies
     skip in packageJSDependencies := false,
@@ -21,6 +33,6 @@ object WalletClient {
 
   lazy val walletClient = (project in file("wallet-client"))
     .settings(clientSettings: _*)
-    .enablePlugins(ScalaJSPlugin, ScalaJSWeb)
+    .enablePlugins(ScalaJSBundlerPlugin, ScalaJSWeb)
     .dependsOn(Shared.sharedJs)
 }
