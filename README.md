@@ -23,6 +23,61 @@ and use that port instead.
 
 ## Dev environment setup
 
+### Setup in nutshell
+
+1. Install npm
+
+```
+sudo apt-get update
+sudo apt-get install nodejs
+
+sudo apt-get install npm
+```
+Install jdk
+
+```
+sudo apt-get install openjdk-8-jdk
+```
+
+Install sbt
+
+```
+echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+sudo apt-get update
+sudo apt-get install sbt
+```
+
+Install watchman
+
+On windows follow instruction (watchman download section)[https://facebook.github.io/watchman/docs/install.html#download-for-windows-beta] 
+
+On OSX
+```
+brew update
+brew install watchman
+```
+
+Linux requires some more setup, follow this (blog post)[https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/] to configure it 
+
+2. Once packages are installed in project root do `sbt runAll` This starts the microservices, web gateway, scalajs-react project compilation
+
+3. In separate terminal `cd wallet-native-client` and do `npm install // you can use yarn as well` and `npm start // can use yarn as well`
+
+What this command does can be found (here)[/wallet-native-client/package.json#L12] 
+
+4. We have used another config file, you can see it (here)[/wallet-native-client/App.js#L3] . To use that there is a comment in header in this file . It reads `// DO NOT USE THIS FILE DIRECTLY CREATE A COPY TO config.json MODIFY REQUIRED VARIABLES`. 
+You might ask why would I need to put ip, can't I put just localhost, answer is you can't. Because the emulator or the expo client doesn't know what localhost server is.
+
+6. To enable the hot reloading with scala sources there is a small watchman script
+`watchman-make --run 'echo "//" > wallet-native-client/trigger.js' -p '**/*.scala'`
+Use this script in your project root. 
+It configures watchman to read all scala sources with `**/* .scala` and once it sees a change it triggers to make trigger.js dirty with `'echo "//" > wallet-native-client/trigger.js'` notice it just add blank comment. It basically tells the watchman which is running in the wallet-native-client that something has changed in scala sources, you need to reload.
+
+7. To debug you have 2 options either use expo, to debug on your native mobile or use an android emulator.
+
+### Detailed setup
+
 ### Prerequisites
 
 The application uses two build chain. The scala application tool uses [sbt](https://www.scala-sbt.org/) and the react native application uses [npm](https://www.npmjs.com/). [Yarn](https://yarnpkg.com/en/) is also recommended.
