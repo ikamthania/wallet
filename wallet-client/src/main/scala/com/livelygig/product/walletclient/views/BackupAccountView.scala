@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import org.scalajs.dom
 import org.querki.jquery.$
 
@@ -257,8 +257,7 @@ object BackupAccountView {
         "depend",
         "deposit",
         "depth",
-        "deputy"
-      )
+        "deputy")
       def generateMnemonicPhrase(numbersOfWords: Int) = {
         val rnd = scala.util.Random
 
@@ -307,24 +306,19 @@ object BackupAccountView {
               ^.className := "btnDefault-container",
               <.button(
                 ^.id := "btnNextStart", ^.onClick --> onBtnClicked("btnNextStart"),
-                ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Next"
-              )
-            )
-          ),
+                ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Next"))),
           <.div(
             ^.className := "backupView-generate",
             <.div(
               ^.className := "generate-section-content",
-              <.p("Backup Phrase")
-            ),
+              <.p("Backup Phrase")),
             <.div(
               ^.className := "generate-section-middle",
               <.div(
                 ^.className := "mnemonicLangage",
                 <.label(
                   ^.className := "col-lg-3 col-md-4 col-sm-4 col-xs-5",
-                  "Display in:"
-                ),
+                  "Display in:"),
                 <.select(
                   ^.className := "col-lg-3 col-md-4 col-sm-4 col-xs-3",
                   <.option("English"),
@@ -334,14 +328,11 @@ object BackupAccountView {
                   <.option("Chinese (Simplified)"),
                   <.option("Chinese (Traditional)"),
                   <.option("French"),
-                  <.option("Italian")
-                )
-              ),
+                  <.option("Italian"))),
               <.div(
                 ^.className := "row",
                 <.div(
-                  ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12", generateMnemonicPhrase(12)
-                ),
+                  ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12", generateMnemonicPhrase(12)),
 
                 <.form(
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
@@ -350,25 +341,15 @@ object BackupAccountView {
                     <.label(
                       <.input(
                         ^.id := "chkbSecure", ^.`type` := "checkbox",
-                        ^.onClick --> onChkbClicked()
-                      ),
-                      "I have copied and stored my backup phrase in a secure place."
-                    )
-                  )
-                )
-              )
-            ),
+                        ^.onClick --> onChkbClicked()),
+                      "I have copied and stored my backup phrase in a secure place."))))),
             <.div(
               ^.className := "generate-section-bottom",
               <.div(
                 ^.className := "btnDefault-container",
                 <.button(
                   ^.id := "btnNextGenerate", ^.onClick --> onBtnClicked("btnNextGenerate"),
-                  ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Next"
-                )
-              )
-            )
-          ),
+                  ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Next")))),
           <.div(
             ^.className := "backupView-phrase",
             <.div(
@@ -379,11 +360,7 @@ object BackupAccountView {
                 <.div(
                   ^.className := "row backupPhrase-section",
                   <.div(
-                    ^.className := "col-xs-12 backupPhrase-container"
-                  )
-                )
-              )
-            ),
+                    ^.className := "col-xs-12 backupPhrase-container")))),
             <.div(
               ^.className := "row",
               <.div(
@@ -391,22 +368,15 @@ object BackupAccountView {
                 <.p(^.id := "errorMessage", "Invalid phrase"),
                 <.ul(
                   generateListOfWords().map(word =>
-                  <.li(^.id := word, ^.onClick --> onItemClicked(word), word + " ")).toVdomArray
-                )
-              ),
+                    <.li(^.id := word, ^.onClick --> onItemClicked(word), word + " ")).toVdomArray)),
               <.div(
                 ^.className := "btnDefault-container",
                 <.button(
                   ^.id := "btnResetPhrase", ^.onClick --> onBtnClicked("btnResetPhrase"),
-                  ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Reset phrase"
-                ),
+                  ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Reset phrase"),
                 <.button(
                   ^.id := "btnNextConfirmPhrase", ^.onClick --> onBtnClicked("btnNextConfirmPhrase"),
-                  ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Confirm"
-                )
-              )
-            )
-          ),
+                  ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Confirm")))),
           <.div(
             ^.className := "backupView-confirm",
             <.div(
@@ -415,10 +385,7 @@ object BackupAccountView {
                 ^.className := "col-xs-12",
                 <.div(
                   ^.className := "confirm-square",
-                  <.i(^.className := "fa fa-check-circle-o", VdomAttr("aria-hidden") := "true")
-                )
-              )
-            ),
+                  <.i(^.className := "fa fa-check-circle-o", VdomAttr("aria-hidden") := "true")))),
             <.div(
               ^.className := "row",
               <.div(
@@ -426,20 +393,12 @@ object BackupAccountView {
                 <.div(
                   ^.className := "confirm-message",
                   <.h3("Your account is backed up."),
-                  <.p("If this app is deleted or you lose access to your account, your account can be recovered using the Backup Mnemonic Phrase you have just secured.")
-                )
-              )
-            ),
+                  <.p("If this app is deleted or you lose access to your account, your account can be recovered using the Backup Mnemonic Phrase you have just secured.")))),
             <.div(
               ^.className := "btnDefault-container",
               <.button(
                 ^.id := "btnNextConfirm", ^.onClick --> onBtnClicked("btnNextConfirm"),
-                ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Finish"
-              )
-            )
-          )
-        )
-      )
+                ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Finish")))))
     }
   }
 

@@ -56,11 +56,10 @@ object Solidity {
 
   implicit def intToUint(int: Int): Uint = new Uint(int)
 
-  final class Array[T <: SolidityType : TypeName](value: Seq[T]) extends Seq[T] with SolidityType {
+  final class Array[T <: SolidityType: TypeName](value: Seq[T]) extends Seq[T] with SolidityType {
     protected val underlying: Seq[T] = value
 
-    override def typeMap[Base, Container](f: SolidityType => Base)
-                                         (implicit bf: CanBuildFrom[Container, Either[Base, Container], Container]): Either[Base, Container] = {
+    override def typeMap[Base, Container](f: SolidityType => Base)(implicit bf: CanBuildFrom[Container, Either[Base, Container], Container]): Either[Base, Container] = {
       val x: Seq[Either[Base, Container]] = underlying.map(_.typeMap(f))
       Right(bf().++=(x).result())
     }

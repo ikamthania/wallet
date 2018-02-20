@@ -12,7 +12,7 @@ import scala.scalajs.js
 import japgolly.scalajs.react.extra.router.RouterCtl
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.views.facades.Bootstrap._
-import com.livelygig.product.walletclient.views.facades.{EthereumjsABI, EthereumjsUnits}
+import com.livelygig.product.walletclient.views.facades.{ EthereumjsABI, EthereumjsUnits }
 
 object AddSharedWalletView {
 
@@ -27,13 +27,11 @@ object AddSharedWalletView {
     ownerName: String,
     ownerAddress: String,
     owners: List[Owner],
-    etherTransaction: EtherTransaction
-  )
+    etherTransaction: EtherTransaction)
 
   final case class Owner(
     name: String,
-    address: Address
-  )
+    address: Address)
 
   object State {
     def init: State =
@@ -57,18 +55,14 @@ object AddSharedWalletView {
         ^.className := "row walletData", ^.onClick ==> onSelectOwner,
         <.div(
           ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-4",
-          <.p(^.className := "ownerName ellipseText", owner.name)
-        ),
+          <.p(^.className := "ownerName ellipseText", owner.name)),
         <.div(
           ^.className := "col-lg-6 col-md-6 col-sm-6 col-xs-6",
-          <.p(^.className := "ownerAddress ellipseText", owner.address.toString())
-        ),
+          <.p(^.className := "ownerAddress ellipseText", owner.address.toString())),
         <.div(
           ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
           <.button(^.`type` := "button", ^.className := "btn btnDefault btnAction ",
-            <.i(^.className := "fa fa-times", VdomAttr("aria-hidden") := "true"))
-        )
-      )
+            <.i(^.className := "fa fa-times", VdomAttr("aria-hidden") := "true"))))
     <.div(props map createOwner: _*)
   }
 
@@ -112,10 +106,8 @@ object AddSharedWalletView {
               s.dailyLimitEth,
               "", "",
               s.owners :+ Owner(s.ownerName, new Address(s.ownerAddress)),
-              s.etherTransaction
-            )
-          }
-      )
+              s.etherTransaction)
+          })
     }
 
     def toggleDropdownArrow(id: String) = Callback {
@@ -133,8 +125,7 @@ object AddSharedWalletView {
 
           $("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
           s.copy(etherTransaction = EtherTransaction("", "", "", MultiSigWalletWithDailyLimit.BYTE_CODE + encodedConstructor, 0))
-        }
-      )
+        })
     }
 
     def render(p: Props, state: State): VdomElement =
@@ -150,9 +141,7 @@ object AddSharedWalletView {
               ^.onChange ==> onNameChange,
               ^.className := "form-control ellipseText",
               VdomAttr("data-error") := "Wallet name is required!",
-              ^.required := true
-            )
-          ),
+              ^.required := true)),
           <.div(
             ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
             <.h4("Required confirmations"),
@@ -161,9 +150,7 @@ object AddSharedWalletView {
               ^.onChange ==> onRequiredConfirmationsChange,
               ^.className := "form-control ellipseText",
               VdomAttr("data-error") := "Number of confirmation is required!",
-              ^.required := true
-            )
-          ),
+              ^.required := true)),
           <.div(
             ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
             <.h4("Daily limit (ETH)"),
@@ -173,13 +160,10 @@ object AddSharedWalletView {
               ^.placeholder := "0 (unlimited)",
               ^.className := "form-control ellipseText",
               VdomAttr("data-error") := "Daily limit is required!",
-              ^.required := true
-            )
-          ),
+              ^.required := true)),
           <.div(
             ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-            <.h4("Add owner")
-          ),
+            <.h4("Add owner")),
           <.div(
             ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-4",
             <.input.text(
@@ -188,9 +172,7 @@ object AddSharedWalletView {
               ^.placeholder := "Name",
               ^.className := "form-control ellipseText",
               VdomAttr("data-error") := "Name is required!",
-              ^.required := true
-            )
-          ),
+              ^.required := true)),
           <.div(
             ^.className := "col-lg-6 col-md-6 col-sm-6 col-xs-6",
             <.div(
@@ -201,19 +183,14 @@ object AddSharedWalletView {
                 ^.placeholder := "Address",
                 ^.className := "form-control ellipseText",
                 VdomAttr("data-error") := "Address is required!",
-                ^.required := true
-              ),
-              <.i(^.className := "fa fa-qrcode", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+                ^.required := true),
+              <.i(^.className := "fa fa-qrcode", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
             <.button(
               ^.onClick ==> addOwner,
               ^.className := "btn btnDefault btnAction active",
-              <.i(^.className := "fa fa-plus", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-plus", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
             <.div(
@@ -225,32 +202,20 @@ object AddSharedWalletView {
                   ^.className := "row",
                   <.div(
                     ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-4",
-                    <.p(^.className := "ellipseText", "Name")
-                  ),
+                    <.p(^.className := "ellipseText", "Name")),
                   <.div(
                     ^.className := "col-lg-6 col-md-6 col-sm-6 col-xs-6",
-                    <.p(^.className := "ellipseText", "Address")
-                  ),
+                    <.p(^.className := "ellipseText", "Address")),
                   <.div(
-                    ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2"
-                  )
-                ),
-                OwnerList(state.owners)
-              )
-            )
-          )
-        ),
+                    ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2")),
+                OwnerList(state.owners))))),
         <.div(
           ^.className := "container btnDefault-container",
           <.div(
             ^.className := "row",
             <.div(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-              <.button(^.`type` := "button", ^.className := "btn btnDefault", "Create", ^.onClick --> createSharedWallet())
-            )
-          )
-        )
-      )
+              <.button(^.`type` := "button", ^.className := "btn btnDefault", "Create", ^.onClick --> createSharedWallet())))))
   }
 
   val component = ScalaComponent.builder[Props]("AddSharedWalletView")

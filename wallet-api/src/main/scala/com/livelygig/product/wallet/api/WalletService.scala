@@ -1,7 +1,7 @@
 package com.livelygig.product.content.api
 
-import akka.{Done, NotUsed}
-import com.lightbend.lagom.scaladsl.api.{Service, ServiceCall}
+import akka.{ Done, NotUsed }
+import com.lightbend.lagom.scaladsl.api.{ Service, ServiceCall }
 import com.livelygig.product.shared.models.wallet._
 trait WalletService extends Service {
 
@@ -37,8 +37,7 @@ trait WalletService extends Service {
       pathCall("/api/wallet/mobile/status/:txnHash", mobileGetTransactionStatus _),
       pathCall("/api/wallet/mobile/:publicKey/transactions/", mobileGetAccountTransactionHistory _),
       pathCall("/api/wallet/mobile/:publicKey/nonce/", mobileGetNonce _),
-      pathCall("/api//wallet/mobile/signedTxn", mobileSendSignedTransaction _)
-    )
+      pathCall("/api//wallet/mobile/signedTxn", mobileSendSignedTransaction _))
   }
 }
 

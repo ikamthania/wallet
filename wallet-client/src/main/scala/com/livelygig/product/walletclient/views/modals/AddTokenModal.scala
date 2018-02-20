@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views.modals
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 
 object AddTokenModal {
 
@@ -25,9 +25,7 @@ object AddTokenModal {
               <.div(
                 ^.className := "row",
                 <.button(^.`type` := "button", ^.className := "close col-xs-1 col-xs-offset-5", VdomAttr("data-dismiss") := "modal", VdomAttr("aria-label") := "Close",
-                  <.span(VdomAttr("aria-hidden") := "true", "×"))
-              )
-            ),
+                  <.span(VdomAttr("aria-hidden") := "true", "×")))),
             <.div(
               ^.className := "modal-body",
               <.div(
@@ -40,9 +38,7 @@ object AddTokenModal {
                     // ^.onChange ==> onNameChange,
                     ^.className := "form-control ellipseText",
                     VdomAttr("data-error") := "Wallet name is required!",
-                    ^.required := true
-                  )
-                ),
+                    ^.required := true)),
                 <.div(
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12 inputContainer",
                   <.h4("Token address"),
@@ -51,9 +47,7 @@ object AddTokenModal {
                     // ^.onChange ==> onNameChange,
                     ^.className := "form-control ellipseText",
                     VdomAttr("data-error") := "Wallet name is required!",
-                    ^.required := true
-                  )
-                ),
+                    ^.required := true)),
                 <.div(
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12 inputContainer",
                   <.h4("Decimals"),
@@ -62,16 +56,10 @@ object AddTokenModal {
                     // ^.onChange ==> onNameChange,
                     ^.className := "form-control ellipseText",
                     VdomAttr("data-error") := "Wallet name is required!",
-                    ^.required := true
-                  )
-                )
-              ),
+                    ^.required := true))),
               <.div(
                 ^.className := "modal-footer",
-                <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Apply")
-              )
-            )
-          )))
+                <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Apply"))))))
   }
 
   val component = ScalaComponent.builder[Props]("AddTokenModal")

@@ -1,14 +1,14 @@
 package com.livelygig.product.walletclient.views.components
 
 import com.livelygig.product.walletclient.handler.ChangeLang
-import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc, _}
-import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.utils.I18N
 import diode.AnyAction._
 import diode.ModelRO
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{^, _}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
+import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
 import org.querki.jquery.$
 import org.scalajs.dom
 import org.scalajs.dom.raw.Element
@@ -16,7 +16,7 @@ import org.scalajs.dom.raw.Element
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
 import scala.scalajs.js.JSON
-import scala.util.{Failure, Success}
+import scala.util.{ Failure, Success }
 
 object SidebarMenu {
 
@@ -136,8 +136,7 @@ object SidebarMenu {
         MenuItemWithSubItems(state.selectDynamic("SETTINGS").toString, Seq(seetingsDisplaySettingSubmenuItem, settingsLanguageSubmenuitem /*, settinTokenUnitsDecimalsSubmenuItem*/ )),
         //MenuItemWithSubItems(state.selectDynamic("HELP_SUPPORT").toString, Seq(helpsupportgOverviewSubmenuItem, helpsupportBulletinSubmenuItem)),
         MenuItemWithSubItems(state.selectDynamic("ABOUT").toString, Seq( /*aboutCopyrightSubmenuItem, */ aboutPrivacyPolicySubmenuItem, aboutTermsConditionsSubmenuItem)),
-        MenuItemWithCallback(state.selectDynamic("SIGN_OUT").toString, signOut())
-      )
+        MenuItemWithCallback(state.selectDynamic("SIGN_OUT").toString, signOut()))
 
       val fullMenuItems = Seq(
         MenuItemWithSubItems(state.selectDynamic("IDENTITIES").toString, Seq(indentitiesprofileSubmenuItem, identitiesmanageSubmenuItem)),
@@ -164,8 +163,7 @@ object SidebarMenu {
         MenuItemWithCallback(state.selectDynamic("DIRECTORY").toString, emptyCallback),
         MenuItemWithCallback(state.selectDynamic("SHARE_UBUNDA").toString, emptyCallback),
         MenuItemWithSubItems(state.selectDynamic("TEST").toString, Seq(test1SubmenuItem, test2SubmenuItem)),
-        MenuItemWithCallback(state.selectDynamic("SIGN_OUT").toString, signOut())
-      )
+        MenuItemWithCallback(state.selectDynamic("SIGN_OUT").toString, signOut()))
 
       val isAlphaVersion = true
 
@@ -204,8 +202,7 @@ object SidebarMenu {
         case ml: MenuItemWithLocation => {
           <.li(^.id := ml.itemLabel, ^.onClick --> toggleNav())(
             (^.className := "active").when(ml.location == t.props.runNow().currentLoc),
-            t.props.runNow().router.link(ml.location)(ml.itemLabel)
-          )
+            t.props.runNow().router.link(ml.location)(ml.itemLabel))
         }
         case ms: MenuItemWithSubItems =>
           var id = ms.itemLabel.toLowerCase.replaceAll("\\[|\\]|\\&|\\: | ", "_")
@@ -219,11 +216,9 @@ object SidebarMenu {
               VdomAttr("data-toggle") := "collapse",
               VdomAttr("data-target") := s"#${id}-2",
               VdomAttr("aria-expanded") := "false", ^.className := "off", ms.itemLabel,
-              <.i(^.className := "fa fa-chevron-down", VdomAttr("aria-hidden") := "true")
-            ),
+              <.i(^.className := "fa fa-chevron-down", VdomAttr("aria-hidden") := "true")),
             <.ul(^.className := "nav collapse", (^.className := "in").when(isChildCurrentLocation(ms.submenuItems)),
-              ^.id := s"${id}-2", ^.role := "menu", VdomAttr("aria-labelledby") := s"${id}-1")(ms.submenuItems map createItem: _*)
-          )
+              ^.id := s"${id}-2", ^.role := "menu", VdomAttr("aria-labelledby") := s"${id}-1")(ms.submenuItems map createItem: _*))
         case _ => <.div()
       }
     }

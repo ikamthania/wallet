@@ -3,19 +3,18 @@ package controllers.api.v1.wallet
 import com.livelygig.product.content.api.WalletService
 import net.ceedubs.ficus.Ficus._
 import play.api.libs.json.Json
-import play.api.mvc.{Action, Controller}
-import play.api.{Configuration, Environment, Mode}
+import play.api.mvc.{ Action, Controller }
+import play.api.{ Configuration, Environment, Mode }
 import utils.Mocker
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * Created by shubham.k on 27-02-2017.
  */
 class WalletController(
-    walletService: WalletService, configuration: Configuration,
-    environment: Environment
-)(implicit val ec: ExecutionContext) extends Controller with Mocker {
+  walletService: WalletService, configuration: Configuration,
+  environment: Environment)(implicit val ec: ExecutionContext) extends Controller with Mocker {
 
   override val mockdataLocation: String = {
     if (environment.mode == Mode.Dev) {
@@ -55,13 +54,11 @@ class WalletController(
     val currList = getLiveMarketPrices()
     Future(
       Ok(
-        Json.toJson(currList)
-      )
-    )
+        Json.toJson(currList)))
   }
 
   def dummy() = Action.async { implicit request =>
-    log.debug("in dummy")
+    //    log.debug("in dummy")
     Future(Ok)
   }
 

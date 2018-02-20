@@ -4,20 +4,19 @@ import com.livelygig.product.content.api.WalletService
 import com.livelygig.product.shared.models.wallet.EtherTransaction
 import net.ceedubs.ficus.Ficus._
 import play.api.libs.json.Json
-import play.api.mvc.{Action, Controller}
-import play.api.{Configuration, Environment, Mode}
+import play.api.mvc.{ Action, Controller }
+import play.api.{ Configuration, Environment, Mode }
 import utils.Mocker
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * Created by shubham.k on 27-02-2017.
  */
 class MobileApiWalletController(
-    walletService: WalletService,
-    configuration: Configuration,
-    environment: Environment
-)(implicit val ec: ExecutionContext) extends Controller with Mocker {
+  walletService: WalletService,
+  configuration: Configuration,
+  environment: Environment)(implicit val ec: ExecutionContext) extends Controller with Mocker {
 
   override val mockdataLocation: String = {
     if (environment.mode == Mode.Dev) {
@@ -66,9 +65,7 @@ class MobileApiWalletController(
     val currList = getLiveMarketPrices()
     Future(
       Ok(
-        Json.toJson(currList)
-      ).withHeaders("Access-Control-Allow-Origin" -> "*")
-    )
+        Json.toJson(currList)).withHeaders("Access-Control-Allow-Origin" -> "*"))
   }
 
   def mobileGetNetworkInfo() = Action.async { implicit request =>
@@ -97,8 +94,7 @@ class MobileApiWalletController(
       case Some(json) => {
         Json.fromJson[EtherTransaction](json).fold(
           _ => Future.successful(BadRequest("Error in parsing json")),
-          etherTransaction => postTxnInfo(publicKey, etherTransaction)
-        )
+          etherTransaction => postTxnInfo(publicKey, etherTransaction))
       }
       case None => Future.successful(BadRequest("No Json Found"))
     }
@@ -117,8 +113,7 @@ class MobileApiWalletController(
       case Some(json) => {
         Json.fromJson[String](json).fold(
           _ => Future.successful(BadRequest("Error in parsing json")),
-          signedTxn => mobilePostTransaction(signedTxn)
-        )
+          signedTxn => mobilePostTransaction(signedTxn))
       }
       case None => Future.successful(BadRequest("No Json Found"))
     }

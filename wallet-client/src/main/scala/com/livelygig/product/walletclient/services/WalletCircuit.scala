@@ -5,7 +5,7 @@ import com.livelygig.product.walletclient.handler._
 import com.livelygig.product.walletclient.rootmodel._
 import com.livelygig.product.walletclient.utils.I18N
 import diode._
-import diode.data.{Empty, Pot}
+import diode.data.{ Empty, Pot }
 import diode.react.ReactConnector
 
 import scala.scalajs.js.JSON
@@ -24,6 +24,5 @@ object WalletCircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
     new ERCTokenHandler(zoomRW(_.ERCToken)((m, v) => m.copy(ERCToken = v))),
     new TransactionHandler(zoomRW(_.transaction)((m, v) => m.copy(transaction = v))),
     new I18NHandler(zoomRW(_.i18n)((m, v) => m.copy(i18n = v))),
-    new MarketPricesHandler(zoomRW(_.currencies)((m, v) => m.copy(currencies = v)))
-  )
+    new MarketPricesHandler(zoomRW(_.currencies)((m, v) => m.copy(currencies = v))))
 }

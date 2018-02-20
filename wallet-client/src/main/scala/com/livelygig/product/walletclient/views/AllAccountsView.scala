@@ -1,12 +1,12 @@
 package com.livelygig.product.walletclient.views
-import com.livelygig.product.walletclient.router.ApplicationRouter.{AccountLoc, AddNewAccountLoc, Loc}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, AddNewAccountLoc, Loc }
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
 import org.querki.jquery.$
 import org.scalajs.dom
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{ JsValue, Json }
 
 object AllAccountsView {
 
@@ -107,33 +107,19 @@ object AllAccountsView {
                         ^.className := "row",
                         <.div(^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-3")(
                           <.p(
-                            ^.id := keystoreKey._1._2
-                          )(
-                              "Savings"
-                            )
-                        ),
+                            ^.id := keystoreKey._1._2)(
+                              "Savings")),
                         <.div(^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-9")(
                           <.p(
                             ^.id := keystoreKey._1._2,
                             ^.className := "ellipseText",
-                            keystoreKey._2
-                          )
-                        ),
+                            keystoreKey._2)),
                         <.div(
                           ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
                           <.p(
                             ^.id := keystoreKey._1._2,
                             ^.className := "ellipseText publicAdd",
-                            keystoreKey._1._2
-                          )
-                        )
-                      )
-                    )
-                  )).toVdomArray
-              )
-            )
-          )
-        ),
+                            keystoreKey._1._2)))))).toVdomArray)))),
         <.div(
           ^.className := "container btnDefault-container homeButtonContainer",
           <.div(
@@ -143,11 +129,7 @@ object AllAccountsView {
               <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton notAlphaV", "Delete", ^.onClick --> updateURL("")),
               <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton notAlphaV", "Configure", ^.onClick --> updateURL("")),
               <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton", "Add", ^.onClick --> setSetupScreenView()),
-              <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton", "Select", ^.onClick --> onSelectAccountClicked())
-            )
-          )
-        )
-      )
+              <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton", "Select", ^.onClick --> onSelectAccountClicked())))))
   }
 
   val component = ScalaComponent.builder[Props]("AllAccountsView")

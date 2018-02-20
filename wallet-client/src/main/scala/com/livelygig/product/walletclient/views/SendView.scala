@@ -1,12 +1,12 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.handler.{GetCurrencies, UpdateAccountTokenList}
+import com.livelygig.product.walletclient.handler.{ GetCurrencies, UpdateAccountTokenList }
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.views.facades.Bootstrap._
-import com.livelygig.product.walletclient.views.facades.{Toastr, WalletJS}
+import com.livelygig.product.walletclient.views.facades.{ Toastr, WalletJS }
 import com.livelygig.product.walletclient.views.modals.ConfirmModal
 import com.sun.org.apache.xerces.internal.impl.io.UTF8Reader
 import diode.AnyAction._
@@ -15,8 +15,8 @@ import diode.react.ModelProxy
 import diode.react.ReactPot._
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
-import japgolly.scalajs.react.{Callback, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
+import japgolly.scalajs.react.{ Callback, _ }
 import org.querki.jquery.$
 import org.scalajs.dom
 import org.scalajs.dom.raw.Element
@@ -55,8 +55,7 @@ object SendView {
               case Left(err) => println(err)
               case Right(res) =>
                 t.modState(s => s.copy(
-                  coinExchange = res.coinExchangeList
-                ))
+                  coinExchange = res.coinExchangeList))
                 .runNow()
                 updateETHPrice(t.state.runNow().coinSymbol)
             })
@@ -144,8 +143,7 @@ object SendView {
 
       t.modState(s => s.copy(
         etherTransaction = s.etherTransaction.copy(amount = total),
-        amntInCurr = ethPriceInCurr, totalInCoin = totalIncoin, totalInCurr = totalInCurr
-      )).runNow()
+        amntInCurr = ethPriceInCurr, totalInCoin = totalIncoin, totalInCurr = totalInCurr)).runNow()
 
       changeInputButtonsVisibility(ethPriceInCurr, "usdTxtValue")
       changeInputButtonsVisibility(totalInCurr, "coinTxtValue")
@@ -169,16 +167,14 @@ object SendView {
                   t.modState(s => s.copy(
                     etherTransaction = s.etherTransaction
                       .copy(txnType = token.contractAddress, decimal = token.decimal),
-                    etherBalance = token.balance, coinSymbol = token.symbol.toUpperCase
-                  )).runNow()
+                    etherBalance = token.balance, coinSymbol = token.symbol.toUpperCase)).runNow()
                   updateETHPrice(token.symbol)
 
                 case "eth" =>
                   t.modState(s => s
                     .copy(
                       etherTransaction = s.etherTransaction.copy(txnType = newValue, decimal = 18),
-                      etherBalance = token.balance, coinSymbol = "ETH"
-                    )).runNow()
+                      etherBalance = token.balance, coinSymbol = "ETH")).runNow()
                   updateETHPrice("eth")
 
                 case _ =>
@@ -202,8 +198,7 @@ object SendView {
 
             t.modState(s => s.copy(
               etherTransaction = s.etherTransaction.copy(amount = value),
-              amntInCurr = ethPriceInCurr, totalInCoin = totalIncoin, totalInCurr = totalInCurr
-            )).runNow()
+              amntInCurr = ethPriceInCurr, totalInCoin = totalIncoin, totalInCurr = totalInCurr)).runNow()
 
             changeInputButtonsVisibility(ethPriceInCurr, "usdTxtValue")
             changeInputButtonsVisibility(value, "coinTxtValue")
@@ -338,13 +333,10 @@ object SendView {
             <.a(
               ^.className := "btn btn-success pull-right col-md-12 transactions-status-btn",
               ^.target := "_blank",
-              ^.href := checkTransactionOnEtherScan(txn), "Status"
-            )
+              ^.href := checkTransactionOnEtherScan(txn), "Status")
           } else {
             <.div(^.className := "btn btn-danger pull-right col-md-12 transactions-status-btn", "Error   ")
-          }
-        )
-      )
+          }))
     }
 
     def checkTransactionOnEtherScan(txn: String): String = {
@@ -379,8 +371,7 @@ object SendView {
             <.h4(^.id := "headerFrom", ^.className := "col-xs-11 ellipseText", VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#fromOpt", "From ", ^.onClick --> toggleDropdownArrow("headerFrom"),
               <.i(^.className := "fa fa-chevron-down", VdomAttr("aria-hidden") := "true"),
               <.label(
-                ^.id := "lblDisplayFrom"
-              )),
+                ^.id := "lblDisplayFrom")),
             <.div(
               ^.id := "fromOpt",
               ^.className := "col-xs-12 accountInfoFrom collapse",
@@ -388,37 +379,29 @@ object SendView {
                 ^.className := "accountItem",
                 <.label("Identity: "),
                 <.select()(
-                  <.option(userDetails.value.alias)
-                )
-              ),
+                  <.option(userDetails.value.alias))),
               <.div(
                 ^.className := "accountItem",
                 <.label("Account: "),
                 <.select(
                   ^.id := "slctAccount",
                   ^.onChange ==> onSelectAccountChange,
-                  <.option(s"${userDetails.value.alias}  ${userDetails.value.walletDetails.publicKey}")
-                )
-              ),
+                  <.option(s"${userDetails.value.alias}  ${userDetails.value.walletDetails.publicKey}"))),
               <.div(
                 ^.className := "accountItem",
                 <.label("Token: "),
                 t.props.runNow().proxy().render(e =>
                   <.select(^.onChange ==> onStateChange("txnType"))(
                     e.accountTokenDetails.filter(e => e.balance.equalsIgnoreCase("ETH") || e.balance > "0").reverseMap { ercToken =>
-                    <.option(^.id := ercToken.contractAddress, ^.key := ercToken.contractAddress, ^.value := ercToken.contractAddress,
-                      ercToken.tokenName)
-                  }.toVdomArray
-                  ))
-              ),
+                      <.option(^.id := ercToken.contractAddress, ^.key := ercToken.contractAddress, ^.value := ercToken.contractAddress,
+                        ercToken.tokenName)
+                    }.toVdomArray))),
               <.div(
                 ^.className := "accountSpendable",
                 <.label("Spendable: "),
                 <.div(
                   ^.className := "accountSpendableResult",
-                  <.p(s"${s.etherBalance} ${s.coinSymbol}")
-                )
-              ),
+                  <.p(s"${s.etherBalance} ${s.coinSymbol}"))),
               <.div(
                 ^.className := "accountSpendable",
                 <.div(
@@ -427,11 +410,7 @@ object SendView {
                     coin.currencies.filter(_.symbol.equalsIgnoreCase(s.currSymbol)).map { e =>
                       <.p(s"${s.coinSymbol} = ${e.price} ${e.symbol}")
                     }.toVdomArray
-                  }.toVdomArray
-                )
-              )
-            )
-          ),
+                  }.toVdomArray)))),
           <.div(
             ^.className := "row",
             <.div(
@@ -443,9 +422,7 @@ object SendView {
                 ^.required := true,
                 ^.defaultValue := { if (p.to != "") p.to.split("/").last.toString else s.etherTransaction.receiver },
                 ^.onChange ==> onStateChange("receiver")),
-              <.a(^.onClick --> onQRCodeClick, <.i(^.id := "captureQRCode", ^.className := "fa fa-qrcode", VdomAttr("aria-hidden") := "true"))
-            )
-          ),
+              <.a(^.onClick --> onQRCodeClick, <.i(^.id := "captureQRCode", ^.className := "fa fa-qrcode", VdomAttr("aria-hidden") := "true")))),
           <.div(
             ^.className := "row",
             <.div(
@@ -464,10 +441,8 @@ object SendView {
                 <.div(
                   ^.className := "maxButton maxButtonHidden",
                   ^.onClick ==> onMaxButtonClicked(),
-                  <.p("MAX", ^.onClick ==> onMaxButtonClicked())
-                ),
-                <.h5(s.coinSymbol)
-              ),
+                  <.p("MAX", ^.onClick ==> onMaxButtonClicked())),
+                <.h5(s.coinSymbol)),
               <.div(
                 ^.className := "accountAmountItem accountAmountItem-aprox",
                 <.h4("≈"),
@@ -478,9 +453,7 @@ object SendView {
                 <.input(^.id := "usdTxtValue", ^.`type` := "text", ^.className := "form-control", ^.value := s.amntInCurr,
                   ^.onChange ==> onStateChange("amountUSD")),
                 <.i(^.className := "fa fa-times xicon eraseButtonHidden", VdomAttr("aria-hidden") := "true", ^.onClick ==> onEraseButtonClicked()),
-                <.h5(s.currSymbol)
-              )
-            ),
+                <.h5(s.currSymbol))),
             <.div(
               ^.className := "col-xs-12 details",
               <.h4(^.id := "detailsmain", VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#detailGroup", "Details ", ^.onClick --> toggleDropdownArrow("detailsmain"),
@@ -493,39 +466,25 @@ object SendView {
                       <.td("≈"),
                       <.td(
                         ^.className := "fee",
-                        { ethereumFee }
-                      ),
-                      <.td("ETH")
-                    ),
+                        { ethereumFee }),
+                      <.td("ETH")),
                     <.tr(
                       <.td(
-                        <.p("Total")
-                      ),
+                        <.p("Total")),
                       <.td(
-                        <.p("≈")
-                      ),
+                        <.p("≈")),
                       <.td(
-                        <.p(^.id := "ethTotal", { s.totalInCoin })
-                      ),
+                        <.p(^.id := "ethTotal", { s.totalInCoin })),
                       <.td(
-                        <.p({ s.coinSymbol })
-                      )
-                    ),
+                        <.p({ s.coinSymbol }))),
                     <.tr(
                       <.td(),
                       <.td(
-                        <.p("≈")
-                      ),
+                        <.p("≈")),
                       <.td(
-                        <.p(^.id := "usdTotal", { s.totalInCurr })
-                      ),
+                        <.p(^.id := "usdTotal", { s.totalInCurr })),
                       <.td(
-                        <.p({ s.currSymbol })
-                      )
-                    )
-                  )
-                ))
-            ),
+                        <.p({ s.currSymbol }))))))),
             <.div(
               ^.className := "accountAmount passwordSection",
               <.h4("Password"),
@@ -535,22 +494,14 @@ object SendView {
                 <.input(^.`type` := "text", ^.className := "form-control", ^.defaultValue := s.etherTransaction.password,
                   ^.required := true,
                   ^.onChange ==> onStateChange("password")),
-                <.i(^.className := "fa fa-times xicon btc", VdomAttr("aria-hidden") := "true")
-              )
-            )
-          )
-        ),
+                <.i(^.className := "fa fa-times xicon btc", VdomAttr("aria-hidden") := "true"))))),
         <.div(
           ^.className := "container btnDefault-container container-NoBorder",
           <.div(
             ^.className := "row",
             <.div(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-              <.button(^.id := "sndBtnId", ^.className := "btn btnDefault", ^.tpe := "button", ^.onClick --> sendTransaction(p), VdomAttr("aria-hidden") := "true", "Send")
-            )
-          )
-        )
-      )
+              <.button(^.id := "sndBtnId", ^.className := "btn btnDefault", ^.tpe := "button", ^.onClick --> sendTransaction(p), VdomAttr("aria-hidden") := "true", "Send")))))
   }
 
   val component = ScalaComponent.builder[Props]("SendView")

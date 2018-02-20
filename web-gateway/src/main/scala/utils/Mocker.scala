@@ -1,15 +1,15 @@
 package utils
 
-import com.livelygig.product.shared.models.wallet.{CoinExchange, CurrencyList, ERC20ComplientToken, Transaction}
+import com.livelygig.product.shared.models.wallet.{ CoinExchange, CurrencyList, ERC20ComplientToken, Transaction }
 import org.apache.http.client.methods.HttpGet
-import org.apache.http.impl.client.{CloseableHttpClient, HttpClients}
+import org.apache.http.impl.client.{ CloseableHttpClient, HttpClients }
 import org.apache.http.util.EntityUtils
 import play.api.libs.json.Json
 
 /**
  * Created by shubham.k on 21-03-2017.
  */
-trait Mocker extends AppLogger {
+trait Mocker {
   val mockdataLocation: String = ""
 
   def getMockWalletTokenListResponse(responseType: String) = {
@@ -18,14 +18,14 @@ trait Mocker extends AppLogger {
       Json.parse(mock).validate[Seq[ERC20ComplientToken]]
         .asEither match {
           case Left(err) =>
-            log.error(s"Error in parsing content for $responseType : ${err}")
+            //            log.error(s"Error in parsing content for $responseType : ${err}")
             Nil
           case Right(res) =>
             res
         }
     } catch {
       case e: Exception =>
-        log.error(s"Error in loading mock file at ${mockdataLocation}/${responseType}.json")
+        // log.error(s"Error in loading mock file at ${mockdataLocation}/${responseType}.json")
         Nil
     }
   }
@@ -36,14 +36,14 @@ trait Mocker extends AppLogger {
       Json.parse(mock).validate[Seq[Transaction]]
         .asEither match {
           case Left(err) =>
-            log.error(s"Error in parsing content for $responseType : ${err}")
+            // log.error(s"Error in parsing content for $responseType : ${err}")
             Nil
           case Right(res) =>
             res
         }
     } catch {
       case e: Exception =>
-        log.error(s"Error in loading mock file at ${mockdataLocation}/${responseType}.json")
+        // log.error(s"Error in loading mock file at ${mockdataLocation}/${responseType}.json")
         Nil
     }
   }
@@ -73,8 +73,7 @@ trait Mocker extends AppLogger {
             err.getCause
             CurrencyList(token, currencyList.get.currencies.map(currency => currency.copy(price = 0)))
         }
-      }
-    )
+      })
   }
 }
 

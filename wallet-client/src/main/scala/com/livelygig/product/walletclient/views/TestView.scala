@@ -1,8 +1,8 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.views.facades.{Blockies, Pseudoloc, QRCode, Toastr}
+import com.livelygig.product.walletclient.views.facades.{ Blockies, Pseudoloc, QRCode, Toastr }
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
 import org.querki.jquery.$
 import org.scalajs.dom
 
@@ -58,8 +58,7 @@ object TestView {
       //      <.img(^.src := "data:image/jpg;base64,"),
       <.button(^.`type` := "button", ^.className := "btn btnDefault ", ^.onClick --> onToastrClick("success"),
         "Success"),
-      <.a(^.`type` := "button", ^.href := "/home/ubuntu/work/livelygig/mobile-app/android/app-debug.apk", ^.download := true, ^.className := "btn btnDefault  my-apk", "dowmload apk form"), <.img(^.src := "./assets/images/processing-img.svg", ^.className := "loading-img")
-    )
+      <.a(^.`type` := "button", ^.href := "/home/ubuntu/work/livelygig/mobile-app/android/app-debug.apk", ^.download := true, ^.className := "btn btnDefault  my-apk", "dowmload apk form"), <.img(^.src := "./assets/images/processing-img.svg", ^.className := "loading-img"))
   }
 
   val component = ScalaComponent.builder[Props]("TestView")

@@ -1,14 +1,14 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.router.ApplicationRouter.{AccountLoc, Loc}
-import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.views.facades.Bootstrap._
 import com.livelygig.product.walletclient.views.facades.QRCode
 import com.livelygig.product.walletclient.views.modals.ShowQRCode
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{<, VdomAttr, ^, _}
-import japgolly.scalajs.react.{Callback, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, ^, _ }
+import japgolly.scalajs.react.{ Callback, _ }
 import org.querki.jquery.$
 import org.scalajs.dom
 import org.scalajs.dom.raw.Element
@@ -131,14 +131,10 @@ object RequestView {
                 ^.className := "row",
                 <.div(
                   ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-7 reqscancode",
-                  <.div(^.id := "qrCode", ^.onClick --> updateModal())
-                ),
+                  <.div(^.id := "qrCode", ^.onClick --> updateModal())),
                 <.div(
                   ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-5 reqscancode-text",
-                  <.p("Have this code scanned by the sender. Click to show full-screen.")
-                )
-              )
-            ),
+                  <.p("Have this code scanned by the sender. Click to show full-screen.")))),
             <.div(
               ^.className := "request-section-middle",
               <.h4(^.id := "advanced", ^.className := "section-heading", "advanced ", VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#advOpt", ^.onClick --> toggleDropdownArrow("advanced"),
@@ -151,25 +147,20 @@ object RequestView {
                   <.button(
                     ^.id := "btnCopy",
                     ^.className := "btn btnDefault btn-request-icon", ^.onClick ==> onBtnClicked("btnCopy"),
-                    <.i(^.className := "fa fa-files-o", VdomAttr("aria-hidden") := "true")
-                  ),
+                    <.i(^.className := "fa fa-files-o", VdomAttr("aria-hidden") := "true")),
                   <.button(
                     ^.className := "btn btnDefault btn-request-icon btnHidden",
-                    <.i(^.className := "fa fa-share-alt", VdomAttr("aria-hidden") := "true")
-                  ),
+                    <.i(^.className := "fa fa-share-alt", VdomAttr("aria-hidden") := "true")),
                   <.button(
                     ^.className := "btn btnDefault btn-request-icon btnHidden",
-                    <.i(^.className := "fa fa-envelope", VdomAttr("aria-hidden") := "true")
-                  )
-                ),
+                    <.i(^.className := "fa fa-envelope", VdomAttr("aria-hidden") := "true"))),
                 <.div(
                   ^.className := "scoller-main",
                   <.div(
                     ^.className := "req-amount-main notAlpha",
                     <.h4(
                       "Requested amount ",
-                      <.span("(Optional)")
-                    ),
+                      <.span("(Optional)")),
                     <.div(
                       ^.className := "calculate",
                       <.div(
@@ -180,9 +171,7 @@ object RequestView {
                         <.select(
                           ^.className := "form-control",
                           <.option("ETH"),
-                          <.option("RHOC")
-                        )
-                      ),
+                          <.option("RHOC"))),
                       <.div(
                         ^.className := "row-1 aprox",
                         <.span("≈"),
@@ -191,29 +180,21 @@ object RequestView {
                         <.i(^.className := "fa fa-times", VdomAttr("aria-hidden") := "true", ^.onClick ==> onEraseButtonClicked("usdTxtValue")),
                         <.select(
                           ^.className := "form-control",
-                          <.option("USD")
-                        )
-                      )
-                    )
-                  ),
+                          <.option("USD"))))),
                   <.div(
                     ^.className := "reaciving-add",
                     <.h4(
                       "Receiving address ",
-                      <.span(userDetails.value.alias)
-                    ),
+                      <.span(userDetails.value.alias)),
                     <.input(
                       ^.id := "lblReceivingAddress",
                       ^.className := "ellipseText",
                       // ^.disabled := true,
-                      ^.`defaultValue` := p.publicKey
-                    )
-                  ),
+                      ^.`defaultValue` := p.publicKey)),
                   <.div(
                     ^.className := "desscription notAlpha",
                     <.h4("Description"),
-                    <.textarea(^.id := "txtDescription", ^.className := "form-control", ^.rows := 1)
-                  ),
+                    <.textarea(^.id := "txtDescription", ^.className := "form-control", ^.rows := 1)),
                   <.div(
                     ^.className := "expiresIn notAlpha",
                     <.h4("Expires in: "),
@@ -223,43 +204,28 @@ object RequestView {
                       <.option("7 hours"),
                       <.option("1 day"),
                       <.option("3 days"),
-                      <.option("1 week")
-                    )
-                  ),
+                      <.option("1 week"))),
                   <.div(
                     ^.className := "send-credentials notAlpha",
                     <.h4(
                       "Send credentials ",
-                      <.span("(Patrick Yash Csintalan)")
-                    ),
+                      <.span("(Patrick Yash Csintalan)")),
                     <.select(
                       ^.className := "form-control",
                       <.option("None"),
                       <.option("1"),
-                      <.option("2")
-                    )
-                  )
-                )
-              )
-            )
-          ),
-          ShowQRCode.component(ShowQRCode.Props(p.publicKey))
-        ),
+                      <.option("2"))))))),
+          ShowQRCode.component(ShowQRCode.Props(p.publicKey))),
         <.div(
           ^.className := "container btnDefault-container container-NoBorder",
           <.h5(
             ^.className := "section-heading notAlpha",
-            <.span("Status: "), "waiting for payment..."
-          ),
+            <.span("Status: "), "waiting for payment..."),
           <.div(
             ^.className := "row",
             <.div(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-              <.button(^.className := "btn btnDefault", ^.onClick --> onDoneClicked(), "Done")
-            )
-          )
-        )
-      )
+              <.button(^.className := "btn btnDefault", ^.onClick --> onDoneClicked(), "Done")))))
 
   }
 

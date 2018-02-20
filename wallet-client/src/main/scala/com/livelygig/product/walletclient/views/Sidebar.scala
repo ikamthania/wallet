@@ -1,23 +1,23 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.handler.ChangeLang
-import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc, _}
-import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.utils.I18N
 import com.livelygig.product.walletclient.views.components._
 import com.livelygig.product.walletclient.views.facades.Blockies
 import diode.AnyAction._
 import diode.ModelRO
 import japgolly.scalajs.react
-import japgolly.scalajs.react.extra.router.{Resolution, RouterCtl}
-import japgolly.scalajs.react.vdom.html_<^.{^, _}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
+import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
+import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
 import org.querki.jquery.$
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
 import scala.scalajs.js.JSON
-import scala.util.{Failure, Success}
+import scala.util.{ Failure, Success }
 
 object Sidebar {
 
@@ -52,8 +52,7 @@ object Sidebar {
     def getETHNetInfo() = {
       CoreApi.mobileGetETHNetInfo().map(
         netInfo =>
-          t.modState(s => s.copy(ethNetInfo = netInfo)).runNow()
-      )
+          t.modState(s => s.copy(ethNetInfo = netInfo)).runNow())
     }
 
     def isSimpleHeader(page: Loc): Boolean = {
@@ -123,8 +122,7 @@ object Sidebar {
             <.div(
               ^.className := "row",
               <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2"
-              ),
+                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2"),
               <.div(
                 ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
                 <.div(
@@ -132,15 +130,9 @@ object Sidebar {
                   <.a(^.href := "javascript:void()", ^.className := "back-to"),
                   <.p(state.ethNetInfo),
                   <.h2(state.lang.selectDynamic("WALLET").toString),
-                  <.h3(getHeaderName(props.r.page, state))
-                )
-              ),
+                  <.h3(getHeaderName(props.r.page, state)))),
               <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2"
-              )
-            )
-          )
-        )
+                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2"))))
       } else if (currentPage == NotificationLoc || currentPage == AllAccountsLoc || currentPage == AddSharedWalletLoc) {
         <.div()(
           <.div(
@@ -153,13 +145,10 @@ object Sidebar {
                 <.div(^.id := "mySidenav", ^.className := "sidenav", ^.onClick ==> onSideBarMenuClicked,
                   <.div(
                     ^.id := "closebtnContainer",
-                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")
-                  ),
+                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
                   <.ul(
                     ^.id := "menu",
-                    SidebarMenu(props.c, props.r.page)
-                  ))
-              ),
+                    SidebarMenu(props.c, props.r.page)))),
               <.div(
                 ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
                 <.div(
@@ -169,24 +158,15 @@ object Sidebar {
                   <.h2(state.lang.selectDynamic("WALLET").toString),
                   <.span(
                     ^.className := "wallet-page",
-                    <.h3(getHeaderName(props.r.page, state))
-                  )
-                )
-              ),
+                    <.h3(getHeaderName(props.r.page, state))))),
               <.div(
                 ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
                 <.div(
                   ^.className := "wallet-user-icon notAlpha",
                   <.a(
-                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")
-                  ),
+                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),
 
-                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon")
-                )
-              )
-            )
-          )
-        )
+                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
       } else if (currentPage == IdentitiesLoc || currentPage == ManageIdentitiesLoc) {
         var headerName = "Select"
         if (currentPage == ManageIdentitiesLoc) headerName = getHeaderName(props.r.page, state)
@@ -201,13 +181,10 @@ object Sidebar {
                 <.div(^.id := "mySidenav", ^.className := "sidenav", ^.onClick ==> onSideBarMenuClicked,
                   <.div(
                     ^.id := "closebtnContainer",
-                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")
-                  ),
+                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
                   <.ul(
                     ^.id := "menu",
-                    SidebarMenu(props.c, props.r.page)
-                  ))
-              ),
+                    SidebarMenu(props.c, props.r.page)))),
               <.div(
                 ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
                 <.div(
@@ -219,31 +196,20 @@ object Sidebar {
                     ^.className := "wallet-page",
                     <.h3(state.lang.selectDynamic(headerName.toUpperCase()).toString), <.i(
                       ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"
-                    ),
+                      VdomAttr("aria-hidden") := "true"),
                     <.h3(state.lang.selectDynamic("IDENTITIES").toString),
                     <.i(
                       ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"
-                    ),
-                    <.h3("username")
-                  )
-                )
-              ),
+                      VdomAttr("aria-hidden") := "true"),
+                    <.h3("username")))),
               <.div(
                 ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
                 <.div(
                   ^.className := "wallet-user-icon notAlpha",
                   <.a(
-                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")
-                  ),
+                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),
 
-                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon")
-                )
-              )
-            )
-          )
-        )
+                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
       } else {
         <.div()(
           <.div(
@@ -256,13 +222,10 @@ object Sidebar {
                 <.div(^.id := "mySidenav", ^.className := "sidenav", ^.onClick ==> onSideBarMenuClicked,
                   <.div(
                     ^.id := "closebtnContainer",
-                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")
-                  ),
+                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
                   <.ul(
                     ^.id := "menu",
-                    SidebarMenu(props.c, props.r.page)
-                  ))
-              ),
+                    SidebarMenu(props.c, props.r.page)))),
               <.div(
                 ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
                 <.div(
@@ -274,31 +237,20 @@ object Sidebar {
                     ^.className := "wallet-page",
                     <.h3(state.lang.selectDynamic("ACCOUNT").toString), <.i(
                       ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"
-                    ),
+                      VdomAttr("aria-hidden") := "true"),
                     <.h3(userDetails.value.alias), <.i(
                       ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"
-                    ), {
+                      VdomAttr("aria-hidden") := "true"), {
                       <.h3(getHeaderName(props.r.page, state))
-                    }
-                  )
-                )
-              ),
+                    }))),
               <.div(
                 ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
                 <.div(
                   ^.className := "wallet-user-icon notAlpha",
                   <.a(
                     ^.href := "#/notification",
-                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")
-                  ),
-                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon")
-                )
-              )
-            )
-          )
-        )
+                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),
+                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
       }
     }
   }

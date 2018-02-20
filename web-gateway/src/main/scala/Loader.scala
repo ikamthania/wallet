@@ -1,31 +1,45 @@
 
+import com.lightbend.lagom.scaladsl.api.LagomConfigComponent
+import controllers.AssetsComponents
+import controllers.WebJarAssets
+import org.webjars.play.{ WebJarsUtil }
+
+//import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
+import play.api.i18n.I18nComponents
+import play.api.libs.ws.ahc.AhcWSComponents
+//import utils.AppLogger
 
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
-import com.lightbend.lagom.scaladsl.api.{ServiceAcl, ServiceInfo}
-import com.lightbend.lagom.scaladsl.client.{ConfigurationServiceLocatorComponents, LagomServiceClientComponents}
-import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
+import com.lightbend.lagom.scaladsl.api.{ ServiceAcl, ServiceInfo }
+import com.lightbend.lagom.scaladsl.client.{ ConfigurationServiceLocatorComponents, LagomServiceClientComponents }
+//import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
+
 import com.livelygig.product.content.api.WalletService
-import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode}
 import controllers.api.v1.wallet._
+import play.api.{ ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode }
+//import controllers.api.v1._
+
+import com.softwaremill.macwire.wire
+import controllers.api.v1.wallet.auth.MobileWalletController
+import controllers.{ Assets, ViewController }
+import play.api.ApplicationLoader.Context
+import play.api.http.{ HttpErrorHandler, HttpRequestHandler }
+import play.api.mvc.EssentialFilter
+import play.filters.gzip.GzipFilterComponents
 
 import scala.collection.immutable
 import scala.concurrent.ExecutionContext
-import com.softwaremill.macwire.wire
-import controllers.api.v1.wallet.auth.MobileWalletController
-import controllers.{Assets, ViewController, WebJarAssets}
-import play.api.ApplicationLoader.Context
-import play.api.http.{HttpErrorHandler, HttpRequestHandler}
-import play.api.i18n.I18nComponents
-import play.api.libs.ws.ahc.AhcWSComponents
-import play.api.mvc.EssentialFilter
-import play.filters.gzip.GzipFilterComponents
-import utils.web.{Filters, RequestHandler, WebGatewayErrorHandler}
-import utils.AppLogger
+//import play.filters.headers.SecurityHeadersComponents
+import utils.web.{ Filters, RequestHandler, WebGatewayErrorHandler }
+//import utils.{AppLogger, ServicesHolder}
 import router.Routes
 
 abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext(context)
-    with LagomServiceClientComponents
-    with GzipFilterComponents with AhcWSComponents with I18nComponents {
+  with LagomConfigComponent
+  with LagomServiceClientComponents
+  with GzipFilterComponents
+  with AssetsComponents
+  with AhcWSComponents with I18nComponents {
   LoggerConfigurator(context.environment.classLoader).foreach {
     _.configure(context.environment)
   }
@@ -33,9 +47,7 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
   override lazy val serviceInfo: ServiceInfo = ServiceInfo(
     "web-gateway",
     Map(
-      "web-gateway" -> immutable.Seq(ServiceAcl.forPathRegex("(?!/api/).*"))
-    )
-  )
+      "web-gateway" -> immutable.Seq(ServiceAcl.forPathRegex("(?!/api/).*"))))
 
   override implicit lazy val executionContext: ExecutionContext = actorSystem.dispatcher
   lazy val routerOption = None
@@ -50,8 +62,9 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
   }
 
   // assets
-  lazy val assets: Assets = wire[Assets]
-  lazy val webjarAssets: WebJarAssets = wire[WebJarAssets]
+  override lazy val assets = wire[Assets]
+  lazy val webjarAssets: WebJarsUtil = wire[WebJarsUtil]
+  lazy val webjarAsset: WebJarAssets = wire[WebJarAssets]
 
   // services
   lazy val walletService = serviceClient.implement[WalletService]
@@ -70,8 +83,9 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
   override lazy val httpFilters: Seq[EssentialFilter] = filtersWire.filters
 }
 
-class WebGatewayLoader extends ApplicationLoader with AppLogger {
-  log.info(s"Web gateway is loading.")
+class WebGatewayLoader extends ApplicationLoader /* with AppLogger*/ {
+  //  log.info(s"Web gateway is loading.")
+
   override def load(context: Context) = context.environment.mode match {
     case Mode.Dev =>
       //      new WebGateway(context) with LagomDevModeComponents {}.application

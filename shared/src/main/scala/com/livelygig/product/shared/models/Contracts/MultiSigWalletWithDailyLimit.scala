@@ -9,13 +9,12 @@ object MultiSigWalletWithDailyLimit {
     (ownerCount <= MAX_OWNER_COUNT
       && ownerCount >= required
       && required != 0
-      && ownerCount != 0
-      )
+      && ownerCount != 0)
   }
 }
 
 class MultiSigWalletWithDailyLimit(val owners: Array[Address], val required: Uint, val dailyLimit: Uint) {
-  if( !MultiSigWalletWithDailyLimit.isValidRequirement(new Uint(owners.length), required) ) {
+  if (!MultiSigWalletWithDailyLimit.isValidRequirement(new Uint(owners.length), required)) {
     throw new IllegalArgumentException("Invalid requirement")
   }
 

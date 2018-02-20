@@ -2,19 +2,18 @@ package com.livelygig.product.wallet.impl
 
 import akka.actor.ActorSystem
 import akka.stream.Materializer
-import akka.{NotUsed}
+import akka.{ NotUsed }
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.server.ServerServiceCall
 import com.livelygig.product.content.api.WalletService
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.wallet.impl.Utils.{EtherscanUtils, Web3JUtils}
-import scala.concurrent.{ExecutionContext, Future}
+import com.livelygig.product.wallet.impl.Utils.{ EtherscanUtils, Web3JUtils }
+import scala.concurrent.{ ExecutionContext, Future }
 
 class WalletServiceImpl(
-    system: ActorSystem,
-    web3JUtils: Web3JUtils,
-    etherScanUtils: EtherscanUtils
-)(implicit ec: ExecutionContext, mat: Materializer) extends WalletService {
+  system: ActorSystem,
+  web3JUtils: Web3JUtils,
+  etherScanUtils: EtherscanUtils)(implicit ec: ExecutionContext, mat: Materializer) extends WalletService {
 
   override def ping(): ServiceCall[String, String] = ServiceCall { _ =>
     Future {

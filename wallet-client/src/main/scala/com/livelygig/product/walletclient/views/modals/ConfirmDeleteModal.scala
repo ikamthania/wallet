@@ -1,10 +1,10 @@
 package com.livelygig.product.walletclient.views.modals
 
-import com.livelygig.product.walletclient.router.ApplicationRouter.{AllAccountsLoc, Loc}
-import com.livelygig.product.walletclient.views.facades.{Toastr, WalletJS}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AllAccountsLoc, Loc }
+import com.livelygig.product.walletclient.views.facades.{ Toastr, WalletJS }
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import org.scalajs.dom
 
 object ConfirmDeleteModal {
@@ -40,25 +40,17 @@ object ConfirmDeleteModal {
                   ^.className := "row",
                   <.h3(^.className := "modal-title col-xs-6", ^.id := "exampleModalLabel", "Confirm"),
                   <.button(^.`type` := "button", ^.className := "close col-xs-1 col-xs-offset-5", VdomAttr("data-dismiss") := "modal", VdomAttr("aria-label") := "Close",
-                    <.span(VdomAttr("aria-hidden") := "true", "×"))
-                )
-              ),
+                    <.span(VdomAttr("aria-hidden") := "true", "×")))),
               <.div(
                 ^.className := "modal-body",
                 <.div(
                   ^.className := "container",
                   <.div(
-                    <.h4("Are you sure you want to delete this ? ")
-                  )
-                ),
+                    <.h4("Are you sure you want to delete this ? "))),
                 <.div(
                   ^.className := "modal-footer",
                   <.button(^.id := "txConfirmBtn", ^.`type` := "button", ^.className := "btn btnDefault", ^.onClick --> onDeleteAccount(), VdomAttr("data-dismiss") := "modal", "Confirm"),
-                  <.button(^.id := "txConfirmDeleteBtn", ^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Cancel")
-                )
-              )
-            )))
-      )
+                  <.button(^.id := "txConfirmDeleteBtn", ^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Cancel")))))))
   }
 
   val component = ScalaComponent.builder[Props]("ConfirmDeleteModal")

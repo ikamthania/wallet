@@ -4,7 +4,7 @@ import com.livelygig.product.shared.models.wallet.UserDetails
 //import com.livelygig.product.walletclient.facades.PullToRefresh
 import com.livelygig.product.walletclient.handler.GetUserDetails
 import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.AnyAction._
 import org.scalajs.dom
 import play.api.libs.json.Json

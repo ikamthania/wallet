@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views.modals
 
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
-import japgolly.scalajs.react.{Callback, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
+import japgolly.scalajs.react.{ Callback, _ }
 
 object getInfoModal {
 
@@ -28,9 +28,7 @@ object getInfoModal {
                   ^.className := "row",
                   <.h5(^.className := "modal-title col-xs-6", ^.id := "exampleModalLabel", "Confirm"),
                   <.button(^.`type` := "button", ^.className := "close col-xs-1 col-xs-offset-5", VdomAttr("data-dismiss") := "modal", VdomAttr("aria-label") := "Close",
-                    <.span(VdomAttr("aria-hidden") := "true", "×"))
-                )
-              ),
+                    <.span(VdomAttr("aria-hidden") := "true", "×")))),
               <.div(
                 ^.className := "modal-body",
                 <.div(
@@ -41,27 +39,17 @@ object getInfoModal {
                       ^.className := "confirmContainer",
                       <.div(
                         ^.className := "messageContainer",
-                        <.h5("Please confirm the send of 1234.003 ETH to 0x12345... .")
-                      ),
+                        <.h5("Please confirm the send of 1234.003 ETH to 0x12345... .")),
                       <.div(
-                        <.input(^.id := "iptJsonFile", ^.name := "jsonFile", ^.`type` := "file")
-                      ),
+                        <.input(^.id := "iptJsonFile", ^.name := "jsonFile", ^.`type` := "file")),
                       <.div(
                         ^.className := "passwordContainer",
                         <.p("To confirm, enter password for your address 0xabcdef..."),
                         <.input(^.`type` := "password", ^.className := ""),
-                        <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal")
-                      )
-                    )
-                  )
-                ),
+                        <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal"))))),
                 <.div(
                   ^.className := "modal-footer",
-                  <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Confirm")
-                )
-              )
-            )))
-      )
+                  <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Confirm")))))))
 
   }
 

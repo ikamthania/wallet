@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
-import japgolly.scalajs.react.extra.router.{Resolution, RouterCtl}
+import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
 import japgolly.scalajs.react.vdom.html_<^._
 
 /**
@@ -14,9 +14,7 @@ object MainLayout {
     <.div(^.className := "wallet-main")(
       <.div(^.className := "wallet-inner container-fluid")(
         Sidebar.component(Sidebar.Props(c, r)),
-        r.render()
-      )
-    )
+        r.render()))
   }
 
 }

@@ -7,14 +7,12 @@ object UserForms {
   val logInForm = Form(mapping(
     "emailOrEthAddress" -> nonEmptyText,
     "password" -> nonEmptyText,
-    "rememberMe" -> boolean
-  )(LoginData.apply)(LoginData.unapply))
+    "rememberMe" -> boolean)(LoginData.apply)(LoginData.unapply))
 
   val registrationForm = Form(mapping(
     "defaultAlias" -> nonEmptyText.verifying("Malformed Alias", e => !e.contains("/")),
     "emailOrEthAddress" -> nonEmptyText,
-    "password" -> nonEmptyText
-  )(RegistrationData.apply)(RegistrationData.unapply))
+    "password" -> nonEmptyText)(RegistrationData.apply)(RegistrationData.unapply))
 
   case class LoginData(emailOrEthAddress: String, password: String, rememberMe: Boolean)
 
@@ -29,27 +27,22 @@ object UserForms {
   val changePasswordForm = Form(mapping(
     "old" -> nonEmptyText,
     "new" -> nonEmptyText,
-    "confirm" -> nonEmptyText
-  )(PasswordChange.apply)(PasswordChange.unapply))
+    "confirm" -> nonEmptyText)(PasswordChange.apply)(PasswordChange.unapply))
 
   val walletRegistrationForm = Form(mapping(
     "defaultAlias" -> nonEmptyText.verifying("Malformed Alias", e => !e.contains("/")),
     "emailAddress" -> optional(text),
-    "password" -> nonEmptyText
-  )(WalletRegistrationData.apply)(WalletRegistrationData.unapply))
+    "password" -> nonEmptyText)(WalletRegistrationData.apply)(WalletRegistrationData.unapply))
 
   val walletLogInForm = Form(mapping(
     "walletIdentity" -> nonEmptyText,
     "password" -> nonEmptyText,
-    "rememberMe" -> boolean
-  )(WalletLoginData.apply)(WalletLoginData.unapply))
+    "rememberMe" -> boolean)(WalletLoginData.apply)(WalletLoginData.unapply))
 
   case class FormData(name: String)
 
   val form = Form(
     mapping(
-      "name" -> text
-    )(FormData.apply)(FormData.unapply)
-  )
+      "name" -> text)(FormData.apply)(FormData.unapply))
 }
 

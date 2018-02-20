@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import org.querki.jquery.$
 
 object BackupIdentityView {
@@ -48,21 +48,15 @@ object BackupIdentityView {
               <.li(
                 ^.className := "passed",
                 <.i(^.className := "fa fa-check", VdomAttr("aria-hidden") := "true"),
-                <.p("Start")
-              ),
+                <.p("Start")),
               <.li(
                 <.i(^.className := "fa fa-check", VdomAttr("aria-hidden") := "true"),
-                <.p("Generate")
-              ),
+                <.p("Generate")),
               <.li(
                 <.i(^.className := "fa fa-check", VdomAttr("aria-hidden") := "true"),
-                <.p("Confirm")
-              )
-            ),
+                <.p("Confirm"))),
             <.div(^.className := "line1"),
-            <.div(^.className := "line2")
-          )
-        ),
+            <.div(^.className := "line2"))),
         <.div(
           ^.className := "backupView-main",
           <.div(
@@ -75,16 +69,12 @@ object BackupIdentityView {
               ^.className := "btnDefault-container",
               <.button(
                 ^.id := "btnNextStart", ^.onClick --> onBtnClicked("btnNextStart"),
-                ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Next"
-              )
-            )
-          ),
+                ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Next"))),
           <.div(
             ^.className := "backupView-generate",
             <.div(
               ^.className := "generate-section-content",
-              <.p("This is your Backup Phrase. Now write it on paper and keep it in a secure place.")
-            ),
+              <.p("This is your Backup Phrase. Now write it on paper and keep it in a secure place.")),
             <.div(
               ^.className := "generate-section-middle",
               <.h4("your backup phrase"),
@@ -92,12 +82,10 @@ object BackupIdentityView {
                 ^.className := "row",
                 <.div(
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                  <.p(^.className := "backup-phr-txt", "Lorem Ipsum is simply dummy text of the printing and typesetting industry")
-                ),
+                  <.p(^.className := "backup-phr-txt", "Lorem Ipsum is simply dummy text of the printing and typesetting industry")),
                 <.label(
                   ^.className := "col-lg-3 col-md-4 col-sm-4 col-xs-4",
-                  "language"
-                ),
+                  "language"),
                 <.select(
                   ^.className := "col-lg-3 col-md-4 col-sm-4 col-xs-4",
                   <.option("English"),
@@ -107,11 +95,7 @@ object BackupIdentityView {
                   <.option("Chinese (Simplified)"),
                   <.option("Chinese (Traditional)"),
                   <.option("French"),
-                  <.option("Italian")
-
-                )
-              )
-            ),
+                  <.option("Italian")))),
             <.div(
               ^.className := "generate-section-bottom",
               <.div(
@@ -122,19 +106,11 @@ object BackupIdentityView {
                     <.label(
                       <.input(
                         ^.id := "chkbSecure", ^.`type` := "checkbox",
-                        ^.onClick --> onChkbClicked()
-                      ),
-                      "I have copied and stored my backup phrase in a secure place."
-                    )
-                  )
-                ),
+                        ^.onClick --> onChkbClicked()),
+                      "I have copied and stored my backup phrase in a secure place."))),
                 <.button(
                   ^.id := "btnNextGenerate", ^.onClick --> onBtnClicked("btnNextGenerate"),
-                  ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Next"
-                )
-              )
-            )
-          ),
+                  ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Next")))),
           <.div(
             ^.className := "backupView-confirm",
             <.div(
@@ -143,10 +119,7 @@ object BackupIdentityView {
                 ^.className := "col-xs-12",
                 <.div(
                   ^.className := "confirm-square",
-                  <.i(^.className := "fa fa-check-circle-o", VdomAttr("aria-hidden") := "true")
-                )
-              )
-            ),
+                  <.i(^.className := "fa fa-check-circle-o", VdomAttr("aria-hidden") := "true")))),
             <.div(
               ^.className := "row",
               <.div(
@@ -154,20 +127,12 @@ object BackupIdentityView {
                 <.div(
                   ^.className := "confirm-message",
                   <.h3("Your identity is backed up."),
-                  <.p("If this app is deleted or you lose access to your account, your identity and associated accounts can be recovered using the Backup Mnemonic Phrase you have just secured.")
-                )
-              )
-            ),
+                  <.p("If this app is deleted or you lose access to your account, your identity and associated accounts can be recovered using the Backup Mnemonic Phrase you have just secured.")))),
             <.div(
               ^.className := "btnDefault-container",
               <.button(
                 ^.id := "btnNextConfirm", ^.onClick --> onBtnClicked("btnNextConfirm"),
-                ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Finish"
-              )
-            )
-          )
-        )
-      )
+                ^.`type` := "button", ^.className := "btn btnDefault setdefault", "Finish")))))
   }
 
   val component = ScalaComponent.builder[Props]("BackupIdentityView")

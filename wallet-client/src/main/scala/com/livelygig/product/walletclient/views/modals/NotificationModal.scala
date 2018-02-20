@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views.modals
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 
 object NotificationModal {
 
@@ -26,9 +26,7 @@ object NotificationModal {
                 ^.className := "row",
                 <.h5(^.className := "modal-title col-xs-6", ^.id := "exampleModalLabel", "Notification"),
                 <.button(^.`type` := "button", ^.className := "close col-xs-1 col-xs-offset-5", VdomAttr("data-dismiss") := "modal", VdomAttr("aria-label") := "Close",
-                  <.span(VdomAttr("aria-hidden") := "true", "×"))
-              )
-            ),
+                  <.span(VdomAttr("aria-hidden") := "true", "×")))),
             <.div(
               ^.className := "modal-body",
               <.div(
@@ -39,21 +37,13 @@ object NotificationModal {
                     ^.className := "notificationContainer",
                     <.h4(
                       ^.className := "title",
-                      "Lorem ipsum dolor sit amet."
-                    ),
+                      "Lorem ipsum dolor sit amet."),
                     <.p(
                       ^.className := "message",
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ipsum dolor sit amet, consectetur adipiscing elit."
-                    )
-                  )
-                )
-              ),
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit ipsum dolor sit amet, consectetur adipiscing elit.")))),
               <.div(
                 ^.className := "modal-footer",
-                <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Close")
-              )
-            )
-          )))
+                <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Close"))))))
   }
 
   val component = ScalaComponent.builder[Props]("NotificationModal")

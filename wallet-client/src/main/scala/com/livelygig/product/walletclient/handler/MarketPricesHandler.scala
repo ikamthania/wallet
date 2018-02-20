@@ -1,8 +1,8 @@
 package com.livelygig.product.walletclient.handler
 
-import com.livelygig.product.shared.models.wallet.{CoinExchange, Currency}
+import com.livelygig.product.shared.models.wallet.{ CoinExchange, Currency }
 import com.livelygig.product.walletclient.rootmodel.MarketPricesRootModel
-import diode.{ActionHandler, ActionResult, ModelRW}
+import diode.{ ActionHandler, ActionResult, ModelRW }
 
 case class GetCurrencies(coinExchange: CoinExchange)
 

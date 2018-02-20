@@ -4,7 +4,7 @@ import com.livelygig.product.walletclient.views.components._
 import com.livelygig.product.walletclient.views.modals.NotificationModal
 import japgolly.scalajs.react
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
 import org.querki.jquery.$
 
 object NotificationView {
@@ -41,18 +41,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -60,18 +55,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -79,18 +69,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -98,18 +83,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -117,18 +97,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -136,18 +111,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -155,18 +125,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -174,18 +139,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -193,18 +153,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -212,18 +167,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -231,18 +181,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -250,18 +195,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -269,18 +209,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          ),
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true"))),
           <.div(
             ^.className := "row", ^.onClick ==> onItemClicked, VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#notificationModal",
             <.div(
@@ -288,20 +223,13 @@ object NotificationView {
               <.h5("Lorem ipsum sit met"),
               <.p(
                 ^.className := "ellipseText",
-                "Lorem ipsum dolor sit amet, consectetur adiping elit..."
-              ),
+                "Lorem ipsum dolor sit amet, consectetur adiping elit..."),
               <.p(
                 ^.className := "messageTimeReceived",
-                "Received 2 hours ago"
-              )
-            ),
+                "Received 2 hours ago")),
             <.div(
               ^.className := "col-lg-1 col-md-1 col-sm-1 col-xs-2 text-right",
-              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")
-            )
-          )
-        )
-      )
+              <.i(^.className := "fa fa-times-circle", VdomAttr("aria-hidden") := "true")))))
   }
 
   val component = ScalaComponent.builder[Props]("NotificationView")

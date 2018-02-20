@@ -5,13 +5,13 @@ import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.handler._
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.router.ApplicationRouter.AccountLoc
-import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.views.facades.Toastr
 import diode.AnyAction._
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -25,8 +25,7 @@ object ConfirmModal {
     etherPropsTransaction: EtherTransaction = EtherTransaction("", "0Xabc12ad...", "0.0010", "", 18),
     rc: RouterCtl[ApplicationRouter.Loc],
     ethFees: String,
-    txType: String = ""
-  )
+    txType: String = "")
 
   final case class State(etherTransaction: EtherTransaction)
 
@@ -51,9 +50,7 @@ object ConfirmModal {
         <.div(
           ^.className := "messageContainer",
           <.h5(^.className := "amtAddressContainer")(s"Please confirm the send of ${p.etherPropsTransaction.amount} " +
-            s"${p.symbol.toUpperCase} + ${p.ethFees} ETH fees to ${p.etherPropsTransaction.receiver} .")
-
-        ),
+            s"${p.symbol.toUpperCase} + ${p.ethFees} ETH fees to ${p.etherPropsTransaction.receiver} .")),
         <.div(
           <.input(^.id := "txAmount", ^.`type` := "hidden", ^.value := p.etherPropsTransaction.amount, ^.onChange ==> updatePassword, ^.className := ""),
           <.input(^.id := "txTo", ^.`type` := "hidden", ^.value := p.etherPropsTransaction.receiver, ^.onChange ==> updatePassword, ^.className := ""),
@@ -61,9 +58,7 @@ object ConfirmModal {
           ^.className := "passwordContainer",
           <.p(s" You are sending from: ${userDetails.value.walletDetails.publicKey} To confirm, enter your application password."),
           <.input(^.id := "txPassword", ^.`type` := "password", ^.value := s.etherTransaction.password, ^.onChange ==> updatePassword, ^.className := ""),
-          <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal")
-        )
-      )
+          <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal")))
 
     }
 
@@ -73,15 +68,12 @@ object ConfirmModal {
         <.div(
           ^.className := "messageContainer",
           <.h5(^.className := "amtAddressContainer")(s"Transaction type: ${txType} " +
-            s"Fee: ${fee} ETH.")
-        ),
+            s"Fee: ${fee} ETH.")),
         <.div(
           ^.className := "passwordContainer",
           <.p(s"To approve the transaction, enter your application password"),
           <.input(^.id := "txPassword", ^.`type` := "password", ^.value := s.etherTransaction.password, ^.onChange ==> updatePassword, ^.className := ""),
-          <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal")
-        )
-      )
+          <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal")))
     }
 
     def updatePassword(e: ReactEventFromInput): react.Callback = {
@@ -108,8 +100,7 @@ object ConfirmModal {
                         tokenList => {
                           WalletCircuit.dispatch(GetUserDetails(response)) // dispatched to update balance
                           tokenList.map { token => WalletCircuit.dispatch(AddTokens(token)) }
-                        }
-                      )
+                        })
                   }
                 case None => println("Error in parsing user details response")
               }
@@ -187,9 +178,7 @@ object ConfirmModal {
                   ^.className := "row",
                   <.h5(^.className := "modal-title col-xs-6", ^.id := "exampleModalLabel", "Confirm"),
                   <.button(^.`type` := "button", ^.className := "close col-xs-1 col-xs-offset-5", VdomAttr("data-dismiss") := "modal", VdomAttr("aria-label") := "Close",
-                    <.span(VdomAttr("aria-hidden") := "true", "×"))
-                )
-              ),
+                    <.span(VdomAttr("aria-hidden") := "true", "×")))),
               <.div(
                 ^.className := "modal-body",
                 <.div(
@@ -197,16 +186,10 @@ object ConfirmModal {
                   <.div(
                     ^.className := "row",
                     if (p.txType == "") confirmMessage()
-                    else createSharedWalletMessage(p.txType, p.ethFees, s)
-                  )
-                ),
+                    else createSharedWalletMessage(p.txType, p.ethFees, s))),
                 <.div(
                   ^.className := "modal-footer",
-                  <.button(^.id := "txConfirmBtn", ^.`type` := "button", ^.className := "btn btnDefault", ^.onClick ==> sendTransaction, VdomAttr("data-dismiss") := "modal", "Confirm")
-                )
-              )
-            )))
-      )
+                  <.button(^.id := "txConfirmBtn", ^.`type` := "button", ^.className := "btn btnDefault", ^.onClick ==> sendTransaction, VdomAttr("data-dismiss") := "modal", "Confirm")))))))
   }
 
   val component = ScalaComponent.builder[Props]("ConfirmModal")

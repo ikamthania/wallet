@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views.modals
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 
 object FilterModal {
 
@@ -26,9 +26,7 @@ object FilterModal {
                 ^.className := "row",
                 <.h5(^.className := "modal-title col-xs-6", ^.id := "exampleModalLabel", "Filter"),
                 <.button(^.`type` := "button", ^.className := "close col-xs-1 col-xs-offset-5", VdomAttr("data-dismiss") := "modal", VdomAttr("aria-label") := "Close",
-                  <.span(VdomAttr("aria-hidden") := "true", "×"))
-              )
-            ),
+                  <.span(VdomAttr("aria-hidden") := "true", "×")))),
             <.div(
               ^.className := "modal-body",
               <.div(
@@ -41,25 +39,19 @@ object FilterModal {
                     <.label(
                       ^.className := "radio-inline",
                       <.input(^.`type` := "radio", ^.name := "optradio"),
-                      "Option 1"
-                    ),
+                      "Option 1"),
                     <.label(
                       ^.className := "radio-inline",
                       <.input(^.`type` := "radio", ^.name := "optradio"),
-                      "Option 2"
-                    ),
+                      "Option 2"),
                     <.label(
                       ^.className := "radio-inline",
                       <.input(^.`type` := "radio", ^.name := "optradio"),
-                      "Option 3"
-                    ),
+                      "Option 3"),
                     <.label(
                       ^.className := "radio-inline",
                       <.input(^.`type` := "radio", ^.name := "optradio"),
-                      "Option 4"
-                    )
-                  )
-                ),
+                      "Option 4"))),
                 <.form(
                   ^.className := "col-xs-7 dateInputGroup",
                   <.h5("Date:"),
@@ -68,23 +60,14 @@ object FilterModal {
                     <.div(
                       ^.className := "dateInput",
                       <.label("From:"),
-                      <.input(^.`type` := "date", ^.className := "")
-                    ),
+                      <.input(^.`type` := "date", ^.className := "")),
                     <.div(
                       ^.className := "dateInput",
                       <.label("To:"),
-                      <.input(^.`type` := "date", ^.className := "")
-                    )
-                  )
-                )
-
-              )
-            ),
+                      <.input(^.`type` := "date", ^.className := "")))))),
             <.div(
               ^.className := "modal-footer",
-              <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Apply")
-            )
-          )))
+              <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Apply")))))
   }
 
   val component = ScalaComponent.builder[Props]("FilterModal")

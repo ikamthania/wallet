@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.facades
 import org.scalajs.dom.Element
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSGlobal, JSName}
+import scala.scalajs.js.annotation.{ JSGlobal, JSName }
 
 /*@js.native
 @JSGlobal

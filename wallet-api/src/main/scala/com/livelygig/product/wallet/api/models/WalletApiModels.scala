@@ -1,5 +1,5 @@
 package com.livelygig.product.wallet.api.models
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.{ Format, Json }
 
 case class Wallet(keyStoreFileContent: String, publicKey: String)
 

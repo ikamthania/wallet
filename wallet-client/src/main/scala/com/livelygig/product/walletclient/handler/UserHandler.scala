@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.handler
 
 import com.livelygig.product.shared.models.wallet.UserDetails
 import com.livelygig.product.walletclient.rootmodel.UserRootModel
-import diode.{ActionHandler, ActionResult, ModelRW}
+import diode.{ ActionHandler, ActionResult, ModelRW }
 
 case class GetUserDetails(userDetails: UserDetails)
 

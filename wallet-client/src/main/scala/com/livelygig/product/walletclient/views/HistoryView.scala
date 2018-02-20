@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.shared.models.wallet.{Transaction, TransactionWithSymbol}
+import com.livelygig.product.shared.models.wallet.{ Transaction, TransactionWithSymbol }
 import com.livelygig.product.walletclient.handler.GetAccountHistoryDetails
 import com.livelygig.product.walletclient.rootmodel.TransactionRootModel
 import com.livelygig.product.walletclient.services.WalletCircuit
@@ -9,8 +9,8 @@ import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy
 import diode.react.ReactPot._
-import japgolly.scalajs.react.vdom.html_<^.{EmptyVdom, ^, _}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
+import japgolly.scalajs.react.vdom.html_<^.{ EmptyVdom, ^, _ }
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
 import moment.Moment
 import org.querki.jquery.$
 import org.scalajs.dom
@@ -46,19 +46,15 @@ object HistoryView {
             ^.className := "row",
             <.div(
               ^.className := "col-lg-6 col-md-6 col-sm-6 col-xs-6",
-              <.label(Moment(s"${transactionWithSymbol.transaction.timeStamp}000", "x").format("llll"))
-            ),
+              <.label(Moment(s"${transactionWithSymbol.transaction.timeStamp}000", "x").format("llll"))),
             <.div(
               ^.className := "col-lg-6 col-md-6 col-sm-6 col-xs-6 section-right",
               <.label(^.className := "notAlpha", transactionWithSymbol.transaction.value),
-              <.span((^.className := "negative").when(isAmtDeducted), (^.className := "positive").when(!isAmtDeducted))(s"${transactionWithSymbol.transaction.value} ${transactionWithSymbol.symbol}")
-            ),
+              <.span((^.className := "negative").when(isAmtDeducted), (^.className := "positive").when(!isAmtDeducted))(s"${transactionWithSymbol.transaction.value} ${transactionWithSymbol.symbol}")),
             <.p(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12 ellipseText",
               (s"${transactionWithSymbol.transaction.from}").when(!isAmtDeducted),
-              (s"${transactionWithSymbol.transaction.to}").when(isAmtDeducted)
-            )
-          )
+              (s"${transactionWithSymbol.transaction.to}").when(isAmtDeducted)))
         } catch {
           case e: Exception =>
             println(e)
@@ -78,14 +74,10 @@ object HistoryView {
               <.select(
                 <.option("Rev"),
                 <.option("Rev 1"),
-                <.option("Rev 2")
-              )
-            ),
+                <.option("Rev 2"))),
             <.div(
               ^.className := "col-xs-2 notAlpha",
-              <.i(^.className := "fa fa-filter", VdomAttr("aria-hidden") := "true", VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#filterModal")
-            )
-          ),
+              <.i(^.className := "fa fa-filter", VdomAttr("aria-hidden") := "true", VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#filterModal"))),
           <.div(
             ^.className := "payment-section-bottom",
             <.div(
@@ -95,30 +87,21 @@ object HistoryView {
                 <.div(
                   ^.className := "col-lg-7 col-md-6 col-sm-7 col-xs-4 his-left",
                   <.h3("Date Time"),
-                  <.h3("From / To")
-                ),
+                  <.h3("From / To")),
                 <.div(
                   ^.className := "col-lg-5 col-md-6 col-sm-5 col-xs-8 his-right",
                   <.h3("Balance", ^.className := "notAlphaV"),
-                  <.h3("Transaction amount")
-                )
-              )
-            ),
+                  <.h3("Transaction amount")))),
             p.proxy().render(txnList =>
 
               <.div(^.className := "payment-section-bottom-midd")(
                 <.span()(txnList.accountTransactionHistory reverseMap createItem: _*).when(!txnList.accountTransactionHistory.isEmpty),
-                <.label(^.className := "warn-text", "No transactions   available").when(txnList.accountTransactionHistory.isEmpty)
-              )),
+                <.label(^.className := "warn-text", "No transactions   available").when(txnList.accountTransactionHistory.isEmpty))),
             p.proxy().renderFailed(ex => <.div(^.className := "payment-section-bottom-midd")(
-              <.label(^.className := "warn-text", "Error while loading transaction history ")
-            )),
+              <.label(^.className := "warn-text", "Error while loading transaction history "))),
             p.proxy().renderPending(e =>
               <.div()(
-                <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img")
-              ))
-          )
-        ),
+                <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img"))))),
         <.div(
           ^.className := "container btnDefault-container notAlpha",
           <.h5("Click to view or annotate"),
@@ -128,11 +111,7 @@ object HistoryView {
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
 
               <.button(^.className := "btn btnDefault goupButton", "Export"),
-              <.button(^.className := "btn btnDefault goupButton", "Share")
-            )
-          )
-        )
-      )
+              <.button(^.className := "btn btnDefault goupButton", "Share")))))
     }
   }
 

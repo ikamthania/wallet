@@ -1,11 +1,11 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.handler.{GetCurrencies, GetUserDetails, UpdateAccountTokenList}
+import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails, UpdateAccountTokenList }
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc, _}
-import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.views.components.SidebarMenu.toggleNav
 import com.livelygig.product.walletclient.views.facades.Toastr
 import diode.AnyAction._
@@ -14,8 +14,8 @@ import diode.react.ModelProxy
 import diode.react.ReactPot._
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{^, _}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
+import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
 import org.querki.jquery.$
 import org.scalajs.dom
 import org.scalajs.dom.raw.Element
@@ -55,13 +55,12 @@ object MultisigHomeView {
                 t.modState(s => s.copy(
                   coinExchange = res,
                   currencySelected = res
-                  .coinExchangeList
-                  .find(_.coin.equalsIgnoreCase("ETH"))
-                  .get
-                  .currencies
-                  .find(_.symbol.equalsIgnoreCase(t.state.runNow().currencySelected))
-                  .get.symbol
-                ))
+                    .coinExchangeList
+                    .find(_.coin.equalsIgnoreCase("ETH"))
+                    .get
+                    .currencies
+                    .find(_.symbol.equalsIgnoreCase(t.state.runNow().currencySelected))
+                    .get.symbol))
                 .runNow()
             })
 
@@ -145,28 +144,20 @@ object MultisigHomeView {
               ^.className := "row left-info",
               <.label(^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4", userERCToken.tokenName),
               <.span(^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText", BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString()),
-              <.span(^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol", s"${userERCToken.symbol}")
-            ),
+              <.span(^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol", s"${userERCToken.symbol}")),
             coin.map { e =>
               <.div(
                 ^.className := "row",
                 <.span(
                   ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4 ellipseText",
-                  s"@ ${e.price} ${e.symbol}"
-                ),
+                  s"@ ${e.price} ${e.symbol}"),
                 <.span(
                   ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText",
-                  BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString()
-                ),
+                  BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString()),
                 <.span(
                   ^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol",
-                  e.symbol
-                )
-              )
-            }.toVdomArray
-          )
-
-        )
+                  e.symbol))
+            }.toVdomArray))
       }
       <.div(^.id := "bodyWallet")(
         <.div(
@@ -176,8 +167,7 @@ object MultisigHomeView {
             <.h4(
               "Pending transactions ",
               ^.id := "headerPendingTx", VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#pendingTxList", ^.onClick --> toggleDropdownArrow("headerPendingTx"),
-              <.i(^.className := "fa fa-chevron-up", VdomAttr("aria-hidden") := "true")
-            ),
+              <.i(^.className := "fa fa-chevron-up", VdomAttr("aria-hidden") := "true")),
             <.div(
               ^.id := "pendingTxList", ^.className := "txList collapse in",
               <.div(
@@ -186,47 +176,35 @@ object MultisigHomeView {
                   ^.className := "col-xs-7 col-xs-offset-1",
                   <.p(
                     ^.className := "ellipseTextMultiLines txStatus",
-                    "Status: bla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla bla"
-                  ),
+                    "Status: bla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla bla"),
                   <.p(
                     ^.className := "ellipseText txDate",
-                    "Date: 01/02/2018"
-                  )
-                ),
+                    "Date: 01/02/2018")),
                 <.div(
                   ^.className := "col-xs-3 col-xs-offset-1",
                   <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Reject"),
-                  <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Hide")
-                )
-              ),
+                  <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Hide"))),
               <.div(
                 ^.className := "row data-pendingTransactions",
                 <.div(
                   ^.className := "col-xs-7 col-xs-offset-1",
                   <.p(
                     ^.className := "ellipseTextMultiLines txStatus",
-                    "Status: bla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blablabla bla blabla bla blabla bla blabla bla blabla bla blabla bla bla"
-                  ),
+                    "Status: bla bla blabla bla blabla bla blabla bla blabla bla blabla bla blabla bla blablabla bla blabla bla blabla bla blabla bla blabla bla blabla bla bla"),
                   <.p(
                     ^.className := "ellipseText txDate",
-                    "Date: 01/02/2018"
-                  )
-                ),
+                    "Date: 01/02/2018")),
                 <.div(
                   ^.className := "col-xs-3 col-xs-offset-1",
                   <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Approve"),
-                  <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Hide")
-                )
-              )
-            ),
+                  <.button(^.`type` := "button", ^.className := "btn btnDefault btnMultisigAction", "Hide")))),
             <.div(
               ^.className := "wallet-information-total container",
               <.div(
                 ^.className := "row heading-currency",
                 <.div(
                   ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4 hand-cuure-left",
-                  <.label("total:")
-                ),
+                  <.label("total:")),
                 <.div(
                   ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-8 select-currency",
                   <.label(
@@ -239,37 +217,24 @@ object MultisigHomeView {
 
                         token.balance.toDouble * coin.map(_.price).sum
 
-                      }.sum).setScale(2, BigDecimal.RoundingMode.UP).toString)
-
-                  ),
+                      }.sum).setScale(2, BigDecimal.RoundingMode.UP).toString)),
                   <.select(^.id := "selectOption", ^.onChange ==> updateCurrencyState)(
                     s.coinExchange.coinExchangeList.filter(e => e.coin.equalsIgnoreCase("ETH")).flatMap(_.currencies
-                    .map { currency =>
-                      if (s.currencySelected.equalsIgnoreCase(currency.symbol)) {
-                        <.option(^.value := currency.symbol, currency.symbol, ^.selected := "selected")
-                      } else {
-                        <.option(^.value := currency.symbol, currency.symbol)
-                      }
-                    }).toVdomArray
-
-                  )
-                )
-              ),
+                      .map { currency =>
+                        if (s.currencySelected.equalsIgnoreCase(currency.symbol)) {
+                          <.option(^.value := currency.symbol, currency.symbol, ^.selected := "selected")
+                        } else {
+                          <.option(^.value := currency.symbol, currency.symbol)
+                        }
+                      }).toVdomArray))),
               p.proxy().render(tokenList =>
                 <.div(^.className := "currency-info-scrollbar")(
-                  tokenList.accountTokenDetails.filter(e => e.symbol.equalsIgnoreCase("ETH") || !e.balance.equalsIgnoreCase("0")) reverseMap createItem: _*
-                )),
+                  tokenList.accountTokenDetails.filter(e => e.symbol.equalsIgnoreCase("ETH") || !e.balance.equalsIgnoreCase("0")) reverseMap createItem: _*)),
               p.proxy().renderFailed(ex => <.div()(
-                <.label(^.className := "warn-text", "Error while loading available token list")
-              )),
+                <.label(^.className := "warn-text", "Error while loading available token list"))),
               p.proxy().renderPending(e =>
                 <.div()(
-                  <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img")
-                ))
-
-            )
-          )
-        ),
+                  <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img")))))),
         <.div(
           ^.className := "container btnDefault-container homeButtonContainer",
           <.div(
@@ -280,11 +245,7 @@ object MultisigHomeView {
                 <.i(^.className := "fa fa-camera", VdomAttr("aria-hidden") := "true")),
               <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton", ^.onClick --> updateURL("HistoryLoc") /*p.router.setEH(HistoryLoc)*/ , "Transactions"),
               <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton", ^.onClick --> updateURL("RequestLoc") /* p.router.setEH(RequestLoc)*/ , "Request"),
-              <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton", ^.onClick --> updateURL("SendLoc") /*p.router.setEH(SendLoc)*/ , "Send")
-            )
-          )
-        )
-      )
+              <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton", ^.onClick --> updateURL("SendLoc") /*p.router.setEH(SendLoc)*/ , "Send")))))
 
     }
   }

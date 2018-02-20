@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.views.modals
 
 import com.livelygig.product.walletclient.views.facades.QRCode
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import org.scalajs.dom
 
 object ShowQRCode {
@@ -31,9 +31,7 @@ object ShowQRCode {
                   ^.className := "row",
 
                   <.button(^.`type` := "button", ^.className := "close col-xs-1 col-xs-offset-5", VdomAttr("data-dismiss") := "modal", VdomAttr("aria-label") := "Close",
-                    <.span(VdomAttr("aria-hidden") := "true", "×"))
-                )
-              ),
+                    <.span(VdomAttr("aria-hidden") := "true", "×")))),
               <.div(
                 ^.className := "modal-body",
                 <.div(
@@ -42,17 +40,10 @@ object ShowQRCode {
                     ^.className := "row",
                     <.div(
                       ^.className := "confirmContainer",
-                      <.div(^.id := "qrCodeinmodal", ^.className := "qr-background")
-                    )
-                  )
-                ),
+                      <.div(^.id := "qrCodeinmodal", ^.className := "qr-background")))),
                 <.div(
                   ^.className := "modal-footer",
-                  <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Close")
-                )
-              )
-            )))
-      )
+                  <.button(^.`type` := "button", ^.className := "btn btnDefault", VdomAttr("data-dismiss") := "modal", "Close")))))))
   }
 
   val component = ScalaComponent.builder[Props]("ShowQRCode")

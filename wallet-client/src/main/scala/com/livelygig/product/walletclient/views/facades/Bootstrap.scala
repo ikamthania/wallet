@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views.facades
 import org.querki.jquery._
 import org.querki.jsext._
 
-import scala.language.{implicitConversions, reflectiveCalls}
+import scala.language.{ implicitConversions, reflectiveCalls }
 import scala.scalajs.js
 
 /**

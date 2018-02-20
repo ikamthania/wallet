@@ -1,26 +1,26 @@
 package utils
 
-import java.io.{File, FileNotFoundException, FileOutputStream}
+import java.io.{ File, FileNotFoundException, FileOutputStream }
 import java.math.BigInteger
 import java.util
 
-import com.livelygig.product.shared.models.wallet.{ERC20ComplientToken, EtherTransaction}
+import com.livelygig.product.shared.models.wallet.{ ERC20ComplientToken, EtherTransaction }
 import com.livelygig.product.wallet.api.models.ValidateWalletFile
 import net.ceedubs.ficus.Ficus._
 import org.web3j.abi.datatypes.generated.Uint256
-import org.web3j.abi.datatypes.{Address, Function, Utf8String}
-import org.web3j.abi.{FunctionEncoder, FunctionReturnDecoder, TypeReference}
-import org.web3j.crypto.{CipherException, Credentials, TransactionEncoder, WalletUtils}
+import org.web3j.abi.datatypes.{ Address, Function, Utf8String }
+import org.web3j.abi.{ FunctionEncoder, FunctionReturnDecoder, TypeReference }
+import org.web3j.crypto.{ CipherException, Credentials, TransactionEncoder, WalletUtils }
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request._
 import org.web3j.protocol.exceptions._
 import org.web3j.protocol.http.HttpService
 import org.web3j.protocol.infura.InfuraHttpService
-import org.web3j.utils.{Convert, Numeric}
+import org.web3j.utils.{ Convert, Numeric }
 import play.api.Configuration
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.io.Source
 import scala.math.BigDecimal.RoundingMode
 
@@ -48,8 +48,7 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
   def createNewWallet(hashedPassword: String): String = {
     val walletFileName = WalletUtils.generateLightNewWalletFile(
       hashedPassword,
-      new File(uploadPath)
-    )
+      new File(uploadPath))
     val newKeyStoreFilePath = s"$uploadPath$walletFileName"
     val source = Source.fromFile(newKeyStoreFilePath)
     val keyStoreContent = source.getLines.mkString
@@ -64,8 +63,7 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
       val credentials = obtainCredentials(ValidateWalletFile(walletFileContent, etherTransaction.password))
       val value = Convert.toWei(etherTransaction.amount, Convert.Unit.ETHER).toBigInteger()
       val ethGetTransactionCount = web3j.ethGetTransactionCount(
-        senderAddress, DefaultBlockParameterName.PENDING
-      ).sendAsync().get()
+        senderAddress, DefaultBlockParameterName.PENDING).sendAsync().get()
       val nonce = ethGetTransactionCount.getTransactionCount()
       val gasPrice = BigInteger.valueOf(walletConfig.as[Long]("defaultGasPrice"))
       val gasLimit = BigInteger.valueOf(walletConfig.as[Int]("defaultGasLimit"))
@@ -74,21 +72,18 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
         case "eth" => RawTransaction
           .createEtherTransaction(
             nonce, gasPrice,
-            gasLimit, etherTransaction.receiver, value
-          )
+            gasLimit, etherTransaction.receiver, value)
         case _ =>
           val function = new Function(
             "transfer",
             util.Arrays.asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
-            util.Arrays.asList()
-          )
+            util.Arrays.asList())
 
           val encodedFunction = FunctionEncoder.encode(function)
           //offline creation of transaction
           //todo gas limit must be from this function    val estimatedGas = Transaction.createEthCallTransaction(senderAddress, null, encodedFunction)
           RawTransaction.createTransaction(
-            nonce, gasPrice, gasLimit, etherTransaction.txnType, encodedFunction
-          )
+            nonce, gasPrice, gasLimit, etherTransaction.txnType, encodedFunction)
       }
 
       val signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials)
@@ -133,8 +128,7 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
     fos.close()
     val credentials = WalletUtils.loadCredentials(
       validateWalletFile.unlockPassword,
-      ftmp.getAbsolutePath
-    )
+      ftmp.getAbsolutePath)
     ftmp.delete
     credentials
   }
@@ -155,13 +149,11 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
     val erc20TokenSeq = eRC20ComplientTokenList.filterNot(e => e.symbol.equalsIgnoreCase("ETH")).map { eRC20ComplientToken =>
       val function = new Function(
         "balanceOf",
-        util.Arrays.asList(new Address(ownerAddress)), util.Arrays.asList(new TypeReference[Uint256]() {})
-      )
+        util.Arrays.asList(new Address(ownerAddress)), util.Arrays.asList(new TypeReference[Uint256]() {}))
       val encodedFunction = FunctionEncoder.encode(function)
       val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, eRC20ComplientToken.contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
       val value = FunctionReturnDecoder.decode(
-        response.getValue(), function.getOutputParameters()
-      )
+        response.getValue(), function.getOutputParameters())
       value.iterator().next().getValue.toString match {
         case "0" => eRC20ComplientToken.copy(balance = "0")
         case e => eRC20ComplientToken.copy(balance = s"${BigDecimal(e) / Math.pow(10, eRC20ComplientToken.decimal)}")
@@ -176,13 +168,11 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
   def getTokenName(contractAddress: String, ownerAddress: String): String = {
     val function = new Function(
       "name",
-      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {})
-    )
+      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
     val encodedFunction = FunctionEncoder.encode(function)
     val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
     val value = FunctionReturnDecoder.decode(
-      response.getValue(), function.getOutputParameters()
-    )
+      response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
   }
 
@@ -190,39 +180,33 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
   def getTokenSymbol(contractAddress: String, ownerAddress: String) = {
     val function = new Function(
       "symbol",
-      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {})
-    )
+      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
     val encodedFunction = FunctionEncoder.encode(function)
     val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
     val value = FunctionReturnDecoder.decode(
-      response.getValue(), function.getOutputParameters()
-    )
+      response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
   }
 
   def getTokenVersion(contractAddress: String, ownerAddress: String): String = {
     val function = new Function(
       "version",
-      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {})
-    )
+      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
     val encodedFunction = FunctionEncoder.encode(function)
     val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
     val value = FunctionReturnDecoder.decode(
-      response.getValue(), function.getOutputParameters()
-    )
+      response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
   }
 
   def getTokenTotalSupply(contractAddress: String, ownerAddress: String): String = {
     val function = new Function(
       "totalSupply",
-      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Uint256]() {})
-    )
+      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Uint256]() {}))
     val encodedFunction = FunctionEncoder.encode(function)
     val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
     val value = FunctionReturnDecoder.decode(
-      response.getValue(), function.getOutputParameters()
-    )
+      response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
   }
 }

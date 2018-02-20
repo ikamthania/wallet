@@ -4,8 +4,8 @@ import com.livelygig.product.shared.models.wallet._
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
-import japgolly.scalajs.react.{Callback, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
+import japgolly.scalajs.react.{ Callback, _ }
 import org.querki.jquery.$
 import com.livelygig.product.walletclient.views.modals.AddTokenModal
 import scala.scalajs.js
@@ -31,16 +31,14 @@ object AddTokenView {
     name: String,
     address: String,
     decimal: Int,
-    isVisible: Boolean
-  )
+    isVisible: Boolean)
 
   object State {
     val tokenList = List[Token](
       Token(1, "RHOC", "0x8409218421sdgs213tg", 8, false),
       Token(2, "RHOC", "0x8409218421sdgs213tg", 8, true),
       Token(3, "RHOC", "0x8409218421sdgs213tg", 8, true),
-      Token(4, "RHOC", "0x8409218421sdgs213tg", 8, false)
-    )
+      Token(4, "RHOC", "0x8409218421sdgs213tg", 8, false))
     def init: State =
       State(tokenList)
   }
@@ -72,35 +70,25 @@ object AddTokenView {
             ^.className := "col-lg-3 col-md-3 col-sm-3 col-xs-3",
             <.p(
               ^.className := "ellipseText",
-              tkn.name
-            )
-          ),
+              tkn.name)),
           <.div(
             ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-4",
             <.p(
               ^.className := "ellipseText",
-              tkn.address
-            )
-          ),
+              tkn.address)),
           <.div(
             ^.className := "col-lg-3 col-md-3 col-sm-3 col-xs-3",
             <.p(
               ^.className := "ellipseText",
-              tkn.decimal
-            )
-          ),
+              tkn.decimal)),
           <.div(
             ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
-            <.input(^.`type` := "checkbox", ^.checked := tkn.isVisible, ^.onChange ==> onTokenChecked(tkn.index))
-          ),
-          <.div(^.className := "clearfix")
-        )
+            <.input(^.`type` := "checkbox", ^.checked := tkn.isVisible, ^.onChange ==> onTokenChecked(tkn.index))),
+          <.div(^.className := "clearfix"))
       <.div(
         ^.className := "row tokenListItems",
         <.div(
-          t.state.runNow().tokenList map createTokenList: _*
-        )
-      )
+          t.state.runNow().tokenList map createTokenList: _*))
     }
 
     // def addToken(e: ReactEventFromInput)(token: Token) = {
@@ -124,30 +112,23 @@ object AddTokenView {
           ^.className := "row main-token-view scrollableArea",
           <.div(
             ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12 tokenHeaderContainer",
-            <.h4("Show and hide tokens")
-          ),
+            <.h4("Show and hide tokens")),
           <.div(
             ^.className := "tokenHeaders",
             <.div(
               ^.className := "col-lg-3 col-md-3 col-sm-3 col-xs-3",
-              <.p("Name")
-            ),
+              <.p("Name")),
             <.div(
               ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-4",
-              <.p("Address")
-            ),
+              <.p("Address")),
             <.div(
               ^.className := "col-lg-3 col-md-3 col-sm-3 col-xs-3",
-              <.p("Decimals")
-            ),
+              <.p("Decimals")),
             <.div(
               ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
-              <.p("Visible")
-            ),
-            <.div(^.className := "clearfix")
-          ),
-          renderTokenList()
-        ),
+              <.p("Visible")),
+            <.div(^.className := "clearfix")),
+          renderTokenList()),
         <.div(
           ^.className := "container btnDefault-container buttonContainerLeftAlign",
           <.div(
@@ -155,11 +136,7 @@ object AddTokenView {
             <.div(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
               <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton ", "Add", ^.onClick --> showAddTokenModal()),
-              <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton ", "Done")
-            )
-          )
-        )
-      )
+              <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton ", "Done")))))
   }
 
   val component = ScalaComponent.builder[Props]("AddTokenView")

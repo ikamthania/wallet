@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 
 object IdentitiesView {
 
@@ -27,18 +27,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "0xad7fd6993d35264356425645u346253645ufb93a"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "0xad7fd6993d35264356425645u346253645ufb93a"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -46,18 +40,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "Ron's produce"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "Ron's produce"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -65,18 +53,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "patrick yash csintalan"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "patrick yash csintalan"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -84,18 +66,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "jenny csintalan"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "jenny csintalan"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -103,18 +79,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "rosette rho"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "rosette rho"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -122,18 +92,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "0xad7fd6993d35264356425645u346253645ufb93a"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "0xad7fd6993d35264356425645u346253645ufb93a"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -141,18 +105,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "0xad7fd6993d35264356425645u346253645ufb93a"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "0xad7fd6993d35264356425645u346253645ufb93a"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -160,18 +118,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "0xad7fd6993d35264356425645u346253645ufb93a"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "0xad7fd6993d35264356425645u346253645ufb93a"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -179,18 +131,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "0xad7fd6993d35264356425645u346253645ufb93a"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "0xad7fd6993d35264356425645u346253645ufb93a"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -198,18 +144,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "0xad7fd6993d35264356425645u346253645ufb93a"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "0xad7fd6993d35264356425645u346253645ufb93a"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -217,18 +157,12 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "0xad7fd6993d35264356425645u346253645ufb93a"
-                        )
-                      )
-                    )
-                  )
-                ),
+                          "0xad7fd6993d35264356425645u346253645ufb93a"))))),
                 <.li(
                   <.a(
                     ^.href := "javascript:void(0)",
@@ -236,33 +170,19 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")
-                      ),
+                        <.img(^.src := "../assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
                           ^.className := "ellipseText",
-                          "0xad7fd6993d35264356425645u346253645ufb93a"
-                        )
-                      )
-                    )
-                  )
-                )
-              )
-            )
-          )
-        ),
+                          "0xad7fd6993d35264356425645u346253645ufb93a"))))))))),
         <.div(
           ^.className := "container btnDefault-container",
           <.div(
             ^.className := "row",
             <.div(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-              <.button(^.`type` := "button", ^.className := "btn btnDefault", "Set as default")
-            )
-          )
-        )
-      )
+              <.button(^.`type` := "button", ^.className := "btn btnDefault", "Set as default")))))
   }
 
   val component = ScalaComponent.builder[Props]("IdentitiesView")

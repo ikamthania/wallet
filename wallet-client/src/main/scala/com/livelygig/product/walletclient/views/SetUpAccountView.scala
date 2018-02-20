@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.views.components._
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import org.querki.jquery.$
 import org.scalajs.dom
 
@@ -118,26 +118,20 @@ object SetUpAccountView {
               <.label(
                 <.input(
                   ^.id := "newId",
-                  ^.`type` := "radio", ^.name := "initialAccount", ^.onClick --> onrdbChecked("newId")
-                ),
-                "New account"
-              )
-            ),
+                  ^.`type` := "radio", ^.name := "initialAccount", ^.onClick --> onrdbChecked("newId")),
+                "New account")),
             <.button(
               ^.id := "btnAdvOpt", ^.`type` := "button", ^.className := "btn btnAdvOpt",
               VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#advOpt", "Advanced ",
               ^.onClick --> onbtnShowAdvancedClicked("btnAdvOpt"),
-              <.i(^.className := "fa fa-chevron-down", VdomAttr("aria-hidden") := "true")
-            ),
+              <.i(^.className := "fa fa-chevron-down", VdomAttr("aria-hidden") := "true")),
             <.div(^.id := "advOpt", ^.className := "collapse",
               <.div(
                 ^.className := "radio",
                 <.label(
                   ^.onClick --> onrdbChecked("existingId"),
                   <.input(^.id := "existingId", ^.`type` := "radio", ^.name := "initialAccount"),
-                  "Use existing account:"
-                )
-              ),
+                  "Use existing account:")),
               <.div(
                 ^.className := "existingIdOptions",
                 <.div(
@@ -146,96 +140,70 @@ object SetUpAccountView {
                   <.label(
                     ^.onClick --> collpaseTextArea("importJson"),
                     <.input(^.`type` := "radio", ^.name := "initialAccountExisting", ^.disabled := true),
-                    "Keystore file (UTC / JSON)"
-                  )
-                ),
+                    "Keystore file (UTC / JSON)")),
                 <.div(
                   ^.className := "radio",
                   <.label(
                     ^.onClick --> collpaseTextArea("pasteJson"),
                     <.input(^.`type` := "radio", ^.name := "initialAccountExisting", ^.disabled := true,
                       VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#jsonText"),
-                    "Keystore text (UTC / JSON)"
-                  ),
+                    "Keystore text (UTC / JSON)"),
                   <.div(
                     ^.id := "jsonText",
                     ^.className := "collapse",
                     <.textarea(
                       ^.id := "jsonTxt",
-                      ^.className := "form-control", ^.rows := 3
-                    )
-                  )
-                ),
+                      ^.className := "form-control", ^.rows := 3))),
                 <.div(
                   ^.className := "radio",
                   <.label(
                     ^.onClick --> collpaseTextArea("passphrase"),
                     <.input(^.`type` := "radio", ^.name := "initialAccountExisting", ^.disabled := true,
                       VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#passphraseText"),
-                    "Mnemonic phrase"
-                  ),
+                    "Mnemonic phrase"),
                   <.div(
                     ^.id := "passphraseText",
                     ^.className := "collapse",
                     <.textarea(
                       ^.id := "passphraseTxt",
-                      ^.className := "form-control", ^.rows := 3
-                    )
-                  )
-                ),
+                      ^.className := "form-control", ^.rows := 3))),
                 <.div(
                   ^.className := "radio",
                   <.label(
                     ^.onClick --> collpaseTextArea("privateKey"),
                     <.input(^.`type` := "radio", ^.name := "initialAccountExisting", ^.disabled := true,
                       VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#privateKeyText"),
-                    "Private key"
-                  ),
+                    "Private key"),
                   <.div(
                     ^.id := "privateKeyText",
                     ^.className := "collapse",
                     <.textarea(
                       ^.id := "privateKey",
-                      ^.className := "form-control", ^.rows := 1
-                    )
-                  )
-                ),
+                      ^.className := "form-control", ^.rows := 1))),
                 <.div(
                   ^.className := "radio",
                   <.label(
                     ^.onClick --> collpaseTextArea("registerProvider"),
                     <.input(^.`type` := "radio", ^.name := "initialAccountExisting", ^.disabled := true),
-                    "Web3 provider (Mist, Metamask, Parity, etc.)"
-                  )
-                ),
+                    "Web3 provider (Mist, Metamask, Parity, etc.)")),
                 <.div(
                   ^.className := "radio",
                   <.label(
                     ^.onClick --> collpaseTextArea("registerHardware"),
                     <.input(^.`type` := "radio", ^.name := "initialAccountExisting", ^.disabled := true),
-                    "Ledger hardware wallet"
-                  )
-                )
-              ),
+                    "Ledger hardware wallet"))),
               <.div(
                 ^.className := "radio",
                 <.label(
                   ^.onClick --> onrdbChecked("restoreApp"),
                   <.input(
                     ^.id := "restoreApp",
-                    ^.`type` := "radio", ^.name := "initialAccount"
-                  ),
-                  "Restore entire application from backup"
-                )
-              ))
-          ),
+                    ^.`type` := "radio", ^.name := "initialAccount"),
+                  "Restore entire application from backup")))),
           <.div(
             ^.className := "btnDefault-container",
             <.button(^.id := "btnNext", ^.`type` := "button", ^.className := "btn btnDefault setdefault",
-              VdomAttr("data-toggle") := "modal", ^.onClick --> onNextClicked(), "Next")
-          )
-        )
-      )
+              VdomAttr("data-toggle") := "modal", ^.onClick --> onNextClicked(), "Next"))))
     //ScalaTags goes here
   }
 

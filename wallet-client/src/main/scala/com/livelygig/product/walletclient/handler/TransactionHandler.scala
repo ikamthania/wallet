@@ -1,18 +1,18 @@
 package com.livelygig.product.walletclient.handler
 
-import com.livelygig.product.shared.models.wallet.{ERCToken, Transaction, TransactionWithSymbol}
+import com.livelygig.product.shared.models.wallet.{ ERCToken, Transaction, TransactionWithSymbol }
 import com.livelygig.product.shared.models.wallet.Transaction
 import com.livelygig.product.walletclient.rootmodel.TransactionRootModel
-import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
-import diode.data.{Empty, Pot, PotActionRetriable, Ready}
-import diode.util.{Retry, RetryPolicy}
-import diode.{ActionHandler, ActionResult, ModelRW}
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
+import diode.data.{ Empty, Pot, PotActionRetriable, Ready }
+import diode.util.{ Retry, RetryPolicy }
+import diode.{ ActionHandler, ActionResult, ModelRW }
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
 case class GetAccountHistoryDetails(potResult: Pot[TransactionRootModel] = Empty, retryPolicy: RetryPolicy = Retry(3))
-    extends PotActionRetriable[TransactionRootModel, GetAccountHistoryDetails] {
+  extends PotActionRetriable[TransactionRootModel, GetAccountHistoryDetails] {
   override def next(newValue: Pot[TransactionRootModel], newRetryPolicy: RetryPolicy): GetAccountHistoryDetails = GetAccountHistoryDetails(newValue, newRetryPolicy)
 }
 case class AddTransactions(newTransaction: TransactionWithSymbol)

@@ -29,6 +29,9 @@ object WalletClientDependencies {
       "org.webjars" % "jquery" % "3.2.1" / "jquery.min.js",
       "org.webjars" % "bootstrap" % "3.3.7" / "bootstrap.min.js" dependsOn "jquery.min.js",
       "org.webjars" % "toastr" % "2.1.2" / "2.1.2/toastr.js" dependsOn "jquery.min.js",
+//      "org.webjars.npm" % "ethereumjs-wallet" % "0.6.0",
+//      "org.webjars.npm" % "ethereumjs-tx" % "1.1.2"/"index.js" commonJSName "Transaction",
+//      "org.webjars.npm" % "minimalistic-crypto-utils" % "1.1.2"/"utils.js" commonJSName "utils",
       "org.webjars.bower" % "github-com-MyEtherWallet-blockies" % "0.1.0" / "blockies.js"/*,
       "org.webjars.npm"% "github-com-BoxFactura-pulltorefresh-js"%"0.1.11" / "pulltorefresh.min.js"*/
     ))

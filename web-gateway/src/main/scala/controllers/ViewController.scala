@@ -1,13 +1,13 @@
 package controllers
 
 import forms.UserForms
-import forms.UserForms.{LoginData, RegistrationData, WalletLoginData, WalletRegistrationData}
-import play.api.{Configuration, Mode}
-import play.api.i18n.{I18nSupport, Messages, MessagesApi}
-import play.api.mvc.{Action, Controller}
-import utils.AppLogger
+import forms.UserForms.{ LoginData, RegistrationData, WalletLoginData, WalletRegistrationData }
+import play.api.{ Configuration, Mode }
+import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
+import play.api.mvc.{ Action, Controller }
+//import utils.AppLogger
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * Created by shubham.k on 27-02-2017.
@@ -18,9 +18,8 @@ class ViewController(
   implicit val webJarAssets: WebJarAssets,
   implicit val config: Configuration,
   implicit val ec: ExecutionContext,
-  env: play.api.Environment
-)
-    extends Controller with AppLogger with I18nSupport {
+  env: play.api.Environment)
+  extends Controller with I18nSupport {
 
   def walletApp(alias: String) = Action { implicit request =>
     Ok(views.html.wallet.wallet())
@@ -33,8 +32,7 @@ class ViewController(
     val form = UserForms.walletRegistrationForm.fill(WalletRegistrationData(
       alias = "",
       emailAddress = None,
-      password = ""
-    ))
+      password = ""))
     Ok(views.html.wallet.walletSignUp(form))
   }
 
@@ -43,16 +41,14 @@ class ViewController(
     val form = UserForms.walletLogInForm.fill(WalletLoginData(
       walletIdentity = publicAddr.getOrElse(""),
       password = "",
-      rememberMe = false
-    ))
+      rememberMe = false))
     Ok(views.html.wallet.walletOldLogin(form))
   }
   def walletLogin() = Action { implicit request =>
     val form = UserForms.walletLogInForm.fill(WalletLoginData(
       walletIdentity = "",
       password = "",
-      rememberMe = false
-    ))
+      rememberMe = false))
     Ok(views.html.wallet.mobileWalletLogin(form))
   }
 
@@ -75,8 +71,7 @@ class ViewController(
     val form = UserForms.walletRegistrationForm.fill(WalletRegistrationData(
       alias = "",
       emailAddress = None,
-      password = ""
-    ))
+      password = ""))
     Ok(views.html.wallet.setUp())
   }
   def termsOfServiceView() = Action { implicit request =>
@@ -94,7 +89,9 @@ class ViewController(
   def setUpView2() = Action { implicit request =>
     Ok(views.html.wallet.setUp2())
   }
+
   def serveAppFile(os: String) = Action { request =>
+    //    val messages = implicitly[Messages]
     val filePath = if (env.mode != Mode.Dev) {
       "/home/ubuntu/work/livelygig/mobile-app/"
     } else BadRequest("Ubunda mobile version not available")
@@ -103,15 +100,15 @@ class ViewController(
       case "android" =>
         val file = new java.io.File(s"$filePath/$os/app-release.apk")
         if (file.exists()) {
-          Ok.sendFile(
-            content = file,
-            fileName = _ => "Ubunda.apk"
-          )
+          //          Ok.sendFile(
+          //            content = file,
+          //            fileName = _ => "Ubunda.apk")
+          Ok(views.html.wallet.wallet())
         } else
-          Redirect(controllers.routes.ViewController.walletOldLogin()).flashing("error" -> Messages("wallet.error"))
+          Redirect(controllers.routes.ViewController.walletOldLogin()) /*.flashing("error" -> Messages("wallet.error"))*/
 
-      case "ios" => Redirect(controllers.routes.ViewController.walletOldLogin()).flashing("info" -> Messages("wallet.ios.unavailable"))
-      case _ => Redirect(controllers.routes.ViewController.walletOldLogin()).flashing("error" -> Messages("wallet.error"))
+      case "ios" => Redirect(controllers.routes.ViewController.walletOldLogin()) /*.flashing("info" -> Messages("wallet.ios.unavailable"))*/
+      case _ => Redirect(controllers.routes.ViewController.walletOldLogin()) /*.flashing("error" -> Messages("wallet.error"))*/
     }
   }
 
@@ -121,4 +118,3 @@ class ViewController(
     Ok(views.html.wallet.wallet())
   }
 }
-
