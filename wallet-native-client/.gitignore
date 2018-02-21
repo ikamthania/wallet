@@ -33,4 +33,7 @@ assets_for_webview/assets/images/*
 assets_for_webview/assets/javascripts/*
 !/assets_for_webview/assets/javascripts/.placeholder
 
+assets_for_webview/assets/languages/*
+!/assets_for_webview/assets/languages/.placeholder
+
 

@@ -12,8 +12,8 @@ object WalletClient {
     name := "wallet-client",
     libraryDependencies ++= WalletClientDependencies.scalajsDependencies.value,
     jsDependencies ++= WalletClientDependencies.jsDependencies.value,
-    jsDependencies ++= WalletClientDependencies.provided.value.map(ProvidedJS / _),
-    npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
+//    jsDependencies ++= WalletClientDependencies.provided.value.map(ProvidedJS / _),
+//    npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
     useYarn := true,
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     // Add a dependency to the expose-loader (which will expose react to the global namespace)

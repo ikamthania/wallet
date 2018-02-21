@@ -23,16 +23,11 @@ object WalletClientDependencies {
   val jsDependencies = Def.setting(
     Seq(
       //      "org.webjars" % "jquery" % "3.2.1" / "jquery.min.js",
-      //      "org.webjars" % "bootstrap" % "3.3.7" / "bootstrap.min.js" dependsOn "jquery.min.js",
-      //      "org.webjars" % "toastr" % "2.1.2" / "2.1.2/toastr.js" dependsOn "jquery.min.js",
-      //      "org.webjars.bower" % "github-com-MyEtherWallet-blockies" % "0.1.0" / "blockies.js",
-      //      "org.webjars.npm"% "github-com-BoxFactura-pulltorefresh-js"%"0.1.11" / "pulltorefresh.min.js"
     ))
 
   val npmDependencies = Def.setting(
     Seq(
       //      "react" -> "15.6.1",
-      //      "react-dom" -> "15.6.1"
     )
   )
 
