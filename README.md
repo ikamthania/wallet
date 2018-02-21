@@ -57,8 +57,18 @@ On OSX
 brew update
 brew install watchman
 ```
-
 Linux requires some more setup, follow this blog post https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/ to configure it 
+
+
+### Note
+
+There are some system specific requirement for watchman. https://facebook.github.io/watchman/docs/install.html#system-specific-preparation explains it.
+
+On Linux this is related to Linux inotify Limits. Above link explains how that can be resolved. For most part, in Linux setup this command should suffice
+
+```
+sudo sysctl fs.inotify.max_user_watches=100000
+```
 
 2. Once packages are installed in project root do `sbt runAll` This starts the microservices, web gateway, scalajs-react project compilation
 
@@ -83,10 +93,6 @@ It configures watchman to read all scala sources with `**/* .scala` and once it 
 The application uses two build chain. The scala application tool uses [sbt](https://www.scala-sbt.org/) and the react native application uses [npm](https://www.npmjs.com/). [Yarn](https://yarnpkg.com/en/) is also recommended.
 For enabling hot reloading across two applications [Watchman](https://facebook.github.io/watchman/) is used. To setup [this blogpost](https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/) is helpful.
 Android sdk and emulators are required. The native app is dependent on [expo toolchain](https://expo.io/). So if you like to run the app on your device while you develop install [expo](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en) on your device.
-
-### Note
-
-There are some system specific requirement for watchman. [This section](https://facebook.github.io/watchman/docs/install.html#system-specific-preparation) explains it.
 
 ## Server
 
