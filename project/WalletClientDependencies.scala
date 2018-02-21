@@ -22,21 +22,21 @@ object WalletClientDependencies {
   /** Dependencies for external JS libs that are bundled into a single .js file according to dependency order */
   val jsDependencies = Def.setting(
     Seq(
-      //      "org.webjars" % "jquery" % "3.2.1" / "jquery.min.js",
-      //      "org.webjars" % "bootstrap" % "3.3.7" / "bootstrap.min.js" dependsOn "jquery.min.js",
-      //      "org.webjars" % "toastr" % "2.1.2" / "2.1.2/toastr.js" dependsOn "jquery.min.js",
-      //      "org.webjars.bower" % "github-com-MyEtherWallet-blockies" % "0.1.0" / "blockies.js",
-      //      "org.webjars.npm"% "github-com-BoxFactura-pulltorefresh-js"%"0.1.11" / "pulltorefresh.min.js"
-    ))
+              ))
 
   val npmDependencies = Def.setting(
     Seq(
-      //      "react" -> "15.6.1",
-      //      "react-dom" -> "15.6.1"
+      "react"-> "^16.2.0",
+      "react-dom"-> "^16.2.0",
+      "blockies"-> "^0.0.2",
+      "toastr"-> "^2.1.4"
     )
   )
 
   val provided = Def.setting(
-    Seq( //    "ethjs.min.js"
-    ))
+    Seq(
+     /* "pseudoloc.js",
+      "qrcode.js",
+      "signtxn.js"*/
+  ))
 }

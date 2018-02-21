@@ -12,7 +12,7 @@ object WalletClient {
     name := "wallet-client",
     libraryDependencies ++= WalletClientDependencies.scalajsDependencies.value,
     jsDependencies ++= WalletClientDependencies.jsDependencies.value,
-    jsDependencies ++= WalletClientDependencies.provided.value.map(ProvidedJS / _),
+//    jsDependencies ++= WalletClientDependencies.provided.value.map(ProvidedJS / _),
     npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
     useYarn := true,
     webpackBundlingMode := BundlingMode.LibraryOnly(),

@@ -74,12 +74,13 @@ class WebGatewayLoader extends ApplicationLoader with AppLogger {
   log.info(s"Web gateway is loading.")
   override def load(context: Context) = context.environment.mode match {
     case Mode.Dev =>
-      //      new WebGateway(context) with LagomDevModeComponents {}.application
-      new WebGateway(context) {
+      new WebGateway(context) with LagomDevModeComponents {}.application
+    /* new WebGateway(context) {
         override def serviceLocator = NoServiceLocator
-      }.application
+      }.application*/
 
     case _ =>
       (new WebGateway(context) with ConfigurationServiceLocatorComponents).application
   }
 }
+

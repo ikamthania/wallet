@@ -6,6 +6,7 @@ import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc, _}
 import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
 import com.livelygig.product.walletclient.views.facades.{Toastr, WalletJS}
+import com.sun.xml.internal.bind.v2.TODO
 import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy
@@ -138,7 +139,8 @@ object AccountView {
             <.div(
               ^.className := "row left-info",
               <.label(^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4", userERCToken.tokenName),
-              <.span(^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText", WalletJS.getnumberFormat(BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString)),
+              //todo WalletJS.getnumberFormat() commented due to issue while exporting js file of same.Remove it once isue resolved
+              <.span(^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText", /*WalletJS.getnumberFormat(*/ BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString /*)*/ ),
               <.span(^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol", s"${userERCToken.symbol}")
             ),
             coin.map { e =>

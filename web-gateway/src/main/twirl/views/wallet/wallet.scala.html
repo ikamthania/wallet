@@ -14,7 +14,7 @@
         <link rel="shortcut icon" type="image/ico" href="@routes.Assets.versioned("images/favicon.ico")">
         <script type="text/javascript" src="@routes.WebJarAssets.at(webJarAssets.locate("jquery.min.js"))"></script>
 
-        <script src="@routes.Assets.versioned("javascripts/wallet/ethereumjs-wallet-0.6.0.min.js")"></script>
+        <!--<script src="@routes.Assets.versioned("javascripts/wallet/ethereumjs-wallet-0.6.0.min.js")"></script>-->
 
 
     </head>
@@ -22,8 +22,8 @@
         <div id="root">
         </div>
         @addScripts(projectName = "wallet-client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)
-        <script src="@routes.Assets.versioned("javascripts/wallet/pseudoloc.js")"></script>
+       <!-- <script src="@routes.Assets.versioned("javascripts/wallet/pseudoloc.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/wallet/qrcode.js")"></script>
         <script src="@routes.Assets.versioned("javascripts/wallet/ubunda-wallet-auth.js")"></script>
-    </body>
+   --> </body>
 </html>
