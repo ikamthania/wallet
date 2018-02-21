@@ -88,15 +88,6 @@ object AccountView {
 
     }
 
-    def updateTheme(): Callback = {
-      val theme = if (dom.window.localStorage.getItem("theme") == null) "default" else dom.window.localStorage.getItem("theme")
-      $("#theme-stylesheet")
-        .foreach((ele: Element) =>
-          ele
-            .setAttribute("href", s"../assets/stylesheets/wallet/themes/wallet-main-theme-${theme}.min.css"))
-      Callback.empty
-    }
-
     def updateURL(loc: String): Callback = {
 
       loc match {
@@ -235,7 +226,6 @@ object AccountView {
     .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), UserDetails("", WalletDetails("", "0"))))
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.updateCurrency())
-    .componentDidMount(scope => scope.backend.updateTheme())
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
   def apply(props: Props) = component(props)

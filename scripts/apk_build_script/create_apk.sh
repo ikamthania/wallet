@@ -21,11 +21,11 @@ unzip ./temporary/lib/Livelygig.webgateway-0.3.jar -d ./temporary/
 cp ./temporary/META-INF/resources/webjars/webgateway/0.3/stylesheets/wallet/wallet-app-main.min.css -d ~/project/livelygig/wallet/wallet-native-client/assets_for_webview/assets/stylesheets
 
 # copy theme stylesheet
-cp ./temporary/META-INF/resources/webjars/webgateway/0.3/stylesheets/wallet/themes/wallet-main-theme-default.min.css -d ~/project/livelygig/wallet/wallet-native-client/assets_for_webview/assets/stylesheets
+cp ./temporary/META-INF/resources/webjars/webgateway/0.3/stylesheets/wallet/themes/{wallet-main-theme-default.min.css,wallet-main-theme-light.min.css} -d ./wallet-native-client/assets_for_webview/assets/stylesheets
 
 
 # copy javascripts
-cp ./temporary/META-INF/resources/webjars/webgateway/0.3/{wallet-client-jsdeps.min.js,wallet-client-opt.js} -d ./wallet-native-client/assets_for_webview/assets/javascripts/
+cp ./temporary/META-INF/resources/webjars/webgateway/0.3/{wallet-client-opt-library.js,wallet-client-opt.js} -d ./wallet-native-client/assets_for_webview/assets/javascripts/
 
 ## enter wallet-native directory
 #cd wallet-native-client/

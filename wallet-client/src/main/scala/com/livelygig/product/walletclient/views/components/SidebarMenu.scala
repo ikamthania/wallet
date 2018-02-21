@@ -14,7 +14,7 @@ import org.scalajs.dom
 import org.scalajs.dom.raw.Element
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.scalajs.js
+import scala.scalajs.{LinkingInfo, js}
 import scala.scalajs.js.JSON
 import scala.util.{Failure, Success}
 
@@ -46,10 +46,17 @@ object SidebarMenu {
   def changeTheme(themeName: String) = Callback {
     dom.window.localStorage.setItem("theme", themeName)
     toggleNav()
+    dom.window.alert("Yooooooooooooooooooooo" + LinkingInfo.productionMode)
+    val themeUrl = if (LinkingInfo.productionMode) {
+      s"./assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"
+
+    } else {
+      s"../assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"
+    }
     $("#theme-stylesheet")
       .foreach((ele: Element) =>
         ele
-          .setAttribute("href", s"../assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"))
+          .setAttribute("href", themeUrl))
   }
 
   private class Backend(t: BackendScope[Props, State]) {
@@ -62,6 +69,7 @@ object SidebarMenu {
         case Failure(_) => println(s"failed to load language for ${lang}")
       })
     }
+
     def signOut() = {
       Callback({
         dom.window.location.href = "./login.html"
@@ -169,7 +177,9 @@ object SidebarMenu {
     }
 
     def toggleDropdownArrow(id: String, liId: String) = Callback {
-      if (!$(s"#$id").hasClass("active")) { ($(s"#$id").toggleClass("active")) }
+      if (!$(s"#$id").hasClass("active")) {
+        ($(s"#$id").toggleClass("active"))
+      }
       $(s"#$liId").toggleClass("openSubmenu")
     }
 
@@ -222,6 +232,7 @@ object SidebarMenu {
         case _ => <.div()
       }
     }
+
     def render(props: Props, state: State) = {
       <.div(^.className := "menuToggle-inner")(updateMenuItemState(state.lang) map createItem: _*)
     }

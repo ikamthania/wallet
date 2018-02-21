@@ -51,6 +51,10 @@ isomorphic-fetch@^2.1.1:
     node-fetch "^1.0.1"
     whatwg-fetch ">=0.10.0"
 
+jquery.qrcode@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/jquery.qrcode/-/jquery.qrcode-1.0.3.tgz#98ad34deb7f401d72981c6769790cbd38aaa39f0"
+
 jquery@>=1.12.0, jquery@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.3.1.tgz#958ce29e81c9790f31be7792df5d4d95fc57fbca"

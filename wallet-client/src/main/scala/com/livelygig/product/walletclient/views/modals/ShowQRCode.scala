@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.views.modals
 
-import com.livelygig.product.walletclient.views.facades.QRCode
+//import com.livelygig.product.walletclient.views.facades.QRCode
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
 import org.scalajs.dom
@@ -15,7 +15,7 @@ object ShowQRCode {
 
     def getImgSrc(): Callback = {
       val props = t.props.runNow()
-      new QRCode(dom.document.getElementById("qrCodeinmodal"), props.imgsrc)
+      //      new QRCode(dom.document.getElementById("qrCodeinmodal"), props.imgsrc)
       Callback.empty
     }
 

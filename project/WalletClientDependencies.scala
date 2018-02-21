@@ -32,6 +32,5 @@ object WalletClientDependencies {
   )
 
   val provided = Def.setting(
-    Seq( //    "ethjs.min.js"
-    ))
+    Seq(/*"qrcode.js"*/))
 }
