@@ -57,18 +57,18 @@ On OSX
 brew update
 brew install watchman
 ```
+Linux requires some more setup, follow this blog post https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/ to configure it 
+
 
 ### Note
 
-There are some system specific requirement for watchman. [This section](https://facebook.github.io/watchman/docs/install.html#system-specific-preparation) explains it.
+There are some system specific requirement for watchman. https://facebook.github.io/watchman/docs/install.html#system-specific-preparation explains it.
 
-On Linux this is related to Linux inotify Limits. Above links explains how that can be resolved. For most part, in Linux setup this command should suffice
+On Linux this is related to Linux inotify Limits. Above link explains how that can be resolved. For most part, in Linux setup this command should suffice
 
 ```
 sudo sysctl fs.inotify.max_user_watches=100000
 ```
-
-Linux requires some more setup, follow this blog post https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/ to configure it 
 
 2. Once packages are installed in project root do `sbt runAll` This starts the microservices, web gateway, scalajs-react project compilation
 
