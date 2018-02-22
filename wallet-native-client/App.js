@@ -9,7 +9,7 @@ export default class App extends React.Component {
   render() {
     return (
       <WebView
-        source={{uri: URI}}
+        source={uri: URI}
         style={{marginTop: 20}}
       />
     );

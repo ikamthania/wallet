@@ -2,9 +2,9 @@ import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt._
 import webscalajs.ScalaJSWeb
-import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 
-import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
+import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+import scalajsbundler.sbtplugin.{NpmAssets, ScalaJSBundlerPlugin}
 
 
 object WalletClient {
@@ -13,7 +13,7 @@ object WalletClient {
     libraryDependencies ++= WalletClientDependencies.scalajsDependencies.value,
     jsDependencies ++= WalletClientDependencies.jsDependencies.value,
     jsDependencies ++= WalletClientDependencies.provided.value.map(ProvidedJS / _),
-//    npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
+    //    npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
     useYarn := true,
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     // Add a dependency to the expose-loader (which will expose react to the global namespace)
