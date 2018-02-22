@@ -2,5 +2,5 @@
 
 {
   "LOCAL_URI": "http://change_it_to_your_ip:9000/wallet/" //change it to your local running server url eg hostname -I | awk '{print $1;}'
-  "PRODUCTION_URI" : "https://ubunda.com/wallet/alias" // production uri
+  "PRODUCTION_URI" : "file:///android_asset/views/walletmain.html" // production uri
 }

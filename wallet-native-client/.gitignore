@@ -24,16 +24,20 @@ config.json
 
 # Preserving folder structure in git for production apk
 
-assets_for_webview/assets/stylesheets/*
-!/assets_for_webview/assets/stylesheets/.placeholder
+/android/app/src/main/assets/stylesheets/*
+!/android/app/src/main/assets/stylesheets/.placeholder
 
-assets_for_webview/assets/images/*
-!/assets_for_webview/assets/images/.placeholder
+/android/app/src/main/assets/javascripts/*
+!/android/app/src/main/assets/javascripts/.placeholder
 
-assets_for_webview/assets/javascripts/*
-!/assets_for_webview/assets/javascripts/.placeholder
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/
 
-assets_for_webview/assets/languages/*
-!/assets_for_webview/assets/languages/.placeholder
+# Android/IJ
+#
+*.iml
+.idea
+.gradle
+local.properties
 
 
