@@ -3,9 +3,10 @@ package com.livelygig.product.walletclient.views.facades
 import org.scalajs.dom.raw.HTMLCanvasElement
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSGlobal
+import scala.scalajs.js.annotation.JSImport.Namespace
+import scala.scalajs.js.annotation.{JSGlobal, JSImport}
 
-@JSGlobal("blockies")
+@JSGlobal("Blockies")
 @js.native
 object Blockies extends js.Object {
 

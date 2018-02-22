@@ -1,13 +1,4 @@
 
-import com.lightbend.lagom.scaladsl.api.LagomConfigComponent
-import controllers.AssetsComponents
-import controllers.WebJarAssets
-import org.webjars.play.{ WebJarsUtil }
-
-//import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
-import play.api.i18n.I18nComponents
-import play.api.libs.ws.ahc.AhcWSComponents
-//import utils.AppLogger
 
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
 import com.lightbend.lagom.scaladsl.api.{ ServiceAcl, ServiceInfo }
@@ -83,17 +74,17 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
   override lazy val httpFilters: Seq[EssentialFilter] = filtersWire.filters
 }
 
-class WebGatewayLoader extends ApplicationLoader /* with AppLogger*/ {
-  //  log.info(s"Web gateway is loading.")
-
+class WebGatewayLoader extends ApplicationLoader with AppLogger {
+  log.info(s"Web gateway is loading.")
   override def load(context: Context) = context.environment.mode match {
     case Mode.Dev =>
-      //      new WebGateway(context) with LagomDevModeComponents {}.application
-      new WebGateway(context) {
+      new WebGateway(context) with LagomDevModeComponents {}.application
+    /* new WebGateway(context) {
         override def serviceLocator = NoServiceLocator
-      }.application
+      }.application*/
 
     case _ =>
       (new WebGateway(context) with ConfigurationServiceLocatorComponents).application
   }
 }
+

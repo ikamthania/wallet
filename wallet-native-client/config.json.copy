@@ -1,6 +1,6 @@
 // DO NOT USE THIS FILE DIRECTLY CREATE A COPY TO config.json MODIFY REQUIRED VARIABLES
 
 {
-  "URI": "http://change_it_to_your_ip:9000/wallet/" //change it to your local running server url eg hostname -I | awk '{print $1;}'
-  "PRODUCTION_URI" : "https://ubunda.com/wallet/alias" // production uri
+  "LOCAL_URI": "http://change_it_to_your_ip:9000/wallet/" //change it to your local running server url eg hostname -I | awk '{print $1;}'
+  "PRODUCTION_URI" : "file:///android_asset/views/walletmain.html" // production uri
 }

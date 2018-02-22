@@ -91,15 +91,6 @@ object SendView {
     * Get ether balance and update etherBalance state
     * */
 
-    def updateTheme(): Callback = {
-      val theme = if (dom.window.localStorage.getItem("theme") == null) "default" else dom.window.localStorage.getItem("theme")
-      $("#theme-stylesheet")
-        .foreach((ele: Element) =>
-          ele
-            .setAttribute("href", s"/assets/stylesheets/wallet/themes/wallet-main-theme-${theme}.min.css"))
-      Callback.empty
-    }
-
     def componentDidMount(props: Props): Callback = {
       //      val baseUrl = dom.window.location.href
       //      val updatedUrl = baseUrl.split("#").head
@@ -509,7 +500,6 @@ object SendView {
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.updateCurrency())
     .componentDidMount(scope => scope.backend.getLiveCurrencyUpdate())
-    .componentDidMount(scope => scope.backend.updateTheme())
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
   def apply(props: Props) = component(props)

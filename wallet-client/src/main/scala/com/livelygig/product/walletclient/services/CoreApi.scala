@@ -7,6 +7,7 @@ import org.scalajs.dom.ext.Ajax
 import org.scalajs.dom.window
 import play.api.libs.json.Json
 
+import scala.scalajs.LinkingInfo
 import scala.concurrent.Future
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
@@ -14,9 +15,13 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  * Created by shubham.k on 22-03-2017.
  */
 object CoreApi {
-  private val apiVersion = "/v1"
+  private val apiVersion = if (LinkingInfo.productionMode) "http://192.168.1.100:63376/v1" else "/v1"
   private var userUriForApi: Option[String] = None
   private val urlPath = dom.window.location.pathname
+  private val pattern = "(0x[0-9A-Za-z]+)".r
+  private val publicKey = window.localStorage.getItem("pubKey") // pattern.findFirstIn(urlPath).getOrElse("")
+  //  window.alert(publicKey)
+
   private def ajaxPost(requestContent: String, apiUrl: String): Future[String] = {
     Ajax.post(
       url = apiUrl,

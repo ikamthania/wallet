@@ -24,15 +24,6 @@ object HistoryView {
 
   final class Backend(t: BackendScope[Props, Unit]) {
 
-    def updateTheme(): Callback = {
-      val theme = if (dom.window.localStorage.getItem("theme") == null) "default" else dom.window.localStorage.getItem("theme")
-      $("#theme-stylesheet")
-        .foreach((ele: Element) =>
-          ele
-            .setAttribute("href", s"../assets/stylesheets/wallet/themes/wallet-main-theme-${theme}.min.css"))
-      Callback.empty
-    }
-
     def componentDidMount(props: Props): Callback = {
       Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB(GetAccountHistoryDetails()))
     }
@@ -117,7 +108,6 @@ object HistoryView {
 
   val component = ScalaComponent.builder[Props]("HistoryView")
     .renderBackend[Backend]
-    .componentDidMount(scope => scope.backend.updateTheme())
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
   def apply(props: Props) = component(props)

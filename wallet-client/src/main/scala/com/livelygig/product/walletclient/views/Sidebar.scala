@@ -56,8 +56,8 @@ object Sidebar {
     }
 
     def isSimpleHeader(page: Loc): Boolean = {
-      var simpleHeaderMenu = Seq(InitialSetupLoc, BackupIdentityLoc, BackupAccountLoc, SetupAccountLoc, TermsOfServiceLoc)
-      return simpleHeaderMenu.contains(page)
+      Seq(InitialSetupLoc, BackupIdentityLoc, BackupAccountLoc, SetupAccountLoc, TermsOfServiceLoc)
+        .contains(page)
     }
 
     def changeLang(lang: String): react.Callback = {
@@ -85,8 +85,9 @@ object Sidebar {
 
       val userDetails = WalletCircuit.zoom(_.user.userDetails)
 
-      val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = userDetails.value.walletDetails.publicKey))
-      $("#userProfileImg").empty().append(blockies)
+      // todo fix blockies
+      /*val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = userDetails.value.walletDetails.publicKey))
+      $("#userProfileImg").empty().append(blockies)*/
     }
 
     def componentDidMount(): Callback = {

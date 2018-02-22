@@ -34,8 +34,8 @@ object TestView {
       var res = Pseudoloc.str("A test string with a %token%.")
       println(s"Result ===> ${res}")
 
-      val qrCode = new QRCode(dom.document.getElementById("qrCode"), "test")
-      val imgData = qrCode.makeCode("0x988d9344ba15fb6728b2fee8703b8505f4ed17a9")
+      /*val qrCode = new QRCode(dom.document.getElementById("qrCode"), "test")
+      val imgData = qrCode.makeCode("0x988d9344ba15fb6728b2fee8703b8505f4ed17a9")*/
       //      qrCode.clear()
 
       Callback.empty

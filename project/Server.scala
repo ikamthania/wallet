@@ -13,7 +13,9 @@ import play.sbt.PlayLayoutPlugin
 import play.sbt.routes.RoutesKeys.routesGenerator
 import sbt.Keys._
 import sbt._
-import webscalajs.WebScalaJS.autoImport.{scalaJSPipeline, devCommands, scalaJSProjects}
+import webscalajs.WebScalaJS.autoImport.{devCommands, scalaJSPipeline, scalaJSProjects}
+import scalajsbundler.sbtplugin.WebScalaJSBundlerPlugin.autoImport._
+import scalajsbundler.sbtplugin.{NpmAssets, WebScalaJSBundlerPlugin}
 
 object Server {
   private[this] val dependencies = {
@@ -39,6 +41,8 @@ object Server {
     scalaJSProjects := Seq(WalletClient.walletClient),
     pipelineStages in Assets := Seq(scalaJSPipeline),
     pipelineStages := Seq(digest, gzip),
+    // Expose as sbt-web assets some files retrieved from the NPM packages of the `client` project
+    npmAssets ++= NpmAssets.ofProject(WalletClient.walletClient) { modules => (modules / "toastr").*** }.value,
     routesGenerator := InjectedRoutesGenerator,
     externalizeResources := false,
 
@@ -52,7 +56,7 @@ object Server {
 
   lazy val webGateway = (project in file("web-gateway"))
     .enablePlugins(
-      SbtWeb, play.sbt.PlayScala, LagomPlay)
+      SbtWeb, play.sbt.PlayScala, LagomPlay, WebScalaJSBundlerPlugin)
     .disablePlugins(PlayLayoutPlugin) // use the standard directory layout instead of Play's custom
     .dependsOn(WalletApi.walletApi, Shared.sharedJvm)
     .settings(serverSettings: _*)
