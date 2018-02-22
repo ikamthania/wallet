@@ -1,4 +1,4 @@
-pseudoloc = function() {
+var pseudoloc = function() {
   var pseudoloc = {
     version: "1.1.0"
   };
@@ -101,3 +101,7 @@ pseudoloc = function() {
   };
   return pseudoloc;
 }();
+
+module.exports = {
+pseudoLoc:pseudoloc
+}
