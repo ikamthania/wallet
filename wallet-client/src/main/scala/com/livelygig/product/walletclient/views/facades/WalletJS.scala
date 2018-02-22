@@ -5,8 +5,8 @@ import org.scalajs.dom.raw
 import scala.scalajs.js
 import scala.scalajs.js.annotation.{JSGlobal, JSImport}
 
-@JSImport("./signtxn", JSImport.Namespace)
-@js.native
+@JSImport("./signtxn", "walletjs")
+@js.native //@JSGlobal("walletjs")
 object WalletJS extends js.Object {
 
   def postRawTxn(userPassword: String, amount: String, txTo: String, txnType: String, nonce: String, encodedFunction: String): String = js.native

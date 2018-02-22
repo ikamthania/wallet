@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views.facades
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSGlobal, JSImport}
+import scala.scalajs.js.annotation.{ JSGlobal, JSImport }
 
 //@JSGlobal("pseudoloc")
 @JSImport("./pseudoloc", JSImport.Namespace)

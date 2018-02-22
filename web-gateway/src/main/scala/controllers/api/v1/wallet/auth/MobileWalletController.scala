@@ -21,11 +21,11 @@ class MobileWalletController(
 
   def signup = Action { implicit request =>
 
-    Redirect(controllers.api.v1.wallet.auth.routes.MobileWalletController.walletLogin())
+    Redirect( /*controllers.api.v1.wallet.auth.routes.MobileWalletController.walletLogin()*/ controllers.routes.ViewController.wallet())
       .flashing("info" -> s"Registered successfully. Please login now.")
 
   }
-  def walletLogin() = Action.async { implicit request =>
+  /* def walletLogin() = Action { implicit request =>
     val form = UserForms.walletLogInForm.fill(WalletLoginData(
       walletIdentity = "",
       password = "",
@@ -33,7 +33,8 @@ class MobileWalletController(
     Future.successful(Ok(views.html.wallet.mobileWalletLogin(form)))
   }
 
-  def walletApp = Action.async { implicit request =>
+  def walletApp = Action { implicit request =>
     Future.successful(Ok( /*views.html.wallet.wallet()*/ ""))
-  }
+  }*/
 }
+

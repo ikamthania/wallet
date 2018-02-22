@@ -12,6 +12,7 @@
 
 # wallet
 GET         /wallet/                                controllers.ViewController.wallet()
+GET         /wallet                                 controllers.ViewController.wallet()
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /webjars/*file                          controllers.WebJarAssets.at(file)

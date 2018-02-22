@@ -16,17 +16,17 @@ addSbtPlugin("com.typesafe.sbt" % "sbt-digest" % "1.1.4")
 addSbtPlugin("com.typesafe.sbt" % "sbt-gzip" % "1.0.2")
 
 // Scala.js
-addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.22")
+addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.20")
 
 //addSbtPlugin("com.vmunier" % "sbt-web-scalajs" % "1.0.6")
 
 addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.10.0")
 
-// // Dependency Resolution
-// addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0")
+// Dependency Resolution
+addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0-M15-7")
 
 // Code Quality
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "1.0.0") // scalastyle
+addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0") // scalastyle
 
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.0") // dependencyGraph
 
@@ -35,9 +35,7 @@ addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.0") // dependenc
 // dependencyUpdatesReport: writes a list of project dependencies to a file.
 addSbtPlugin("com.timushev.sbt" % "sbt-updates" % "0.3.2")
 
-addSbtPlugin("org.scalariform" % "sbt-scalariform" % "1.8.2") // scalariformFormat
+addSbtPlugin("com.typesafe.sbt" % "sbt-scalariform" % "1.3.0") // scalariformFormat
 
 // Lagom
-addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.4.0")
-
-//addSbtPlugin("com.jamesward" % "play-auto-refresh" % "0.0.16")
+addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.3.10")

@@ -5,9 +5,9 @@
 
 
 
-POST        /wallet/mobile/auth/signup                                  controllers.api.v1.wallet.auth.MobileWalletController.signup()
-GET        /wallet/mobile/auth/login                                    controllers.api.v1.wallet.auth.MobileWalletController.walletLogin()
-POST       /wallet/mobile/walletapp                                     controllers.api.v1.wallet.auth.MobileWalletController.walletApp()
+#POST        /wallet/mobile/auth/signup                                  controllers.api.v1.wallet.auth.MobileWalletController.signup()
+#GET        /wallet/mobile/auth/login                                    controllers.api.v1.wallet.auth.MobileWalletController.walletLogin()
+#POST       /wallet/mobile/walletapp                                     controllers.api.v1.wallet.auth.MobileWalletController.walletApp()
 
 GET        /wallet/mobile/:publickey/account/details                    controllers.api.v1.wallet.MobileApiWalletController.mobileGetUserDetails(publickey:String)
 GET        /wallet/mobile/:publickey/account/erctoken/details           controllers.api.v1.wallet.MobileApiWalletController.mobileGetAccountTokenDetails(publickey:String)

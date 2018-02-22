@@ -14,7 +14,7 @@ import org.scalajs.dom
 import org.scalajs.dom.raw.Element
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.scalajs.{LinkingInfo, js}
+import scala.scalajs.{ LinkingInfo, js }
 import scala.scalajs.js.JSON
 import scala.util.{ Failure, Success }
 

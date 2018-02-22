@@ -4,7 +4,7 @@ import org.scalajs.dom.raw.HTMLCanvasElement
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport.Namespace
-import scala.scalajs.js.annotation.{JSGlobal, JSImport}
+import scala.scalajs.js.annotation.{ JSGlobal, JSImport }
 
 @JSGlobal("Blockies")
 @js.native

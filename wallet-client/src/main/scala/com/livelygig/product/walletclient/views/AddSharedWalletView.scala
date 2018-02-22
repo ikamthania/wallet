@@ -121,7 +121,7 @@ object AddSharedWalletView {
           val required = new Uint(s.requiredConfirmations)
           val dailyLimit = new Uint(EthereumjsUnits.convert(s.dailyLimitEth.toString, "eth", "wei"))
           val multiSigWallet = new MultiSigWalletWithDailyLimit(ownerAddresses, required, dailyLimit)
-          val encodedConstructor: String = EthereumjsABI.rawEncode(multiSigWallet.constructorArgs).toString("hex")
+          val encodedConstructor: String = EthereumjsABI.rawEncode(multiSigWallet.constructorArgs).toString()
 
           $("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
           s.copy(etherTransaction = EtherTransaction("", "", "", MultiSigWalletWithDailyLimit.BYTE_CODE + encodedConstructor, 0))

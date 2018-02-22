@@ -1,77 +1,46 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails, UpdateAccountTokenList }
+import com.livelygig.product.walletclient.handler.{GetCurrencies, GetUserDetails, UpdateAccountTokenList}
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
-import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
-import com.livelygig.product.walletclient.views.facades.{ Toastr, WalletJS }
 import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc, _}
 import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
 import com.livelygig.product.walletclient.views.facades.{Toastr, WalletJS}
-import com.sun.xml.internal.bind.v2.TODO
 import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy
 import diode.react.ReactPot._
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
-import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
+import japgolly.scalajs.react.vdom.html_<^.{^, _}
+import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
 import org.querki.jquery.$
 import org.scalajs.dom
 import org.scalajs.dom.raw.Element
-import play.api.libs.json.{ JsValue, Json }
+import play.api.libs.json.Json
+
 import scala.concurrent.ExecutionContext.Implicits.global
 //import japgolly.scalajs.react.vdom.Implicits._
 
 object AccountView {
 
-  /* Toastr options */
+  // Toastr options
   Toastr.options.timeOut = 5000; // How long the toast will display without user interaction
   Toastr.options.extendedTimeOut = 60; // How long the toast will display after a user hovers over it
   Toastr.options.closeButton = true
   Toastr.options.positionClass = "toast-top-full-width"
   case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc], loc: String = "")
 
-  final case class State(currencySelected: String, coinExchange: CoinExchange, /*userDetails: UserDetails = UserDetails("", WalletDetails("", "")),*/ alias: String)
+  final case class State(currencySelected: String, coinExchange: CoinExchange, userDetails: UserDetails = UserDetails("", WalletDetails("", "")))
 
   final class Backend(t: BackendScope[Props, State]) {
-
-    //    //#todo : create a new model for JSON data
-    //    def updateAccountList(): Callback = {
-    //      //      val keystoreContent = dom.window.localStorage.getItem("keystoreData")
-    //      val keystoreContent = "[{\"alias\":\"john1\",\"keystorePvtKey\":\"john1\",\"keystorePubKey\":\"0x13427c61c0b4391a54b6405cc3bb014d38887f4a\" , \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"alias\":\"john1\",\"keystorePvtKey\":\"john2\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"alias\":\"john1\",\"keystorePvtKey\":\"john3\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"}]"
-    //      println(keystoreContent)
-    //      val json: JsValue = Json.parse(keystoreContent)
-    //      val alias = (json \\ "alias").map(_.as[String])
-    //      val pubkey = (json \\ "keystorePubKey").map(_.as[String])
-    //
-    //      val getalias = pubkey.zipWithIndex.filter(_._1 == dom.window.localStorage.getItem("pubKey")).map(e => alias(e._2)).head
-    //      println(">>>>>>>>>>>> " + getalias)
-    //      t.modState(s => s.copy(alias = getalias))
-    //      //      WalletCircuit.dispatch(GetUserDetails(userDetails = UserDetails(getalias)))
-    //
-    //    }
-
     def getLiveCurrencyUpdate() = {
-      val state = t.state.runNow()
-      //      val keystoreContent = dom.window.localStorage.getItem("keystoreData")
-      val keystoreContent = "[{\"alias\":\"john1\",\"keystorePvtKey\":\"john1\",\"keystorePubKey\":\"0x13427c61c0b4391a54b6405cc3bb014d38887f4a\" , \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"alias\":\"john1\",\"keystorePvtKey\":\"john2\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"alias\":\"john1\",\"keystorePvtKey\":\"john3\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"}]"
-      println(keystoreContent)
-      val json: JsValue = Json.parse(keystoreContent)
-      val alias = (json \\ "alias").map(_.as[String])
-      val pubkey = (json \\ "keystorePubKey").map(_.as[String])
-
-      val getalias = pubkey.zipWithIndex.filter(_._1 == dom.window.localStorage.getItem("pubKey")).map(e => alias(e._2)).head
-      println(">>>>>>>>>>>> " + getalias)
-
       CoreApi.mobileGetUserDetails().map { userDetails =>
         Json.parse(userDetails).validate[UserDetails].asOpt match {
-          case Some(response) => {
-            WalletCircuit.dispatch(GetUserDetails(UserDetails(getalias, response.walletDetails)))
-            //            t.modState(s => s.copy(userDetails = response)).runNow()
-          }
+          case Some(response) =>
+            WalletCircuit.dispatch(GetUserDetails(response))
+            t.modState(s => s.copy(userDetails = response)).runNow()
+
           case None => println("Error in parsing user details response")
         }
       }
@@ -85,12 +54,13 @@ object AccountView {
                 t.modState(s => s.copy(
                   coinExchange = res,
                   currencySelected = res
-                    .coinExchangeList
-                    .find(_.coin.equalsIgnoreCase("ETH"))
-                    .get
-                    .currencies
-                    .find(_.symbol.equalsIgnoreCase(t.state.runNow().currencySelected))
-                    .get.symbol))
+                  .coinExchangeList
+                  .find(_.coin.equalsIgnoreCase("ETH"))
+                  .get
+                  .currencies
+                  .find(_.symbol.equalsIgnoreCase(t.state.runNow().currencySelected))
+                  .get.symbol
+                ))
                 .runNow()
             })
 
@@ -110,7 +80,6 @@ object AccountView {
     }
 
     def componentDidMount(props: Props): Callback = {
-      //      updateAccountList
       $(".select-currency-info").removeClass("active")
       $(".select-currency-info").first().addClass("active")
       getLiveCurrencyUpdate
@@ -160,8 +129,7 @@ object AccountView {
             <.div(
               ^.className := "row left-info",
               <.label(^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4", userERCToken.tokenName),
-              //todo WalletJS.getnumberFormat() commented due to issue while exporting js file of same.Remove it once isue resolved
-              <.span(^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText", /*WalletJS.getnumberFormat(*/ BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString /*)*/ ),
+              <.span(^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText", /*WalletJS.getnumberFormat(*/ BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString) /*)*/ ,
               <.span(^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol", s"${userERCToken.symbol}")
             ),
             coin.map { e =>
@@ -169,14 +137,20 @@ object AccountView {
                 ^.className := "row",
                 <.span(
                   ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4 ellipseText",
-                  s"@ ${e.price} ${e.symbol}"),
+                  s"@ ${e.price} ${e.symbol}"
+                ),
                 <.span(
                   ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText",
-                  WalletJS.getnumberFormat(BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString())),
+                  BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString()
+                ),
                 <.span(
                   ^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol",
-                  e.symbol))
-            }.toVdomArray))
+                  e.symbol
+                )
+              )
+            }.toVdomArray
+          )
+        )
       }
       <.div(^.id := "bodyWallet")(
         <.div(
@@ -187,35 +161,49 @@ object AccountView {
               ^.className := "row heading-currency",
               <.div(
                 ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4 hand-cuure-left",
-                <.label("total:")),
+                <.label("totalsasas:")
+              ),
               <.div(
                 ^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-8 select-currency",
                 <.label(
                   ^.className := "ellipseText",
                   p.proxy().render(tokenList =>
 
-                    WalletJS.getnumberFormat(BigDecimal.apply(tokenList.accountTokenDetails.map { token =>
+                    BigDecimal.apply(tokenList.accountTokenDetails.map { token =>
                       val coin = coinList.filter(_.coin.equalsIgnoreCase(token.symbol))
                         .flatMap { e => e.currencies.filter(c => c.symbol.equalsIgnoreCase(s.currencySelected)) }
                       token.balance.toDouble * coin.map(_.price).sum
-                    }.sum).setScale(2, BigDecimal.RoundingMode.UP).toString))),
+                    }.sum).setScale(2, BigDecimal.RoundingMode.UP).toString)
+                ),
                 <.select(^.id := "selectOption", ^.onChange ==> updateCurrencyState)(
                   s.coinExchange.coinExchangeList.filter(e => e.coin.equalsIgnoreCase("ETH")).flatMap(_.currencies
-                    .map { currency =>
-                      if (s.currencySelected.equalsIgnoreCase(currency.symbol)) {
-                        <.option(^.value := currency.symbol, currency.symbol, ^.selected := "selected")
-                      } else {
-                        <.option(^.value := currency.symbol, currency.symbol)
-                      }
-                    }).toVdomArray))),
+                  .map { currency =>
+                    if (s.currencySelected.equalsIgnoreCase(currency.symbol)) {
+                      <.option(^.value := currency.symbol, currency.symbol, ^.selected := "selected")
+                    } else {
+                      <.option(^.value := currency.symbol, currency.symbol)
+                    }
+                    /* <.option(^.value := currency.symbol, currency.symbol, ^.selected := "selected")
+                        .when(s.currencySelected.equalsIgnoreCase(currency.symbol))
+                      <.option(^.value := currency.symbol, currency.symbol)
+                        .when(!s.currencySelected.equalsIgnoreCase(currency.symbol))*/
+                  }).toVdomArray
+                )
+              )
+            ),
             p.proxy().render(tokenList =>
               <.div(^.className := "currency-info-scrollbar")(
-                tokenList.accountTokenDetails.filter(e => e.symbol.equalsIgnoreCase("ETH") || !e.balance.equalsIgnoreCase("0")) reverseMap createItem: _*)),
+                tokenList.accountTokenDetails.filter(e => e.symbol.equalsIgnoreCase("ETH") || !e.balance.equalsIgnoreCase("0")) reverseMap createItem: _*
+              )),
             p.proxy().renderFailed(ex => <.div()(
-              <.label(^.className := "warn-text", "Error while loading available token list"))),
+              <.label(^.className := "warn-text", "Error while loading available token list")
+            )),
             p.proxy().renderPending(e =>
               <.div()(
-                <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img"))))),
+                <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img")
+              ))
+          )
+        ),
         <.div(
           ^.className := "container btnDefault-container homeButtonContainer",
           <.div(
@@ -226,16 +214,19 @@ object AccountView {
                 <.i(^.className := "fa fa-camera", VdomAttr("aria-hidden") := "true")),
               <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton", ^.onClick --> updateURL("HistoryLoc") /*p.router.setEH(HistoryLoc)*/ , "Transactions"),
               <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton", ^.onClick --> updateURL("RequestLoc") /* p.router.setEH(RequestLoc)*/ , "Request"),
-              <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton", ^.onClick --> updateURL("SendLoc") /*p.router.setEH(SendLoc)*/ , "Send")))))
+              <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton", ^.onClick --> updateURL("SendLoc") /*p.router.setEH(SendLoc)*/ , "Send")
+            )
+          )
+        )
+      )
     }
   }
 
   val component = ScalaComponent.builder[Props]("AccountView")
-    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), ""))
+    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), UserDetails("", WalletDetails("", "0"))))
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.updateCurrency())
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
   def apply(props: Props) = component(props)
 }
-
