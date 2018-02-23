@@ -21,7 +21,7 @@ import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.mvc.EssentialFilter
 import play.filters.gzip.GzipFilterComponents
 import utils.web.{ Filters, RequestHandler, WebGatewayErrorHandler }
-import webjars.Routes
+import router.Routes
 
 abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext(context)
   with LagomConfigComponent
@@ -44,8 +44,15 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
       val prefix = "/v1"
       wire[api.v1.Routes]
     }
+
+    lazy val webJarRoute: webjars.Routes = {
+      val prefix = "/webjars"
+      wire[webjars.Routes]
+    }
+
     val prefix = "/"
     wire[Routes]
+
   }
 
   lazy val webJarsAssets: WebJarAssets = wire[WebJarAssets]

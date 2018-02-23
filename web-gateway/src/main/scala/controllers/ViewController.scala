@@ -13,7 +13,6 @@ class ViewController(
   extends BaseController with I18nSupport {
 
   def wallet() = Action { implicit request =>
-    println("-------------------------------")
     Ok(views.html.wallet.wallet(webJarsUtil))
   }
 
