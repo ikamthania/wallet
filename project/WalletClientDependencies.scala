@@ -27,6 +27,15 @@ object WalletClientDependencies {
 
   val npmDependencies = Def.setting(
     Seq(
+      "blockies" -> "0.0.2",
+      "bootstrap" -> "4.0.0",
+      "ethereumjs-tx" -> "1.3.3",
+      "jquery" -> "3.3.1",
+      "jquery.qrcode" -> "1.0.3",
+      "react" -> "16.2.0",
+      "react-dom" -> "16.2.0",
+      "toastr" -> "2.1.4",
+      "font-awesome" -> "4.7.0"
       //      "react" -> "15.6.1",
     )
   )

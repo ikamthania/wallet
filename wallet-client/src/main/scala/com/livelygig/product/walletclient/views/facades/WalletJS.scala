@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views.facades
 import org.scalajs.dom.raw
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSGlobal, JSImport}
+import scala.scalajs.js.annotation.{ JSGlobal, JSImport }
 
 @JSImport("./signtxn", "walletjs")
 @js.native //@JSGlobal("walletjs")

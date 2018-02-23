@@ -20,13 +20,7 @@ import scalajsbundler.sbtplugin.{NpmAssets, WebScalaJSBundlerPlugin}
 object Server {
   private[this] val dependencies = {
     import Dependencies._
-    Seq(
-      Cache.ehCache, Akka.actor, Akka.logging, Play.playFilters, Play.playWs, Play.playWebjars, Play.playBootstrap,
-      Authentication.silhouette, Authentication.hasher, Authentication.persistence, Authentication.crypto,
-      WebJars.fontAwesome, WebJars.selectize, WebJars.datepicker, WebJars.toastr, WebJars.blockies, WebJars.validator,
-      Utils.crypto, Utils.commonsIo, SharedDependencies.macwire, Akka.testkit, Play.playTest,
-      lagomScaladslServer, Play.scalajsScripts, SharedDependencies.scalaTest,Wallet.web3j
-    )
+    Seq( SharedDependencies.macwire, lagomScaladslServer,SharedDependencies.scalaTest,Wallet.web3j, PlaySpecific.playWebjars)
   }
 
   private[this] lazy val serverSettings = Shared.commonSettings ++ Seq(
@@ -42,7 +36,7 @@ object Server {
     pipelineStages in Assets := Seq(scalaJSPipeline),
     pipelineStages := Seq(digest, gzip),
     // Expose as sbt-web assets some files retrieved from the NPM packages of the `client` project
-    npmAssets ++= NpmAssets.ofProject(WalletClient.walletClient) { modules => (modules / "toastr").*** }.value,
+    npmAssets ++= NpmAssets.ofProject(WalletClient.walletClient) { modules => (modules / "font-awesome") }.value,
     routesGenerator := InjectedRoutesGenerator,
     externalizeResources := false,
 

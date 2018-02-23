@@ -1,31 +1,32 @@
 
 
 import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
-import com.lightbend.lagom.scaladsl.api.{ServiceAcl, ServiceInfo}
-import com.lightbend.lagom.scaladsl.client.{ConfigurationServiceLocatorComponents, LagomServiceClientComponents}
+import com.lightbend.lagom.scaladsl.api.{ LagomConfigComponent, ServiceAcl, ServiceInfo }
+import com.lightbend.lagom.scaladsl.client.{ ConfigurationServiceLocatorComponents, LagomServiceClientComponents }
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.livelygig.product.content.api.WalletService
-import play.api.{ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode}
+import play.api.{ ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode }
 import controllers.api.v1.wallet._
 
 import scala.collection.immutable
 import scala.concurrent.ExecutionContext
 import com.softwaremill.macwire.wire
 import controllers.api.v1.wallet.auth.MobileWalletController
-import controllers.{Assets, ViewController, WebJarAssets}
+import controllers.{ Assets, AssetsComponents, ViewController }
+import org.webjars.play.{ RequireJS, WebJarAssets, WebJarsUtil }
 import play.api.ApplicationLoader.Context
-import play.api.http.{HttpErrorHandler, HttpRequestHandler}
+import play.api.http.{ HttpErrorHandler, HttpRequestHandler }
 import play.api.i18n.I18nComponents
 import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.mvc.EssentialFilter
 import play.filters.gzip.GzipFilterComponents
-import utils.web.{Filters, RequestHandler, WebGatewayErrorHandler}
-//import utils.AppLogger
-import router.Routes
+import utils.web.{ Filters, RequestHandler, WebGatewayErrorHandler }
+import webjars.Routes
 
 abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext(context)
-    with LagomServiceClientComponents
-    with GzipFilterComponents with AhcWSComponents with I18nComponents {
+  with LagomConfigComponent
+  with LagomServiceClientComponents
+  with GzipFilterComponents with AhcWSComponents with I18nComponents with AssetsComponents {
   LoggerConfigurator(context.environment.classLoader).foreach {
     _.configure(context.environment)
   }
@@ -33,9 +34,7 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
   override lazy val serviceInfo: ServiceInfo = ServiceInfo(
     "web-gateway",
     Map(
-      "web-gateway" -> immutable.Seq(ServiceAcl.forPathRegex("(?!/api/).*"))
-    )
-  )
+      "web-gateway" -> immutable.Seq(ServiceAcl.forPathRegex("(?!/api/).*"))))
 
   override implicit lazy val executionContext: ExecutionContext = actorSystem.dispatcher
   lazy val routerOption = None
@@ -49,9 +48,11 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
     wire[Routes]
   }
 
+  lazy val webJarsAssets: WebJarAssets = wire[WebJarAssets]
+  lazy val requireJS: RequireJS = wire[RequireJS]
+
   // assets
-  lazy val assets: Assets = wire[Assets]
-  lazy val webjarAssets: WebJarAssets = wire[WebJarAssets]
+  lazy val webjarUtils: WebJarsUtil = wire[WebJarsUtil]
 
   // services
   lazy val walletService = serviceClient.implement[WalletService]

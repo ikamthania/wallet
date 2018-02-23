@@ -1,6 +1,6 @@
 package com.livelygig.product.shared.models.wallet
 
-import com.livelygig.product.shared.json.derived
+import julienrf.json.derived
 import play.api.libs.json.{ Format, Json, __ }
 
 sealed trait ERCToken

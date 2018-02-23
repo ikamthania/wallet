@@ -13,9 +13,10 @@ object WalletClient {
     libraryDependencies ++= WalletClientDependencies.scalajsDependencies.value,
     jsDependencies ++= WalletClientDependencies.jsDependencies.value,
     jsDependencies ++= WalletClientDependencies.provided.value.map(ProvidedJS / _),
-    //    npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
+    npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
     useYarn := true,
     webpackBundlingMode := BundlingMode.LibraryOnly(),
+
     // Add a dependency to the expose-loader (which will expose react to the global namespace)
     npmDevDependencies in Compile += "expose-loader" -> "0.7.1",
 
@@ -28,7 +29,6 @@ object WalletClient {
     // use Scala.js provided launcher code to start the client app
     scalaJSUseMainModuleInitializer := true,
     scalaJSStage in Global := FastOptStage
-    //    scapegoatIgnoredFiles := Seq(".*/JsonUtils.scala", ".*/JsonSerializers.scala")
   )
 
   lazy val walletClient = (project in file("wallet-client"))

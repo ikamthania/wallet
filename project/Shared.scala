@@ -8,8 +8,8 @@ import sbt._
 import webscalajs.ScalaJSWeb
 
 object Shared {
-  val projectId = "livelygig"
-  val projectName = "Livelygig"
+  val projectId = "ubundawallet"
+  val projectName = "UbundaWallet"
 
   lazy val commonSettings = Seq(
     version := Shared.Versions.app,
@@ -27,18 +27,13 @@ object Shared {
     // Prevent Scaladoc
     publishArtifact in(Compile, packageDoc) := false,
     publishArtifact in packageDoc := false,
-    sources in(Compile, doc) := Seq.empty,
+    sources in(Compile, doc) := Seq.empty
 
-    // Code Quality
-    //    scapegoatVersion := Utils.scapegoatVersion,
-    //    scapegoatDisabledInspections := Seq("MethodNames", "MethodReturningAny", "DuplicateImport"),
-    //    scapegoatIgnoredFiles := Seq(".*/JsonSerializers.scala"),
-    ScalariformKeys.preferences := ScalariformKeys.preferences.value
-  ) ++ graphSettings ++ scalariformSettings
+  )
 
   object Versions {
     val app = "0.3"
-    val scala = "2.11.11"
+    val scala = "2.12.4"
   }
 
   def withProjects(p: Project, includes: Seq[Project]) = includes.foldLeft(p) { (proj, inc) =>
@@ -47,16 +42,14 @@ object Shared {
 
   lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).settings(commonSettings: _*).settings(
     libraryDependencies ++= Seq(
-      "com.chuusai" %%% "shapeless" % SharedDependencies.shapelessVersion,
-      SharedDependencies.macwire,
-      "org.scalatest" %%% "scalatest" % SharedDependencies.scalaTestVersion % "test"
+      "org.scalatest" %%% "scalatest" % SharedDependencies.scalaTestVersion % "test",
+      SharedDependencies.derivedCodecs
     )
   )
     .jvmSettings(
       libraryDependencies ++= Seq(
-        SharedDependencies.derivedCodecs,
-        SharedDependencies.ficus,
-        SharedDependencies.playEnumeratum
+        SharedDependencies.macwire,
+        SharedDependencies.ficus
       )
     )
     .jsSettings(

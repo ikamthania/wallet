@@ -1,22 +1,16 @@
 package controllers.api.v1.wallet.auth
 
 import com.livelygig.product.content.api.WalletService
-import controllers.WebJarAssets
-import forms.UserForms
-import forms.UserForms.WalletLoginData
 import play.api.Configuration
-import play.api.i18n.{ I18nSupport, MessagesApi }
-import play.api.mvc.{ Action, Controller }
-//import utils.AppLogger
+import play.api.i18n.{ I18nSupport }
+import play.api.mvc.{ BaseController, ControllerComponents }
 
-import scala.concurrent.{ ExecutionContext, Future }
+import scala.concurrent.ExecutionContext
 
 class MobileWalletController(
-  val messagesApi: MessagesApi,
-  implicit val webJarAssets: WebJarAssets,
-  implicit val config: Configuration,
+  val controllerComponents: ControllerComponents,
   configuration: Configuration,
-  walletService: WalletService)(implicit val ec: ExecutionContext) extends Controller with I18nSupport /* with AppLogger */ {
+  walletService: WalletService)(implicit val ec: ExecutionContext) extends BaseController with I18nSupport /* with AppLogger */ {
   val allowedContentType = Seq(Some("application/json"), Some("application/octet-stream"))
 
   def signup = Action { implicit request =>

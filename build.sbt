@@ -17,4 +17,4 @@ lagomCassandraEnabled in ThisBuild := false
 // loads the Play server project at sbt startup
 
 
-onLoad in Global := (Command.process("project webGateway", _: State)) compose (onLoad in Global).value
+onLoad in Global ~= (_ andThen ("project webGateway" :: _))

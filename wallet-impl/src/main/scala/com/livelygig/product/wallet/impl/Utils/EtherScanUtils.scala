@@ -4,18 +4,15 @@ import net.ceedubs.ficus.Ficus._
 import java.io.IOException
 import java.math.BigInteger
 
-import com.lightbend.lagom.scaladsl.api.transport.{ BadRequest, NotFound }
+import com.lightbend.lagom.scaladsl.api.transport.{ BadRequest }
 import com.livelygig.product.shared.models.wallet.{ ERC20ComplientToken, Transaction, TransactionWithSymbol }
-import org.apache.commons.codec.binary.Hex
-import org.apache.http.client.methods.{ CloseableHttpResponse, HttpGet }
+import org.apache.http.client.methods.{ HttpGet }
 import org.apache.http.impl.client.{ CloseableHttpClient, HttpClients }
 import org.apache.http.util.EntityUtils
 import org.web3j.utils.Convert
 import play.api.Configuration
 import play.api.libs.json.{ JsDefined, Json }
-
 import scala.concurrent.{ ExecutionContext, Future }
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.math.BigDecimal.RoundingMode
 class EtherscanUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
 
