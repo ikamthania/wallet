@@ -129,7 +129,10 @@ object AccountView {
             <.div(
               ^.className := "row left-info",
               <.label(^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4", userERCToken.tokenName),
-              <.span(^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText", /*WalletJS.getnumberFormat(*/ BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString) /*)*/ ,
+              <.span(
+                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText",
+                WalletJS.getnumberFormat(BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString)
+              ),
               <.span(^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol", s"${userERCToken.symbol}")
             ),
             coin.map { e =>
@@ -141,7 +144,7 @@ object AccountView {
                 ),
                 <.span(
                   ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText",
-                  BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString()
+                  WalletJS.getnumberFormat(BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString())
                 ),
                 <.span(
                   ^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol",
@@ -169,11 +172,11 @@ object AccountView {
                   ^.className := "ellipseText",
                   p.proxy().render(tokenList =>
 
-                    BigDecimal.apply(tokenList.accountTokenDetails.map { token =>
+                    WalletJS.getnumberFormat(BigDecimal.apply(tokenList.accountTokenDetails.map { token =>
                       val coin = coinList.filter(_.coin.equalsIgnoreCase(token.symbol))
                         .flatMap { e => e.currencies.filter(c => c.symbol.equalsIgnoreCase(s.currencySelected)) }
                       token.balance.toDouble * coin.map(_.price).sum
-                    }.sum).setScale(2, BigDecimal.RoundingMode.UP).toString)
+                    }.sum).setScale(2, BigDecimal.RoundingMode.UP).toString))
                 ),
                 <.select(^.id := "selectOption", ^.onChange ==> updateCurrencyState)(
                   s.coinExchange.coinExchangeList.filter(e => e.coin.equalsIgnoreCase("ETH")).flatMap(_.currencies
