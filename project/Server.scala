@@ -1,3 +1,4 @@
+import Dependencies.SharedDependencies
 import com.lightbend.lagom.sbt.LagomImport.lagomScaladslServer
 import com.lightbend.lagom.sbt.LagomPlay
 import com.typesafe.sbt.digest.Import._
@@ -14,6 +15,7 @@ import play.sbt.routes.RoutesKeys.routesGenerator
 import sbt.Keys._
 import sbt._
 import webscalajs.WebScalaJS.autoImport.{devCommands, scalaJSPipeline, scalaJSProjects}
+
 import scalajsbundler.sbtplugin.WebScalaJSBundlerPlugin.autoImport._
 import scalajsbundler.sbtplugin.{NpmAssets, WebScalaJSBundlerPlugin}
 
@@ -29,6 +31,7 @@ object Server {
     description := "Ubunda WebGateway",
     resolvers += Resolver.jcenterRepo,
     libraryDependencies ++= dependencies,
+    libraryDependencies ++= Dependencies.webjars.value,
     compile in Compile := ((compile in Compile) dependsOn scalaJSPipeline).value,
     devCommands in scalaJSPipeline += "runAll",
     // connect to the client project
@@ -36,7 +39,8 @@ object Server {
     pipelineStages in Assets := Seq(scalaJSPipeline),
     pipelineStages := Seq(digest, gzip),
     // Expose as sbt-web assets some files retrieved from the NPM packages of the `client` project
-    npmAssets ++= NpmAssets.ofProject(WalletClient.walletClient) { modules => (modules / "font-awesome") }.value,
+    /*npmAssets ++= NpmAssets.ofProject(WalletClient.walletClient)
+    { modules => (modules / "font-awesome" +++ modules / "bootstrap") ** "*" }.value,*/
     routesGenerator := InjectedRoutesGenerator,
     externalizeResources := false,
 
@@ -44,13 +48,14 @@ object Server {
     JsEngineKeys.engineType := JsEngineKeys.EngineType.Node,
     includeFilter in (Assets, LessKeys.less) := "*.less",
     excludeFilter in (Assets, LessKeys.less) := "_*.less",
-    LessKeys.compress in Assets := true
+    LessKeys.compress in Assets := true,
+    LessKeys.less := (LessKeys.less dependsOn npmAssets).value
 
   )
 
   lazy val webGateway = (project in file("web-gateway"))
     .enablePlugins(
-      SbtWeb, play.sbt.PlayScala, LagomPlay, WebScalaJSBundlerPlugin)
+     play.sbt.PlayScala, LagomPlay, WebScalaJSBundlerPlugin)
     .disablePlugins(PlayLayoutPlugin) // use the standard directory layout instead of Play's custom
     .dependsOn(WalletApi.walletApi, Shared.sharedJvm)
     .settings(serverSettings: _*)

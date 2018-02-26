@@ -18,9 +18,21 @@ object Dependencies {
     val playWebjars = "org.webjars" %% "webjars-play" % "2.6.3"
   }
 
+  val webjars = Def.setting(
+    Seq(
+      "org.webjars" % "font-awesome" % "4.7.0",
+      "org.webjars.bower" % "bootstrap" % "4.0.0"
+    ))
+
+  val ImportFromWalletClient = Def.setting(
+    Seq(
+      "bootstrap",
+      "font-awesome"
+    )
+  )
+
   object Wallet {
     val web3j = "org.web3j" % "core" % "2.3.1"
   }
-
 
 }

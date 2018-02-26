@@ -34,9 +34,7 @@ object WalletClientDependencies {
       "jquery.qrcode" -> "1.0.3",
       "react" -> "16.2.0",
       "react-dom" -> "16.2.0",
-      "toastr" -> "2.1.4",
-      "font-awesome" -> "4.7.0"
-      //      "react" -> "15.6.1",
+      "toastr" -> "2.1.4"
     )
   )
 
