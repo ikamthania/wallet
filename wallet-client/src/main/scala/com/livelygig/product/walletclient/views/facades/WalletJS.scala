@@ -1,8 +1,7 @@
 package com.livelygig.product.walletclient.views.facades
 
-import org.scalajs.dom.raw
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{JSGlobal, JSImport}
+import scala.scalajs.js.annotation.{ JSImport }
 @JSImport("./signtxn", JSImport.Default)
 object WalletJS extends js.Object {
 
