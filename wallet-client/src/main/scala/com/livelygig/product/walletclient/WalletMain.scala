@@ -2,10 +2,11 @@ package com.livelygig.product.walletclient
 
 import com.livelygig.product.shared.models.wallet.UserDetails
 import com.livelygig.product.walletclient.facades.TestFacade
+import com.livelygig.product.walletclient.views.facades.WalletJS
 //import com.livelygig.product.walletclient.facades.PullToRefresh
 import com.livelygig.product.walletclient.handler.GetUserDetails
 import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
+import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
 import diode.AnyAction._
 import org.scalajs.dom
 import play.api.libs.json.Json
@@ -21,7 +22,7 @@ object WalletMain {
     //    PullToRefresh.init(js.Dictionary(
     //      "mainElement" -> "body"
     //    ))
-    println(TestFacade.someTest)
+    println(WalletJS.postRawTxn("", "", "0x4Cd69393038570d8EA4165445530225A87B3cC82", "ngc", "7", "0"))
     ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
 
     /*CoreApi.mobileGetUserDetails().map { userDetails =>
