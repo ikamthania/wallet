@@ -11,10 +11,10 @@ lazy val walletApi = WalletApi.walletApi
 
 lazy val walletImpl = WalletImpl.walletImpl
 
+lazy val doc = Documentation.doc
+
 lagomKafkaEnabled in ThisBuild := false
 lagomCassandraEnabled in ThisBuild := false
 
 // loads the Play server project at sbt startup
-
-
 onLoad in Global ~= (_ andThen ("project webGateway" :: _))

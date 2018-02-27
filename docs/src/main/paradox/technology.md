@@ -1,6 +1,6 @@
 ## Technology
 
-This project relies on a whole lot of tremendous open source projects. Here's a few of them.
+This project relies on a number of open source projects. Here's a few of them.
 
 * [Scala](http://www.scala-lang.org)
 * [Scala.js](https://www.scala-js.org)

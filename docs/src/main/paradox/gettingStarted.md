@@ -1,4 +1,6 @@
-# Dev environment setup
+# Getting Started
+
+## Dev environment setup
 
 ### Installing dependencies
 
