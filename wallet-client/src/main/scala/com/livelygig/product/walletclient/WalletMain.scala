@@ -12,11 +12,11 @@ object WalletMain {
     //    PullToRefresh.init(js.Dictionary(
     //      "mainElement" -> "body"
     //    ))
-    //    println(WalletJS.postRawTxn("", "", "0x4Cd69393038570d8EA4165445530225A87B3cC82", "ngc", "7", "0"))
     ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
 
     /*CoreApi.mobileGetUserDetails().map { userDetails =>
       Json.parse(userDetails).validate[UserDetails].asOpt match {
+
         case Some(response) =>
           WalletCircuit.dispatch(GetUserDetails(response))
           ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))

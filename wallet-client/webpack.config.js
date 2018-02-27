@@ -8,7 +8,10 @@ var globalModules = {
   "react": "React",
   "react-dom": "ReactDOM",
   "toastr" : "Toastr",
-  "blockies" : "Blockies"
+  "blockies" : "Blockies",
+  "bootstrap":"Bootstrap",
+  "jquery":"jQuery"
+
 };
 
 Object.keys(config.entry).forEach(function(key) {

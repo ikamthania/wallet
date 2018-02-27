@@ -21,7 +21,8 @@ object Dependencies {
   val webjars = Def.setting(
     Seq(
       "org.webjars" % "font-awesome" % "4.7.0",
-      "org.webjars.bower" % "bootstrap" % "3.3.7"
+      "org.webjars.bower" % "bootstrap" % "3.3.7",
+      "org.webjars.npm" % "toastr" % "2.1.4"
     ))
 
 
