@@ -16,7 +16,7 @@ import controllers.{ Assets, AssetsComponents, ViewController }
 import org.webjars.play.{ RequireJS, WebJarAssets, WebJarsUtil }
 import play.api.ApplicationLoader.Context
 import play.api.http.{ HttpErrorHandler, HttpRequestHandler }
-import play.api.i18n.I18nComponents
+import play.api.i18n.{ I18nComponents, Messages }
 import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.mvc.EssentialFilter
 import play.filters.gzip.GzipFilterComponents
@@ -56,6 +56,7 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
   }
 
   lazy val webJarsAssets: WebJarAssets = wire[WebJarAssets]
+  //  lazy val messages: Messages = wire[Messages]
   lazy val requireJS: RequireJS = wire[RequireJS]
 
   // assets
