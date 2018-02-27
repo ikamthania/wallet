@@ -10,6 +10,8 @@
 * [Wallet Client](client/index.md)
 * [Web Gateway](web_gateway/index.md)
 * [Wallet Service](wallet_service/index.md)
+* [Publishing](publishing/index.md)
+* [Publishing Docs](publishing/docs.md)
 
 
 @@@

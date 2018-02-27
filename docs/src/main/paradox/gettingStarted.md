@@ -128,19 +128,46 @@ sudo apt-get update
 sudo apt-get install sbt
 ```
 
+## Start App and Services
 
-2. Once packages are installed in project root do `sbt runAll` This starts the microservices, web gateway, scalajs-react project compilation
 
-3. In separate terminal `cd wallet-native-client` and do `npm install // you can use yarn as well` and `npm start // can use yarn as well`
+1. Once packages are installed in project root do `sbt runAll` This starts the microservices, web gateway, scalajs-react project compilation
 
+2. In separate terminal `cd wallet-native-client` and do `npm install // you can use yarn as well` and `npm start // can use yarn as well`
 What this command does can be found [here](/wallet-native-client/package.json#L12)
 
-4. We have used another config file, you can see it (here)[/wallet-native-client/App.js#L3] . To use that there is a comment in header in this file . It reads `// DO NOT USE THIS FILE DIRECTLY CREATE A COPY TO config.json MODIFY REQUIRED VARIABLES`.
-You might ask why would I need to put ip, can't I put just localhost, answer is you can't. Because the emulator or the expo client doesn't know what localhost server is.
+3. We have used another config file, you can see it [here](https://github.com/LivelyGig/wallet/blob/master/wallet-native-client/config.json.copy#L1) . To use that there is a comment in header in this file . It reads `// DO NOT USE THIS FILE DIRECTLY CREATE A COPY TO config.json MODIFY REQUIRED VARIABLES`.
+You might ask why you need to put ip, just localhost should work, answer is you can't. Because the emulator doesn't know what localhost server is.
 
-6. Optionally to enable the hot reloading with scala sources there is a small watchman script
+4. Optionally to enable the hot reloading with scala sources there is a small watchman script
 `watchman-make --run 'echo "//" > wallet-native-client/trigger.js' -p '**/*.scala'`
 Use this script in your project root.
 It configures watchman to read all scala sources with `**/* .scala` and once it sees a change it triggers to make trigger.js dirty with `'echo "//" > wallet-native-client/trigger.js'` notice it just add blank comment. It basically tells the watchman which is running in the wallet-native-client that something has changed in scala sources, you need to reload.
 
-7. To debug use an android emulator.
+5. To debug use an android emulator.
+
+## Hot Reloading
+
+Both project has hot reloading enabled, that is if you make changes in wallet-client scala files or any scala file `Lagom` framework is going to take care of triggering the recompilation. Same is the case for the wallet-native-client which has hot reloading based on `watchman`. However there is a disconnect between system, where javascript automatic bundling cannot be done if scala sources change. To solve this issue we can do a workaround. Simply attach a watchman to watch over changes in scala files and trigger hot reloading in react native by adding garbage comment in a file.
+
+Watchman command for unix like systems.
+
+`watchman-make --run 'echo "//" > wallet-native-client/trigger.js' -p '**/*.scala'`
+
+You should have output similar to
+
+```
+# Relative to /home/shubham/project/livelygig/wallet
+# Changes to files matching **/*.scala will execute `echo "//" > wallet-native-client/trigger.js`
+# waiting for changes
+```
+
+Hit `CTRL + D` to get out of watchman shell.
+
+You would need to explicitly delete the watchman watch with this command
+
+`watchman watch-del ./`
+
+## Typical dev workflow
+
+Most of the time you don't need to run emulator or react native app at all. Since react native app just uses webview to view the web app, you are better developing in browser and then later use emulator for verifying the changes
