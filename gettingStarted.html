@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+
+<head>
+<title>Getting Started · Ubunda wallet</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content='doc'/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:100normal,100italic,300normal,300italic,400normal,400italic,500normal,500italic,700normal,700italic,900normal,900italicc" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="lib/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="js/page.js"></script>
+<script type="text/javascript" src="js/groups.js"></script>
+<link rel="stylesheet" type="text/css" href="lib/normalize.css/normalize.css"/>
+<link rel="stylesheet" type="text/css" href="lib/foundation/dist/foundation.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/page.css"/>
+
+<!--
+<link rel="shortcut icon" href="images/favicon.ico" />
+-->
+</head>
+
+<body>
+<div class="off-canvas-wrapper">
+<div class="off-canvas-wrapper-inner" data-off-canvas-wrapper>
+
+<div class="off-canvas position-left" id="off-canvas-menu" data-off-canvas>
+<nav class="off-canvas-nav">
+<div class="nav-home">
+<a href="index.html" >
+<span class="home-icon">⌂</span>Ubunda wallet
+</a>
+<div class="version-number">
+0.3
+</div>
+</div>
+<div class="nav-toc">
+<ul>
+  <li><a href="technology.html" class="page">Technology</a></li>
+  <li><a href="gettingStarted.html" class="active page">Getting Started</a></li>
+  <li><a href="architecture_overview.html" class="page">Architectural Overview</a></li>
+  <li><a href="build/index.html" class="page">Build</a></li>
+  <li><a href="native_client/index.html" class="page">Native Client</a></li>
+  <li><a href="client/index.html" class="page">Client</a></li>
+  <li><a href="web_gateway/index.html" class="page">Web Gateway</a></li>
+  <li><a href="wallet_service/index.html" class="page">Wallet Service</a></li>
+</ul>
+</div>
+
+</nav>
+</div>
+
+<div class="off-canvas-content" data-off-canvas-content>
+
+<header class="site-header expanded row">
+<div class="small-12 column">
+<a href="#" class="off-canvas-toggle hide-for-medium" data-toggle="off-canvas-menu"><svg class="svg-icon svg-icon-menu" version="1.1" id="Menu" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve"> <path class="svg-icon-menu-path" fill="#53CDEC" d="M16.4,9H3.6C3.048,9,3,9.447,3,10c0,0.553,0.048,1,0.6,1H16.4c0.552,0,0.6-0.447,0.6-1C17,9.447,16.952,9,16.4,9z M16.4,13
+H3.6C3.048,13,3,13.447,3,14c0,0.553,0.048,1,0.6,1H16.4c0.552,0,0.6-0.447,0.6-1C17,13.447,16.952,13,16.4,13z M3.6,7H16.4
+C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.048,7,3.6,7z"/></svg>
+</a>
+<div class="title"><a href="index.html">Ubunda wallet</a></div>
+
+<!--
+<a href="https://www.example.com" class="logo show-for-medium">logo</a>
+-->
+</div>
+</header>
+
+<div class="expanded row">
+
+<div class="medium-3 large-2 show-for-medium column">
+<nav class="site-nav">
+<div class="nav-home">
+<a href="index.html" >
+<span class="home-icon">⌂</span>Ubunda wallet
+</a>
+<div class="version-number">
+0.3
+</div>
+</div>
+<div class="nav-toc">
+<ul>
+  <li><a href="technology.html" class="page">Technology</a></li>
+  <li><a href="gettingStarted.html" class="active page">Getting Started</a></li>
+  <li><a href="architecture_overview.html" class="page">Architectural Overview</a></li>
+  <li><a href="build/index.html" class="page">Build</a></li>
+  <li><a href="native_client/index.html" class="page">Native Client</a></li>
+  <li><a href="client/index.html" class="page">Client</a></li>
+  <li><a href="web_gateway/index.html" class="page">Web Gateway</a></li>
+  <li><a href="wallet_service/index.html" class="page">Wallet Service</a></li>
+</ul>
+</div>
+
+</nav>
+</div>
+
+<div class="small-12 medium-9 large-10 column">
+<section class="site-content">
+
+<div class="page-header row">
+<div class="medium-12 show-for-medium column">
+<div class="nav-breadcrumbs">
+<ul>
+  <li><a href="index.html">Ubunda wallet</a></li>
+  <li>Getting Started</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="page-content row">
+<div class="small-12 large-9 column" id="docs">
+<h1><a href="#getting-started" name="getting-started" class="anchor"><span class="anchor-link"></span></a>Getting Started</h1>
+<h2><a href="#dev-environment-setup" name="dev-environment-setup" class="anchor"><span class="anchor-link"></span></a>Dev environment setup</h2>
+<h3><a href="#installing-dependencies" name="installing-dependencies" class="anchor"><span class="anchor-link"></span></a>Installing dependencies</h3>
+<p>You will need Node, the React Native command line interface, a JDK, and Android Studio.</p>
+<p>While you can use any editor of your choice to develop your app, you will need to install Android Studio in order to set up the necessary tooling to build your React Native app for Android. Node</p>
+<p>Follow the installation instructions for your Linux distribution to install Node 6 or newer. The React Native CLI</p>
+<p>Node comes with npm, which lets you install the React Native command line interface.</p>
+<p>Run the following command in a Command Prompt or shell:</p>
+<p>npm install -g react-native-cli</p>
+<pre><code>If you get an error like Cannot find module &#39;npmlog&#39;, try installing npm directly: curl -0 -L https://npmjs.org/install.sh | sudo sh.
+</code></pre>
+<p>Java Development Kit</p>
+<p>React Native requires a recent version of the Java SE Development Kit (JDK). Download and install JDK 8 or newer if needed. Android development environment</p>
+<p>Setting up your development environment can be somewhat tedious if you&rsquo;re new to Android development. If you&rsquo;re already familiar with Android development, there are a few things you may need to configure. In either case, please make sure to carefully follow the next few steps. 1. Install Android Studio</p>
+<p>Download and install Android Studio. Choose a &ldquo;Custom&rdquo; setup when prompted to select an installation type. Make sure the boxes next to all of the following are checked:</p>
+<pre><code>Android SDK
+Android SDK Platform
+Android Virtual Device
+</code></pre>
+<p>Then, click &ldquo;Next&rdquo; to install all of these components.</p>
+<pre><code>If the checkboxes are grayed out, you will have a chance to install these components later on.
+</code></pre>
+<p>Once setup has finalized and you&rsquo;re presented with the Welcome screen, proceed to the next step. 2. Install the Android SDK</p>
+<p>Android Studio installs the latest Android SDK by default. Building a React Native app with native code, however, requires the Android 6.0 (Marshmallow) SDK in particular. Additional Android SDKs can be installed through the SDK Manager in Android Studio.</p>
+<p>The SDK Manager can be accessed from the &ldquo;Welcome to Android Studio&rdquo; screen. Click on &ldquo;Configure&rdquo;, then select &ldquo;SDK Manager&rdquo;.</p>
+<pre><code>The SDK Manager can also be found within the Android Studio &quot;Preferences&quot; dialog, under Appearance &amp; Behavior → System Settings → Android SDK.
+</code></pre>
+<p>Select the &ldquo;SDK Platforms&rdquo; tab from within the SDK Manager, then check the box next to &ldquo;Show Package Details&rdquo; in the bottom right corner. Look for and expand the Android 6.0 (Marshmallow) entry, then make sure the following items are all checked:</p>
+<pre><code>Google APIs
+Android SDK Platform 23
+Intel x86 Atom_64 System Image
+Google APIs Intel x86 Atom_64 System Image
+</code></pre>
+<p>Next, select the &ldquo;SDK Tools&rdquo; tab and check the box next to &ldquo;Show Package Details&rdquo; here as well. Look for and expand the &ldquo;Android SDK Build-Tools&rdquo; entry, then make sure that 23.0.1 is selected.</p>
+<p>Finally, click &ldquo;Apply&rdquo; to download and install the Android SDK and related build tools. 3. Configure the ANDROID_HOME environment variable</p>
+<p>The React Native tools require some environment variables to be set up in order to build apps with native code.</p>
+<p>Add the following lines to your $HOME/.bash_profile config file:</p>
+<p>export ANDROID_HOME=$HOME/Android/Sdk export PATH=$PATH:$ANDROID_HOME/tools export PATH=$PATH:$ANDROID_HOME/platform-tools</p>
+<pre><code>.bash_profile is specific to bash. If you&#39;re using another shell, you will need to edit the appropriate shell-specific config file.
+</code></pre>
+<p>Type source $HOME/.bash_profile to load the config into your current shell. Verify that ANDROID_HOME has been added to your path by running echo $PATH.</p>
+<pre><code>Please make sure you use the correct Android SDK path. You can find the actual location of the SDK in the Android Studio &quot;Preferences&quot; dialog, under Appearance &amp; Behavior → System Settings → Android SDK.
+</code></pre>
+<p>Watchman (optional)</p>
+<p>Follow the Watchman installation guide to compile and install Watchman from source.</p>
+<pre><code>Watchman is a tool by Facebook for watching changes in the filesystem. It is highly recommended you install it for better performance, but it&#39;s alright to skip this if you find the process to be tedious.
+</code></pre>
+<p>On windows follow instruction watchman download section <a href="https://facebook.github.io/watchman/docs/install.html#download-for-windows-beta">https://facebook.github.io/watchman/docs/install.html#download-for-windows-beta</a></p>
+<p>On OSX</p>
+<pre><code>brew update
+brew install watchman
+</code></pre>
+<p>Linux requires some more setup, follow this blog post <a href="https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/">https://saintcoder.wordpress.com/2017/03/23/how-to-install-facebooks-watchman-on-linux-ubuntu-16-04-lts/</a> to configure it</p>
+<h3><a href="#note" name="note" class="anchor"><span class="anchor-link"></span></a>Note</h3>
+<p>There are some system specific requirement for watchman. <a href="https://facebook.github.io/watchman/docs/install.html#system-specific-preparation">https://facebook.github.io/watchman/docs/install.html#system-specific-preparation</a> explains it.</p>
+<p>On Linux this is related to Linux inotify Limits. Above link explains how that can be resolved. For most part, in Linux setup this command should suffice</p>
+<pre><code>sudo sysctl fs.inotify.max_user_watches=100000
+</code></pre>
+<p>Install sbt</p>
+<p>Installing sbt on Mac</p>
+<p>Homebrew</p>
+<pre><code>$ brew install sbt@1
+</code></pre>
+<p>Macports</p>
+<pre><code>$ port install sbt
+</code></pre>
+<p>Installing sbt on Windows</p>
+<p>Installing from a universal package</p>
+<p>Download <a href="https://github.com/sbt/sbt/releases/download/v1.1.1/sbt-1.1.1.zip">ZIP</a> or <a href="https://github.com/sbt/sbt/releases/download/v1.1.1/sbt-1.1.1.tgz">TGZ</a> package and expand it. Windows installer</p>
+<p>Download <a href="https://github.com/sbt/sbt/releases/download/v1.1.1/sbt-1.1.1.msi">msi installer</a> and install it.</p>
+<p>On Linux</p>
+<pre><code>echo &quot;deb https://dl.bintray.com/sbt/debian /&quot; | sudo tee -a /etc/apt/sources.list.d/sbt.list
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823
+sudo apt-get update
+sudo apt-get install sbt
+</code></pre>
+<ol>
+  <li>
+  <p>Once packages are installed in project root do <code>sbt runAll</code> This starts the microservices, web gateway, scalajs-react project compilation</p></li>
+  <li>
+  <p>In separate terminal <code>cd wallet-native-client</code> and do <code>npm install // you can use yarn as well</code> and <code>npm start // can use yarn as well</code></p></li>
+</ol>
+<p>What this command does can be found <a href="/wallet-native-client/package.json#L12">here</a></p>
+<ol>
+  <li>
+  <p>We have used another config file, you can see it (here)[/wallet-native-client/App.js#L3] . To use that there is a comment in header in this file . It reads <code>// DO NOT USE THIS FILE DIRECTLY CREATE A COPY TO config.json MODIFY REQUIRED VARIABLES</code>. You might ask why would I need to put ip, can&rsquo;t I put just localhost, answer is you can&rsquo;t. Because the emulator or the expo client doesn&rsquo;t know what localhost server is.</p></li>
+  <li>
+  <p>Optionally to enable the hot reloading with scala sources there is a small watchman script <code>watchman-make --run &#39;echo &quot;//&quot; &gt; wallet-native-client/trigger.js&#39; -p &#39;**/*.scala&#39;</code> Use this script in your project root. It configures watchman to read all scala sources with <code>**/* .scala</code> and once it sees a change it triggers to make trigger.js dirty with <code>&#39;echo &quot;//&quot; &gt; wallet-native-client/trigger.js&#39;</code> notice it just add blank comment. It basically tells the watchman which is running in the wallet-native-client that something has changed in scala sources, you need to reload.</p></li>
+  <li>
+  <p>To debug use an android emulator.</p></li>
+</ol>
+<div class="source-github">
+The source code for this page can be found <a href="https://github.com/LivelyGig/wallet/tree/master/docs/src/main/paradox/gettingStarted.md">here</a>.
+</div>
+
+<div class="nav-next">
+<p><strong>Next:</strong> <a href="architecture_overview.html">Architectural Overview</a></p>
+</div>
+</div>
+<div class="large-3 show-for-large column" data-sticky-container>
+<nav class="sidebar sticky" data-sticky data-anchor="docs" data-sticky-on="large">
+<div class="page-nav">
+<div class="nav-title">On this page:</div>
+<div class="nav-toc">
+<ul>
+  <li><a href="gettingStarted.html#getting-started" class="header">Getting Started</a>
+  <ul>
+    <li><a href="gettingStarted.html#dev-environment-setup" class="header">Dev environment setup</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+</nav>
+</div>
+</div>
+
+</section>
+</div>
+
+</div>
+
+<footer class="site-footer">
+
+<section class="site-footer-nav">
+<div class="expanded row">
+<div class="small-12 large-offset-2 large-10 column">
+<div class="row site-footer-content">
+
+<div class="small-12 medium-4 large-3 text-center column">
+<div class="nav-links">
+<ul>
+<!-- <li><a href="https://www.example.com/products/">Products</a> -->
+</ul>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</section>
+
+<section class="site-footer-base">
+<div class="expanded row">
+<div class="small-12 large-offset-2 large-10 column">
+<div class="row site-footer-content">
+
+<div class="small-12 text-center large-9 column">
+
+<!--
+<div class="copyright">
+<span class="text">&copy; 2018</span>
+<a href="https://www.example.com" class="logo">logo</a>
+</div>
+-->
+</div>
+
+</div>
+</div>
+</div>
+</section>
+</footer>
+
+</div>
+</div>
+</div>
+</body>
+
+<script type="text/javascript" src="lib/foundation/dist/foundation.min.js"></script>
+<script type="text/javascript">jQuery(document).foundation();</script>
+<script type="text/javascript" src="js/magellan.js"></script>
+
+<style type="text/css">@import "lib/prettify/prettify.css";</style>
+<script type="text/javascript" src="lib/prettify/prettify.js"></script>
+<script type="text/javascript" src="lib/prettify/lang-scala.js"></script>
+<script type="text/javascript">jQuery(function(){window.prettyPrint && prettyPrint()});</script>
+
+</html>
