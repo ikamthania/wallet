@@ -39,3 +39,6 @@ addSbtPlugin("org.scalariform" % "sbt-scalariform" % "1.8.1") // scalariformForm
 
 // Lagom
 addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.4.0")
+
+// Documentation
+addSbtPlugin("com.lightbend.paradox" % "sbt-paradox" % "0.3.1")

@@ -12,7 +12,7 @@ sbt "project webGateway" "dist"
 unzip ./web-gateway/target/universal/webgateway*.zip -d ./temporary
 
 
-# unzip the dis jar
+# unzip the dist jar
 unzip ./temporary/lib/Livelygig.webgateway-0.3.jar -d ./temporary/
 
 
