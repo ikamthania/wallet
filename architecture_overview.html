@@ -43,6 +43,8 @@
   <li><a href="client/index.html" class="page">Client</a></li>
   <li><a href="web_gateway/index.html" class="page">Web Gateway</a></li>
   <li><a href="wallet_service/index.html" class="page">Wallet Service</a></li>
+  <li><a href="publishing/index.html" class="page">Publishing</a></li>
+  <li><a href="publishing/docs.html" class="page">Publishing Docs</a></li>
 </ul>
 </div>
 
@@ -87,6 +89,8 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
   <li><a href="client/index.html" class="page">Client</a></li>
   <li><a href="web_gateway/index.html" class="page">Web Gateway</a></li>
   <li><a href="wallet_service/index.html" class="page">Wallet Service</a></li>
+  <li><a href="publishing/index.html" class="page">Publishing</a></li>
+  <li><a href="publishing/docs.html" class="page">Publishing Docs</a></li>
 </ul>
 </div>
 
@@ -113,6 +117,24 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <h2><a href="#birds-eye-view" name="birds-eye-view" class="anchor"><span class="anchor-link"></span></a>Bird&rsquo;s Eye View</h2>
 <p>Here is the bird&rsquo;s eye view of architecture</p>
 <p><img src="assets/Ubunda_Architecture.png" alt="Alt text" /></p>
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
+<p>Primarily there are four projects</p>
+<ul>
+  <li><a href="client/index.md">Web client</a> - based on <code>scalajs-react</code> library in wallet-client directory</li>
+  <li><a href="native_client/index.md">Native client</a> - based on <code>react-native</code> applicationin wallet-native-client directory</li>
+  <li><a href="web_gateway/index.md">Web gateway</a> : Proxy between wallet service and wallet client</li>
+  <li><a href="wallet_service/index.md">Wallet Service</a> : A Lagom microservice for wallet api.</li>
+</ul>
+<p>Web client and Native client are connect with each other with a simple web view component similar to this in <a href="https://github.com/LivelyGig/wallet/blob/master/wallet-native-client/App.js#L12">wallet-native-client\App.js</a></p>
+<pre><code>&lt;WebView
+    source={{uri: &#39;http://10.0.2.2:9000/wallet/&#39;}}
+    style={{marginTop: 20}}
+/&gt;
+</code></pre>
+<p>Where the uri is the url of the running web gateway. It runs on <code>9000</code> port usually but at times the error in wallet service can result in web gateway to not load properly resulting in connection refused error. In that case look at terminal for output similar to</p>
+<pre><code>[info] Service WebGateway listening for HTTP on 0:0:0:0:0:0:0:0:63376
+</code></pre>
+<p>and use that port instead.</p>
 <div class="source-github">
 The source code for this page can be found <a href="https://github.com/LivelyGig/wallet/tree/master/docs/src/main/paradox/architecture_overview.md">here</a>.
 </div>
@@ -130,6 +152,7 @@ The source code for this page can be found <a href="https://github.com/LivelyGig
   <li><a href="architecture_overview.html#architectural-overview" class="header">Architectural Overview</a>
   <ul>
     <li><a href="architecture_overview.html#birds-eye-view" class="header">Bird&rsquo;s Eye View</a></li>
+    <li><a href="architecture_overview.html#overview" class="header">Overview</a></li>
   </ul></li>
 </ul>
 </div>
