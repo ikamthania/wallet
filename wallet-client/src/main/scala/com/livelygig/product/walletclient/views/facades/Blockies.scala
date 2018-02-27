@@ -6,8 +6,8 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport.Namespace
 import scala.scalajs.js.annotation.{ JSGlobal, JSImport }
 
-@JSGlobal("Blockies")
 @js.native
+@JSImport("blockies", JSImport.Namespace)
 object Blockies extends js.Object {
 
   //  @ScalaJSDefined
