@@ -42,3 +42,7 @@ addSbtPlugin("com.lightbend.lagom" % "lagom-sbt-plugin" % "1.4.0")
 
 // Documentation
 addSbtPlugin("com.lightbend.paradox" % "sbt-paradox" % "0.3.1")
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.3.1" exclude("com.lightbend.paradox", "sbt-paradox"))
+
+addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2")
