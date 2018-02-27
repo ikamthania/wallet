@@ -31,7 +31,6 @@ object WalletClientDependencies {
       "bootstrap" -> "3.3.7",
       "ethereumjs-tx" -> "1.3.3",
       "jquery" -> "3.3.1",
-      "jquery.qrcode" -> "1.0.3",
       "react" -> "16.2.0",
       "react-dom" -> "16.2.0",
       "toastr" -> "2.1.4"

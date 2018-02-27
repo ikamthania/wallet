@@ -70,38 +70,39 @@ var pseudoloc = function() {
     }
     return pStr;
   };
-  pseudoloc.str = function(str) {
-    console.log("In pseudoloc");
-    var opts = pseudoloc.option, startdelim = opts.startDelimiter || opts.delimiter, enddelim = opts.endDelimiter || opts.delimiter, re = new RegExp(startdelim + "\\s*[\\w\\.\\s*]+\\s*" + enddelim, "g"), m, tokens = [], i = 0, tokenIdx = 0, result = "", c, pc;
-    while (m = re.exec(str)) {
-      tokens.push(m);
-    }
-    var token = tokens[tokenIdx++] || {
-      index: -1
-    };
-    while (i < str.length) {
-      if (token.index === i) {
-        result += token[0];
-        i += token[0].length;
-        token = tokens[tokenIdx++] || {
-          index: -1
-        };
-        continue;
-      }
-      c = opts.override !== undefined ? opts.override : str[i];
-      pc = pseudoloc.table[c];
-      if (pc) {
-        var diacriticalIndex = str.length % pc.length;
-        c = pc[diacriticalIndex];
-      }
-      result += c;
-      i++;
-    }
-    return opts.prepend + pseudoloc.pad(result, opts.extend) + opts.append;
-  };
+
   return pseudoloc;
 }();
 
 module.exports = {
 pseudoLoc:pseudoloc
 }
+exports.str=  function(str) {
+                console.log("In pseudoloc");
+                var opts = pseudoloc.option, startdelim = opts.startDelimiter || opts.delimiter, enddelim = opts.endDelimiter || opts.delimiter, re = new RegExp(startdelim + "\\s*[\\w\\.\\s*]+\\s*" + enddelim, "g"), m, tokens = [], i = 0, tokenIdx = 0, result = "", c, pc;
+                while (m = re.exec(str)) {
+                  tokens.push(m);
+                }
+                var token = tokens[tokenIdx++] || {
+                  index: -1
+                };
+                while (i < str.length) {
+                  if (token.index === i) {
+                    result += token[0];
+                    i += token[0].length;
+                    token = tokens[tokenIdx++] || {
+                      index: -1
+                    };
+                    continue;
+                  }
+                  c = opts.override !== undefined ? opts.override : str[i];
+                  pc = pseudoloc.table[c];
+                  if (pc) {
+                    var diacriticalIndex = str.length % pc.length;
+                    c = pc[diacriticalIndex];
+                  }
+                  result += c;
+                  i++;
+                }
+                return opts.prepend + pseudoloc.pad(result, opts.extend) + opts.append;
+              };
