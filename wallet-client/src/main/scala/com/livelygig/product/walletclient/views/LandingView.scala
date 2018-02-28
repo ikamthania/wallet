@@ -2,8 +2,39 @@ package com.livelygig.product.walletclient.views
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
+import org.querki.jquery.{ $, JQueryEventObject }
+import org.scalajs.dom
+import org.scalajs.dom.Element
 
 object LandingView {
+
+  def onGetStartedClick() = {
+    Callback {
+      $("#main-splash").addClass("hidden")
+      $("#welcome-splash").removeClass("hidden")
+      $("#account-management-item").removeClass("active")
+      $("#language-settings-item").addClass("active")
+    }
+  }
+
+  def previousBtnClick() = {
+    Callback {
+      if ($("#language-settings-item").hasClass("active")) {
+        $("#main-splash").removeClass("hidden")
+        $("#welcome-splash").addClass("hidden")
+        $("#btnPrevious").click()
+      }
+    }
+  }
+
+  def nextBtnClick() = {
+    Callback {
+      if ($("#account-management-item").hasClass("active")) {
+        dom.window.location.href = "#/terms"
+      }
+    }
+  }
+
   def component = ScalaComponent.static("LandingView") {
     <.main(
       ^.className := "wallet-main container",
@@ -32,7 +63,7 @@ object LandingView {
                   ^.className := "row",
                   <.div(
                     ^.className := "col-xs-12",
-                    <.a(^.id := "btnGetStarted", ^.href := "#myCarousel", VdomAttr("data-slide") := "next", ^.className := "btn btnDefault goupButton", "Get started")))))),
+                    <.button(^.id := "btnGetStarted", ^.onClick --> onGetStartedClick(), VdomAttr("data-slide") := "next", ^.className := "btn btnDefault goupButton", "Get started")))))),
           <.div(
             ^.className := "container",
             <.div(
@@ -42,13 +73,12 @@ object LandingView {
                   <.ol(
                     ^.className := "carousel-indicators",
                     <.li(VdomAttr("data-target") := "#myCarousel", VdomAttr("data-slide-to") := "0", ^.className := "active"),
-                    <.li(VdomAttr("data-target") := "#myCarousel", VdomAttr("data-slide-to") := "1", ^.className := ""),
-                    <.li(VdomAttr("data-target") := "#myCarousel", VdomAttr("data-slide-to") := "2", ^.className := "")),
+                    <.li(VdomAttr("data-target") := "#myCarousel", VdomAttr("data-slide-to") := "1", ^.className := "")),
                   <.div(
                     ^.className := "carousel-inner scrollableArea",
-                    <.div(^.className := "item active"),
                     <.div(
-                      ^.className := "item",
+                      ^.id := "language-settings-item",
+                      ^.className := "item active",
                       <.img(^.src := "./assets/images/languageIcon.png"),
                       <.h4("Language"),
                       <.select(
@@ -62,24 +92,29 @@ object LandingView {
                         <.option("USA"),
                         <.option("Germany"))),
                     <.div(
+                      ^.id := "account-management-item",
                       ^.className := "item",
                       <.div(
                         ^.className := "row itemSetup",
                         <.img(^.className := "col-xs-4", ^.src := "./assets/images/dim.PNG"),
                         <.h4("Digital Identity Management"),
-                        <.p("""Use Ubunda to create and manage your independent digital identities, to control and share
+                        <.p(
+                          """Use Ubunda to create and manage your independent digital identities, to control and share
                                     your credentials, and to issue and verify claims.""")),
                       <.div(
                         ^.className := "row itemSetup dg-wallet",
                         <.img(^.id := "imgRight", ^.className := "col-md-push-10 col-sm-push-9 col-xs-4 col-xs-push-8", ^.src := "./assets/images/dw.PNG"),
                         <.h4(^.className := "col-md-pull-2 col-xs-8 col-xs-pull-4", "Digital Wallet"),
-                        <.p(^.className := "col-md-pull-2 col-sm-pull-2 col-xs-8 col-xs-pull-4", """Create and manage personal and shared accounts to transact on the Ethereum network. Send
+                        <.p(
+                          ^.className := "col-md-pull-2 col-sm-pull-2 col-xs-8 col-xs-pull-4",
+                          """Create and manage personal and shared accounts to transact on the Ethereum network. Send
                                     and receive payments. View and annotate transactions.""")),
                       <.div(
                         ^.className := "row itemSetup",
                         <.img(^.className := "col-xs-4", ^.src := "./assets/images/kmr.PNG"),
                         <.h4("Key Management and Recovery"),
-                        <.p("""Manage and protect your digital identity and accounts using an encrypted key backup and recovery.
+                        <.p(
+                          """Manage and protect your digital identity and accounts using an encrypted key backup and recovery.
                                     Use your keys to digitally sign messages on the network."""))))),
                 <.div(
                   ^.className := "container btnDefault-container container-NoBorder",
@@ -87,8 +122,8 @@ object LandingView {
                     ^.className := "row",
                     <.div(
                       ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                      <.a(^.id := "btnNext", ^.href := "#myCarousel", VdomAttr("data-slide") := "next", ^.className := "btn btnDefault goupButton", "Next"),
-                      <.a(^.id := "btnPrevious", ^.href := "#myCarousel", VdomAttr("data-slide") := "prev", ^.className := "btn btnDefault goupButton btnPrevious", "Previous"),
+                      <.a(^.id := "btnNext", ^.href := "#myCarousel", ^.onClick --> nextBtnClick(), VdomAttr("data-slide") := "next", ^.className := "btn btnDefault goupButton", "Next"),
+                      <.a(^.id := "btnPrevious", ^.onClick --> previousBtnClick(), ^.href := "#myCarousel", VdomAttr("data-slide") := "prev", ^.className := "btn btnDefault goupButton btnPrevious", "Previous"),
                       <.br,
                       <.div(
                         ^.className := "download-apk",
