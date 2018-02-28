@@ -2,8 +2,6 @@ package com.livelygig.product.walletclient.views
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
-import org.querki.jquery.{ $, JQueryEventObject }
-import org.scalajs.dom.Element
 
 object TermsOfService {
 
@@ -84,7 +82,7 @@ object TermsOfService {
               <.div(
                 ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
                 <.a(^.className := "btn btnDefault btnDefault goupButton", ^.href := "/wallet/setup", "Accept"),
-                <.a(^.href := "/wallet", ^.className := "btn btnDefault decline btnDefault goupButton", "Decline")))))))
+                <.a(^.href := "/wallet#", ^.className := "btn btnDefault decline btnDefault goupButton", "Decline")))))))
   }
 
 }

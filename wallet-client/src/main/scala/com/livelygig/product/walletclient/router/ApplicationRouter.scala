@@ -85,7 +85,7 @@ object ApplicationRouter {
       | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props()))
       | dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
         walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}")))))
-      .notFound(redirectToPage(AccountLoc)(Redirect.Replace))
+      .notFound(redirectToPage(LandingLoc)(Redirect.Replace))
 
   }.renderWith(MainLayout.layout _)
 
