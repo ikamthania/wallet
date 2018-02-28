@@ -1,4 +1,5 @@
-<svg class="lds-spinner" width="173px"  height="173px"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" style="background: none;"><g transform="rotate(0 50 50)">
+<svg class="lds-spinner" width="173px" height="173px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"
+     preserveAspectRatio="xMidYMid" style="background: none;"><g transform="rotate(0 50 50)">
   <rect x="47.5" y="29" rx="9.5" ry="5.8" width="5" height="12" fill="#0096c3">
     <animate attributeName="opacity" values="1;0" times="0;1" dur="1.3s" begin="-1.1916666666666667s" repeatCount="indefinite"></animate>
   </rect>

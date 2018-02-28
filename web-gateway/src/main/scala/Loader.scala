@@ -1,27 +1,26 @@
 
 
-import com.lightbend.lagom.scaladsl.api.ServiceLocator.NoServiceLocator
 import com.lightbend.lagom.scaladsl.api.{ LagomConfigComponent, ServiceAcl, ServiceInfo }
 import com.lightbend.lagom.scaladsl.client.{ ConfigurationServiceLocatorComponents, LagomServiceClientComponents }
 import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.livelygig.product.content.api.WalletService
-import play.api.{ ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode }
-import controllers.api.v1.wallet._
-
-import scala.collection.immutable
-import scala.concurrent.ExecutionContext
 import com.softwaremill.macwire.wire
+import controllers.api.v1.wallet._
 import controllers.api.v1.wallet.auth.MobileWalletController
-import controllers.{ Assets, AssetsComponents, ViewController }
+import controllers.{ AssetsComponents, ViewController }
 import org.webjars.play.{ RequireJS, WebJarAssets, WebJarsUtil }
 import play.api.ApplicationLoader.Context
 import play.api.http.{ HttpErrorHandler, HttpRequestHandler }
-import play.api.i18n.{ I18nComponents, Messages }
+import play.api.i18n.I18nComponents
 import play.api.libs.ws.ahc.AhcWSComponents
 import play.api.mvc.EssentialFilter
+import play.api.{ ApplicationLoader, BuiltInComponentsFromContext, LoggerConfigurator, Mode }
 import play.filters.gzip.GzipFilterComponents
-import utils.web.{ Filters, RequestHandler, WebGatewayErrorHandler }
 import router.Routes
+import utils.web.{ Filters, RequestHandler, WebGatewayErrorHandler }
+
+import scala.collection.immutable
+import scala.concurrent.ExecutionContext
 
 abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext(context)
   with LagomConfigComponent

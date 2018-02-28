@@ -5,6 +5,7 @@ import com.livelygig.product.walletclient.modals.AddTokenModal
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
 import org.querki.jquery.$
+
 import scala.scalajs.js
 
 object AddTokenView {

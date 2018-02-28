@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.rootmodel
 
-import com.livelygig.product.shared.models.wallet.{ CoinExchange, Currency }
+import com.livelygig.product.shared.models.wallet.CoinExchange
 
 case class MarketPricesRootModel(coinExchange: CoinExchange) {
 

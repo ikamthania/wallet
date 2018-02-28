@@ -4,7 +4,6 @@ import sbt._
 
 object WalletApi {
   private[this] val dependencies = {
-    import Dependencies._
     Seq(
       lagomScaladslApi
     )

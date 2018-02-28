@@ -1,13 +1,14 @@
 package com.livelygig.product.wallet.impl
 
+import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.stream.Materializer
-import akka.{ NotUsed }
 import com.lightbend.lagom.scaladsl.api.ServiceCall
 import com.lightbend.lagom.scaladsl.server.ServerServiceCall
 import com.livelygig.product.content.api.WalletService
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.wallet.impl.Utils.{ EtherscanUtils, Web3JUtils }
+
 import scala.concurrent.{ ExecutionContext, Future }
 
 class WalletServiceImpl(

@@ -6,7 +6,6 @@ import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetail
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
-import com.livelygig.product.walletclient.facades.Toastr
 import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy
@@ -17,7 +16,6 @@ import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
 import org.querki.jquery.$
 import org.scalajs.dom
-import org.scalajs.dom.raw.Element
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global

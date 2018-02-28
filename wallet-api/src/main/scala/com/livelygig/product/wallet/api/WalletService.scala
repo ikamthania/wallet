@@ -1,6 +1,6 @@
 package com.livelygig.product.content.api
 
-import akka.{ Done, NotUsed }
+import akka.NotUsed
 import com.lightbend.lagom.scaladsl.api.{ Service, ServiceCall }
 import com.livelygig.product.shared.models.wallet._
 trait WalletService extends Service {

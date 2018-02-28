@@ -1,17 +1,14 @@
 package com.livelygig.product.wallet.impl
 
-import java.math.BigInteger
-
 import com.livelygig.product.shared.models.wallet.{ERC20ComplientToken, EtherTransaction, TransactionWithSymbol}
-import com.livelygig.product.wallet.api.models.{ValidateWalletFile, Wallet}
+import com.livelygig.product.wallet.api.models.ValidateWalletFile
 import com.livelygig.product.wallet.impl.Utils.{EtherscanUtils, Web3JUtils}
-import org.scalatest.{BeforeAndAfterAll, Matchers, OptionValues, WordSpec}
 import com.softwaremill.macwire._
+import org.scalatest.{BeforeAndAfterAll, Matchers, OptionValues, WordSpec}
 import org.web3j.crypto.Credentials
-import org.web3j.protocol.core.methods.response.{EthAccounts, Web3ClientVersion}
+import org.web3j.protocol.core.methods.response.Web3ClientVersion
 import play.api.{Configuration, Environment}
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 /**
   * Created by shubham on 6/4/17.

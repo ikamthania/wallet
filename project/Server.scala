@@ -1,4 +1,3 @@
-import Dependencies.SharedDependencies
 import com.lightbend.lagom.sbt.LagomImport.lagomScaladslServer
 import com.lightbend.lagom.sbt.LagomPlay
 import com.typesafe.sbt.digest.Import._
@@ -7,7 +6,6 @@ import com.typesafe.sbt.jse.JsEngineImport.JsEngineKeys
 import com.typesafe.sbt.less.Import._
 import com.typesafe.sbt.packager.Keys._
 import com.typesafe.sbt.web.Import._
-import com.typesafe.sbt.web.SbtWeb
 import play.routes.compiler.InjectedRoutesGenerator
 import play.sbt.PlayImport.PlayKeys._
 import play.sbt.PlayLayoutPlugin

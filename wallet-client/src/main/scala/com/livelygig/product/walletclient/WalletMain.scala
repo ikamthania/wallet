@@ -1,6 +1,5 @@
 package com.livelygig.product.walletclient
 
-import com.livelygig.product.walletclient.facades.WalletJS
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import org.scalajs.dom
 

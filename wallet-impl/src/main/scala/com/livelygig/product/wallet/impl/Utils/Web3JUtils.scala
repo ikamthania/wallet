@@ -76,7 +76,11 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
         case _ =>
           val function = new Function(
             "transfer",
-            util.Arrays.asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
+            util.Arrays
+              .asList(
+                new Address(etherTransaction.receiver),
+                new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
+
             util.Arrays.asList())
 
           val encodedFunction = FunctionEncoder.encode(function)
@@ -132,6 +136,7 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
     ftmp.delete
     credentials
   }
+
   def getNetworkInfo(): Future[String] = {
     val ntwrk = web3j.netVersion().send().getNetVersion match {
       case "1" => "Ethereum Mainnet"
@@ -144,6 +149,7 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
     }
     Future(ntwrk)
   }
+
   //Get token balance using EIP20 std method
   def getTokenBalance(eRC20ComplientTokenList: Seq[ERC20ComplientToken], ownerAddress: String): Future[Seq[ERC20ComplientToken]] = {
     val erc20TokenSeq = eRC20ComplientTokenList.filterNot(e => e.symbol.equalsIgnoreCase("ETH")).map { eRC20ComplientToken =>
@@ -151,7 +157,9 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
         "balanceOf",
         util.Arrays.asList(new Address(ownerAddress)), util.Arrays.asList(new TypeReference[Uint256]() {}))
       val encodedFunction = FunctionEncoder.encode(function)
-      val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, eRC20ComplientToken.contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
+      val response = web3j
+        .ethCall(Transaction.createEthCallTransaction(ownerAddress, eRC20ComplientToken.contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
+        .sendAsync().get()
       val value = FunctionReturnDecoder.decode(
         response.getValue(), function.getOutputParameters())
       value.iterator().next().getValue.toString match {
@@ -170,7 +178,9 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
       "name",
       util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
     val encodedFunction = FunctionEncoder.encode(function)
-    val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
+    val response = web3j
+      .ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
+      .sendAsync().get()
     val value = FunctionReturnDecoder.decode(
       response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
@@ -182,7 +192,9 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
       "symbol",
       util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
     val encodedFunction = FunctionEncoder.encode(function)
-    val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
+    val response = web3j
+      .ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
+      .sendAsync().get()
     val value = FunctionReturnDecoder.decode(
       response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
@@ -193,7 +205,9 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
       "version",
       util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
     val encodedFunction = FunctionEncoder.encode(function)
-    val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
+    val response = web3j
+      .ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
+      .sendAsync().get()
     val value = FunctionReturnDecoder.decode(
       response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
@@ -204,7 +218,9 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
       "totalSupply",
       util.Arrays.asList(), util.Arrays.asList(new TypeReference[Uint256]() {}))
     val encodedFunction = FunctionEncoder.encode(function)
-    val response = web3j.ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST).sendAsync().get();
+    val response = web3j
+      .ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
+      .sendAsync().get()
     val value = FunctionReturnDecoder.decode(
       response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
@@ -242,7 +258,8 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
       case _ =>
         val function = new Function(
           "transfer",
-          util.Arrays.asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
+          util.Arrays
+            .asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
           util.Arrays.asList())
         FunctionEncoder.encode(function)
     }

@@ -4,7 +4,6 @@ import com.livelygig.product.walletclient.facades.{ Blockies, Pseudoloc, Toastr 
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
 import org.querki.jquery.$
-import org.scalajs.dom
 
 import scala.scalajs.js
 

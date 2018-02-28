@@ -1,15 +1,13 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.handler.{ GetCurrencies, UpdateAccountTokenList }
+import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.facades.Toastr
+import com.livelygig.product.walletclient.handler.UpdateAccountTokenList
+import com.livelygig.product.walletclient.modals.ConfirmModal
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
-import com.livelygig.product.walletclient.facades.Bootstrap._
-import com.livelygig.product.walletclient.facades.Toastr
-import com.livelygig.product.walletclient.modals.ConfirmModal
-import com.livelygig.product.walletclient.facades.Toastr
-import com.sun.org.apache.xerces.internal.impl.io.UTF8Reader
 import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy
@@ -20,7 +18,6 @@ import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
 import org.querki.jquery.$
 import org.scalajs.dom
-import org.scalajs.dom.raw.Element
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global

@@ -3,7 +3,6 @@ package com.livelygig.product.walletclient.modals
 //import QRCode
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
-import org.scalajs.dom
 
 object ShowQRCode {
 

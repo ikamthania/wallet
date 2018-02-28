@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.shared.models.wallet.{ Transaction, TransactionWithSymbol }
+import com.livelygig.product.shared.models.wallet.TransactionWithSymbol
 import com.livelygig.product.walletclient.handler.GetAccountHistoryDetails
 import com.livelygig.product.walletclient.modals.FilterModal
 import com.livelygig.product.walletclient.rootmodel.TransactionRootModel
@@ -12,9 +12,6 @@ import diode.react.ReactPot._
 import japgolly.scalajs.react.vdom.html_<^.{ EmptyVdom, ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
 import moment.Moment
-import org.querki.jquery.$
-import org.scalajs.dom
-import org.scalajs.dom.raw.Element
 
 object HistoryView {
 

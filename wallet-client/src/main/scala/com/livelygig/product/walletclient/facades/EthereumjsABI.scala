@@ -4,11 +4,11 @@ import java.nio.Buffer
 
 import com.livelygig.product.shared.models.Solidity.SolidityType
 
-import scala.scalajs.js
-import scala.scalajs.js.annotation.JSGlobal
-import js.JSConverters._
 import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
+import scala.scalajs.js
+import scala.scalajs.js.JSConverters._
+import scala.scalajs.js.annotation.JSGlobal
 
 @js.native
 @JSGlobal("EthereumjsABI")

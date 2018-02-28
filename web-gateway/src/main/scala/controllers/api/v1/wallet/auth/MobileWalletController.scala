@@ -2,7 +2,7 @@ package controllers.api.v1.wallet.auth
 
 import com.livelygig.product.content.api.WalletService
 import play.api.Configuration
-import play.api.i18n.{ I18nSupport }
+import play.api.i18n.I18nSupport
 import play.api.mvc.{ BaseController, ControllerComponents }
 
 import scala.concurrent.ExecutionContext

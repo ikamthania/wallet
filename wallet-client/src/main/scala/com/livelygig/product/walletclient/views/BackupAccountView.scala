@@ -2,8 +2,8 @@ package com.livelygig.product.walletclient.views
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
-import org.scalajs.dom
 import org.querki.jquery.$
+import org.scalajs.dom
 
 object BackupAccountView {
 

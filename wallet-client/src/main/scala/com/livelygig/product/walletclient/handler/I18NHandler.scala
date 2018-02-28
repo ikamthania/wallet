@@ -2,6 +2,7 @@ package com.livelygig.product.walletclient.handler
 
 import com.livelygig.product.walletclient.rootmodel.I18NRootModel
 import diode.{ ActionHandler, ActionResult, ModelRW }
+
 import scala.scalajs.js
 
 case class ChangeLang(lang: js.Dynamic)

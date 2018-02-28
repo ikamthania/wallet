@@ -3,8 +3,8 @@ import sbt.Keys._
 import sbt._
 import webscalajs.ScalaJSWeb
 
+import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
-import scalajsbundler.sbtplugin.{NpmAssets, ScalaJSBundlerPlugin}
 
 
 object WalletClient {

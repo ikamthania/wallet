@@ -1,9 +1,8 @@
 package com.livelygig.product.walletclient.handler
 
-import com.livelygig.product.shared.models.wallet.{ ERCToken, Transaction, TransactionWithSymbol }
-import com.livelygig.product.shared.models.wallet.Transaction
+import com.livelygig.product.shared.models.wallet.TransactionWithSymbol
 import com.livelygig.product.walletclient.rootmodel.TransactionRootModel
-import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
+import com.livelygig.product.walletclient.services.CoreApi
 import diode.data.{ Empty, Pot, PotActionRetriable, Ready }
 import diode.util.{ Retry, RetryPolicy }
 import diode.{ ActionHandler, ActionResult, ModelRW }

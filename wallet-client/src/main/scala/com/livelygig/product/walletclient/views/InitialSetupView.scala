@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.modals.getInfoModal
 import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.modals.getInfoModal
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import org.querki.jquery.$

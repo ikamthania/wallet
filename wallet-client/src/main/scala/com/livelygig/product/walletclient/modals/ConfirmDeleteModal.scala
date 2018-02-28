@@ -2,7 +2,6 @@ package com.livelygig.product.walletclient.modals
 
 import com.livelygig.product.walletclient.facades.{ Toastr, WalletJS }
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ AllAccountsLoc, Loc }
-import com.livelygig.product.walletclient.facades.Toastr
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }

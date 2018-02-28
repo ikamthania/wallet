@@ -6,7 +6,6 @@ import com.livelygig.product.walletclient.handler._
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.router.ApplicationRouter.AccountLoc
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
-import com.livelygig.product.walletclient.facades.Toastr
 import diode.AnyAction._
 import japgolly.scalajs.react
 import japgolly.scalajs.react._

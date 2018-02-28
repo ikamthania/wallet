@@ -5,7 +5,6 @@ import org.querki.jsext._
 
 import scala.language.{ implicitConversions, reflectiveCalls }
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSImport
 
 /**
  * Common Bootstrap components for scalajs-react

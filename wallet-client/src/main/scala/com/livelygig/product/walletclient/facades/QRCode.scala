@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.facades
 import org.scalajs.dom.raw
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{ JSImport }
+import scala.scalajs.js.annotation.JSImport
 
 @js.native
 @JSImport("./qrcode.js", JSImport.Namespace)

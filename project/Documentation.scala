@@ -5,9 +5,8 @@ import com.typesafe.sbt.sbtghpages.GhpagesPlugin
 import com.typesafe.sbt.site.SiteScaladocPlugin
 import com.typesafe.sbt.site.paradox.ParadoxSitePlugin
 import com.typesafe.sbt.site.paradox.ParadoxSitePlugin.autoImport.Paradox
-import sbt.{ Project, file }
 import sbt.Keys._
-import sbt._
+import sbt.{Project, file, _}
 
 object Documentation {
   lazy val doc = Project(id = "doc", base = file("./docs")).enablePlugins(

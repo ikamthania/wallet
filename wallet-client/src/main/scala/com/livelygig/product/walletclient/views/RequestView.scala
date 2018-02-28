@@ -1,10 +1,10 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
-import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.QRCode
 import com.livelygig.product.walletclient.modals.ShowQRCode
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
+import com.livelygig.product.walletclient.services.WalletCircuit
 //import QRCode
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
@@ -12,9 +12,7 @@ import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
 import org.querki.jquery.$
 import org.scalajs.dom
-import org.scalajs.dom.raw.Element
 
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js
 
 object RequestView {

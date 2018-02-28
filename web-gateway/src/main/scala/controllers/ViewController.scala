@@ -1,10 +1,8 @@
 package controllers
 
 import org.webjars.play.{ WebJarAssets, WebJarsUtil }
-import play.api.i18n.{ I18nSupport, Messages, MessagesApi }
+import play.api.i18n.{ I18nSupport, Messages }
 import play.api.mvc.{ BaseController, ControllerComponents, RequestHeader }
-
-import scala.concurrent.Future
 /**
  * Created by shubham.k on 27-02-2017.
  */

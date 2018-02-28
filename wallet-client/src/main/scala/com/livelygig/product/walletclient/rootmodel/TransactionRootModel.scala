@@ -1,7 +1,7 @@
 
 package com.livelygig.product.walletclient.rootmodel
 
-import com.livelygig.product.shared.models.wallet.{ Transaction, TransactionWithSymbol }
+import com.livelygig.product.shared.models.wallet.TransactionWithSymbol
 
 case class TransactionRootModel(accountTransactionHistory: Seq[TransactionWithSymbol]) {
 

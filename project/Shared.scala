@@ -1,7 +1,5 @@
-import Dependencies.{SharedDependencies, _}
+import Dependencies.SharedDependencies
 //import com.sksamuel.scapegoat.sbt.ScapegoatSbtPlugin.autoImport._
-import com.typesafe.sbt.SbtScalariform.{ScalariformKeys, scalariformSettings}
-import net.virtualvoid.sbt.graph.DependencyGraphSettings.graphSettings
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt._
