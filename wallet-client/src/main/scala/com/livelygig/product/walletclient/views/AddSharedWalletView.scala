@@ -75,7 +75,7 @@ object AddSharedWalletView {
     }
 
     def onRequiredConfirmationsChange(e: ReactEventFromInput) = {
-      val newValue = e.target.valueAsNumber
+      val newValue = e.target.valueAsNumber.toInt
       t.modState(_.copy(requiredConfirmations = newValue))
     }
 

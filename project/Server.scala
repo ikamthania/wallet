@@ -37,8 +37,8 @@ object Server {
     pipelineStages in Assets := Seq(scalaJSPipeline),
     pipelineStages := Seq(digest, gzip),
     // Expose as sbt-web assets some files retrieved from the NPM packages of the `walletClient` project
-     npmAssets ++= NpmAssets.ofProject(WalletClient.walletClient)
-    { modules => (modules / "ethereumjs-wallet" +++ modules / "jquery" +++  modules / "eth-lightwallet") ** "*" }.value,
+     /*npmAssets ++= NpmAssets.ofProject(WalletClient.walletClient)
+    { modules => (modules / "ethereumjs-wallet" +++ modules / "jquery" +++  modules / "eth-lightwallet") ** "*" }.value,*/
     routesGenerator := InjectedRoutesGenerator,
     externalizeResources := false,
 
