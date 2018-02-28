@@ -7,12 +7,14 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import org.querki.jquery.$
-import com.livelygig.product.walletclient.views.modals.ConfirmModal
+
 import scala.scalajs.js
 import japgolly.scalajs.react.extra.router.RouterCtl
 import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.views.facades.Bootstrap._
-import com.livelygig.product.walletclient.views.facades.{ EthereumjsABI, EthereumjsUnits }
+import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.facades.{ EthereumjsABI, EthereumjsUnits }
+import com.livelygig.product.walletclient.modals.ConfirmModal
+import com.livelygig.product.walletclient.facades.EthereumjsUnits
 
 object AddSharedWalletView {
 

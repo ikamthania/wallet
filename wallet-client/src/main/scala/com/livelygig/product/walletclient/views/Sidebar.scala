@@ -1,11 +1,12 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.walletclient.components.SidebarMenu
+import com.livelygig.product.walletclient.facades.Blockies
 import com.livelygig.product.walletclient.handler.ChangeLang
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.utils.I18N
-import com.livelygig.product.walletclient.views.components._
-import com.livelygig.product.walletclient.views.facades.Blockies
+import com.livelygig.product.walletclient.components._
 import diode.AnyAction._
 import diode.ModelRO
 import japgolly.scalajs.react

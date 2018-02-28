@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet.{EtherTransaction, UserDetails, WalletDetails}
 import com.livelygig.product.walletclient.services.CoreApi
-import com.livelygig.product.walletclient.views.facades.Toastr
+import Toastr
 import japgolly.scalajs.react
 import japgolly.scalajs.react.vdom.html_<^.{<, _}
 import japgolly.scalajs.react.{Callback, _}

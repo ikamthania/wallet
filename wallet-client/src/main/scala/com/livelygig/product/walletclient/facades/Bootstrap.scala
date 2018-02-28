@@ -1,4 +1,4 @@
-package com.livelygig.product.walletclient.views.facades
+package com.livelygig.product.walletclient.facades
 
 import org.querki.jquery._
 import org.querki.jsext._

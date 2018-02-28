@@ -5,9 +5,10 @@ import com.livelygig.product.walletclient.handler.{ GetCurrencies, UpdateAccount
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
-import com.livelygig.product.walletclient.views.facades.Bootstrap._
-import com.livelygig.product.walletclient.views.facades.{ Toastr, WalletJS }
-import com.livelygig.product.walletclient.views.modals.ConfirmModal
+import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.facades.Toastr
+import com.livelygig.product.walletclient.modals.ConfirmModal
+import com.livelygig.product.walletclient.facades.Toastr
 import com.sun.org.apache.xerces.internal.impl.io.UTF8Reader
 import diode.AnyAction._
 import diode.data.Pot

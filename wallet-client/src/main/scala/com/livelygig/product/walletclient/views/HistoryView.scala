@@ -2,9 +2,9 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet.{ Transaction, TransactionWithSymbol }
 import com.livelygig.product.walletclient.handler.GetAccountHistoryDetails
+import com.livelygig.product.walletclient.modals.FilterModal
 import com.livelygig.product.walletclient.rootmodel.TransactionRootModel
 import com.livelygig.product.walletclient.services.WalletCircuit
-import com.livelygig.product.walletclient.views.modals.FilterModal
 import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy

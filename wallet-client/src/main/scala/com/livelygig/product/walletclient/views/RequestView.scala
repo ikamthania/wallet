@@ -2,10 +2,10 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
-import com.livelygig.product.walletclient.views.facades.Bootstrap._
-import com.livelygig.product.walletclient.views.facades.QRCode
-//import com.livelygig.product.walletclient.views.facades.QRCode
-import com.livelygig.product.walletclient.views.modals.ShowQRCode
+import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.facades.QRCode
+import com.livelygig.product.walletclient.modals.ShowQRCode
+//import QRCode
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, ^, _ }

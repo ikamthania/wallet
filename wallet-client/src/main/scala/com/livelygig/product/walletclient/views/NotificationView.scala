@@ -1,7 +1,6 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.views.components._
-import com.livelygig.product.walletclient.views.modals.NotificationModal
+import com.livelygig.product.walletclient.modals.NotificationModal
 import japgolly.scalajs.react
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }

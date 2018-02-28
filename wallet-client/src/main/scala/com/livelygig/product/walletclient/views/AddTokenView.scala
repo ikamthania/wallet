@@ -1,23 +1,12 @@
 
 package com.livelygig.product.walletclient.views
-import com.livelygig.product.shared.models.wallet._
-import japgolly.scalajs.react
-import japgolly.scalajs.react._
-import japgolly.scalajs.react.vdom.html_<^._
+import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.modals.AddTokenModal
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
 import org.querki.jquery.$
-import com.livelygig.product.walletclient.views.modals.AddTokenModal
 import scala.scalajs.js
-import japgolly.scalajs.react.extra.router.RouterCtl
-import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.views.facades.Bootstrap._
-import diode.data.Pot
-import diode.react.ModelProxy
-import diode.react.ReactPot._
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 
-import org.querki.jquery._
 object AddTokenView {
 
   final case class Props() {

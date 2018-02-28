@@ -1,11 +1,12 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet._
+import com.livelygig.product.walletclient.facades.{ Toastr, WalletJS }
 import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails, UpdateAccountTokenList }
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
-import com.livelygig.product.walletclient.views.facades.{ Toastr, WalletJS }
+import com.livelygig.product.walletclient.facades.Toastr
 import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy

@@ -1,6 +1,5 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.views.components._
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import org.querki.jquery.$
