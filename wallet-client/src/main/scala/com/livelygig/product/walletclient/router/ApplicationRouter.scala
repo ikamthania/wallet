@@ -63,6 +63,7 @@ object ApplicationRouter {
   private val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
     import dsl._
     (staticRoute(root, LandingLoc) ~> render(LandingView.component())
+      | staticRoute(s"#/terms", TermsOfServiceLoc) ~> render(TermsOfService.component())
       | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
       | staticRoute(s"#/send", SendLoc) ~> renderR(ctl => walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, ""))))
       | staticRoute(s"#/test1", Test1Loc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))

@@ -78,6 +78,7 @@ object SidebarMenu {
       })
     }
 
+    //scalastyle: off
     def updateMenuItemState(state: js.Dynamic) = {
       //testing items
       val test1SubmenuItem = MenuItemWithCallback(state.selectDynamic("TEST1").toString, emptyCallback)
