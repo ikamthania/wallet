@@ -16,6 +16,9 @@ object ApplicationRouter {
 
   case object SetupAccountLoc extends Loc
   case object LandingLoc extends Loc
+  case object TermsOfServicesLoc extends Loc
+  case object SetupLoc extends Loc
+  case object LoginLoc extends Loc
 
   case object PersonasLoc extends Loc
   case object ManageLoc extends Loc
@@ -64,6 +67,10 @@ object ApplicationRouter {
     import dsl._
     (staticRoute(root, LandingLoc) ~> render(LandingView.component())
       | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
+      | staticRoute(s"#/termsServices", TermsOfServicesLoc) ~> renderR(ctl => walletaccountProxy(proxy => TermsOfServices.component(TermsOfServices.Props(proxy, ctl))))
+      | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => walletaccountProxy(proxy => SetupView.component(SetupView.Props(proxy, ctl))))
+      | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => BackupAccount.component(BackupAccount.Props(proxy, ctl))))
+      | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => walletaccountProxy(proxy => LoginView.component(LoginView.Props(proxy, ctl))))
       | staticRoute(s"#/send", SendLoc) ~> renderR(ctl => walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, ""))))
       | staticRoute(s"#/test1", Test1Loc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
       | staticRoute(s"#/test2", Test2Loc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
