@@ -27,7 +27,6 @@ object SetupView {
     def componentWillMount(props: Props): Callback = {
       Callback {
         // init validator
-        Validator
       }
 
     }
