@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient
 
+import com.livelygig.product.walletclient.facades.Validator
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import org.scalajs.dom
 
@@ -12,7 +13,7 @@ object WalletMain {
     //      "mainElement" -> "body"
     //    ))
     ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
-
+    Validator
     /*CoreApi.mobileGetUserDetails().map { userDetails =>
       Json.parse(userDetails).validate[UserDetails].asOpt match {
 

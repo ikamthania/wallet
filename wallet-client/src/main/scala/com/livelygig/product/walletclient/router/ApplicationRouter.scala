@@ -14,10 +14,12 @@ object ApplicationRouter {
 
   sealed trait Loc
 
-  case object SetupAccountLoc extends Loc
   case object LandingLoc extends Loc
   case object TermsOfServicesLoc extends Loc
   case object SetupLoc extends Loc
+  case object SetupRegisterLoc extends Loc
+
+  case object SetupAccountLoc extends Loc
   case object LoginLoc extends Loc
 
   case object PersonasLoc extends Loc
@@ -68,7 +70,8 @@ object ApplicationRouter {
     (staticRoute(root, LandingLoc) ~> render(LandingView.component())
       | staticRoute(s"#/terms", TermsOfServiceLoc) ~> render(TermsOfServiceView.component())
       | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
-      | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => walletaccountProxy(proxy => SetupView.component(SetupView.Props(proxy, ctl))))
+      | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => SetupView.component(SetupView.Props(ctl)))
+      | staticRoute(s"#/setup/register", SetupRegisterLoc) ~> renderR(ctl => SetupRegisterView.component(SetupRegisterView.Props(ctl)))
       | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => BackupAccount.component(BackupAccount.Props(proxy, ctl))))
       | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => walletaccountProxy(proxy => LoginView.component(LoginView.Props(proxy, ctl))))
       | staticRoute(s"#/send", SendLoc) ~> renderR(ctl => walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, ""))))

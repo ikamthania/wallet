@@ -2,8 +2,17 @@ package com.livelygig.product.walletclient.views
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
+import org.querki.jquery.$
+import org.scalajs.dom
 
 object TermsOfServiceView {
+  def acceptBtnClick() = {
+    Callback {
+      dom.window.location.href = "#/setup"
+      dom.window.location.reload()
+
+    }
+  }
 
   def component = ScalaComponent.static("TermsOfService") {
     <.div(
@@ -81,7 +90,7 @@ object TermsOfServiceView {
               ^.className := "row",
               <.div(
                 ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                <.a(^.className := "btn btnDefault btnDefault goupButton", ^.href := "/wallet#/setup", "Accept"),
+                <.a(^.className := "btn btnDefault btnDefault goupButton", ^.onClick --> acceptBtnClick(), "Accept"),
                 <.a(^.href := "/wallet#", ^.className := "btn btnDefault decline btnDefault goupButton", "Decline")))))))
   }
 
