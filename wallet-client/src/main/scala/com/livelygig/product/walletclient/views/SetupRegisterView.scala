@@ -1,12 +1,17 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.Validator
+import com.livelygig.product.walletclient.modals.SetupPasswordModal
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.utils.Defaults
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
+import org.querki.jquery.$
+import com.livelygig.product.walletclient.facades.Bootstrap._
+
+import scala.scalajs.js
 
 object SetupRegisterView {
 
@@ -23,9 +28,14 @@ object SetupRegisterView {
         Validator
       }
     }
+
     def submitForm(e: ReactEventFromInput): react.Callback = {
       e.preventDefault()
       //      t.modState(s => s.copy(closePopup = true))
+      println("inside the dogma")
+      Callback {
+        $("#setupPasswordModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+      }
       Callback.empty
     }
 
@@ -142,7 +152,10 @@ object SetupRegisterView {
                 ^.className := "row",
                 <.div(
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                  <.button(^.id := "setSelectedItem", ^.`type` := "submit", VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#myModal", ^.className := "btn btnDefault", "Next")))))))
+                  <.button(^.id := "setSelectedItem", ^.`type` := "submit", ^.className := "btn btnDefault", "Next")))))),
+        <.div(
+          SetupPasswordModal.component(SetupPasswordModal.Props())))
+
     }
   }
 

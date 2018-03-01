@@ -32,7 +32,7 @@ object SendView {
   final case class State(etherTransaction: EtherTransaction, userUri: String, etherBalance: String,
     coinSymbol: String, currSymbol: String, ethereumPrice: String,
     coinExchange: Seq[CurrencyList] = Seq(CurrencyList("", Seq(Currency("", 0, "")))),
-    showConfirmModal: Boolean = false, appName: String = "", amntInCurr: String = "",
+    appName: String = "", amntInCurr: String = "",
     totalInCurr: String = "0.0", totalInCoin: String = "0.0")
 
   final class Backend(t: BackendScope[Props, State]) {
@@ -286,10 +286,10 @@ object SendView {
     * opens a modal popup
     * */
     def sendTransaction(p: Props): Callback = {
-      val etherTransaction = t.state.runNow().etherTransaction
       if (fieldsValidation()) {
-        $("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true)) /*.attr("data-target", "#confirmModal")*/
-        t.modState(s => s.copy(showConfirmModal = true))
+        Callback {
+          $("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+        }
       } else {
         Callback.empty
       }
