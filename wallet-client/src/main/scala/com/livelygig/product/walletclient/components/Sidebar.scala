@@ -1,6 +1,5 @@
-package com.livelygig.product.walletclient.views
+package com.livelygig.product.walletclient.components
 
-import com.livelygig.product.walletclient.components.SidebarMenu
 import com.livelygig.product.walletclient.handler.ChangeLang
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }

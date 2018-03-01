@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.Validator
-import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, SetupRegisterLoc }
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
@@ -36,13 +36,13 @@ object SetupView {
       if ($("#btnSetPassword").hasClass("disabled") || t.state.runNow().password.isEmpty) {
         Callback.empty
       } else {
-        Callback(dom.window.location.href= "#/setup/register")
+        t.props.flatMap(_.router.set(SetupRegisterLoc)).flatMap(_ => Callback(dom.window.location.reload()))
       }
 
     }
 
     def onPasswordStateChange(e: ReactEventFromInput): react.Callback = {
-      var newValue = e.target.value
+      val newValue = e.target.value
       t.modState(s => s.copy(password = newValue))
     }
 

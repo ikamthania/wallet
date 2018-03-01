@@ -1,10 +1,8 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.Validator
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
-import diode.data.Pot
-import diode.react.ModelProxy
+import com.livelygig.product.walletclient.utils.Defaults
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
@@ -14,7 +12,8 @@ object SetupRegisterView {
 
   case class Props(router: RouterCtl[Loc])
 
-  final case class State(password: String = "", setRegAccount: String = "")
+  final case class State(accountName: String = "", mnemonicPhrase: String = Defaults.keyStoreText,
+    privateKey: String = "", keystoreText: String = Defaults.keyStoreText)
 
   final class Backend(t: BackendScope[Props, State]) {
 
@@ -23,7 +22,6 @@ object SetupRegisterView {
         // init validator
         Validator
       }
-
     }
     def submitForm(e: ReactEventFromInput): react.Callback = {
       e.preventDefault()
@@ -31,9 +29,24 @@ object SetupRegisterView {
       Callback.empty
     }
 
-    def onPasswordStateChange(e: ReactEventFromInput): react.Callback = {
-      var newValue = e.target.value
-      t.modState(s => s.copy(password = newValue))
+    def updateAccountName(e: ReactEventFromInput): react.Callback = {
+      val newValue = e.target.value
+      t.modState(_.copy(accountName = newValue))
+    }
+
+    def updateMnemonicPhrase(e: ReactEventFromInput): react.Callback = {
+      val newValue = e.target.value
+      t.modState(_.copy(mnemonicPhrase = newValue))
+    }
+
+    def updateKeystoreText(e: ReactEventFromInput): react.Callback = {
+      val newValue = e.target.value
+      t.modState(_.copy(keystoreText = newValue))
+    }
+
+    def updatePrivateKey(e: ReactEventFromInput): react.Callback = {
+      val newValue = e.target.value
+      t.modState(_.copy(privateKey = newValue))
     }
 
     def render(p: Props, s: State): VdomElement = {
@@ -55,9 +68,10 @@ object SetupRegisterView {
             <.div(
               ^.className := "row",
               <.div(
-                ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12 accountNameSection",
+                ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12 accountNameSection form-group has-feedback",
                 <.h4("Account name"),
-                <.input(^.id := "accountName", ^.`type` := "text"))),
+                <.input(^.value := s.accountName, ^.onChange ==> updateAccountName, ^.`type` := "text", ^.required := true),
+                <.h4(^.className := "help-block with-errors"))),
             <.div(
               ^.className := "radio radio-top",
               <.label(
@@ -79,7 +93,7 @@ object SetupRegisterView {
                     <.input(^.id := "passPhrase", ^.name := "initialIdentifierExisting", ^.disabled := false, VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#passphraseText", ^.value := "on", ^.`type` := "radio"),
                     "Mnemonic phrase"),
                   <.div(^.id := "passphraseText", ^.className := "collapse",
-                    <.textarea(^.id := "passphraseTxt", ^.rows := 3, ^.className := "form-control"))),
+                    <.textarea(^.id := "passphraseTxt", ^.rows := 3, ^.className := "form-control", ^.value := s.mnemonicPhrase, ^.onChange ==> updateMnemonicPhrase))),
                 <.div(
                   ^.className := "radio",
                   <.label(
@@ -93,7 +107,7 @@ object SetupRegisterView {
                     <.input(^.id := "keyStoreJson", ^.name := "initialIdentifierExisting", ^.disabled := false, VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#jsonText", ^.value := "on", ^.`type` := "radio"),
                     "Keystore text (UTC / JSON)"),
                   <.div(^.id := "jsonText", ^.className := "collapse",
-                    <.textarea(^.id := "jsonTxt", ^.rows := 3, ^.className := "form-control"))),
+                    <.textarea(^.id := "jsonTxt", ^.rows := 3, ^.className := "form-control", ^.value := s.keystoreText, ^.onChange ==> updateKeystoreText))),
                 <.div(
                   ^.className := "radio",
                   <.label(
@@ -128,7 +142,7 @@ object SetupRegisterView {
                 ^.className := "row",
                 <.div(
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                  <.button(^.id := "setSelectedItem", VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#myModal", ^.`type` := "button", ^.className := "btn btnDefault", "Next")))))))
+                  <.button(^.id := "setSelectedItem", ^.`type` := "submit", VdomAttr("data-toggle") := "modal", VdomAttr("data-target") := "#myModal", ^.className := "btn btnDefault", "Next")))))))
     }
   }
 

@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.walletclient.components.Sidebar
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.services.WalletCircuit
