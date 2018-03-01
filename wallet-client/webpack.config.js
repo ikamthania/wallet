@@ -5,6 +5,8 @@ var config = require('./scalajs.webpack.config');
 
 // Exported modules (here, React and ReactDOM)
 var globalModules = {
+  "ethereumjs-abi": "EthereumjsABI",
+  "ethereumjs-units": "EthereumjsUnits",
   "react": "React",
   "react-dom": "ReactDOM",
   "toastr" : "Toastr",

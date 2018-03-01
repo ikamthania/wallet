@@ -17,8 +17,8 @@ object WalletClientDependencies {
       "io.suzaku" %%% "diode-react" % "1.1.2",
       "org.querki" %%% "jquery-facade" % "1.2",
       "org.querki" %%% "querki-jsext" % "0.8",
-      "ru.pavkin" %%% "scala-js-momentjs" % "0.9.1"
-    ))
+      "ru.pavkin" %%% "scala-js-momentjs" % "0.9.1",
+      "io.scalajs" %%% "nodejs" % "0.4.2"))
 
   /** Dependencies for external JS libs that are bundled into a single .js file according to dependency order */
   val jsDependencies = Def.setting(
@@ -31,6 +31,8 @@ object WalletClientDependencies {
       "blockies" -> "0.0.2",
       "bootstrap" -> "3.3.7",
       "ethereumjs-tx" -> "1.3.3",
+      "ethereumjs-abi" -> "0.6.5",
+      "ethereumjs-units" -> "0.2.0",
       "jquery" -> "3.3.1",
       "react" -> "16.2.0",
       "react-dom" -> "16.2.0",

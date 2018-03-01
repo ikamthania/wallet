@@ -1,8 +1,7 @@
 package com.livelygig.product.walletclient.facades
 
-import java.nio.Buffer
-
 import com.livelygig.product.shared.models.Solidity.SolidityType
+import io.scalajs.nodejs.buffer.Buffer
 
 import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
