@@ -1,6 +1,5 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.facades.Validator
 import com.livelygig.product.walletclient.modals.SetupPasswordModal
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.utils.Defaults
@@ -25,7 +24,8 @@ object SetupRegisterView {
     def componentDidMount(props: Props): Callback = {
       Callback {
         // init validator
-        Validator
+        //        Validator
+        //        jQuery("#setupForm").validator()
       }
     }
 

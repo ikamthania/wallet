@@ -9,8 +9,6 @@ object TermsOfServiceView {
   def acceptBtnClick() = {
     Callback {
       dom.window.location.href = "#/setup"
-      dom.window.location.reload()
-
     }
   }
 

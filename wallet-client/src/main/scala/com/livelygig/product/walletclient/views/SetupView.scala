@@ -1,6 +1,5 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.facades.Validator
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, SetupRegisterLoc }
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
@@ -8,6 +7,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 import org.scalajs.dom
+import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 
 object SetupView {
 
@@ -19,8 +19,9 @@ object SetupView {
 
     def componentDidMount(props: Props): Callback = {
       Callback {
+        jQuery("#setupForm").validator("update")
         // init validator
-        Validator
+        //        Validator
       }
 
     }
