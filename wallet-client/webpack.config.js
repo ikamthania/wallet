@@ -8,8 +8,6 @@ var commonConfig = require('./common.webpack.config');
 
 // Exported modules (here, React and ReactDOM)
 var globalModules = {
-  "react": "React",
-  "react-dom": "ReactDOM",
   "ethereumjs-abi": "EthereumjsABI",
   "ethereumjs-units": "EthereumjsUnits",
   "toastr" : "Toastr",
