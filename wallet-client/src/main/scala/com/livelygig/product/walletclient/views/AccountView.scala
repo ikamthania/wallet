@@ -14,7 +14,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 import org.scalajs.dom
 import play.api.libs.json.Json
 
@@ -78,8 +78,8 @@ object AccountView {
     }
 
     def componentDidMount(props: Props): Callback = {
-      $(".select-currency-info").removeClass("active")
-      $(".select-currency-info").first().addClass("active")
+      jQuery(".select-currency-info").removeClass("active")
+      jQuery(".select-currency-info").first().addClass("active")
       getLiveCurrencyUpdate
       setCurrencyLocal(t.state.runNow().currencySelected)
       Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
@@ -98,11 +98,11 @@ object AccountView {
 
     def onItemClicked(e: ReactEventFromHtml): react.Callback = {
       e.preventDefault()
-      $(".select-currency-info").removeClass("active")
-      if (!$(e.target).is(".select-currency-info")) {
-        $(e.target).parents(".select-currency-info").addClass("active")
+      jQuery(".select-currency-info").removeClass("active")
+      if (!jQuery(e.target).is(".select-currency-info")) {
+        jQuery(e.target).parents(".select-currency-info").addClass("active")
       } else {
-        $(e.target).addClass("active")
+        jQuery(e.target).addClass("active")
       }
       Callback.empty
     }

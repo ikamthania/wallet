@@ -4,7 +4,7 @@ import com.livelygig.product.walletclient.modals.NotificationModal
 import japgolly.scalajs.react
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 
 object NotificationView {
 
@@ -17,13 +17,13 @@ object NotificationView {
     def onItemClicked(e: ReactEventFromHtml): react.Callback = {
       e.preventDefault()
 
-      $(".active > div").removeClass("selectedItem")
-      $(".row").removeClass("active")
+      jQuery(".active > div").removeClass("selectedItem")
+      jQuery(".row").removeClass("active")
 
-      if (!$(e.target).is(".row")) {
-        $(e.target).parents(".row").addClass("active")
+      if (!jQuery(e.target).is(".row")) {
+        jQuery(e.target).parents(".row").addClass("active")
       } else {
-        $(e.target).addClass("active")
+        jQuery(e.target).addClass("active")
       }
       Callback.empty
     }

@@ -1,10 +1,10 @@
 
 package com.livelygig.product.walletclient.views
-import com.livelygig.product.walletclient.facades.Bootstrap._
+// import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.modals.AddTokenModal
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 
 import scala.scalajs.js
 
@@ -90,7 +90,7 @@ object AddTokenView {
     // }
 
     def showAddTokenModal(): Callback = {
-      $("#addTokenModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+      //      jQuery("#addTokenModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
 
       Callback.empty
     }

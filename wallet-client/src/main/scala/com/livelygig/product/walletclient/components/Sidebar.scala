@@ -10,7 +10,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
 import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
@@ -74,7 +74,7 @@ object Sidebar {
 
     def onSideBarMenuClicked(e: ReactEventFromHtml): react.Callback = {
       val cw = e.target.clientWidth
-      val w = $("#mySidenav").width()
+      val w = jQuery("#mySidenav").width()
       if (cw == w) toggleNav()
       react.Callback.empty
     }
@@ -85,7 +85,7 @@ object Sidebar {
 
       // todo fix blockies
       /*val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = userDetails.value.walletDetails.publicKey))
-      $("#userProfileImg").empty().append(blockies)*/
+      jQuery("#userProfileImg").empty().append(blockies)*/
     }
 
     def componentDidMount(): Callback = {
@@ -98,9 +98,9 @@ object Sidebar {
     }
 
     def toggleNav(): Callback = {
-      $("#mySidenav").toggleClass("fullWidth")
-      $("#closebtnContainer").toggleClass("active")
-      $("#bodyWallet").toggleClass("blurBackground")
+      jQuery("#mySidenav").toggleClass("fullWidth")
+      jQuery("#closebtnContainer").toggleClass("active")
+      jQuery("#bodyWallet").toggleClass("blurBackground")
 
       Callback.empty
     }

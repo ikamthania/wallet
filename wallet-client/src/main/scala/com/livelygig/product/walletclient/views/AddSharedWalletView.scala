@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.shared.models.Contracts.MultiSigWalletWithDailyLimit
 import com.livelygig.product.shared.models.Solidity._
 import com.livelygig.product.shared.models.wallet.EtherTransaction
-import com.livelygig.product.walletclient.facades.Bootstrap._
+// import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.{ EthereumjsABI, EthereumjsUnits }
 import com.livelygig.product.walletclient.modals.ConfirmModal
 import com.livelygig.product.walletclient.router.ApplicationRouter
@@ -11,7 +11,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 
 import scala.scalajs.js
 
@@ -41,11 +41,11 @@ object AddSharedWalletView {
 
   def onSelectOwner(e: ReactEventFromHtml): react.Callback = {
     e.preventDefault()
-    $(".walletData").removeClass("active")
-    if (!$(e.target).is(".walletData")) {
-      $(e.target).parents(".walletData").addClass("active")
+    jQuery(".walletData").removeClass("active")
+    if (!jQuery(e.target).is(".walletData")) {
+      jQuery(e.target).parents(".walletData").addClass("active")
     } else {
-      $(e.target).addClass("active")
+      jQuery(e.target).addClass("active")
     }
     Callback.empty
   }
@@ -112,7 +112,7 @@ object AddSharedWalletView {
     }
 
     def toggleDropdownArrow(id: String) = Callback {
-      $(s"#$id").toggleClass("active")
+      jQuery(s"#$id").toggleClass("active")
     }
 
     def createSharedWallet(): Callback = {
@@ -124,7 +124,7 @@ object AddSharedWalletView {
           val multiSigWallet = new MultiSigWalletWithDailyLimit(ownerAddresses, required, dailyLimit)
           val encodedConstructor: String = EthereumjsABI.rawEncode(multiSigWallet.constructorArgs).toString()
 
-          $("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+          /*jQuery("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))*/
           s.copy(etherTransaction = EtherTransaction("", "", "", MultiSigWalletWithDailyLimit.BYTE_CODE + encodedConstructor, 0))
         })
     }

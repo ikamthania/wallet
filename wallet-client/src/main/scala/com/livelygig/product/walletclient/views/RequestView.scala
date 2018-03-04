@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.facades.Bootstrap._
+// import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.QRCode
 import com.livelygig.product.walletclient.modals.ShowQRCode
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
@@ -10,7 +10,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 import org.scalajs.dom
 
 import scala.scalajs.js
@@ -36,11 +36,11 @@ object RequestView {
     }
 
     def toggleDropdownArrow(id: String) = Callback {
-      $(s"#$id").toggleClass("active")
+      jQuery(s"#$id").toggleClass("active")
     }
 
     def onBtnClicked(id: String)(e: ReactEventFromInput): react.Callback = {
-      var el = $("#lblReceivingAddress")
+      var el = jQuery("#lblReceivingAddress")
       el.select()
       dom.document.execCommand("Copy")
       Callback.empty
@@ -51,12 +51,12 @@ object RequestView {
       value match {
         case "coinAmount" => {
           newValue = toAlphaNumeric(newValue)
-          $("#coinTxtValue").value(newValue)
+          jQuery("#coinTxtValue").value(newValue)
           changeEraseButtonVisibility(newValue, "coinTxtValue")
         }
         case "usdAmount" => {
           newValue = toAlphaNumeric(newValue)
-          $("#usdTxtValue").value(newValue)
+          jQuery("#usdTxtValue").value(newValue)
           changeEraseButtonVisibility(newValue, "usdTxtValue")
         }
       }
@@ -73,15 +73,15 @@ object RequestView {
     }
     def changeEraseButtonVisibility(value: String, inputId: String): Callback = {
       if (value != "") {
-        $("#" + inputId + " +  i").removeClass("eraseButtonHidden")
+        jQuery("#" + inputId + " +  i").removeClass("eraseButtonHidden")
       } else {
-        if (!$("#" + inputId + " +  i").hasClass("eraseButtonHidden")) $("#" + inputId + " +  i").addClass("eraseButtonHidden")
+        if (!jQuery("#" + inputId + " +  i").hasClass("eraseButtonHidden")) jQuery("#" + inputId + " +  i").addClass("eraseButtonHidden")
       }
       Callback.empty
     }
 
     def onEraseButtonClicked(id: String)(e: ReactEventFromInput): react.Callback = {
-      $("#" + id).value("")
+      jQuery("#" + id).value("")
       changeEraseButtonVisibility("", id)
 
       Callback.empty
@@ -90,7 +90,7 @@ object RequestView {
 
     def updateModal(): Callback = {
       val state = t.state.runNow()
-      $("#showQRCode").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+      //jQuery("#showQRCode").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
       ShowQRCode(ShowQRCode.Props(state.qrCode))
       t.modState(scope => scope.copy(showModal = true))
       //      Callback.empty

@@ -8,8 +8,8 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
-import org.querki.jquery.$
-import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
+// import com.livelygig.product.walletclient.facades.Bootstrap._
 
 import scala.scalajs.js
 
@@ -34,7 +34,7 @@ object SetupRegisterView {
       //      t.modState(s => s.copy(closePopup = true))
       println("inside the dogma")
       Callback {
-        $("#setupPasswordModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+        //jQuery("#setupPasswordModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
       }
       Callback.empty
     }

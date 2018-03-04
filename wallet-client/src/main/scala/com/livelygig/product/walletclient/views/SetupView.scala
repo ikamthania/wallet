@@ -6,7 +6,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 import org.scalajs.dom
 
 object SetupView {
@@ -33,7 +33,7 @@ object SetupView {
     def submitForm(e: ReactEventFromInput): react.Callback = {
       e.preventDefault()
       //      t.modState(s => s.copy(closePopup = true))
-      if ($("#btnSetPassword").hasClass("disabled") || t.state.runNow().password.isEmpty) {
+      if (jQuery("#btnSetPassword").hasClass("disabled") || t.state.runNow().password.isEmpty) {
         Callback.empty
       } else {
         t.props.flatMap(_.router.set(SetupRegisterLoc)).flatMap(_ => Callback(dom.window.location.reload()))

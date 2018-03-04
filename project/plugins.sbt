@@ -4,7 +4,6 @@ scalacOptions ++= Seq( "-unchecked", "-deprecation" )
 resolvers += Resolver.typesafeRepo("releases")
 resolvers += Resolver.sonatypeRepo("snapshots")
 
-
 // The Play plugin
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.6.11")
 

@@ -9,7 +9,7 @@ import diode.ModelRO
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 import org.scalajs.dom
 import org.scalajs.dom.raw.Element
 
@@ -37,9 +37,9 @@ object SidebarMenu {
   private case class MenuItemWithNewTabLink(itemLabel: String, link: String) extends MenuItem(itemLabel)
 
   def toggleNav(): Callback = {
-    $("#mySidenav").toggleClass("fullWidth")
-    $("#closebtnContainer").toggleClass("active")
-    $("#bodyWallet").toggleClass("blurBackground")
+    jQuery("#mySidenav").toggleClass("fullWidth")
+    jQuery("#closebtnContainer").toggleClass("active")
+    jQuery("#bodyWallet").toggleClass("blurBackground")
     Callback.empty
   }
 
@@ -48,15 +48,14 @@ object SidebarMenu {
   def changeTheme(themeName: String) = Callback {
     dom.window.localStorage.setItem("theme", themeName)
     toggleNav()
-    dom.window.alert("Yooooooooooooooooooooo" + LinkingInfo.productionMode)
     val themeUrl = if (LinkingInfo.productionMode) {
       s"./assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"
 
     } else {
       s"../assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"
     }
-    $("#theme-stylesheet")
-      .foreach((ele: Element) =>
+    jQuery("#theme-stylesheet")
+      .each((ele: Element) =>
         ele
           .setAttribute("href", themeUrl))
   }
@@ -78,7 +77,7 @@ object SidebarMenu {
       })
     }
 
-    //scalastyle: off
+    // scalastyle:off
     def updateMenuItemState(state: js.Dynamic) = {
       //testing items
       val test1SubmenuItem = MenuItemWithCallback(state.selectDynamic("TEST1").toString, emptyCallback)
@@ -181,10 +180,10 @@ object SidebarMenu {
     }
 
     def toggleDropdownArrow(id: String, liId: String) = Callback {
-      if (!$(s"#$id").hasClass("active")) {
-        ($(s"#$id").toggleClass("active"))
+      if (!jQuery(s"#$id").hasClass("active")) {
+        (jQuery(s"#$id").toggleClass("active"))
       }
-      $(s"#$liId").toggleClass("openSubmenu")
+      jQuery(s"#$liId").toggleClass("openSubmenu")
     }
 
     def isChildCurrentLocation(submenuItems: Seq[MenuItem]): Boolean = {

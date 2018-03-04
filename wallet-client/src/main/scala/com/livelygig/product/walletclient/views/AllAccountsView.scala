@@ -4,7 +4,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 import org.scalajs.dom
 import play.api.libs.json.{ JsValue, Json }
 
@@ -35,10 +35,10 @@ object AllAccountsView {
     }
 
     def onSelectAccountClicked(): Callback = {
-      $(".selected").removeClass("selected")
+      jQuery(".selected").removeClass("selected")
 
-      $(".active").addClass("selected")
-      $(".active").removeClass("active")
+      jQuery(".active").addClass("selected")
+      jQuery(".active").removeClass("active")
 
       updateURL("AccountLoc")
 
@@ -54,15 +54,15 @@ object AllAccountsView {
         dom.window.localStorage.setItem("pubKey", s"0x$getpubKey")
         dom.window.localStorage.setItem("priKey", getpriKey)
       }
-      $("li").removeClass("active")
-      if (!$(e.target).is("li")) {
-        $(e.target).parents("li").addClass("active")
-      } else $(e.target).addClass("active")
+      jQuery("li").removeClass("active")
+      if (!jQuery(e.target).is("li")) {
+        jQuery(e.target).parents("li").addClass("active")
+      } else jQuery(e.target).addClass("active")
       Callback.empty
     }
 
     def componentDidMount(): Callback = {
-      $("#accountList li").first().addClass("selected")
+      jQuery("#accountList li").first().addClass("selected")
 
       val keystoreContent = dom.window.localStorage.getItem("keystoreData")
       //      val keystoreContent = "[{\"keystorePvtKey\":\"john\",\"keystorePubKey\":\"0x13427c61c0b4391a54b6405cc3bb014d38887f4a\" , \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"keystorePvtKey\":\"john\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"}]"

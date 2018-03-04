@@ -1,9 +1,9 @@
 package com.livelygig.product.walletclient.views
 
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import org.querki.jquery.{ $, JQueryEventObject }
 import org.scalajs.dom
 import org.scalajs.dom.Element
 
@@ -11,26 +11,26 @@ object LandingView {
 
   def onGetStartedClick() = {
     Callback {
-      $("#main-splash").addClass("hidden")
-      $("#welcome-splash").removeClass("hidden")
-      $("#account-management-item").removeClass("active")
-      $("#language-settings-item").addClass("active")
+      jQuery("#main-splash").addClass("hidden")
+      jQuery("#welcome-splash").removeClass("hidden")
+      jQuery("#account-management-item").removeClass("active")
+      jQuery("#language-settings-item").addClass("active")
     }
   }
 
   def previousBtnClick() = {
     Callback {
-      if ($("#language-settings-item").hasClass("active")) {
-        $("#main-splash").removeClass("hidden")
-        $("#welcome-splash").addClass("hidden")
-        $("#btnPrevious").click()
+      if (jQuery("#language-settings-item").hasClass("active")) {
+        jQuery("#main-splash").removeClass("hidden")
+        jQuery("#welcome-splash").addClass("hidden")
+        jQuery("#btnPrevious").click()
       }
     }
   }
 
   def nextBtnClick() = {
     Callback {
-      if ($("#account-management-item").hasClass("active")) {
+      if (jQuery("#account-management-item").hasClass("active")) {
         dom.window.location.href = "#/terms"
       }
     }
@@ -79,7 +79,7 @@ object LandingView {
                     ^.className := "carousel-inner scrollableArea",
                     <.div(
                       ^.id := "language-settings-item",
-                      ^.className := "item active",
+                      ^.className := "item",
                       <.img(^.src := "./assets/images/languageIcon.png"),
                       <.h4("Language"),
                       <.select(

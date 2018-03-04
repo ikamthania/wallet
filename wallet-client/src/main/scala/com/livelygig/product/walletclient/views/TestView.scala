@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.walletclient.facades.{ Blockies, Pseudoloc, Toastr }
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
-import org.querki.jquery.$
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 
 import scala.scalajs.js
 
@@ -29,7 +29,7 @@ object TestView {
   final class Backend(t: BackendScope[Props, Unit]) {
     def tryOut(): Callback = {
       val str = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = "0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8"))
-      $("#blockies").append(str)
+      jQuery("#blockies").append(str)
       var res = Pseudoloc.str("A test string with a %token%.")
       println(s"Result ===> ${res}")
 

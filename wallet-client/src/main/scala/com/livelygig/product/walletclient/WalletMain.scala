@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient
 
+import com.karasiq.bootstrap.jquery.BootstrapJQueryContext
 import com.livelygig.product.walletclient.facades.Validator
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import org.scalajs.dom
@@ -7,7 +8,7 @@ import org.scalajs.dom
 object WalletMain {
 
   def main(args: Array[String]): Unit = {
-
+    BootstrapJQueryContext.useNpmImports()
     //    // initialize pulldowntorefresh.js
     //    PullToRefresh.init(js.Dictionary(
     //      "mainElement" -> "body"

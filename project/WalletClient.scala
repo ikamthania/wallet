@@ -18,7 +18,11 @@ object WalletClient {
     webpackBundlingMode := BundlingMode.LibraryOnly(),
 
     // Add a dependency to the expose-loader (which will expose react to the global namespace)
-    npmDevDependencies in Compile += "expose-loader" -> "0.7.1",
+    npmDevDependencies in Compile ++= Seq(
+      "webpack-merge" -> "4.1.0",
+      "imports-loader" -> "0.7.0",
+      "expose-loader" -> "0.7.1"
+    ),
 
     // Use a custom config file to export the JS dependencies to the global namespace,
     // as expected by the scalajs-react facade

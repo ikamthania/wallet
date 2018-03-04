@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient.views
 
+import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails, UpdateAccountTokenList }
@@ -14,7 +15,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import org.querki.jquery.$
 import org.scalajs.dom
 import org.scalajs.dom.raw.Element
 import play.api.libs.json.Json
@@ -78,8 +78,8 @@ object MultisigHomeView {
     }
 
     def componentDidMount(props: Props): Callback = {
-      $(".select-currency-info").removeClass("active")
-      $(".select-currency-info").first().addClass("active")
+      jQuery(".select-currency-info").removeClass("active")
+      jQuery(".select-currency-info").first().addClass("active")
       getLiveCurrencyUpdate
       setCurrencyLocal(t.state.runNow().currencySelected)
       Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
@@ -88,8 +88,8 @@ object MultisigHomeView {
 
     def updateTheme(): Callback = {
       val theme = if (dom.window.localStorage.getItem("theme") == null) "default" else dom.window.localStorage.getItem("theme")
-      $("#theme-stylesheet")
-        .foreach((ele: Element) =>
+      jQuery("#theme-stylesheet")
+        .each((ele: Element) =>
           ele
             .setAttribute("href", s"../assets/stylesheets/wallet/themes/wallet-main-theme-${theme}.min.css"))
       Callback.empty
@@ -108,11 +108,11 @@ object MultisigHomeView {
 
     def onItemClicked(e: ReactEventFromHtml): react.Callback = {
       e.preventDefault()
-      $(".select-currency-info").removeClass("active")
-      if (!$(e.target).is(".select-currency-info")) {
-        $(e.target).parents(".select-currency-info").addClass("active")
+      jQuery(".select-currency-info").removeClass("active")
+      if (!jQuery(e.target).is(".select-currency-info")) {
+        jQuery(e.target).parents(".select-currency-info").addClass("active")
       } else {
-        $(e.target).addClass("active")
+        jQuery(e.target).addClass("active")
       }
       Callback.empty
     }
@@ -125,7 +125,7 @@ object MultisigHomeView {
     }
 
     def toggleDropdownArrow(id: String) = Callback {
-      $(s"#$id").toggleClass("active")
+      jQuery(s"#$id").toggleClass("active")
     }
 
     def render(p: Props, s: State): VdomElement = {
