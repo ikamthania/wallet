@@ -1,15 +1,14 @@
 package com.livelygig.product.walletclient.facades.bootstrapvalidator
 
-import com.karasiq.bootstrap.jquery.JQueryContext
-
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
-trait ValidatorJQueryContext extends JQueryContext with ValidatorJQueryImplicits {
+trait ValidatorBundle extends JQueryFacade with ValidatorJQueryImplicits {
 
 }
 
-object ValidatorJQueryContext {
+object ValidatorBundle {
   object Imports {
 
     @js.native
@@ -18,7 +17,6 @@ object ValidatorJQueryContext {
   }
 
   def useNpmImports(): Unit = {
-    JQueryContext.useNpmImport()
     Imports.Validator
   }
 }

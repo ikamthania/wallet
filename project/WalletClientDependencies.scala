@@ -17,7 +17,7 @@ object WalletClientDependencies {
       "io.suzaku" %%% "diode-react" % "1.1.2",
       "ru.pavkin" %%% "scala-js-momentjs" % "0.9.1",
       "be.doeraene" %%% "scalajs-jquery" % "0.9.2",
-      "com.github.karasiq" %%% "scalajs-bootstrap" % "2.3.1",
+      "com.definitelyscala" %%% "scala-js-bootstrap" % "1.0.2",
       "io.scalajs" %%% "nodejs" % "0.4.2"))
 
   /** Dependencies for external JS libs that are bundled into a single .js file according to dependency order */

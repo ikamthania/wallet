@@ -10,7 +10,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
-import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import org.scalajs.dom
 
 import scala.scalajs.js

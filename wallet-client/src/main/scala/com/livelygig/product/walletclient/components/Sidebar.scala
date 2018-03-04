@@ -10,7 +10,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
 import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js

@@ -10,6 +10,7 @@ import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
 object WalletClient {
   private[this] val clientSettings = Shared.commonSettings ++ Seq(
     name := "wallet-client",
+    resolvers += Resolver.jcenterRepo,
     libraryDependencies ++= WalletClientDependencies.scalajsDependencies.value,
     jsDependencies ++= WalletClientDependencies.jsDependencies.value,
     jsDependencies ++= WalletClientDependencies.provided.value.map(ProvidedJS / _),

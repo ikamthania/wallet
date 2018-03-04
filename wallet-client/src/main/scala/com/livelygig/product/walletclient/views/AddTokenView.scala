@@ -4,7 +4,7 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.walletclient.modals.AddTokenModal
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
-import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 
 import scala.scalajs.js
 

@@ -4,7 +4,7 @@ import com.livelygig.product.walletclient.modals.NotificationModal
 import japgolly.scalajs.react
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 
 object NotificationView {
 

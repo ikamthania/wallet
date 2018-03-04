@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.views
 
-import com.karasiq.bootstrap.jquery.JQueryContext.imports.jQuery
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails, UpdateAccountTokenList }
