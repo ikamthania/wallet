@@ -8,6 +8,8 @@ object SetupPasswordModal {
   final case class Props() {
   }
 
+  def onSubmitClicked() = {}
+
   final class Backend($: BackendScope[Props, Unit]) {
     def render(p: Props): VdomElement =
       <.div(^.className := "modal fade", ^.id := "setupPasswordModal", ^.role := "dialog",

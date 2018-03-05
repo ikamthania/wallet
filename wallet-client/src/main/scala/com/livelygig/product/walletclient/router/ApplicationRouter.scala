@@ -71,6 +71,8 @@ object ApplicationRouter {
       | staticRoute(s"#/terms", TermsOfServiceLoc) ~> render(TermsOfServiceView.component())
       | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
       | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => SetupView.component(SetupView.Props(ctl)))
+      | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => LoginView.component(LoginView.Props(ctl)))
+      | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => BackupAccount.component(BackupAccount.Props(ctl)))
       | staticRoute(s"#/setup/register", SetupRegisterLoc) ~> renderR(ctl => SetupRegisterView.component(SetupRegisterView.Props(ctl)))
       | staticRoute(s"#/send", SendLoc) ~> renderR(ctl => walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, ""))))
       | staticRoute(s"#/request", RequestLoc) ~> renderR(ctl => RequestView(RequestView.Props(ctl)))
