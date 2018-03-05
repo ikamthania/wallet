@@ -7,6 +7,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
+import org.scalajs.jquery.JQueryEventObject
 
 object SetupView {
 
@@ -18,27 +19,20 @@ object SetupView {
 
     def componentDidMount(props: Props): Callback = {
       Callback {
-        jQuery("#setupForm").validator("update")
-        // init validator
-        //        Validator
+        jQuery("#setupForm").validator("update").on("submit", (e: JQueryEventObject) => {
+          if (!e.isDefaultPrevented()) {
+            e.preventDefault()
+            t.props.flatMap(_.router.set(SetupRegisterLoc)).runNow()
+          } else {
+            e.preventDefault()
+          }
+        })
       }
-
     }
+
     def componentWillMount(props: Props): Callback = {
       Callback {
-        // init validator
       }
-
-    }
-    def submitForm(e: ReactEventFromInput): react.Callback = {
-      e.preventDefault()
-      //      t.modState(s => s.copy(closePopup = true))
-      if (jQuery("#btnSetPassword").hasClass("disabled") || t.state.runNow().password.isEmpty) {
-        Callback.empty
-      } else {
-        t.props.flatMap(_.router.set(SetupRegisterLoc))
-      }
-
     }
 
     def onPasswordStateChange(e: ReactEventFromInput): react.Callback = {
@@ -47,7 +41,7 @@ object SetupView {
     }
 
     def render(p: Props, s: State): VdomElement = {
-      <.form(^.id := "setupForm", VdomAttr("data-toggle") := "validator", ^.onSubmit ==> submitForm)(
+      <.form(^.id := "setupForm", VdomAttr("data-toggle") := "validator")(
         <.div(
           ^.className := "wallet-inner-navigation",
           <.div(
