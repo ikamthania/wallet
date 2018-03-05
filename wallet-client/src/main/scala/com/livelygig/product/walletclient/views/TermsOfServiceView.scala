@@ -35,10 +35,10 @@ object TermsOfServiceView {
               <.h1("Privacy Policy"),
               <.h4("1. Introduction"),
               <.p(
-                "1.1 LivelyGig recognizes that people value their privacy. This Privacy Policy details important information regarding the collection, use and disclosure of User information collected on the LivelyGig website located at",
-                <.a(^.href := "https://LivelyGig.com/", "https://LivelyGig.com/"),
+                "1.1 LivelyGig recognizes that people value their privacy. This Privacy Policy details important information regarding the collection, use and disclosure of User information collected on the LivelyGig website located at ",
+                <.a(^.target := "_blank", ^.href := "https://LivelyGig.com/", "https://LivelyGig.com/"),
                 ",",
-                <.a(^.href := "https://ubunda.com/", "https://ubunda.com/"),
+                <.a(^.target := "_blank", ^.href := "https://ubunda.com/", " https://ubunda.com/ "),
                 """(the "Site"), and any other features, tools, materials, or other services (including co-branded or affiliated services) offered from time to time by LivelyGig (the "Service"). LivelyGig provides this Privacy Policy to help you understand how your personal information is used by us and your choices regarding our use of it."""),
               <.p("1.2 This Privacy Policy should be read in conjunction with our Terms of Use. By accessing the Service, you are consenting to the information collection and use practices described in this Privacy Policy."),
               <.p("1.3 Your use of the Service and any personal information you provide through the Service remains subject to the terms of this Privacy Policy and our Terms of Use, as each may be updated from time to time."),
