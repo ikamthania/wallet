@@ -6,7 +6,6 @@ import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import org.scalajs.dom
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 
 object SetupView {
@@ -37,7 +36,7 @@ object SetupView {
       if (jQuery("#btnSetPassword").hasClass("disabled") || t.state.runNow().password.isEmpty) {
         Callback.empty
       } else {
-        t.props.flatMap(_.router.set(SetupRegisterLoc)).flatMap(_ => Callback(dom.window.location.reload()))
+        t.props.flatMap(_.router.set(SetupRegisterLoc))
       }
 
     }

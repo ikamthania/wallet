@@ -5,7 +5,7 @@ import com.livelygig.product.walletclient.facades.jquery.JQueryFacade
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
-trait BootstrapBundle extends JQueryFacade with BootstrapJQueryImplicits {
+trait BootstrapBundle extends BootstrapJQueryImplicits {
 
 }
 

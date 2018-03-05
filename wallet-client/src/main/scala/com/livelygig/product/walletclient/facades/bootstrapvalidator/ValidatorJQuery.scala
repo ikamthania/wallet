@@ -3,7 +3,6 @@ package com.livelygig.product.walletclient.facades.bootstrapvalidator
 import org.scalajs.jquery.JQuery
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSImport
 
 @scalajs.js.native
 trait ValidatorJQuery extends JQuery {

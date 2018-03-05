@@ -18,7 +18,7 @@ object SetupPasswordModal {
             <.div(
               ^.className := "modal-header",
               <.button(^.`type` := "button", ^.className := "close", VdomAttr("data-dismiss") := "modal", "×"),
-              <.h4(^.className := "modal-title", "Modal Header")),
+              <.h4(^.className := "modal-title", "Confirm")),
             <.div(
               ^.className := "modal-body",
               <.input(^.id := "keyStorePassword", ^.className := "form-control", ^.`type` := "password", ^.placeholder := "Enter your password")),

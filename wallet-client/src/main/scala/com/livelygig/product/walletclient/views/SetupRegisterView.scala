@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient.views
 
+import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.walletclient.modals.SetupPasswordModal
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.utils.Defaults
@@ -8,7 +9,8 @@ import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-// import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
+import org.scalajs.jquery.JQueryEventObject
 
 import scala.scalajs.js
 
@@ -23,20 +25,21 @@ object SetupRegisterView {
 
     def componentDidMount(props: Props): Callback = {
       Callback {
-        // init validator
-        //        Validator
-        //        jQuery("#setupForm").validator()
-      }
-    }
+        jQuery("#setupForm").validator("update").on("submit", (e: JQueryEventObject) => {
+          if (!e.isDefaultPrevented()) {
+            e.preventDefault()
+            import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
+            val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
+            options.show = true
+            options.keyboard = true
+            options.backdrop = "static"
+            jQuery("#setupPasswordModal").modal(options)
+          } else {
+            e.preventDefault()
+          }
 
-    def submitForm(e: ReactEventFromInput): react.Callback = {
-      e.preventDefault()
-      //      t.modState(s => s.copy(closePopup = true))
-      println("inside the dogma")
-      Callback {
-        //jQuery("#setupPasswordModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+        })
       }
-      Callback.empty
     }
 
     def updateAccountName(e: ReactEventFromInput): react.Callback = {
@@ -60,7 +63,7 @@ object SetupRegisterView {
     }
 
     def render(p: Props, s: State): VdomElement = {
-      <.form(^.id := "setupForm", VdomAttr("data-toggle") := "validator", ^.onSubmit ==> submitForm)(
+      <.form(^.id := "setupForm", VdomAttr("data-toggle") := "validator")(
         <.div(
           ^.className := "wallet-inner-navigation",
           <.div(
