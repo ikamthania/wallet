@@ -12,7 +12,7 @@ import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, VdomElement, ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromHtml, ScalaComponent }
 import org.scalajs.dom
 
-object BackupAccount {
+object BackupAccountTerms {
 
   case class Props(router: RouterCtl[Loc])
 
