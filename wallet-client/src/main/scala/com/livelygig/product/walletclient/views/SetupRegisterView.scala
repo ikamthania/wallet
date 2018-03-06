@@ -43,8 +43,12 @@ object SetupRegisterView {
 
     def onSubmitClicked(): react.Callback = {
       val state = t.state.runNow().regMode
+      //      println(s"In onSubmitbuttonClicked  ${state}")
       state match {
-        case "newId" => { t.props.flatMap(_.router.set(BackupAccountLoc)) }
+        case "newId" => {
+          //          println("In backupAccountClicked")
+          t.props.flatMap(_.router.set(BackupAccountLoc))
+        }
         case "passPhrase" => {
           import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
           val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
@@ -52,6 +56,7 @@ object SetupRegisterView {
           options.keyboard = true
           options.backdrop = "static"
           jQuery("#setupPasswordModal").modal(options)
+          Callback.empty
         }
         case "privateKey" => { t.props.flatMap(_.router.set(LoginLoc)) }
         case "keyStoreJson" => {
@@ -61,13 +66,14 @@ object SetupRegisterView {
           options.keyboard = true
           options.backdrop = "static"
           jQuery("#setupPasswordModal").modal(options)
+          Callback.empty
         }
         case "keyStoreFile" => { t.props.flatMap(_.router.set(LoginLoc)) }
         case "sharedWallet" => { t.props.flatMap(_.router.set(LoginLoc)) }
         case "web3Provider" => { t.props.flatMap(_.router.set(LoginLoc)) }
         case "ledgerWallet" => { t.props.flatMap(_.router.set(LoginLoc)) }
       }
-      Callback.empty
+      //      Callback.empty
       //      t.modState(_.copy(regMode =))
     }
 
@@ -186,7 +192,7 @@ object SetupRegisterView {
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
                   <.button(^.id := "setSelectedItem", ^.`type` := "submit", ^.onClick --> onSubmitClicked(), ^.className := "btn btnDefault", "Next")))))),
         <.div(
-          SetupPasswordModal.component(SetupPasswordModal.Props())))
+          SetupPasswordModal.component(SetupPasswordModal.Props(p.router))))
 
     }
   }

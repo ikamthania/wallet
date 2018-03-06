@@ -1,16 +1,20 @@
 package com.livelygig.product.walletclient.modals
 
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, LoginLoc }
 import japgolly.scalajs.react._
+import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 
 object SetupPasswordModal {
 
-  final case class Props() {
-  }
+  final case class Props(router: RouterCtl[Loc])
 
-  def onSubmitClicked() = {}
+  final class Backend(t: BackendScope[Props, Unit]) {
 
-  final class Backend($: BackendScope[Props, Unit]) {
+    def onSubmitClicked() = {
+      t.props.flatMap(_.router.set(LoginLoc))
+    }
+
     def render(p: Props): VdomElement =
       <.div(^.className := "modal fade", ^.id := "setupPasswordModal", ^.role := "dialog",
         <.div(
