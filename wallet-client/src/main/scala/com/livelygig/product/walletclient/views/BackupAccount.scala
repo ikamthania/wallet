@@ -1,5 +1,7 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.walletclient.facades.LightWallet
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import diode.data.Pot
@@ -8,23 +10,62 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, VdomElement, ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromHtml, ScalaComponent }
+import org.scalajs.dom
 
 object BackupAccount {
 
-  case class Props(router: RouterCtl[Loc], loc: String = "")
+  case class Props(router: RouterCtl[Loc])
 
-  final case class State()
+  final case class State(phrase: String)
 
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-
+      generateMnemonicPhrase
       Callback.empty
     }
 
+    def generateMnemonicPhrase() = {
+      val mnemonicPhrase = LightWallet.keystore.generateRandomSeed("").toString
+      t.modState(s => s.copy(phrase = mnemonicPhrase)).runNow();
+      //      t.modState(s => s.copy(phrase = "Later, you can enter this phrase into Ubunda (or other wallets) to re-gain control over your account")).runNow();
+      //      $("#mnemonic-phrase").html(t.state.runNow().phrase);
+      dom.window.alert(mnemonicPhrase)
+    }
+
+    def generateWordList(e: String): VdomElement = {
+      /* val words =e.split(" ");
+      // var wordsUnsorted = shuffleArray(words);
+      var sortedWords = words.sorted;*/
+      println(e)
+      <.li(^.id := e, s"$e")
+
+      //      $("#mnemonic-list").html(items);
+      //      $("#mnemonic-list li").on("click", (arg) => onWordClicked(arg));
+
+    }
     def onItemClicked(e: ReactEventFromHtml): react.Callback = {
 
       Callback.empty
+    }
+    def onBtnClicked(id: String) = Callback {
+      id match {
+        case "btnNextStart" => {
+          jQuery(s".backupView-start").hide()
+          jQuery(s".backupView-generate").show()
+          jQuery(s"li:nth-last-child(2)").addClass("passed")
+        }
+        case "btnNextGenerate" => {
+          if (true) {
+            jQuery(s".backupView-generate").hide()
+            jQuery(s".backupView-confirm").show()
+            jQuery(s"li:nth-last-child(1)").addClass("passed")
+          }
+        }
+        case "btnNextConfirm" => {
+
+        }
+      }
     }
 
     def render(p: Props, s: State): VdomElement = {
@@ -101,6 +142,7 @@ object BackupAccount {
                       ^.name := "btnNxt",
                       ^.`type` := "button",
                       ^.className := "btn btnDefault goupButton setdefault",
+                      ^.onClick --> onBtnClicked("btnNextGenerate"),
                       "Next")))))),
           <.div(
             ^.className := "backupView-phrase",
@@ -121,7 +163,8 @@ object BackupAccount {
                   ^.id := "errorMessage",
                   "Invalid phrase"),
                 <.ul(
-                  ^.id := "mnemonic-list")))),
+                  ^.id := "mnemonic-list")(
+                    s.phrase.split(" ").sorted map generateWordList: _*)))),
           <.div(
             ^.className := "backupView-confirm",
             <.div(
@@ -153,12 +196,13 @@ object BackupAccount {
                   ^.`type` := "button",
                   VdomAttr("data-toggle") := "modal",
                   ^.className := "btn btnDefault goupButton setdefault",
+                  ^.onClick --> onBtnClicked("btnNextStart"),
                   "Next"))))))
     }
   }
 
   val component = ScalaComponent.builder[Props]("BackupAccount")
-    .initialState(State())
+    .initialState(State(""))
     .renderBackend[Backend]
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
