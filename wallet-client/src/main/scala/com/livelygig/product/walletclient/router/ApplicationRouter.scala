@@ -59,6 +59,10 @@ object ApplicationRouter {
 
   case object TestLoc extends Loc
 
+  case object ViewBackupPhraseLoc extends Loc
+  case object ConfirmBackupPhraseLoc extends Loc
+  case object ConfirmedBackupPhraseLoc extends Loc
+
   case class PopulateQRCodeLoc(to: String) extends Loc
 
   private val walletaccountProxy = WalletCircuit.connect(_.ERCToken)
@@ -71,6 +75,11 @@ object ApplicationRouter {
       | staticRoute(s"#/terms", TermsOfServiceLoc) ~> render(TermsOfServiceView.component())
       | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
       | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => SetupView.component(SetupView.Props(ctl)))
+      | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => LoginView.component(LoginView.Props(ctl)))
+      | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => BackupAccountTerms.component(BackupAccountTerms.Props(ctl)))
+      | staticRoute(s"#/backup/storephrase", ViewBackupPhraseLoc) ~> renderR(ctl => ViewBackupPhrase.component(ViewBackupPhrase.Props(ctl)))
+      | staticRoute(s"#/backup/putphrase", ConfirmBackupPhraseLoc) ~> renderR(ctl => ConfirmBakupPhrase.component(ConfirmBakupPhrase.Props(ctl)))
+      | staticRoute(s"#/backup/confirm", ConfirmedBackupPhraseLoc) ~> renderR(ctl => ConfirmedBackupPhrase.component(ConfirmedBackupPhrase.Props(ctl)))
       | staticRoute(s"#/setup/register", SetupRegisterLoc) ~> renderR(ctl => SetupRegisterView.component(SetupRegisterView.Props(ctl)))
       | staticRoute(s"#/send", SendLoc) ~> renderR(ctl => walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, ""))))
       | staticRoute(s"#/request", RequestLoc) ~> renderR(ctl => RequestView(RequestView.Props(ctl)))
@@ -84,11 +93,11 @@ object ApplicationRouter {
       | staticRoute(s"#/multisig", MultisigHomeLoc) ~> renderR(ctl => walletaccountProxy(proxy => MultisigHomeView.component(MultisigHomeView.Props(proxy, ctl))))
       | staticRoute(s"#/addToken", AddTokenLoc) ~> renderR(ctl => AddTokenView(AddTokenView.Props()))
       | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props()))
+      | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => BackupAccountTerms(BackupAccountTerms.Props(ctl)))
       | dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
         walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}")))))
       .notFound(redirectToPage(LandingLoc)(Redirect.Replace))
 
   }.renderWith(MainLayout.layout _)
-
   val router = Router(BaseUrl.until_#, routerConfig)
 }
