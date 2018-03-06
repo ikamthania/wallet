@@ -2,15 +2,11 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.LightWallet
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
-import diode.data.Pot
-import diode.react.ModelProxy
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, VdomElement, ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromHtml, ScalaComponent }
-import org.scalajs.dom
 
 object BackupAccount {
 
@@ -22,32 +18,21 @@ object BackupAccount {
 
     def componentDidMount(props: Props): Callback = {
       generateMnemonicPhrase
-      Callback.empty
     }
 
     def generateMnemonicPhrase() = {
       val mnemonicPhrase = LightWallet.keystore.generateRandomSeed("").toString
-      t.modState(s => s.copy(phrase = mnemonicPhrase)).runNow();
-      //      t.modState(s => s.copy(phrase = "Later, you can enter this phrase into Ubunda (or other wallets) to re-gain control over your account")).runNow();
-      //      $("#mnemonic-phrase").html(t.state.runNow().phrase);
-      dom.window.alert(mnemonicPhrase)
+      t.modState(s => s.copy(phrase = mnemonicPhrase))
     }
 
     def generateWordList(e: String): VdomElement = {
-      /* val words =e.split(" ");
-      // var wordsUnsorted = shuffleArray(words);
-      var sortedWords = words.sorted;*/
-      println(e)
       <.li(^.id := e, s"$e")
-
-      //      $("#mnemonic-list").html(items);
-      //      $("#mnemonic-list li").on("click", (arg) => onWordClicked(arg));
-
     }
-    def onItemClicked(e: ReactEventFromHtml): react.Callback = {
 
+    def onItemClicked(e: ReactEventFromHtml): react.Callback = {
       Callback.empty
     }
+
     def onBtnClicked(id: String) = Callback {
       id match {
         case "btnNextStart" => {
