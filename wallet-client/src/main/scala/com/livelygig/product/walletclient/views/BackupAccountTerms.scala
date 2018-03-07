@@ -18,35 +18,15 @@ object BackupAccountTerms {
 
   case class Props(router: RouterCtl[Loc])
 
-  final case class State(phrase: String)
+  final case class State()
 
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-      generateMnemonicPhrase
+      //      generateMnemonicPhrase
       Callback.empty
     }
 
-    def generateMnemonicPhrase() = {
-      val mnemonicPhrase = KeyStore.generateRandomSeed("").toString
-      //      KeyStore.createVault()
-      t.modState(s => s.copy(phrase = mnemonicPhrase)).runNow();
-      //      t.modState(s => s.copy(phrase = "Later, you can enter this phrase into Ubunda (or other wallets) to re-gain control over your account")).runNow();
-      //      $("#mnemonic-phrase").html(t.state.runNow().phrase);
-      dom.window.alert(mnemonicPhrase)
-    }
-
-    def generateWordList(e: String): VdomElement = {
-      /* val words =e.split(" ");
-      // var wordsUnsorted = shuffleArray(words);
-      var sortedWords = words.sorted;*/
-      println(e)
-      <.li(^.id := e, s"$e")
-
-      //      $("#mnemonic-list").html(items);
-      //      $("#mnemonic-list li").on("click", (arg) => onWordClicked(arg));
-
-    }
     def onItemClicked(e: ReactEventFromHtml): react.Callback = {
 
       Callback.empty
@@ -250,7 +230,7 @@ object BackupAccountTerms {
   }
 
   val component = ScalaComponent.builder[Props]("BackupAccount")
-    .initialState(State(""))
+    .initialState(State())
     .renderBackend[Backend]
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build

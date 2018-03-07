@@ -1,10 +1,13 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.walletclient.facades.KeyStore
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ ConfirmedBackupPhraseLoc, Loc }
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
+import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventTypes, ScalaComponent }
+import org.scalajs.dom
 
 object ConfirmBakupPhrase {
 
@@ -26,6 +29,22 @@ object ConfirmBakupPhrase {
       Callback {
       }
     }
+    def generateWordList(e: String): VdomElement = {
+      /* val words =e.split(" ");
+      // var wordsUnsorted = shuffleArray(words);
+      var sortedWords = words.sorted;*/
+      <.li(^.id := e, ^.onClick --> wordSelection(e), s"$e")
+
+      //      $("#mnemonic-list").html(items);
+      //      $("#mnemonic-list li").on("click", (arg) => onWordClicked(arg));
+
+    }
+
+    def wordSelection(e: /*ReactEventFromInput*/ String): react.Callback = {
+      jQuery(".backupPhrase-container").append(s"<li>$e</>")
+      jQuery(s"#$e").remove()
+      Callback.empty
+    }
 
     def render(p: Props, s: State): VdomElement = {
       <.div(
@@ -37,7 +56,8 @@ object ConfirmBakupPhrase {
             <.h3("Confirm your back-up phrase"),
             <.div(
               ^.className := "row backupPhrase-section",
-              <.div(
+              <.ul(
+                ^.id := "phrase-container",
                 ^.className := "col-xs-12 backupPhrase-container")))),
         <.div(
           ^.className := "row",
@@ -47,8 +67,7 @@ object ConfirmBakupPhrase {
               ^.id := "errorMessage",
               "Invalid phrase"),
             <.ul(
-              ^.id := "mnemonic-list")( //                s.phrase.split(" ").sorted map generateWordList: _*
-              ))),
+              ^.id := "mnemonic-list")(KeyStore.generateRandomSeed("").toString.split(" ") map generateWordList: _*))),
 
         <.div(
           ^.className := "container btnDefault-container",
