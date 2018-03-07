@@ -1,15 +1,16 @@
 package com.livelygig.product.walletclient.views
 
 import com.definitelyscala.bootstrap.ModalOptionsBackdropString
+import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.modals.SetupPasswordModal
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ BackupAccountLoc, Loc, LoginLoc, SetupRegisterLoc }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ BackupAccountLoc, Loc, LoginLoc }
 import com.livelygig.product.walletclient.utils.Defaults
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
+import org.scalajs.dom
 import org.scalajs.jquery.JQueryEventObject
 
 import scala.scalajs.js
@@ -24,6 +25,7 @@ object SetupRegisterView {
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
+      jQuery("#newId").prop("checked", true)
       Callback {
         jQuery("#setupForm").validator("update").on("submit", (e: JQueryEventObject) => {
           if (!e.isDefaultPrevented()) {
@@ -38,6 +40,9 @@ object SetupRegisterView {
     }
 
     def onRegClicked(regItem: String): react.Callback = {
+      if (regItem != "newId")
+        jQuery("#newId").prop("checked", false)
+      //      dom.document.getElementById("newId").che = false
       t.modState(_.copy(regMode = regItem))
     }
 
@@ -123,7 +128,7 @@ object SetupRegisterView {
             <.div(
               ^.className := "radio radio-top",
               <.label(
-                <.input(^.id := "newId", ^.onClick --> onRegClicked("newId"), ^.name := "initialIdentifier", ^.value := "on", ^.`type` := "radio"),
+                <.input(^.id := "newId", ^.onChange --> onRegClicked("newId"), ^.name := "initialIdentifier", ^.value := "on", ^.`type` := "radio" /*, VdomAttr("checked") := true*/ ),
                 "Create a new account")),
             <.button(^.id := "btnAdvOpt", ^.`type` := "button", VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#advOpt", ^.className := "btn btnAdvOpt", "Advanced",
               <.i(VdomAttr("aria-hidden") := "true", ^.className := "fa fa-chevron-down")),
