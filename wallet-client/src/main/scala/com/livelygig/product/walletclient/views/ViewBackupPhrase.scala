@@ -1,44 +1,33 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.shared.models.wallet.{ UserDetails, WalletDetails }
 import com.livelygig.product.walletclient.facades.KeyStore
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
+import com.livelygig.product.walletclient.handler.GetUserDetails
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ ConfirmBackupPhraseLoc, Loc }
+import com.livelygig.product.walletclient.services.WalletCircuit
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
 import org.scalajs.dom
+import diode.AnyAction._
 
 object ViewBackupPhrase {
 
   case class Props(router: RouterCtl[Loc])
 
-  final case class State( /*phrase: String*/ )
+  final case class State(phrase: String = KeyStore.generateRandomSeed(""))
 
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-      generateMnemonicPhrase
+      WalletCircuit.dispatch(GetUserDetails(WalletCircuit.zoom(_.user).value.userDetails.copy(phrase = t.state.runNow().phrase.split(" "))))
       Callback.empty
-    }
-
-    def generateMnemonicPhrase() = {
-      val mnemonicPhrase = KeyStore.generateRandomSeed("").toString
-      //      KeyStore.createVault()
-      //      t.modState(s => s.copy(phrase = mnemonicPhrase)).runNow();
-      //      t.modState(s => s.copy(phrase = "Later, you can enter this phrase into Ubunda (or other wallets) to re-gain control over your account")).runNow();
-      //      $("#mnemonic-phrase").html(t.state.runNow().phrase);
-      //      dom.window.alert(mnemonicPhrase)
-      jQuery("#mnemonic-phrase").text(mnemonicPhrase)
     }
 
     def onBtnClicked(): react.Callback = {
       t.props.flatMap(_.router.set(ConfirmBackupPhraseLoc))
-    }
-
-    def componentWillMount(props: Props): Callback = {
-      Callback {
-      }
     }
 
     def render(p: Props, s: State): VdomElement = {
@@ -67,7 +56,7 @@ object ViewBackupPhrase {
               ^.id := "mnemonic-phrase-container",
               <.p(
                 ^.id := "mnemonic-phrase",
-                ^.className := "backup-phr-txt")),
+                ^.className := "backup-phr-txt", s.phrase)),
             <.form(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
               <.div(
@@ -98,7 +87,6 @@ object ViewBackupPhrase {
   val component = ScalaComponent.builder[Props]("ViewBackupPhrase")
     .initialState(State())
     .renderBackend[Backend]
-    .componentWillMount(scope => scope.backend.componentWillMount(scope.props))
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
 
