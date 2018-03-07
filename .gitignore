@@ -56,3 +56,5 @@ trigger.js
 
 temporary/*
 !temporary/.placeholder
+
+Build/*
