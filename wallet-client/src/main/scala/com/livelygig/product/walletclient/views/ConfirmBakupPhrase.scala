@@ -2,46 +2,35 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.KeyStore
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ ConfirmedBackupPhraseLoc, Loc }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ConfirmedBackupPhraseLoc, Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventTypes, ScalaComponent }
+import japgolly.scalajs.react.{BackendScope, Callback, ReactEventTypes, ScalaComponent}
 import org.scalajs.dom
 import diode.AnyAction._
 
 import scala.collection.mutable.ArrayBuffer
+import scala.util.Random
 
 object ConfirmBakupPhrase {
 
-  case class Props(router: RouterCtl[Loc])
+  case class Props(router: RouterCtl[Loc],phraseWords :Seq[String]= WalletCircuit.zoom(_.user.userDetails.phrase).value)
 
-  final case class State(phrase: Seq[String], isValidPhrase: Boolean = false)
+  final case class State(phraseSelection: Seq[String], phraseSelected: Seq[String] , isValidPhrase: Boolean = false)
+
 
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-      val phraseWords = WalletCircuit.zoom(_.user.userDetails.phrase).value
-      t.modState(s => s.copy(phrase = phraseWords)).runNow()
+      t.modState(s => s.copy(phraseSelection = t.props.runNow().phraseWords)).runNow()
       Callback.empty
     }
 
     def onBtnClicked(): react.Callback = {
-      if (jQuery("ul#phrase-container li").length == 12) {
-        var phraseWords = ArrayBuffer[String]()
-        jQuery("ul#phrase-container li").each(func => {
-          phraseWords += func.innerHTML
-        })
-        if (phraseWords.equals(t.state.runNow().phrase)) {
-
-          t.props.runNow().router.set(ConfirmedBackupPhraseLoc).runNow()
-          t.modState(s => s.copy(isValidPhrase = false)).runNow()
-
-        } else {
-          //        todo add validator for mnemonic phrase
-          t.modState(s => s.copy(isValidPhrase = true)).runNow()
-        }
+      if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))) {
+        t.props.runNow().router.set(ConfirmedBackupPhraseLoc).runNow()
 
       } else {
         //        todo add validator for mnemonic phrase
@@ -50,15 +39,26 @@ object ConfirmBakupPhrase {
       Callback.empty
     }
 
-    def generateWordList(e: String): VdomElement = {
-      <.li(^.id := e, ^.onClick --> wordSelection(e), s"$e")
+    def generateWordList(e: String):VdomElement = {
+
+      <.li(^.onClick-->generateWordListSelected(e),e)
     }
 
-    def wordSelection(e: /*ReactEventFromInput*/ String): react.Callback = {
-      jQuery(".backupPhrase-container").append(s"<li id='li-$e'>$e</>")
-      jQuery(s"#$e").hide()
+    def generateWordListSelected(e: String) = {
+      if (t.state.runNow().phraseSelected.contains(e)){
+      val selected = t.state.runNow().phraseSelection :+ e
+      val diselect = t.state.runNow().phraseSelected.filterNot(_.equals(e))
+      t.modState(s => s.copy(phraseSelected = diselect, phraseSelection = selected)).runNow
+    }
+      else if(t.state.runNow().phraseSelection.contains(e)){
+      val selected = t.state.runNow().phraseSelected :+ e
+      val diselect = t.state.runNow().phraseSelection.filterNot(_.equals(e))
+      t.modState(s => s.copy(phraseSelected = selected, phraseSelection = diselect)).runNow
+
+    }
       Callback.empty
     }
+
 
     def render(p: Props, s: State): VdomElement = {
       <.div(
@@ -72,7 +72,7 @@ object ConfirmBakupPhrase {
               ^.className := "row backupPhrase-section",
               <.ul(
                 ^.id := "phrase-container",
-                ^.className := "col-xs-12 backupPhrase-container")),
+                ^.className := "col-xs-12 backupPhrase-container")(s.phraseSelected.filter(_.nonEmpty) map generateWordList: _*)),
             if (s.isValidPhrase) {
               <.div(^.className := "alert alert-danger alert-dismissible fade in",
                 <.a(^.href := "#", ^.className := "close", VdomAttr("data-dismiss") := "alert", VdomAttr("aria-label") := "close","×"),
@@ -88,7 +88,7 @@ object ConfirmBakupPhrase {
               ^.id := "errorMessage",
               "Invalid phrase"),
             <.ul(
-              ^.id := "mnemonic-list")(s.phrase.sorted map generateWordList: _*))),
+              ^.id := "mnemonic-list")(Random.shuffle(s.phraseSelection.filter(_.nonEmpty)) map generateWordList: _*))),
 
         <.div(
           ^.className := "container btnDefault-container",
@@ -108,7 +108,7 @@ object ConfirmBakupPhrase {
   }
 
   val component = ScalaComponent.builder[Props]("ConfirmBakupPhrase")
-    .initialState(State(Seq("")))
+    .initialState(State(Seq(""),Seq("")))
     .renderBackend[Backend]
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
