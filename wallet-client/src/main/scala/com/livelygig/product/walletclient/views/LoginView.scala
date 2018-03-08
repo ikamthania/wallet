@@ -31,17 +31,21 @@ object LoginView {
 
     def render(p: Props, s: State): VdomElement = {
       <.div(
-
+        <.div(^.className := "wallet-inner-navigation",
+          <.div(^.className := "row",
+          <.fieldset(^.className := "col-md-6 col-md-offset-3",
+          <.div(^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+          <.div(^.className := "wallet-information",
+          <.h2("Wallet"),
+          <.h3("Login")
+          )
+          )
+          )
+          )
+          ),
         <.div(
           ^.className := "importAccount",
-          <.div(
-            ^.className := "row",
-            <.div(
-              ^.className := "col-lg-12",
-              <.h4(
-                ^.id := "impAccHeader",
-                ^.className := "login-heading",
-                "Login")))),
+        
 //          <.div(
 //            ^.className := "starter-template row",
 //            """@request.flash.get("error").map { msg =>""",
@@ -111,9 +115,6 @@ object LoginView {
                 <.div(
                   ^.className := "help-block with-errors",
                   ^.style := js.Dictionary("font-size" -> "16px"))))),
-//          <.div(
-//            ^.className := "col-xs-12 col-md-12 info",
-//           ),
           <.div(
             ^.className := "form-group",
             <.div(
@@ -127,7 +128,7 @@ object LoginView {
               <.button(
                 ^.className := "btn  btnDefault",
                 ^.`type` := "submit",
-                "Log In"))),
+                "Log In")))),
           )
     }
   }

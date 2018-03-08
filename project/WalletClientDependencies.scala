@@ -38,9 +38,11 @@ object WalletClientDependencies {
       "react-dom" -> "16.2.0",
       "toastr" -> "2.1.4",
       "font-awesome" -> "4.7.0",
-      "ethereumjs-wallet" -> "0.6.0",
       "eth-lightwallet" -> "3.0.1",
-      "bootstrap-validator" -> "0.11.9"
+      "bootstrap-validator" -> "0.11.9",
+      "bitcore-mnemonic" -> "1.5.0",
+      "hdkey"->"0.8.0",
+      "ethereumjs-wallet"->"0.6.0"
       //      "react" -> "15.6.1",
     )
   )

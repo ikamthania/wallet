@@ -20,7 +20,7 @@ object SetupRegisterView {
   case class Props(router: RouterCtl[Loc])
 
   final case class State(accountName: String = "", mnemonicPhrase: String = Defaults.keyStoreText,
-    privateKey: String = "", keystoreText: String = Defaults.keyStoreText, regMode: String = "")
+    privateKey: String = "", keystoreText: String = Defaults.keyStoreText, regMode: String = "newId")
 
   final class Backend(t: BackendScope[Props, State]) {
 

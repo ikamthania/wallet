@@ -71,8 +71,8 @@ object ConfirmBakupPhrase {
             <.div(
               ^.className := "row backupPhrase-section",
               <.ul(
-                ^.id := "phrase-container",
-                ^.className := "col-xs-12 backupPhrase-container")(s.phraseSelected.filter(_.nonEmpty) map generateWordList: _*)),
+                ^.id := "phrase-container ",
+                ^.className := "col-xs-12 backupPhrase-container mnemonic-phrase-box")(s.phraseSelected.filter(_.nonEmpty) map generateWordList: _*)),
             if (s.isValidPhrase) {
               <.div(^.className := "alert alert-danger alert-dismissible fade in",
                 <.a(^.href := "#", ^.className := "close", VdomAttr("data-dismiss") := "alert", VdomAttr("aria-label") := "close","×"),
