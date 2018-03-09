@@ -9,6 +9,8 @@ object WalletMain extends Bundles {
   def main(args: Array[String]): Unit = {
 
     ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
+    println(dom.window.localStorage.getItem("chacha"))
+    dom.window.localStorage.setItem("chacha", "chachi")
     /*CoreApi.mobileGetUserDetails().map { userDetails =>
       Json.parse(userDetails).validate[UserDetails].asOpt match {
 
