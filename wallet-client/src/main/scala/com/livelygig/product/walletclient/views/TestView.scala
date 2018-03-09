@@ -1,9 +1,9 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.facades.{ Blockies, Pseudoloc, Toastr }
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 
 import scala.scalajs.js
 

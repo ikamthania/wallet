@@ -4,7 +4,7 @@ import Config from './config.json';
 
 // see config json and configure it to the running instance of server
 var URI = (__DEV__) ? Config.PRODUCTION_URI : Config.PRODUCTION_URI
-//"file:///android_asset/views/walletmain.html"
+//"file:///android_asset/walletmain.html"
 
 export default class App extends React.Component {
   render() {

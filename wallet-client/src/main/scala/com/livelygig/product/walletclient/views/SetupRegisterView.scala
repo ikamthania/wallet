@@ -10,7 +10,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
-import org.scalajs.dom
 import org.scalajs.jquery.JQueryEventObject
 
 import scala.scalajs.js
@@ -20,7 +19,7 @@ object SetupRegisterView {
   case class Props(router: RouterCtl[Loc])
 
   final case class State(accountName: String = "", mnemonicPhrase: String = Defaults.keyStoreText,
-    privateKey: String = "", keystoreText: String = Defaults.keyStoreText, regMode: String = "")
+    privateKey: String = "", keystoreText: String = Defaults.keyStoreText, regMode: String = "newId")
 
   final class Backend(t: BackendScope[Props, State]) {
 
