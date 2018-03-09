@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
-import com.livelygig.product.walletclient.facades.{HDKey, Mnemonic, Wallet}
+import com.livelygig.product.walletclient.facades.{Mnemonic}
 import com.livelygig.product.walletclient.handler.GetUserDetails
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ConfirmBackupPhraseLoc, Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
@@ -10,7 +10,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
-import org.scalajs.dom
 
 object ViewBackupPhrase {
 
