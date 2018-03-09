@@ -3,6 +3,7 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.shared.models.wallet._
 // import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.Toastr
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.UpdateAccountTokenList
 import com.livelygig.product.walletclient.modals.ConfirmModal
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
@@ -16,7 +17,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import org.scalajs.dom
 import play.api.libs.json.Json
 

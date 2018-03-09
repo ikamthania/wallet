@@ -1,13 +1,10 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
-import diode.data.Pot
-import diode.react.ModelProxy
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, VdomElement, ^, _ }
-import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromHtml, ScalaComponent }
+import japgolly.scalajs.react.vdom.html_<^.{<, VdomAttr, VdomElement, ^, _}
+import japgolly.scalajs.react.{BackendScope, Callback, ReactEventFromHtml, ScalaComponent}
 
 import scala.scalajs.js
 

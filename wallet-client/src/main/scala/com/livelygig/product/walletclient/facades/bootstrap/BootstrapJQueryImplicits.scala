@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.facades.bootstrap
 
-import org.scalajs.jquery.JQuery
 import com.definitelyscala.bootstrap.{ JQuery => BootstrapJQuery }
+import org.scalajs.jquery.JQuery
 
 trait BootstrapJQueryImplicits {
   implicit def implicitBootstrapJQuery(jq: JQuery): BootstrapJQuery = {

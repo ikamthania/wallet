@@ -1,7 +1,5 @@
 package com.livelygig.product.walletclient.facades.bootstrap
 
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade
-
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 

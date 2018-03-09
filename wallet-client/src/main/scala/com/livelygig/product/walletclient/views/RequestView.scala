@@ -6,14 +6,12 @@ import com.livelygig.product.walletclient.modals.ShowQRCode
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
 import com.livelygig.product.walletclient.services.WalletCircuit
 //import QRCode
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import org.scalajs.dom
-
-import scala.scalajs.js
 
 object RequestView {
 

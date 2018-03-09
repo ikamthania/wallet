@@ -4,6 +4,7 @@ import com.livelygig.product.shared.models.Contracts.MultiSigWalletWithDailyLimi
 import com.livelygig.product.shared.models.Solidity._
 import com.livelygig.product.shared.models.wallet.EtherTransaction
 // import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.facades.{ EthereumjsABI, EthereumjsUnits }
 import com.livelygig.product.walletclient.modals.ConfirmModal
 import com.livelygig.product.walletclient.router.ApplicationRouter
@@ -11,9 +12,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-
-import scala.scalajs.js
 
 object AddSharedWalletView {
 

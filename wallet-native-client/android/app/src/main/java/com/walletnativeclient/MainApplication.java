@@ -1,14 +1,14 @@
 package com.walletnativeclient;
 
 import android.app.Application;
-
+import android.webkit.WebView;
 import com.facebook.react.ReactApplication;
-import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
-import android.webkit.WebView;
+import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
+
 import java.util.Arrays;
 import java.util.List;
 
