@@ -16,7 +16,7 @@ object ViewBackupPhrase {
 
   case class Props(router: RouterCtl[Loc])
 
-  final case class State(phrase: Mnemonic = new Mnemonic(), isChecked:Boolean=false)
+  final case class State(phrase: String= new Mnemonic().toString, isChecked:Boolean=false)
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
@@ -25,12 +25,13 @@ object ViewBackupPhrase {
     }
 
     def onBtnClicked(): react.Callback = {
-      dom.window.alert(s"Extended Public key--->${HDKey.fromMasterSeed(t.state.runNow().phrase.toSeed(t.state.runNow().phrase.toString)).publicExtendedKey}")
-      dom.window.alert(s"Extended private key--->${HDKey.fromMasterSeed(t.state.runNow().phrase.toSeed(t.state.runNow().phrase.toString)).privateExtendedKey}")
+//      println(s"Extended Public key--->${HDKey.fromMasterSeed(t.state.runNow().phrase.toSeed(t.state.runNow().phrase.toString)).publicExtendedKey}")
+//      println(s"Extended Public key--->${t.state.runNow().phrase.toString}")
+//      println(s"Extended private key--->${HDKey.fromMasterSeed(t.state.runNow().phrase.toSeed(t.state.runNow().phrase.toString)).privateExtendedKey}")
       //todo convert pub n private key to string format from hex
-      dom.window.alert(s"Private key--->${Wallet.fromExtendedPrivateKey(HDKey.fromMasterSeed(t.state.runNow().phrase.toSeed(t.state.runNow().phrase.toString)).privateExtendedKey).getPrivateKey().toString}")
-      dom.window.alert(s"Public key--->${Wallet.fromExtendedPrivateKey(HDKey.fromMasterSeed(t.state.runNow().phrase.toSeed(t.state.runNow().phrase.toString)).privateExtendedKey).getPublicKey().toString}")
-//      dom.window.alert(s"Public key--->${Wallet.getPrivateKey()}")
+//      val a=Wallet.fromExtendedPrivateKey(HDKey.fromMasterSeed(t.state.runNow().phrase.toSeed(t.state.runNow().phrase.toString)).privateExtendedKey).getPrivateKeyString().toString
+//      println(s"Private key--->${new String(a)}")
+//      println(s"Public key--->${Wallet.fromExtendedPrivateKey(HDKey.fromMasterSeed(t.state.runNow().phrase.toSeed(t.state.runNow().phrase.toString)).privateExtendedKey).getAddressString().toString}")
 
       if (jQuery("#chkbSecure").is(":checked")) {
         t.modState(s=>s.copy(isChecked = true)).runNow()
@@ -42,6 +43,17 @@ object ViewBackupPhrase {
 
     def render(p: Props, s: State): VdomElement = {
       <.div(
+        <.div(^.className := "wallet-inner-navigation",
+<.div(^.className := "row",
+<.div(^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+<.div(^.className := "wallet-information",
+<.h2("Wallet"),
+<.h3("Back up account")
+)
+)
+)
+),
+        <.div(
         ^.className := "backupView-main scrollableArea",
         <.div(
           ^.className := "backupView-generate",
@@ -97,7 +109,7 @@ object ViewBackupPhrase {
                   ^.`type` := "button",
                   ^.className := "btn btnDefault goupButton setdefault",
                   ^.onClick --> onBtnClicked(),
-                  "Next"))))))
+                  "Next")))))))
 
     }
   }

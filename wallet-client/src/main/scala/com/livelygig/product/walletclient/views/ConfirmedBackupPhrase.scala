@@ -29,40 +29,51 @@ object ConfirmedBackupPhrase {
 
     def render(p: Props, s: State): VdomElement = {
       <.div(
-        ^.className := "backupView-main scrollableArea",
         <.div(
-          ^.className := "backupView-confirm",
+          ^.className := "wallet-inner-navigation",
           <.div(
             ^.className := "row",
             <.div(
-              ^.className := "col-xs-12",
+              ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
               <.div(
-                ^.className := "confirm-square",
-                <.i(
-                  VdomAttr("aria-hidden") := "true",
-                  ^.className := "fa fa-check-circle-o")))),
+                ^.className := "wallet-information",
+                <.h2("Wallet"),
+                <.h3("Back up account"))))),
+        <.div(
+          ^.className := "backupView-main scrollableArea",
           <.div(
-            ^.className := "row",
-            <.div(
-              ^.className := "col-xs-12",
-              <.div(
-                ^.className := "confirm-message",
-                <.h3("Your account is backed up."),
-                <.p("If this app is deleted or you lose access to your account, your account can be recovered using the Backup Mnemonic Phrase you have just secured.")))),
-          <.div(
-            ^.className := "container btnDefault-container",
+            ^.className := "backupView-confirm",
             <.div(
               ^.className := "row",
               <.div(
-                ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                <.button(
-                  ^.id := "btnNextStart",
-                  ^.name := "btnNxt",
-                  ^.`type` := "button",
-                  VdomAttr("data-toggle") := "modal",
-                  ^.className := "btn btnDefault goupButton setdefault",
-                  ^.onClick --> onBtnClicked(),
-                  "Next"))))))
+                ^.className := "col-xs-12",
+                <.div(
+                  ^.className := "confirm-square",
+                  <.i(
+                    VdomAttr("aria-hidden") := "true",
+                    ^.className := "fa fa-check-circle-o")))),
+            <.div(
+              ^.className := "row",
+              <.div(
+                ^.className := "col-xs-12",
+                <.div(
+                  ^.className := "confirm-message",
+                  <.h3("Your account is backed up."),
+                  <.p("If this app is deleted or you lose access to your account, your account can be recovered using the Backup Mnemonic Phrase you have just secured.")))),
+            <.div(
+              ^.className := "container btnDefault-container",
+              <.div(
+                ^.className := "row",
+                <.div(
+                  ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+                  <.button(
+                    ^.id := "btnNextStart",
+                    ^.name := "btnNxt",
+                    ^.`type` := "button",
+                    VdomAttr("data-toggle") := "modal",
+                    ^.className := "btn btnDefault goupButton setdefault",
+                    ^.onClick --> onBtnClicked(),
+                    "Next")))))))
     }
   }
 
