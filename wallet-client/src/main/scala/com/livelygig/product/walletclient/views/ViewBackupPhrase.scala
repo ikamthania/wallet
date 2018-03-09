@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
-import com.livelygig.product.walletclient.facades.{HDKey, HDPublicKey, Mnemonic, Wallet}
+import com.livelygig.product.walletclient.facades.{HDKey, Mnemonic, Wallet}
 import com.livelygig.product.walletclient.handler.GetUserDetails
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ConfirmBackupPhraseLoc, Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
