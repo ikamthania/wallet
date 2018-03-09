@@ -13,7 +13,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 // scalastyle:off
 object MainLayout {
 
-  //  val sidebarNotRequiredFor = Seq(ApplicationRouter.LandingLoc, ApplicationRouter.)
+  //    val sidebarNotRequiredFor = Seq(ApplicationRouter.LandingLoc, ApplicationRouter.)
 
   def layout(c: RouterCtl[Loc], r: Resolution[Loc]) = {
     <.div(^.className := "wallet-main")(
