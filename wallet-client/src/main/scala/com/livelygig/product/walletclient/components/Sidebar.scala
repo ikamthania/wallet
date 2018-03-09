@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient.components
 
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.ChangeLang
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
@@ -10,7 +11,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
 import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js

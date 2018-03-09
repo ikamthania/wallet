@@ -1,8 +1,8 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.Toastr
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails, UpdateAccountTokenList }
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc

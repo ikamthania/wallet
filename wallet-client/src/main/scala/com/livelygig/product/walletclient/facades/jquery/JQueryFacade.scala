@@ -1,9 +1,9 @@
 package com.livelygig.product.walletclient.facades.jquery
 
+import org.scalajs.jquery.JQueryStatic
+
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
-
-import org.scalajs.jquery.JQueryStatic
 
 trait JQueryFacade {
   def jQuery = JQueryFacade.jQuery

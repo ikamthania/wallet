@@ -1,17 +1,12 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.facades.KeyStore
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ConfirmedBackupPhraseLoc, Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{BackendScope, Callback, ReactEventTypes, ScalaComponent}
-import org.scalajs.dom
-import diode.AnyAction._
+import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
-import scala.collection.mutable.ArrayBuffer
 import scala.util.Random
 
 object ConfirmBakupPhrase {

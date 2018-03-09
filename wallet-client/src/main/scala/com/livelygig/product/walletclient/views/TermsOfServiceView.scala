@@ -2,7 +2,6 @@ package com.livelygig.product.walletclient.views
 
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import org.scalajs.dom
 
 object TermsOfServiceView {

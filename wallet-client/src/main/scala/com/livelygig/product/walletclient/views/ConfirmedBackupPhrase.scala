@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc, LoginLoc }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, _ }

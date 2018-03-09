@@ -10,7 +10,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
-import org.scalajs.dom
 import org.scalajs.jquery.JQueryEventObject
 
 import scala.scalajs.js

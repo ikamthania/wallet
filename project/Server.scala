@@ -14,8 +14,8 @@ import sbt.Keys._
 import sbt._
 import webscalajs.WebScalaJS.autoImport.{devCommands, scalaJSPipeline, scalaJSProjects}
 
+import scalajsbundler.sbtplugin.WebScalaJSBundlerPlugin
 import scalajsbundler.sbtplugin.WebScalaJSBundlerPlugin.autoImport._
-import scalajsbundler.sbtplugin.{NpmAssets, WebScalaJSBundlerPlugin}
 
 object Server {
   private[this] val dependencies = {

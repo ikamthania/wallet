@@ -2,10 +2,8 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import japgolly.scalajs.react._
-import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
-import org.scalajs.dom.Element
 
 object LandingView {
 

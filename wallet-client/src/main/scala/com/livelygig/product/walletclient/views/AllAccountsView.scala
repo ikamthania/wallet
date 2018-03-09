@@ -1,10 +1,10 @@
 package com.livelygig.product.walletclient.views
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, AddNewAccountLoc, Loc }
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
-import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import org.scalajs.dom
 import play.api.libs.json.{ JsValue, Json }
 
