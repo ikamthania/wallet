@@ -69,6 +69,17 @@ object ConfirmBakupPhrase {
 
     def render(p: Props, s: State): VdomElement = {
       <.div(
+        <.div(^.className := "wallet-inner-navigation",
+          <.div(^.className := "row",
+            <.div(^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+              <.div(^.className := "wallet-information",
+                <.h2("Wallet"),
+                <.h3("Back up account")
+              )
+            )
+          )
+        ),
+      <.div(
         ^.className := "backupView-phrase",
         <.div(
           ^.className := "row",
@@ -107,7 +118,7 @@ object ConfirmBakupPhrase {
                 VdomAttr("data-toggle") := "modal",
                 ^.className := "btn btnDefault goupButton setdefault",
                 ^.onClick --> onBtnClicked(),
-                "Next")))))
+                "Next"))))))
     }
   }
 
