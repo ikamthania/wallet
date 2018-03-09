@@ -42,6 +42,17 @@ object ViewBackupPhrase {
 
     def render(p: Props, s: State): VdomElement = {
       <.div(
+        <.div(^.className := "wallet-inner-navigation",
+<.div(^.className := "row",
+<.div(^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+<.div(^.className := "wallet-information",
+<.h2("Wallet"),
+<.h3("Back up account")
+)
+)
+)
+),
+        <.div(
         ^.className := "backupView-main scrollableArea",
         <.div(
           ^.className := "backupView-generate",
@@ -97,7 +108,7 @@ object ViewBackupPhrase {
                   ^.`type` := "button",
                   ^.className := "btn btnDefault goupButton setdefault",
                   ^.onClick --> onBtnClicked(),
-                  "Next"))))))
+                  "Next")))))))
 
     }
   }
