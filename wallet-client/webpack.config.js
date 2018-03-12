@@ -11,7 +11,7 @@ var globalModules = {
   "ethereumjs-abi": "EthereumjsABI",
   "ethereumjs-units": "EthereumjsUnits",
   "toastr" : "Toastr",
-  "blockies" : "Blockies",
+  "ethereum-blockies" : "Blockies",
 };
 
 Object.keys(config.entry).forEach(function(key) {

@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient.components
 
+import com.livelygig.product.walletclient.facades.Blockies
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.ChangeLang
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
@@ -11,6 +12,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
 import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
+import org.scalajs.dom
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
@@ -84,8 +86,9 @@ object Sidebar {
       val userDetails = WalletCircuit.zoom(_.user.userDetails)
 
       // todo fix blockies
-      /*val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = userDetails.value.walletDetails.publicKey))
-      jQuery("#userProfileImg").empty().append(blockies)*/
+      val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = dom.window.localStorage.getItem("pubKey")))
+      //Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = dom.window.localStorage.getItem("pubKey")))
+      jQuery("#userProfileImg").append(blockies)
     }
 
     def componentDidMount(): Callback = {
@@ -161,9 +164,9 @@ object Sidebar {
               <.div(
                 ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
                 <.div(
-                  ^.className := "wallet-user-icon notAlpha",
-                  <.a(
-                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),
+                  ^.className := "wallet-user-icon ",
+                  /* <.a(
+                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),*/
 
                   <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
       } else if (currentPage == IdentitiesLoc || currentPage == ManageIdentitiesLoc) {
@@ -204,10 +207,10 @@ object Sidebar {
               <.div(
                 ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
                 <.div(
-                  ^.className := "wallet-user-icon notAlpha",
-                  <.a(
+                  ^.className := "wallet-user-icon ",
+                  /* <.a(
                     <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),
-
+*/
                   <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
       } else {
         <.div()(
@@ -245,10 +248,10 @@ object Sidebar {
               <.div(
                 ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
                 <.div(
-                  ^.className := "wallet-user-icon notAlpha",
+                  ^.className := "wallet-user-icon ", /*
                   <.a(
                     ^.href := "#/notification",
-                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),
+                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),*/
                   <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
       }
     }

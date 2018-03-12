@@ -23,12 +23,14 @@ object WalletClientDependencies {
   /** Dependencies for external JS libs that are bundled into a single .js file according to dependency order */
   val jsDependencies = Def.setting(
     Seq(
+//      "org.webjars.bower" % "github-com-MyEtherWallet-blockies" % "0.1.0" / "blockies.js"
+
       //      "org.webjars" % "jquery" % "3.2.1" / "jquery.min.js",
     ))
 
   val npmDependencies = Def.setting(
     Seq(
-      "blockies" -> "0.0.2",
+      "ethereum-blockies"->"0.1.1",
       "bootstrap" -> "~3.3.7",
       "ethereumjs-tx" -> "1.3.3",
       "ethereumjs-abi" -> "0.6.5",
