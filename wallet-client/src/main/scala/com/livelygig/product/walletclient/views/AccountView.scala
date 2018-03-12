@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.facades.{ Toastr, WalletJS }
+import com.livelygig.product.walletclient.facades.{ Blockies, Toastr, WalletJS }
 import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails, UpdateAccountTokenList }
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
@@ -19,6 +19,7 @@ import org.scalajs.dom
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.scalajs.js
 //import japgolly.scalajs.react.vdom.Implicits._
 
 object AccountView {
@@ -80,10 +81,8 @@ object AccountView {
     def componentDidMount(props: Props): Callback = {
       jQuery(".select-currency-info").removeClass("active")
       jQuery(".select-currency-info").first().addClass("active")
-      getLiveCurrencyUpdate
       setCurrencyLocal(t.state.runNow().currencySelected)
       Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
-
     }
 
     def updateURL(loc: String): Callback = {
@@ -190,7 +189,7 @@ object AccountView {
         <.div(
           ^.className := "container btnDefault-container homeButtonContainer",
           <.div(
-            ^.className := "row",
+            ^.className := "row", <.div(^.id := "test"),
             <.div(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
               <.button(^.`type` := "button", ^.className := "btn btnDefault btn-account-camera goupButton notAlphaV",

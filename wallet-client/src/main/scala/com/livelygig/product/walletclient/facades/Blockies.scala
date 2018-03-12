@@ -3,10 +3,10 @@ package com.livelygig.product.walletclient.facades
 import org.scalajs.dom.raw.HTMLCanvasElement
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.JSImport
+import scala.scalajs.js.annotation.{ JSImport, ScalaJSDefined }
 
 @js.native
-@JSImport("blockies", JSImport.Namespace)
+@JSImport("ethereum-blockies", JSImport.Namespace)
 object Blockies extends js.Object {
 
   //  @ScalaJSDefined
