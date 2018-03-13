@@ -11,6 +11,7 @@
 ->          /v1                                     api.v1.Routes
 
 # wallet
+GET         /                                       controllers.ViewController.app()
 GET         /wallet/                                controllers.ViewController.wallet()
 GET         /wallet                                 controllers.ViewController.wallet()
 

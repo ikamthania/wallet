@@ -12,6 +12,10 @@ class ViewController(
   implicit val webJarsUtil: WebJarsUtil)
   extends BaseController with I18nSupport {
 
+  def app() = Action { implicit request =>
+    Redirect(routes.ViewController.wallet())
+  }
+
   def wallet() = Action { implicit request =>
     Ok(views.html.wallet.wallet(webJarsUtil))
   }
