@@ -29,7 +29,7 @@ object AccountView {
   Toastr.options.extendedTimeOut = 60; // How long the toast will display after a user hovers over it
   Toastr.options.closeButton = true
   Toastr.options.positionClass = "toast-top-full-width"
-  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc], loc: String = "")
+  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc])
 
   final case class State(currencySelected: String, coinExchange: CoinExchange, userDetails: UserDetails = UserDetails("", WalletDetails("", "")))
 

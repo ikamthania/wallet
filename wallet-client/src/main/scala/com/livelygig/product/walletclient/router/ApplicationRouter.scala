@@ -14,7 +14,6 @@ object ApplicationRouter {
 
   sealed trait Loc
 
-  case object LandingLoc extends Loc
   case object TermsOfServicesLoc extends Loc
   case object SetupLoc extends Loc
   case object SetupRegisterLoc extends Loc
@@ -71,9 +70,8 @@ object ApplicationRouter {
   // configure the router
   private val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
     import dsl._
-    (staticRoute(root, LandingLoc) ~> renderR(ctl => LandingView.component(LandingView.Props(ctl)))
+    (staticRoute(root, AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => LandingView.component(LandingView.Props(proxy, ctl))))
       | staticRoute(s"#/terms", TermsOfServiceLoc) ~> render(TermsOfServiceView.component())
-      | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
       | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => SetupView.component(SetupView.Props(ctl)))
       | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => LoginView.component(LoginView.Props(ctl)))
       | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => BackupAccountTerms.component(BackupAccountTerms.Props(ctl)))
@@ -94,7 +92,7 @@ object ApplicationRouter {
       | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props()))
       | dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
         walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}")))))
-      .notFound(redirectToPage(LandingLoc)(Redirect.Replace))
+      .notFound(redirectToPage(AccountLoc)(Redirect.Replace))
 
   }.renderWith(MainLayout.layout _)
   val router = Router(BaseUrl.until_#, routerConfig)
