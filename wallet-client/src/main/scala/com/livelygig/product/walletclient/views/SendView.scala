@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient.views
 
+import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.wallet._
 // import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.Toastr
@@ -288,7 +289,12 @@ object SendView {
     def sendTransaction(p: Props): Callback = {
       if (fieldsValidation()) {
         Callback {
-          //jQuery("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
+          import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
+          val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
+          options.show = true
+          options.keyboard = true
+          options.backdrop = "static"
+          jQuery("#confirmModal").modal(options)
         }
       } else {
         Callback.empty

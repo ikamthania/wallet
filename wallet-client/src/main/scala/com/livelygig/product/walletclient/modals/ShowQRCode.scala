@@ -1,8 +1,12 @@
 package com.livelygig.product.walletclient.modals
 
 //import QRCode
+import com.livelygig.product.walletclient.facades.QRCode
+import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
+import org.scalajs.dom
+import org.scalajs.dom.raw.HTMLCanvasElement
 
 object ShowQRCode {
 
@@ -14,7 +18,12 @@ object ShowQRCode {
 
     def getImgSrc(): Callback = {
       val props = t.props.runNow()
-      //      new QRCode(dom.document.getElementById("qrCodeinmodal"), props.imgsrc)
+      val qrCode = new QRCode("3", "L")
+      qrCode.addData(props.imgsrc)
+      qrCode.make()
+      val imgData = qrCode.createImgTag()
+      jQuery("#qrCodeinmodal").prepend(imgData)
+
       Callback.empty
     }
 
