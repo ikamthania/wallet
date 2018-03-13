@@ -73,6 +73,7 @@ object AccountView {
 
     def updateCurrency(): Callback = {
       //      Toastr.info(dom.window.localStorage.getItem("currency"))
+      getLiveCurrencyUpdate
       val slctedCurr = if (dom.window.localStorage.getItem("currency") == null) "USD" else dom.window.localStorage.getItem("currency")
       t.modState(s => s.copy(currencySelected = slctedCurr)).runNow()
       Callback.empty
