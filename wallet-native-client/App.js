@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, WebView } from 'react-native';
 import Config from './config.json';
+import QRCodeScanner from './QRCodeScanner';
+
 
 // see config json and configure it to the running instance of server
 var URI = (__DEV__) ? Config.PRODUCTION_URI : Config.PRODUCTION_URI
@@ -11,6 +13,14 @@ export default class App extends React.Component {
     return (
       <WebView
         source={{uri:URI}}
+        onMessage={
+        (event)=>
+if(event.nativeEvent.data=="camera-roll")
+{
+<QRCodeScanner/>
+}
+        }
+
       />
     );
   }
