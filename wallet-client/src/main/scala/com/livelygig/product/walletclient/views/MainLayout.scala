@@ -15,11 +15,11 @@ import diode.AnyAction._
 // scalastyle:off
 object MainLayout {
 
-  //    val sidebarNotRequiredFor = Seq(ApplicationRouter.LandingLoc, ApplicationRouter.)
+  val sidebarNotRequiredFor = Seq(ConfirmedBackupPhraseLoc)
   def layout(c: RouterCtl[Loc], r: Resolution[Loc]) = {
     <.div(^.className := "wallet-main")(
       <.div(^.className := "wallet-inner container-fluid")(
-        if (dom.window.localStorage.getItem("pubKey") != null && r.page != ConfirmedBackupPhraseLoc) {
+        if (dom.window.localStorage.getItem("pubKey") != null && !sidebarNotRequiredFor.contains(r.page)) {
           // not the best place to dispatch login as it will be called every time the page renders.
           // however it is failsafe
           // todo think over proper dispatching of login action globally
