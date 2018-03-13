@@ -14,6 +14,9 @@ yarn-error.log*
 
 # Preserving folder structure in git for production apk
 
+/android/app/src/main/assets/*.bundle
+/android/app/src/main/assets/*.bundle.meta
+
 /android/app/src/main/assets/stylesheets/*
 !/android/app/src/main/assets/stylesheets/.placeholder
 
