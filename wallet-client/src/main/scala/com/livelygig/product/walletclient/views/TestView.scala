@@ -1,9 +1,10 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.facades.{ Blockies, Pseudoloc, Toastr }
+import com.livelygig.product.walletclient.facades.{ Blockies, Pseudoloc, QRCode, Toastr }
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
+import org.scalajs.dom
 
 import scala.scalajs.js
 
@@ -30,11 +31,18 @@ object TestView {
     def tryOut(): Callback = {
       val str = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = "0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8"))
       jQuery("#blockies").append(str)
-      var res = Pseudoloc.str("A test string with a %token%.")
-      println(s"Result ===> ${res}")
+      /* val qrCode = new QRCode(3, "L")
+      println(qrCode.addData("Hello"))
+      jQuery("#qrcode").append(qrCode.make())*/
+      //      var res = Pseudoloc.str("A test string with a %token%.")
+      //      println(s"Result ===> ${res}")
 
-      /*val qrCode = new QRCode(dom.document.getElementById("qrCode"), "test")
-      val imgData = qrCode.makeCode("0x988d9344ba15fb6728b2fee8703b8505f4ed17a9")*/
+      val qrCode = new QRCode("3", "L")
+      qrCode.addData(dom.window.localStorage.getItem("pubKey"))
+      qrCode.make()
+      val imgData = qrCode.createImgTag()
+      println(imgData)
+      jQuery("#qrCode").prepend(imgData)
       //      qrCode.clear()
 
       Callback.empty

@@ -66,7 +66,6 @@ object AllAccountsView {
 
       val keystoreContent = dom.window.localStorage.getItem("keystoreData")
       //      val keystoreContent = "[{\"keystorePvtKey\":\"john\",\"keystorePubKey\":\"0x13427c61c0b4391a54b6405cc3bb014d38887f4a\" , \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"keystorePvtKey\":\"john\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"}]"
-      println(keystoreContent)
       //      val data = keystoreContent.toArray
 
       val json: JsValue = Json.parse(keystoreContent)

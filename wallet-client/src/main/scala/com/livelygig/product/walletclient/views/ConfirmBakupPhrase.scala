@@ -30,8 +30,8 @@ object ConfirmBakupPhrase {
         val mnemonic=new Mnemonic()
         val privateExtendedKey=HDKey.fromMasterSeed(mnemonic.toSeed(t.props.runNow().phraseWords.mkString(" "))).derive("m/44'/60'/0'/0").privateExtendedKey
         val wallet=Wallet.fromExtendedPrivateKey(privateExtendedKey)
-        println(s"Address ${wallet.getAddressString()} private key ${wallet.getPrivateKeyString()}")
         dom.window.localStorage.setItem("pubKey",wallet.getAddressString())
+        dom.window.localStorage.setItem("priKey",wallet.getPrivateKeyString())
 //        dom.window.localStorage.setItem("keystoreData","")
         t.props.runNow().router.set(ConfirmedBackupPhraseLoc).runNow()
 
