@@ -1,6 +1,6 @@
 
 var Transaction = require('ethereumjs-tx/index.js')
-exports.postRawTxn=function(userPassword,amount,txTo,txnType,nonce,encodedFunction){
+exports.postRawTxn=function(priKey,amount,txTo,txnType,nonce,encodedFunction){
 
 //Ethereum network chainId--->Mainnet-1,Ropsten-3
 // create a blank transaction
@@ -19,7 +19,7 @@ console.log("Params--->"+txTo+" "+" "+amount+" "+nonce+" "+encodedFunction+" ")
         tx.gasLimit = 315010
         tx.value = amount
         tx.data = encodedFunction
-        var pvt=window.localStorage.getItem("priKey")
+        var pvt=priKey
         var privateKey = new Buffer(pvt, 'hex')
         tx.sign(privateKey)
           break;
@@ -31,7 +31,7 @@ console.log("Params--->"+txTo+" "+" "+amount+" "+nonce+" "+encodedFunction+" ")
                  tx.gasPrice = 21000000000
                  tx.gasLimit = 315010
                  tx.data = encodedFunction
-                 var pvt=window.localStorage.getItem("priKey")
+                 var pvt=priKey
                  var privateKey = new Buffer(pvt, 'hex')
                  tx.sign(privateKey)
                    break;

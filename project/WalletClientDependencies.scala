@@ -45,7 +45,8 @@ object WalletClientDependencies {
       "bitcore-mnemonic" -> "1.5.0",
       "hdkey"->"0.8.0",
       "ethereumjs-wallet"->"0.6.0",
-      "qrcode-generator"->"1.3.1"
+      "qrcode-generator"->"1.3.1",
+      "browser-passworder" -> "2.0.3"
       //      "react" -> "15.6.1",
     )
   )

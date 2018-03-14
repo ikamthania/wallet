@@ -21,7 +21,7 @@ case class Notice(read: Boolean, date: String, title: String, body: String, id: 
 
 case class Curency(currentCurrency: String, conversionRate: Double, conversionDate: Int)
 
-case class Keyring(accounts: Seq[Account], selecteAddress: String)
+case class Keyring(accounts: Seq[Account], selectedAddress: String, vault: String)
 
 case class Account(publicKey: String, accountName: String)
 
@@ -40,7 +40,7 @@ case class InfuraNetworkStatus(
 object AppModel {
   implicit val format: Format[AppModel] = Json.format
 
-  def apply(): AppModel = AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Nil, ""),
+  def apply(): AppModel = AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Nil, "", ""),
     Preferences(true, Nil, "default", "en_us"), Nil, InfuraNetworkStatus("", "", "", "")))
 }
 

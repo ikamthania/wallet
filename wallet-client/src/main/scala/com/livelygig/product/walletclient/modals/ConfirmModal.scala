@@ -118,7 +118,8 @@ object ConfirmModal {
     * */
 
     def sendTransaction(e: ReactEventFromHtml): react.Callback = Callback {
-      val etherTxn = t.state.runNow().etherTransaction
+      // redact password
+      val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
       CoreApi.mobileGetNonce(etherTxn)
         .map { e =>
           Json.parse(e).validate[SignedTxnParams]
