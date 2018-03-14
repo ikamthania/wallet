@@ -24,8 +24,7 @@ object CoreApi {
 
   private def ajaxGet(url: String): Future[String] = {
     Ajax.get(
-      url = url
-    ).map(_.responseText)
+      url = url).map(_.responseText)
   }
 
   def authenticate = {

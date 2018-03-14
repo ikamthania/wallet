@@ -2,39 +2,32 @@ package com.livelygig.product.shared.models.wallet
 
 import play.api.libs.json.{ Format, Json }
 
-case class AppModel(ubunda: Version, data: AppData)
+case class AppModel(ubunda: UbundaConfig, data: AppData)
 
-case class Version(version: String)
+case class UbundaConfig(version: String)
 
 case class AppData(
-  networks: Networks,
-  notices: Notices,
-  currencys: Currencys,
-  keyrings: Keyrings,
-  preferencess: Preferencess,
+  networks: Seq[Network],
+  notices: Seq[Notice],
+  currencies: Seq[Curency],
+  keyrings: Keyring,
+  preferencess: Preferences,
+  tokens: Seq[ERC20ComplientToken],
   infuraNetworkStatus: InfuraNetworkStatus)
 
-case class Networks(provider: Provider, network: String, firstTimeInfo: FirstTimeInfo)
+case class Network(name: String, rpcTarget: String)
 
-case class Provider(`type`: String, rpcTarget: String)
+case class Notice(read: Boolean, date: String, title: String, body: String, id: Int)
 
-case class FirstTimeInfo(version: String, date: String)
+case class Curency(currentCurrency: String, conversionRate: Double, conversionDate: Int)
 
-case class Notices(noticesList: Seq[NoticesList])
+case class Keyring(accounts: Seq[Account], selecteAddress: String)
 
-case class NoticesList(read: Boolean, date: String, title: String, body: String, id: Int)
+case class Account(publicKey: String, accountName: String)
 
-case class Currencys(currentCurrency: String, conversionRate: Double, conversionDate: Int)
-
-case class Keyrings(wallets: Wallets)
-
-case class Wallets(publicKey: String, accountName: String)
-
-case class Preferencess(
-  tokens: ERC20ComplientToken,
+case class Preferences(
   useBlockie: Boolean,
   featureFlags: Seq[String],
-  selectedAddress: String,
   selectedTheme: String,
   selectedLanguage: String)
 
@@ -46,50 +39,41 @@ case class InfuraNetworkStatus(
 
 object AppModel {
   implicit val format: Format[AppModel] = Json.format
+
+  def apply(): AppModel = AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Nil, ""),
+    Preferences(true, Nil, "default", "en_us"), Nil, InfuraNetworkStatus("", "", "", "")))
 }
 
-object Version {
-  implicit val format: Format[Version] = Json.format
+object UbundaConfig {
+  implicit val format: Format[UbundaConfig] = Json.format
 }
 
 object AppData {
   implicit val format: Format[AppData] = Json.format
 }
 
-object Networks {
-  implicit val format: Format[Networks] = Json.format
+object Network {
+  implicit val format: Format[Network] = Json.format
 }
 
-object Provider {
-  implicit val format: Format[Provider] = Json.format
+object Notice {
+  implicit val format: Format[Notice] = Json.format
 }
 
-object FirstTimeInfo {
-  implicit val format: Format[FirstTimeInfo] = Json.format
+object Curency {
+  implicit val format: Format[Curency] = Json.format
 }
 
-object Notices {
-  implicit val format: Format[Notices] = Json.format
+object Keyring {
+  implicit val format: Format[Keyring] = Json.format
 }
 
-object NoticesList {
-  implicit val format: Format[NoticesList] = Json.format
+object Account {
+  implicit val format: Format[Account] = Json.format
 }
 
-object Currencys {
-  implicit val format: Format[Currencys] = Json.format
-}
-
-object Keyrings {
-  implicit val format: Format[Keyrings] = Json.format
-}
-
-object Wallets {
-  implicit val format: Format[Wallets] = Json.format
-}
-
-object Preferencess {
-  implicit val format: Format[Preferencess] = Json.format
+object Preferences {
+  implicit val format: Format[Preferences] = Json.format
 }
 
 object InfuraNetworkStatus {
