@@ -240,7 +240,7 @@ object Sidebar {
                     <.h3(state.lang.selectDynamic("ACCOUNT").toString), <.i(
                       ^.className := "fa fa-arrow-right",
                       VdomAttr("aria-hidden") := "true"),
-                    <.h3(userDetails.value.alias), <.i(
+                    <.h3(dom.window.localStorage.getItem("accountName")), <.i(
                       ^.className := "fa fa-arrow-right",
                       VdomAttr("aria-hidden") := "true"), {
                       <.h3(getHeaderName(props.r.page, state))
