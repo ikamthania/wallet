@@ -24,12 +24,7 @@ object CoreApi {
 
   private def ajaxGet(url: String): Future[String] = {
     Ajax.get(
-      url = url
-    /**
-     * ,
-     * headers = Map("Csrf-Token" -> AppUtils.getCookie("livelygig-csrf").get)
-     */
-    ).map(_.responseText)
+      url = url).map(_.responseText)
   }
 
   def authenticate = {
