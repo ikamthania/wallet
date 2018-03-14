@@ -7,30 +7,30 @@ case class AppModel(ubunda: Version, data: AppData)
 case class Version(version: String)
 
 case class AppData(
-  networkController: NetworkController,
-  noticeController: NoticeController,
-  currencyController: CurrencyController,
-  keyringController: KeyringController,
-  preferencesController: PreferencesController,
-  infuraController: InfuraController)
+  networks: Networks,
+  notices: Notices,
+  currencys: Currencys,
+  keyrings: Keyrings,
+  preferencess: Preferencess,
+  infuraNetworkStatus: InfuraNetworkStatus)
 
-case class NetworkController(provider: NetworkControllerProvider, network: String, firstTimeInfo: NetworkControllerFirstTimeInfo)
+case class Networks(provider: Provider, network: String, firstTimeInfo: FirstTimeInfo)
 
-case class NetworkControllerProvider(`type`: String, rpcTarget: String)
+case class Provider(`type`: String, rpcTarget: String)
 
-case class NetworkControllerFirstTimeInfo(version: String, date: String)
+case class FirstTimeInfo(version: String, date: String)
 
-case class NoticeController(noticesList: Seq[NoticeControllerNoticesList])
+case class Notices(noticesList: Seq[NoticesList])
 
-case class NoticeControllerNoticesList(read: Boolean, date: String, title: String, body: String, id: Int)
+case class NoticesList(read: Boolean, date: String, title: String, body: String, id: Int)
 
-case class CurrencyController(currentCurrency: String, conversionRate: Double, conversionDate: Int)
+case class Currencys(currentCurrency: String, conversionRate: Double, conversionDate: Int)
 
-case class KeyringController(wallets: KeyringControllerWallets)
+case class Keyrings(wallets: Wallets)
 
-case class KeyringControllerWallets(publicKey: String, privateKey: String, accountName: String)
+case class Wallets(publicKey: String, accountName: String)
 
-case class PreferencesController(
+case class Preferencess(
   tokens: ERC20ComplientToken,
   useBlockie: Boolean,
   featureFlags: Seq[String],
@@ -38,13 +38,12 @@ case class PreferencesController(
   selectedTheme: String,
   selectedLanguage: String)
 
-case class InfuraController(infuraNetworkStatus: InfuraNetworkStatus)
-
 case class InfuraNetworkStatus(
   mainnet: String,
   ropsten: String,
   kovan: String,
   rinkeby: String)
+
 object AppModel {
   implicit val format: Format[AppModel] = Json.format
 }
@@ -57,44 +56,40 @@ object AppData {
   implicit val format: Format[AppData] = Json.format
 }
 
-object NetworkController {
-  implicit val format: Format[NetworkController] = Json.format
+object Networks {
+  implicit val format: Format[Networks] = Json.format
 }
 
-object NetworkControllerProvider {
-  implicit val format: Format[NetworkControllerProvider] = Json.format
+object Provider {
+  implicit val format: Format[Provider] = Json.format
 }
 
-object NetworkControllerFirstTimeInfo {
-  implicit val format: Format[NetworkControllerFirstTimeInfo] = Json.format
+object FirstTimeInfo {
+  implicit val format: Format[FirstTimeInfo] = Json.format
 }
 
-object NoticeController {
-  implicit val format: Format[NoticeController] = Json.format
+object Notices {
+  implicit val format: Format[Notices] = Json.format
 }
 
-object NoticeControllerNoticesList {
-  implicit val format: Format[NoticeControllerNoticesList] = Json.format
+object NoticesList {
+  implicit val format: Format[NoticesList] = Json.format
 }
 
-object CurrencyController {
-  implicit val format: Format[CurrencyController] = Json.format
+object Currencys {
+  implicit val format: Format[Currencys] = Json.format
 }
 
-object KeyringController {
-  implicit val format: Format[KeyringController] = Json.format
+object Keyrings {
+  implicit val format: Format[Keyrings] = Json.format
 }
 
-object KeyringControllerWallets {
-  implicit val format: Format[KeyringControllerWallets] = Json.format
+object Wallets {
+  implicit val format: Format[Wallets] = Json.format
 }
 
-object PreferencesController {
-  implicit val format: Format[PreferencesController] = Json.format
-}
-
-object InfuraController {
-  implicit val format: Format[InfuraController] = Json.format
+object Preferencess {
+  implicit val format: Format[Preferencess] = Json.format
 }
 
 object InfuraNetworkStatus {

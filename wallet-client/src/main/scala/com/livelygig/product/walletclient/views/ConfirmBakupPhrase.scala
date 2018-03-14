@@ -33,13 +33,12 @@ object ConfirmBakupPhrase {
         dom.window.localStorage.setItem("pubKey",wallet.getAddressString())
         dom.window.localStorage.setItem("priKey",wallet.getPrivateKeyString())
 //        dom.window.localStorage.setItem("keystoreData","")
-        t.props.runNow().router.set(ConfirmedBackupPhraseLoc).runNow()
+        t.props.flatMap(_.router.set(ConfirmedBackupPhraseLoc))
 
       } else {
         //        todo add validator for mnemonic phrase
-        t.modState(s => s.copy(isValidPhrase = true)).runNow()
+        t.modState(s => s.copy(isValidPhrase = true))
       }
-      Callback.empty
     }
 
     def generateWordList(e: String):VdomElement = {
@@ -51,15 +50,16 @@ object ConfirmBakupPhrase {
       if (t.state.runNow().phraseSelected.contains(e)){
       val selected = t.state.runNow().phraseSelection :+ e
       val diselect = t.state.runNow().phraseSelected.filterNot(_.equals(e))
-      t.modState(s => s.copy(phraseSelected = diselect, phraseSelection = selected)).runNow
+      t.modState(s => s.copy(phraseSelected = diselect, phraseSelection = selected))
     }
       else if(t.state.runNow().phraseSelection.contains(e)){
       val selected = t.state.runNow().phraseSelected :+ e
       val diselect = t.state.runNow().phraseSelection.filterNot(_.equals(e))
-      t.modState(s => s.copy(phraseSelected = selected, phraseSelection = diselect)).runNow
+      t.modState(s => s.copy(phraseSelected = selected, phraseSelection = diselect))
 
-    }
-      Callback.empty
+    } else {
+        Callback.empty
+      }
     }
 
 
