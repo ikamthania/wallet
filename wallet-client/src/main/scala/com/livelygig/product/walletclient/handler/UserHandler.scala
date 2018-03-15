@@ -6,6 +6,7 @@ import diode.{ ActionHandler, ActionResult, ModelRW }
 
 case class GetUserDetails(userDetails: UserDetails)
 case class LoginUser(isLoggedIn: Boolean)
+case class UpdatePassword(password: String)
 
 class UserHandler[M](modelRW: ModelRW[M, UserRootModel]) extends ActionHandler(modelRW) {
   override def handle: PartialFunction[Any, ActionResult[M]] = {
@@ -13,5 +14,7 @@ class UserHandler[M](modelRW: ModelRW[M, UserRootModel]) extends ActionHandler(m
       updated(value.copy(userDetails = updatedWalletDetails))
     case LoginUser(isLoggedIn) =>
       updated(value.copy(isloggedIn = isLoggedIn))
+    case UpdatePassword(pw) =>
+      updated(value.copy(userPassword = pw))
   }
 }

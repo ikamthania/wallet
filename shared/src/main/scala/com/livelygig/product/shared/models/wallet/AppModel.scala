@@ -21,9 +21,28 @@ case class Notice(read: Boolean, date: String, title: String, body: String, id: 
 
 case class Curency(currentCurrency: String, conversionRate: Double, conversionDate: Int)
 
-case class Keyring(accounts: Seq[Account], selectedAddress: String, vault: String)
+case class Keyring(accounts: Seq[Account], selectedAddress: String, vault: Option[Vault])
+
+case class Vault(data: String, iv: String, salt: String)
+
+object Vault {
+  implicit val format: Format[Vault] = Json.format
+}
 
 case class Account(publicKey: String, accountName: String)
+
+// will be encrypted
+case class Locker(wallets: Seq[Wallet])
+
+object Locker {
+  implicit val format: Format[Locker] = Json.format
+}
+
+case class Wallet(publicKey: String, extendedPrivKey: String, extendedPublicKey: String)
+
+object Wallet {
+  implicit val format: Format[Wallet] = Json.format
+}
 
 case class Preferences(
   useBlockie: Boolean,
@@ -40,8 +59,9 @@ case class InfuraNetworkStatus(
 object AppModel {
   implicit val format: Format[AppModel] = Json.format
 
-  def apply(): AppModel = AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Nil, "", ""),
-    Preferences(true, Nil, "default", "en_us"), Nil, InfuraNetworkStatus("", "", "", "")))
+  def apply(): AppModel =
+    AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Nil, "", None),
+      Preferences(true, Nil, "default", "en_us"), Nil, InfuraNetworkStatus("", "", "", "")))
 }
 
 object UbundaConfig {
