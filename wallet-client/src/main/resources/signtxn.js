@@ -74,3 +74,4 @@ return tx.serialize().toString('hex');
             var pwd = localStorage.getItem("ubunda-psswd");
          window.postMessage("deleteAccount~" + pwd + "~" + publicKey + "~" + currentAccount);
     }
+    window.document.addEventListener("message", function(e){ window.alert(e.data) })

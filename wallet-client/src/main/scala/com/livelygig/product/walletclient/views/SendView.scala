@@ -300,10 +300,10 @@ object SendView {
         Callback.empty
       }
     }
-
     def onQRCodeClick(): Callback = {
       val amount = t.state.runNow().etherTransaction.amount
-      dom.window.postMessage("camera-roll", "")
+      dom.window.alert("Called")
+      dom.window.postMessage("camera-roll", "*")
       /*  dom.window.navigator.appVersion.contains("Android") match {
         case true => dom.window.location.href = s"#/captureqrnative/${amount}"
         //        case true => dom.window.location.href = "#/captureqrnative"
