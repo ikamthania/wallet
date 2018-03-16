@@ -1,28 +1,28 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.shared.models.wallet.{Account}
-import com.livelygig.product.walletclient.facades.{BrowserPassworder, EthereumJSWallet, HDKey, Mnemonic}
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ConfirmedBackupPhraseLoc, Loc}
+import com.livelygig.product.walletclient.facades.{EthereumJSWallet, HDKey, Mnemonic}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import diode.AnyAction._
 import scala.util.Random
 
 object ConfirmBakupPhrase {
 
-  case class Props(router: RouterCtl[Loc],phraseWords :Seq[String], password: String)
+  case class Props(router: RouterCtl[Loc])
 
-  final case class State(phraseSelection: Seq[String], phraseSelected: Seq[String] , isValidPhrase: Boolean, showLoader: Boolean)
+  final case class State(phraseSelection: Seq[String],
+                         phraseSelected: Seq[String],
+                         isValidPhrase: Boolean, showLoader: Boolean,
+                         phraseWords :Seq[String]= WalletCircuit.zoom(_.user.userDetails.phrase).value)
 
 
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-      t.modState(s => s.copy(phraseSelection = t.props.runNow().phraseWords)).runNow()
+      t.modState(s => s.copy(phraseSelection = t.state.runNow().phraseWords)).runNow()
       Callback.empty
     }
 
@@ -36,9 +36,9 @@ object ConfirmBakupPhrase {
     }
 
     def onBtnClicked(): react.Callback = {
-      if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))) {
+      if (t.state.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))) {
         val mnemonic=new Mnemonic()
-        val addrNode =HDKey.fromMasterSeed(mnemonic.toSeed(t.props.runNow()
+        val addrNode =HDKey.fromMasterSeed(mnemonic.toSeed(t.state.runNow()
           .phraseWords.mkString(" ")))
           .derive(s"m/44'/60'/0'/${getAccountNumber}")
         // store vault and update the root model

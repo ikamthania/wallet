@@ -32,7 +32,7 @@ object Vault {
 case class Account(publicKey: String, accountName: String)
 
 // will be encrypted
-case class VaultData(mnemonic: String)
+case class VaultData(mnemonic: String, hdDerivePath: String = "m/44'/60'/0'/0")
 
 object VaultData {
   implicit val format: Format[VaultData] = Json.format

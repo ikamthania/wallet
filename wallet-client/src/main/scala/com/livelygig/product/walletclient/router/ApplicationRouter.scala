@@ -16,24 +16,35 @@ object ApplicationRouter {
   sealed trait Loc
 
   case object TermsOfServicesLoc extends Loc
+
   case object SetupLoc extends Loc
+
   case object SetupRegisterLoc extends Loc
 
   case object SetupAccountLoc extends Loc
+
   case object LoginLoc extends Loc
 
   case object PersonasLoc extends Loc
+
   case object ManageLoc extends Loc
+
   case object ProfilesLoc extends Loc
 
   case object PortfolioLoc extends Loc
+
   case object Test1Loc extends Loc
+
   case object Test2Loc extends Loc
 
   case object LandingLoc extends Loc
+
   case object HomeLoc extends Loc
+
   case object SendLoc extends Loc
+
   case object RequestLoc extends Loc
+
   // case object TransactionLoc extends Loc
 
   case object HistoryLoc extends Loc
@@ -47,20 +58,27 @@ object ApplicationRouter {
   case object InitialSetupLoc extends Loc
 
   case object BackupIdentityLoc extends Loc
+
   case object BackupAccountLoc extends Loc
 
   case object TermsOfServiceLoc extends Loc
 
   case object AddNewAccountLoc extends Loc
+
   case object AllAccountsLoc extends Loc
+
   case object AddSharedWalletLoc extends Loc
+
   case object MultisigHomeLoc extends Loc
+
   case object AddTokenLoc extends Loc
 
   case object TestLoc extends Loc
 
   case object ViewBackupPhraseLoc extends Loc
+
   case object ConfirmBackupPhraseLoc extends Loc
+
   case object ConfirmedBackupPhraseLoc extends Loc
 
   case class PopulateQRCodeLoc(to: String) extends Loc
@@ -83,7 +101,7 @@ object ApplicationRouter {
         | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => LoginView.component(LoginView.Props(ctl)))
         | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => BackupAccountTerms.component(BackupAccountTerms.Props(ctl)))
         | staticRoute(s"#/backup/storephrase", ViewBackupPhraseLoc) ~> renderR(ctl => ViewBackupPhrase.component(ViewBackupPhrase.Props(ctl)))
-        //        | staticRoute(s"#/backup/putphrase", ConfirmBackupPhraseLoc) ~> renderR(ctl => ConfirmBakupPhrase.component(ConfirmBakupPhrase.Props(ctl)))
+        | staticRoute(s"#/backup/putphrase", ConfirmBackupPhraseLoc) ~> renderR(ctl => ConfirmBakupPhrase.component(ConfirmBakupPhrase.Props(ctl)))
         | staticRoute(s"#/backup/confirm", ConfirmedBackupPhraseLoc) ~> renderR(ctl => ConfirmedBackupPhrase.component(ConfirmedBackupPhrase.Props(ctl)))
         | staticRoute(s"#/setup/register", SetupRegisterLoc) ~> renderR(ctl => SetupRegisterView.component(SetupRegisterView.Props(ctl))))
     }
@@ -103,6 +121,7 @@ object ApplicationRouter {
         | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props())))
         .addCondition(getLoggedInStatus)(e => Some(redirectToPage(LandingLoc)(Redirect.Push)))
     }
+
     (
       openRoutes
       | securedRoutes).notFound(redirectToPage(LandingLoc)(Redirect.Replace))
