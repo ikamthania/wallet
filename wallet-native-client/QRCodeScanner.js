@@ -1,12 +1,17 @@
 import React from 'react';
-import { Image, StatusBar, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Image, StatusBar, StyleSheet, TouchableOpacity, View,WebView,Text } from 'react-native';
 import Camera from 'react-native-camera';
+import Config from './config.json';
+
+
+var URI = (__DEV__) ? Config.LOCAL_URI : Config.PRODUCTION_URI
 
 export default class QRCodeScanner extends React.Component {
 
+
   constructor(props) {
     super(props);
-
+this.myWebView=null;
     this.camera = null;
 
     this.state = {
@@ -19,6 +24,7 @@ export default class QRCodeScanner extends React.Component {
         barcodeFinderVisible: true,
 
       },
+      scannerView:true
     };
   }
 
@@ -33,42 +39,56 @@ export default class QRCodeScanner extends React.Component {
 
   onBarCodeRead(scanResult) {
     alert(scanResult.data);
-this.props.setState(scanResult.data);
+ this.setState({scannerView:false});
+ //todo post message after webview loaded .Add time delay for same.
+this.myWebView.postMessage(scanResult.data)
   }
 
 render() {
-    return (
-      <View style={styles.container}>
-        <StatusBar animated hidden />
-        <Camera
-          ref={cam => {
-            this.camera = cam;
-          }}
-          style={styles.preview}
-          aspect={this.state.camera.aspect}
-          captureTarget={this.state.camera.captureTarget}
-          type={this.state.camera.type}
-          flashMode={this.state.camera.flashMode}
-          onFocusChanged={() => {}}
-          onZoomChanged={() => {}}
-          defaultTouchToFocus
-          mirrorImage={false}
-          cropToPreview={false}
-          permissionDialogTitle="Sample title"
-          permissionDialogMessage="Sample dialog message"
-          barcodeFinderVisible={this.state.camera.barcodeFinderVisible}
-          barcodeFinderWidth={220}
-          barcodeFinderHeight={200}
-          barcodeFinderBorderColor="red"
-          barcodeFinderBorderWidth={2}
-          onBarCodeRead={this.onBarCodeRead.bind(this)}
+let renderView=null;
 
-        />
 
-      </View>
-    );
+ if(this.state.scannerView){
+                  renderView=   <Camera
+                                                                        ref={cam => {
+                                                                          this.camera = cam;
+                                                                        }}
+                                                                        style={styles.preview}
+                                                                        aspect={this.state.camera.aspect}
+                                                                        captureTarget={this.state.camera.captureTarget}
+                                                                        type={this.state.camera.type}
+                                                                        flashMode={this.state.camera.flashMode}
+                                                                        onFocusChanged={() => {}}
+                                                                        onZoomChanged={() => {}}
+                                                                        defaultTouchToFocus
+                                                                        mirrorImage={false}
+                                                                        cropToPreview={false}
+                                                                        permissionDialogTitle="Sample title"
+                                                                        permissionDialogMessage="Sample dialog message"
+                                                                        barcodeFinderVisible={this.state.camera.barcodeFinderVisible}
+                                                                        barcodeFinderWidth={220}
+                                                                        barcodeFinderHeight={200}
+                                                                        barcodeFinderBorderColor="red"
+                                                                        barcodeFinderBorderWidth={2}
+                                                                        onBarCodeRead={this.onBarCodeRead.bind(this)}
+
+                                                                      />
+                   }else
+                    {
+                renderView =    <WebView
+                                                                              source={{uri:URI+"#/send"}}
+                                                                              ref={webview => { this.myWebView = webview; }}
+
+                                                                            />
+                    }
+  return(
+  renderView
+)
+
+
+
   }
-}
+ }
 
 
 const styles = StyleSheet.create({

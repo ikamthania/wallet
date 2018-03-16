@@ -79,7 +79,7 @@ object ApplicationRouter {
       | staticRoute(s"#/backup/putphrase", ConfirmBackupPhraseLoc) ~> renderR(ctl => ConfirmBakupPhrase.component(ConfirmBakupPhrase.Props(ctl)))
       | staticRoute(s"#/backup/confirm", ConfirmedBackupPhraseLoc) ~> renderR(ctl => ConfirmedBackupPhrase.component(ConfirmedBackupPhrase.Props(ctl)))
       | staticRoute(s"#/setup/register", SetupRegisterLoc) ~> renderR(ctl => SetupRegisterView.component(SetupRegisterView.Props(ctl)))
-      | staticRoute(s"#/send", SendLoc) ~> renderR(ctl => walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, ""))))
+      | staticRoute(s"#/send", SendLoc) ~> renderR(ctl => walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl))))
       | staticRoute(s"#/request", RequestLoc) ~> renderR(ctl => RequestView(RequestView.Props(ctl)))
       | staticRoute(s"#/history", HistoryLoc) ~> renderR(ctl => wallethistoryProxy(proxy => HistoryView.component(HistoryView.Props(proxy))))
       | staticRoute(s"#/manageIdentities", ManageIdentitiesLoc) ~> renderR(ctl => ManageIdentitiesView(ManageIdentitiesView.Props()))
@@ -90,8 +90,8 @@ object ApplicationRouter {
       | staticRoute(s"#/multisig", MultisigHomeLoc) ~> renderR(ctl => walletaccountProxy(proxy => MultisigHomeView.component(MultisigHomeView.Props(proxy, ctl))))
       | staticRoute(s"#/addToken", AddTokenLoc) ~> renderR(ctl => AddTokenView(AddTokenView.Props()))
       | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props()))
-      | dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
-        walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}")))))
+    /*| dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
+        walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}"))))*/ )
       .notFound(redirectToPage(AccountLoc)(Redirect.Replace))
 
   }.renderWith(MainLayout.layout _)
