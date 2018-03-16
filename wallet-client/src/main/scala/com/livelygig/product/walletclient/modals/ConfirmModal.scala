@@ -4,7 +4,7 @@ import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.{ Toastr, WalletJS }
 import com.livelygig.product.walletclient.handler._
 import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.router.ApplicationRouter.AccountLoc
+import com.livelygig.product.walletclient.router.ApplicationRouter.LandingLoc
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.AnyAction._
 import japgolly.scalajs.react
@@ -147,7 +147,7 @@ object ConfirmModal {
                       if (transactionHashString.matches("0x[a-z-0-9]+")) {
                         Toastr.info(s"Transaction sent. Transaction reference no. is $transactionHashString")
                         getTransactionNotification(transactionHashString)
-                        t.props.runNow().rc.set(AccountLoc).runNow()
+                        t.props.runNow().rc.set(LandingLoc).runNow()
                       } else {
                         Toastr.error(transactionHashString)
                         Callback.empty

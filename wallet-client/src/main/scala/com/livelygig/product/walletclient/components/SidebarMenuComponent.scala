@@ -18,7 +18,7 @@ import scala.scalajs.js.JSON
 import scala.scalajs.{ LinkingInfo, js }
 import scala.util.{ Failure, Success }
 
-object SidebarMenu {
+object SidebarMenuComponent {
 
   val userDetails = WalletCircuit.zoom(_.user.userDetails)
 
@@ -95,7 +95,7 @@ object SidebarMenu {
       val identityConnectionsSubmenuItem = MenuItemWithCallback(state.selectDynamic("CONNECTIONS").toString, emptyCallback)
       val identityTransactionSubmenuItem = MenuItemWithCallback(state.selectDynamic("TRANSACTIONS").toString, emptyCallback)
       //Account submenu items
-      val accountHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("HOME").toString, AccountLoc)
+      val accountHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("HOME").toString, LandingLoc)
       val accountSendSubmenuItem = MenuItemWithLocation(state.selectDynamic("SEND").toString, SendLoc)
       val accountRequestSubmenuItem = MenuItemWithLocation(state.selectDynamic("REQUEST").toString, RequestLoc)
       val accountViewRequestsSubmenuItem = MenuItemWithCallback(state.selectDynamic("VIEW_REQUESTS").toString, emptyCallback)

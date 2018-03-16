@@ -1,8 +1,7 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.shared.models.wallet.{Account, Wallet}
+import com.livelygig.product.shared.models.wallet.{Account}
 import com.livelygig.product.walletclient.facades.{BrowserPassworder, EthereumJSWallet, HDKey, Mnemonic}
-import com.livelygig.product.walletclient.handler.AddNewAccount
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ConfirmedBackupPhraseLoc, Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
 import japgolly.scalajs.react
@@ -15,7 +14,7 @@ import scala.util.Random
 
 object ConfirmBakupPhrase {
 
-  case class Props(router: RouterCtl[Loc],phraseWords :Seq[String]= WalletCircuit.zoom(_.user.userDetails.phrase).value)
+  case class Props(router: RouterCtl[Loc],phraseWords :Seq[String], password: String)
 
   final case class State(phraseSelection: Seq[String], phraseSelected: Seq[String] , isValidPhrase: Boolean, showLoader: Boolean)
 
@@ -39,17 +38,17 @@ object ConfirmBakupPhrase {
     def onBtnClicked(): react.Callback = {
       if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))) {
         val mnemonic=new Mnemonic()
-        val hdKey =HDKey.fromMasterSeed(mnemonic.toSeed(t.props.runNow()
+        val addrNode =HDKey.fromMasterSeed(mnemonic.toSeed(t.props.runNow()
           .phraseWords.mkString(" ")))
           .derive(s"m/44'/60'/0'/${getAccountNumber}")
         // store vault and update the root model
-        val ethereumJSWallet = EthereumJSWallet.fromExtendedPrivateKey(hdKey.privateExtendedKey)
-        val newWallet = Wallet(ethereumJSWallet.getAddressString(), hdKey.privateExtendedKey, hdKey.publicExtendedKey)
-        WalletCircuit.dispatch(AddNewAccount(Account(newWallet.publicKey, s"Account ${getAccountNumber + 1}")))
-        BrowserPassworder.addWalletToVault(newWallet).map{
+        val ethereumJSWallet = EthereumJSWallet.fromExtendedPrivateKey(addrNode.publicExtendedKey)
+//        val newWallet = Wallet(ethereumJSWallet.getAddressString(), addrNode.privateExtendedKey, addrNode.publicExtendedKey)
+//        WalletCircuit.dispatch(AddNewAccount(Account(newWallet.publicKey, s"Account ${getAccountNumber + 1}")))
+        /*BrowserPassworder.addWalletToVault(newWallet, t.props.runNow().password).map{
           _ =>
             t.props.flatMap(_.router.set(ConfirmedBackupPhraseLoc)).runNow()
-        }
+        }*/
         t.modState(s => s.copy(showLoader = true))
 
       } else {

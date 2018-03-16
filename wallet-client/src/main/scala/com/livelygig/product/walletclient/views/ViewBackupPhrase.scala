@@ -19,7 +19,7 @@ object ViewBackupPhrase {
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-      WalletCircuit.dispatch(GetUserDetails(WalletCircuit.zoom(_.user).value.userDetails.copy(phrase = t.state.runNow().phrase.toString.split(" "))))
+//      WalletCircuit.dispatch(GetUserDetails(WalletCircuit.zoom(_.user).value.userDetails.copy(phrase = "")))
       Callback.empty
     }
 

@@ -35,7 +35,7 @@ object WalletDetails {
   implicit val format = Json.format[WalletDetails]
 }
 
-case class UserDetails(alias: String, walletDetails: WalletDetails, phrase: Seq[String] = Seq(""))
+case class UserDetails(alias: String, walletDetails: WalletDetails)
 
 object UserDetails {
   implicit val format = Json.format[UserDetails]

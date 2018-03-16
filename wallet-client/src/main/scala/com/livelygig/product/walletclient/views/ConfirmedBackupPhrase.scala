@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.handler.{ GetUserDetails, LoginUser }
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc, LoginLoc }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ LandingLoc, Loc, LoginLoc }
 import com.livelygig.product.walletclient.services
 import com.livelygig.product.walletclient.services.WalletCircuit
 import japgolly.scalajs.react
@@ -25,7 +25,7 @@ object ConfirmedBackupPhrase {
     def onBtnClicked(): react.Callback = {
       val userDetails = WalletCircuit.zoom(_.user).value
       WalletCircuit.dispatch(LoginUser(true))
-      t.props.flatMap(e => e.router.set(AccountLoc))
+      t.props.flatMap(e => e.router.set(LandingLoc))
     }
 
     def componentWillMount(props: Props): Callback = {

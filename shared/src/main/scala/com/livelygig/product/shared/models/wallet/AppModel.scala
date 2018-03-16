@@ -32,16 +32,10 @@ object Vault {
 case class Account(publicKey: String, accountName: String)
 
 // will be encrypted
-case class Locker(wallets: Seq[Wallet])
+case class VaultData(mnemonic: String)
 
-object Locker {
-  implicit val format: Format[Locker] = Json.format
-}
-
-case class Wallet(publicKey: String, extendedPrivKey: String, extendedPublicKey: String)
-
-object Wallet {
-  implicit val format: Format[Wallet] = Json.format
+object VaultData {
+  implicit val format: Format[VaultData] = Json.format
 }
 
 case class Preferences(

@@ -1,8 +1,8 @@
 package com.livelygig.product.walletclient.facades
 
-import com.livelygig.product.shared.models.wallet.{ Locker, Vault, Wallet }
+import com.livelygig.product.shared.models.wallet.{ VaultData, Vault }
 import com.livelygig.product.walletclient.services.WalletCircuit
-import play.api.libs.json.Json
+import play.api.libs.json.{ JsObject, Json }
 
 import scala.concurrent.Future
 import scala.scalajs.js
@@ -15,22 +15,22 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 object BrowserPassworder extends js.Object {
   def encrypt(password: String, secrets: String): Promise[String] = js.native
 
-  def decrypt(password: String, blob: String): Promise[String] = js.native
+  def decrypt(password: String, blob: String): Promise[js.Any] = js.native
 
-  def decryptVault: Future[Option[Locker]] = {
+  def decryptVault(password: String): Future[Option[VaultData]] = {
     val currentVault = WalletCircuit.zoom(_.appRootModel.appModel.data.keyrings.vault).value
     if (currentVault.isDefined) {
-      BrowserPassworder.decrypt(WalletCircuit.zoomTo(_.user.userPassword).value, Json.toJson(currentVault).toString()).toFuture.map {
+      BrowserPassworder.decrypt(password, Json.toJson(currentVault).toString()).toFuture.map {
         decrypted =>
-          Json.parse(decrypted).validate[Locker].asOpt
+          Json.parse(decrypted.toString()).validate[VaultData].asOpt
       }
     } else {
       Future(None)
     }
   }
 
-  def encryptWallet(wallets: Seq[Wallet]): Future[Option[Vault]] = {
-    encrypt(WalletCircuit.zoomTo(_.user.userPassword).value, Json.toJson(wallets).toString)
+  def encryptWallet(vaultData: VaultData, password: String): Future[Option[Vault]] = {
+    encrypt(password, Json.toJson(vaultData).toString)
       .toFuture
       .map {
         str =>
@@ -38,13 +38,4 @@ object BrowserPassworder extends js.Object {
       }
   }
 
-  def addWalletToVault(newWallet: Wallet): Future[Option[Vault]] = {
-    decryptVault.flatMap {
-      lockerRes =>
-        lockerRes match {
-          case Some(locker) => encryptWallet(locker.wallets :+ newWallet)
-          case None => encryptWallet(Seq(newWallet))
-        }
-    }
-  }
 }

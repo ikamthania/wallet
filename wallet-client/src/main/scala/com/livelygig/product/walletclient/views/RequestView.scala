@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views
 // import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.QRCode
 import com.livelygig.product.walletclient.modals.ShowQRCode
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ LandingLoc, Loc }
 import com.livelygig.product.walletclient.services.WalletCircuit
 //import QRCode
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
@@ -110,7 +110,7 @@ object RequestView {
       dom.window.location.href = s"${updatedUrl}#/home"
 */
       //      Callback.empty
-      t.props.runNow().router.set(AccountLoc).runNow()
+      t.props.runNow().router.set(LandingLoc).runNow()
       Callback.empty
 
     }

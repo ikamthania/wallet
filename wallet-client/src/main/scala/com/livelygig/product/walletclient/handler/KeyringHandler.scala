@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.handler
 
-import com.livelygig.product.shared.models.wallet.{ Account, Keyring, Vault, Wallet }
+import com.livelygig.product.shared.models.wallet.{ Account, Keyring, Vault }
 import diode.{ ActionHandler, ActionResult, ModelRW }
 
 import scala.scalajs.js

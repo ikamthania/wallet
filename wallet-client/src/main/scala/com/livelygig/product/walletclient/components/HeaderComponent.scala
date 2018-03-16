@@ -19,7 +19,7 @@ import scala.scalajs.js
 import scala.scalajs.js.JSON
 import scala.util.{ Failure, Success }
 
-object Sidebar {
+object HeaderComponent {
 
   val userDetails = WalletCircuit.zoom(_.user.userDetails)
 
@@ -29,7 +29,7 @@ object Sidebar {
 
   def getHeaderName(currentLoc: Loc, state: State) = {
     currentLoc match {
-      case AccountLoc => state.lang.selectDynamic("HOME").toString
+      case LandingLoc => state.lang.selectDynamic("HOME").toString
       case SendLoc => state.lang.selectDynamic("SEND").toString
       case HistoryLoc => state.lang.selectDynamic("HISTORY").toString
       case RequestLoc => state.lang.selectDynamic("REQUEST").toString
@@ -150,7 +150,7 @@ object Sidebar {
                     <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
                   <.ul(
                     ^.id := "menu",
-                    SidebarMenu(props.c, props.r.page)))),
+                    SidebarMenuComponent(props.c, props.r.page)))),
               <.div(
                 ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
                 <.div(
@@ -186,7 +186,7 @@ object Sidebar {
                     <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
                   <.ul(
                     ^.id := "menu",
-                    SidebarMenu(props.c, props.r.page)))),
+                    SidebarMenuComponent(props.c, props.r.page)))),
               <.div(
                 ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
                 <.div(
@@ -227,7 +227,7 @@ object Sidebar {
                     <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
                   <.ul(
                     ^.id := "menu",
-                    SidebarMenu(props.c, props.r.page)))),
+                    SidebarMenuComponent(props.c, props.r.page)))),
               <.div(
                 ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
                 <.div(

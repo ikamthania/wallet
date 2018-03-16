@@ -29,12 +29,12 @@ object LocalStorageApi {
       Json.parse(config).validate[AppModel].map {
         e =>
           WalletCircuit.dispatch(UpdateRootModer(e))
-          if (e.data.keyrings.accounts.nonEmpty) {
+          if (e.data.keyrings.vault.isDefined) {
             WalletCircuit.dispatch(LoginUser(true))
           }
       }.recover {
         case err: JsError => {
-          println(err)
+          //          println(err)
           throw Exception(JsError("Error in parsing app root model"))
         }
       }
