@@ -90,8 +90,8 @@ object ApplicationRouter {
       | staticRoute(s"#/multisig", MultisigHomeLoc) ~> renderR(ctl => walletaccountProxy(proxy => MultisigHomeView.component(MultisigHomeView.Props(proxy, ctl))))
       | staticRoute(s"#/addToken", AddTokenLoc) ~> renderR(ctl => AddTokenView(AddTokenView.Props()))
       | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props()))
-    /*| dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
-        walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}"))))*/ )
+      | dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
+        walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}")))))
       .notFound(redirectToPage(AccountLoc)(Redirect.Replace))
 
   }.renderWith(MainLayout.layout _)

@@ -28,7 +28,7 @@ object SendView {
 
   val userDetails = WalletCircuit.zoom(_.user.userDetails)
 
-  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], rc: RouterCtl[ApplicationRouter.Loc])
+  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], rc: RouterCtl[ApplicationRouter.Loc], to: String = "")
 
   final case class State(etherTransaction: EtherTransaction, userUri: String, etherBalance: String,
     coinSymbol: String, currSymbol: String, ethereumPrice: String,
@@ -39,10 +39,6 @@ object SendView {
   final class Backend(t: BackendScope[Props, State]) {
     val ethereumFee = 0.015 //get from API
     val userDetails = WalletCircuit.zoom(_.user.userDetails)
-    WalletCircuit.subscribe(WalletCircuit.zoom(_.qrCodeRslt.pubKey)) { e =>
-      val etherTransaction = t.state.runNow().etherTransaction.copy(receiver = e.value)
-      t.modState(s => s.copy(etherTransaction = etherTransaction)).runNow()
-    }
 
     def updateCurrency(): Callback = {
       val slctedCurr = if (dom.window.localStorage.getItem("currency") == null) "USD" else dom.window.localStorage.getItem("currency")
@@ -100,11 +96,11 @@ object SendView {
       //      dom.window.location.href = s"${updatedUrl}#/send"
       updateTokenPrice(t.state.runNow().coinExchange)
 
-      //      var receiver = t.state.runNow().to.split("/").last.toString
-      //      var amount = t.state.runNow().to.split("/").head
+      var receiver = t.props.runNow().to.split("/").last.toString
+      var amount = t.props.runNow().to.split("/").head
       jQuery("#lblDisplayFrom").text(jQuery("#slctAccount option:first").text())
 
-      t.modState(s => s.copy(etherBalance = userDetails.value.walletDetails.balance /*, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = receiver)*/ )).runNow()
+      t.modState(s => s.copy(etherBalance = userDetails.value.walletDetails.balance, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = receiver))).runNow()
       Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
 
     }
@@ -306,7 +302,7 @@ object SendView {
     }
     def onQRCodeClick(): Callback = {
       val amount = t.state.runNow().etherTransaction.amount
-      dom.window.postMessage("camera-roll", "*")
+      dom.window.postMessage(s"camera-roll~${t.state.runNow().etherTransaction.amount}", "*")
       /*  dom.window.navigator.appVersion.contains("Android") match {
         case true => dom.window.location.href = s"#/captureqrnative/${amount}"
         //        case true => dom.window.location.href = "#/captureqrnative"
@@ -419,7 +415,7 @@ object SendView {
                 ^.className := "form-control ellipseText",
                 VdomAttr("data-error") := "Recipient address required!",
                 ^.required := true,
-                ^.value := s.etherTransaction.receiver,
+                ^.defaultValue := { if (p.to != "") p.to.split("/").last.toString else s.etherTransaction.receiver },
                 ^.onChange ==> onStateChange("receiver")),
               <.a(^.onClick --> onQRCodeClick, <.i(^.id := "captureQRCode", ^.className := "fa fa-qrcode", VdomAttr("aria-hidden") := "true")))),
           <.div(
@@ -512,4 +508,3 @@ object SendView {
     .build
   def apply(props: Props) = component(props)
 }
-

@@ -27,6 +27,7 @@ constructor(props) {
 
           },
     webViewRender:true,
+    amount:null
       }
   }
 
@@ -77,7 +78,10 @@ var urlSplit =[];
                                     />
                    }else
                     {
-                renderView =  <QRCodeScanner onRef={ref => (this.child = ref)}/>
+                renderView =  <QRCodeScanner
+                onRef={ref => (this.child = ref)}
+                amount={this.state.amount}
+                />
                     }
   return(
   renderView
@@ -85,7 +89,9 @@ var urlSplit =[];
 }
 
   onMessage(event){
-          this.setState({webViewRender:false})
+  var data=event.nativeEvent.data.split("~")
+var amnt=data[1]
+          this.setState({amount:amnt,webViewRender:false})
     }
 
 }

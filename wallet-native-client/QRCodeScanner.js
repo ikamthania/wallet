@@ -13,6 +13,7 @@ export default class QRCodeScanner extends React.Component {
     super(props);
 this.myWebView=null;
     this.camera = null;
+    this.amount=0;
 
     this.state = {
       camera: {
@@ -24,24 +25,20 @@ this.myWebView=null;
         barcodeFinderVisible: true,
 
       },
-      scannerView:true
+      scannerView:true,
+      targetURL:null
     };
   }
 
-  takePicture = () => {
-    if (this.camera) {
-      this.camera
-        .capture()
-        .then(data => console.log(data))
-        .catch(err => console.error(err));
-    }
-  };
 
   onBarCodeRead(scanResult) {
-    alert(scanResult.data);
- this.setState({scannerView:false});
+ this.setState({targetURL:URI+"#/send/"+this.amount+"/"+scanResult.data,scannerView:false});
  //todo post message after webview loaded .Add time delay for same.
-this.myWebView.postMessage(scanResult.data)
+//  this.setTimeout( () => {
+//this.myWebView.postMessage(scanResult.data)
+//    alert(scanResult.data);
+//
+//   },9000);
   }
 
 render() {
@@ -76,7 +73,7 @@ let renderView=null;
                    }else
                     {
                 renderView =    <WebView
-                                                                              source={{uri:URI+"#/send"}}
+                                                                              source={{uri:this.state.targetURL}}
                                                                               ref={webview => { this.myWebView = webview; }}
 
                                                                             />
