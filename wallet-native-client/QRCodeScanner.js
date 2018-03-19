@@ -75,6 +75,7 @@ let renderView=null;
                 renderView =    <WebView
                                                                               source={{uri:this.state.targetURL}}
                                                                               ref={webview => { this.myWebView = webview; }}
+                                      onMessage={this.onMessage.bind(this)}
 
                                                                             />
                     }
@@ -85,6 +86,12 @@ let renderView=null;
 
 
   }
+
+   onMessage(event){
+    var data=event.nativeEvent.data.split("~")
+  var amnt=data[1]
+            this.setState({scannerView:true})
+      }
  }
 
 

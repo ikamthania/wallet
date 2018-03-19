@@ -82,13 +82,9 @@ object Sidebar {
     }
 
     def userProfileImg = {
-
       val userDetails = WalletCircuit.zoom(_.user.userDetails)
-
-      // todo fix blockies
-      val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = dom.window.localStorage.getItem("pubKey")))
-      //Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = dom.window.localStorage.getItem("pubKey")))
-      jQuery("#userProfileImg").append(blockies)
+      val str = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = s"${dom.window.localStorage.getItem("pubKey")}"))
+      jQuery("#userProfileImg").prepend(str)
     }
 
     def componentDidMount(): Callback = {

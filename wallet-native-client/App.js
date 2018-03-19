@@ -41,7 +41,6 @@ onNavigationStateChange(webViewState){
   // this.setState({currentUrlState : webViewState.url});
 
 var patt1 = /(0x[0-9A-Za-z]+)/g;
-console.warn("URL => " + webViewState.url);
 
 var urlSplit =[];
   var tabId = '';
