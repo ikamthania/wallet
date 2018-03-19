@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 //@JSGlobal("pseudoloc")
-@JSImport("./pseudoloc", JSImport.Namespace)
+@JSImport("pseudoloc/src/pseudoloc.js", JSImport.Namespace)
 @js.native
 object Pseudoloc extends js.Object {
   def str(str: String): String = js.native

@@ -300,10 +300,10 @@ object SendView {
         Callback.empty
       }
     }
-
     def onQRCodeClick(): Callback = {
       val amount = t.state.runNow().etherTransaction.amount
-      dom.window.navigator.appVersion.contains("Android") match {
+      dom.window.postMessage(s"camera-roll~${t.state.runNow().etherTransaction.amount}", "*")
+      /*  dom.window.navigator.appVersion.contains("Android") match {
         case true => dom.window.location.href = s"#/captureqrnative/${amount}"
         //        case true => dom.window.location.href = "#/captureqrnative"
         case false => {
@@ -311,7 +311,7 @@ object SendView {
           val updatedUrl = baseUrl.split("#").head
           dom.window.location.href = s"${updatedUrl}/captureQRCode"
         }
-      }
+      }*/
       Callback.empty
     }
 
@@ -508,4 +508,3 @@ object SendView {
     .build
   def apply(props: Props) = component(props)
 }
-
