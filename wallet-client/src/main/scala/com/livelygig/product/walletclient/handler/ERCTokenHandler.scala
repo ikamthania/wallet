@@ -3,9 +3,9 @@ package com.livelygig.product.walletclient.handler
 import com.livelygig.product.shared.models.wallet.ERC20ComplientToken
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.services.CoreApi
-import diode.data.{Empty, Pot, PotActionRetriable, Ready}
-import diode.util.{Retry, RetryPolicy}
-import diode.{ActionHandler, ActionResult, ModelRW}
+import diode.data.{ Empty, Pot, PotActionRetriable, Ready }
+import diode.util.{ Retry, RetryPolicy }
+import diode.{ ActionHandler, ActionResult, ModelRW }
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
