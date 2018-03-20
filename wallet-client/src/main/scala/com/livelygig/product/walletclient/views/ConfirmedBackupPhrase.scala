@@ -10,86 +10,86 @@ import japgolly.scalajs.react.vdom.html_<^.{ <, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
 import diode.AnyAction._
 
-object ConfirmedBackupPhrase {
-
-  case class Props(router: RouterCtl[Loc])
-
-  final case class State()
-
-  final class Backend(t: BackendScope[Props, State]) {
-
-    def componentDidMount(props: Props): react.Callback = {
-      Callback.empty
-    }
-
-    def onBtnClicked(): react.Callback = {
-      val userDetails = WalletCircuit.zoom(_.user).value
-      WalletCircuit.dispatch(LoginUser(true))
-      t.props.flatMap(e => e.router.set(LandingLoc))
-    }
-
-    def componentWillMount(props: Props): Callback = {
-      Callback {
-      }
-    }
-
-    def render(p: Props, s: State): VdomElement = {
-      <.div(
-        <.div(
-          ^.className := "wallet-inner-navigation",
-          <.div(
-            ^.className := "row",
-            <.div(
-              ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-              <.div(
-                ^.className := "wallet-information",
-                <.h2("Wallet"),
-                <.h3("Back up account"))))),
-        <.div(
-          ^.className := "backupView-main scrollableArea",
-          <.div(
-            ^.className := "backupView-confirm",
-            <.div(
-              ^.className := "row",
-              <.div(
-                ^.className := "col-xs-12",
-                <.div(
-                  ^.className := "confirm-square",
-                  <.i(
-                    VdomAttr("aria-hidden") := "true",
-                    ^.className := "fa fa-check-circle-o")))),
-            <.div(
-              ^.className := "row",
-              <.div(
-                ^.className := "col-xs-12",
-                <.div(
-                  ^.className := "confirm-message",
-                  <.h3("Your account is backed up."),
-                  <.p("If this app is deleted or you lose access to your account, your account can be recovered using the Backup Mnemonic Phrase you have just secured.")))),
-            <.div(
-              ^.className := "container btnDefault-container",
-              <.div(
-                ^.className := "row",
-                <.div(
-                  ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                  <.button(
-                    ^.id := "btnNextStart",
-                    ^.name := "btnNxt",
-                    ^.`type` := "button",
-                    VdomAttr("data-toggle") := "modal",
-                    ^.className := "btn btnDefault goupButton setdefault",
-                    ^.onClick --> onBtnClicked(),
-                    "Next")))))))
-    }
-  }
-
-  val component = ScalaComponent.builder[Props]("ConfirmBakupPhrase")
-    .initialState(State())
-    .renderBackend[Backend]
-    .componentWillMount(scope => scope.backend.componentWillMount(scope.props))
-    .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
-    .build
-
-  def apply(props: Props) = component(props)
-}
+//object ConfirmedBackupPhrase {
+//
+//  case class Props(router: RouterCtl[Loc])
+//
+//  final case class State()
+//
+//  final class Backend(t: BackendScope[Props, State]) {
+//
+//    def componentDidMount(props: Props): react.Callback = {
+//      Callback.empty
+//    }
+//
+//    def onBtnClicked(): react.Callback = {
+//      val userDetails = WalletCircuit.zoom(_.user).value
+//      WalletCircuit.dispatch(LoginUser(true))
+//      t.props.flatMap(e => e.router.set(LandingLoc))
+//    }
+//
+//    def componentWillMount(props: Props): Callback = {
+//      Callback {
+//      }
+//    }
+//
+//    def render(p: Props, s: State): VdomElement = {
+//      <.div(
+//        <.div(
+//          ^.className := "wallet-inner-navigation",
+//          <.div(
+//            ^.className := "row",
+//            <.div(
+//              ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+//              <.div(
+//                ^.className := "wallet-information",
+//                <.h2("Wallet"),
+//                <.h3("Back up account"))))),
+//        <.div(
+//          ^.className := "backupView-main scrollableArea",
+//          <.div(
+//            ^.className := "backupView-confirm",
+//            <.div(
+//              ^.className := "row",
+//              <.div(
+//                ^.className := "col-xs-12",
+//                <.div(
+//                  ^.className := "confirm-square",
+//                  <.i(
+//                    VdomAttr("aria-hidden") := "true",
+//                    ^.className := "fa fa-check-circle-o")))),
+//            <.div(
+//              ^.className := "row",
+//              <.div(
+//                ^.className := "col-xs-12",
+//                <.div(
+//                  ^.className := "confirm-message",
+//                  <.h3("Your account is backed up."),
+//                  <.p("If this app is deleted or you lose access to your account, your account can be recovered using the Backup Mnemonic Phrase you have just secured.")))),
+//            <.div(
+//              ^.className := "container btnDefault-container",
+//              <.div(
+//                ^.className := "row",
+//                <.div(
+//                  ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+//                  <.button(
+//                    ^.id := "btnNextStart",
+//                    ^.name := "btnNxt",
+//                    ^.`type` := "button",
+//                    VdomAttr("data-toggle") := "modal",
+//                    ^.className := "btn btnDefault goupButton setdefault",
+//                    ^.onClick --> onBtnClicked(),
+//                    "Next")))))))
+//    }
+//  }
+//
+//  val component = ScalaComponent.builder[Props]("ConfirmBakupPhrase")
+//    .initialState(State())
+//    .renderBackend[Backend]
+//    .componentWillMount(scope => scope.backend.componentWillMount(scope.props))
+//    .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
+//    .build
+//
+//  def apply(props: Props) = component(props)
+//}
 
