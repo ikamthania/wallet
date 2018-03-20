@@ -25,7 +25,8 @@ console.log("Params--->"+txTo+" "+" "+amount+" "+nonce+" "+encodedFunction+" ")
           break;
         }
       default:
-        {
+        if (txTo == "0x0")
+          {
                  tx.nonce = nonce
                  tx.gasPrice = 21000000000
                  tx.gasLimit = 3057640
@@ -34,6 +35,18 @@ console.log("Params--->"+txTo+" "+" "+amount+" "+nonce+" "+encodedFunction+" ")
                  var privateKey = new Buffer(pvt, 'hex')
                  tx.sign(privateKey)
                    break;
+          }
+        else
+          {
+            tx.to=txTo
+                   tx.nonce = nonce
+                   tx.gasPrice = 21000000000
+                   tx.gasLimit = 315010
+                   tx.data = encodedFunction
+                   var pvt=window.localStorage.getItem("priKey")
+                   var privateKey = new Buffer(pvt, 'hex')
+                   tx.sign(privateKey)
+                     break;
           }
 
     }
