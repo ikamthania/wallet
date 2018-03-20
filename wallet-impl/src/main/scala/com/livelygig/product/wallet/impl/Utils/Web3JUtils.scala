@@ -256,12 +256,16 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
     val rawTransactionEncodedFunction = etherTransaction.txnType match {
       case "eth" => "0x0"
       case _ =>
-        val function = new Function(
-          "transfer",
-          util.Arrays
-            .asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
-          util.Arrays.asList())
-        FunctionEncoder.encode(function)
+        if (etherTransaction.receiver.isEmpty) {
+          "0x0"
+        } else {
+          val function = new Function(
+            "transfer",
+            util.Arrays
+              .asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
+            util.Arrays.asList())
+          FunctionEncoder.encode(function)
+        }
     }
     val amntInWei = s"0x${Convert.toWei(etherTransaction.amount, Convert.Unit.ETHER).toBigInteger.toString(16)}"
 
