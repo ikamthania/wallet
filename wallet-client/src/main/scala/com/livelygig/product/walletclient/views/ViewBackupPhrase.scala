@@ -17,7 +17,7 @@ object ViewBackupPhrase {
 
   case class Props(router: RouterCtl[Loc])
 
-  final case class State(phrase: String= new Mnemonic().toString, isChecked:Boolean=false,showConfirmScreen:Boolean=false)
+  final case class State(phrase: String= Mnemonic.generateMnemonic(), isChecked:Boolean=false,showConfirmScreen:Boolean=false)
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
@@ -155,8 +155,7 @@ object ConfirmBakupPhrase {
 
     def onBtnClicked(): react.Callback = {
       if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))) {
-        val mnemonic=new Mnemonic()
-        val addrNode =HDKey.fromMasterSeed(mnemonic.toSeed(t.props.runNow()
+        val addrNode =HDKey.fromMasterSeed(Mnemonic.mnemonicToSeed(t.props.runNow()
           .phraseWords.mkString(" ")))
           .derive(s"m/44'/60'/0'/${getAccountNumber}")
         // store vault and update the root model
