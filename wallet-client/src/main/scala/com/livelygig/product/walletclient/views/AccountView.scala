@@ -83,7 +83,8 @@ object AccountView {
       jQuery(".select-currency-info").removeClass("active")
       jQuery(".select-currency-info").first().addClass("active")
       setCurrencyLocal(t.state.runNow().currencySelected)
-      Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
+      //      Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
+      Callback.empty
     }
 
     def updateURL(loc: String): Callback = {

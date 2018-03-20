@@ -6,9 +6,9 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 @js.native
-@JSImport("bitcore-mnemonic/lib/mnemonic", JSImport.Namespace)
-class Mnemonic extends js.Object {
-  def toHDPrivateKey() = js.native
-  def toSeed(passphrase: String): Buffer = js.native
+@JSImport("bip39", JSImport.Namespace)
+object Mnemonic extends js.Object {
+  def generateMnemonic(): String = js.native
+  def mnemonicToSeed(passphrase: String): Buffer = js.native
 
 }

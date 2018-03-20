@@ -12,7 +12,7 @@ var globalModules = {
   "ethereumjs-units": "EthereumjsUnits",
   "toastr" : "Toastr",
   "ethereum-blockies" : "Blockies",
-  "qrcode-generator" : "QRCode",
+  "qrcode-generator" : "QRCode"
 };
 
 Object.keys(config.entry).forEach(function(key) {

@@ -15,6 +15,9 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  */
 object CoreApi {
   private val apiVersion = if (LinkingInfo.productionMode) "http://52.32.124.115:9000/v1" else "/v1"
+
+  private val infuraUrl = "https://api.infura.io/v1/jsonrpc/ropsten"
+
   private def ajaxPost(requestContent: String, apiUrl: String): Future[String] = {
     Ajax.post(
       url = apiUrl,
@@ -23,6 +26,7 @@ object CoreApi {
   }
 
   private def ajaxGet(url: String): Future[String] = {
+    println(s"Url being called ${url}")
     Ajax.get(
       url = url).map(_.responseText)
   }
@@ -83,5 +87,6 @@ object CoreApi {
 
   def mobileSendSignedTxn(signedTxn: String) =
     ajaxPost(Json.stringify(Json.toJson(signedTxn)), s"${apiVersion}/wallet/mobile/signedTxn")
+
 }
 

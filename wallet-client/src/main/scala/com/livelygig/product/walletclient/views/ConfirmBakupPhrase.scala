@@ -37,12 +37,11 @@ object ConfirmBakupPhrase {
 
     def onBtnClicked(): react.Callback = {
       if (t.state.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))) {
-        val mnemonic=new Mnemonic()
-        val addrNode =HDKey.fromMasterSeed(mnemonic.toSeed(t.state.runNow()
+        val addrNode =HDKey.fromMasterSeed(Mnemonic.mnemonicToSeed(t.state.runNow()
           .phraseWords.mkString(" ")))
           .derive(s"m/44'/60'/0'/${getAccountNumber}")
         // store vault and update the root model
-        val ethereumJSWallet = EthereumJSWallet.fromExtendedPrivateKey(addrNode.publicExtendedKey)
+        val ethereumJSWallet = EthereumJSWallet.fromExtendedPrivateKey(addrNode.publicExtendedKey.toString("hex"))
 //        val newWallet = Wallet(ethereumJSWallet.getAddressString(), addrNode.privateExtendedKey, addrNode.publicExtendedKey)
 //        WalletCircuit.dispatch(AddNewAccount(Account(newWallet.publicKey, s"Account ${getAccountNumber + 1}")))
         /*BrowserPassworder.addWalletToVault(newWallet, t.props.runNow().password).map{

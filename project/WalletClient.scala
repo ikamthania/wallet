@@ -17,6 +17,7 @@ object WalletClient {
     npmDependencies in Compile ++= WalletClientDependencies.npmDependencies.value,
     useYarn := true,
     webpackBundlingMode := BundlingMode.LibraryOnly(),
+    scalacOptions += "-P:scalajs:sjsDefinedByDefault",
 
     // Add a dependency to the expose-loader (which will expose react to the global namespace)
     npmDevDependencies in Compile ++= Seq(

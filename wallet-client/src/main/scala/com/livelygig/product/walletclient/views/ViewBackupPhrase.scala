@@ -15,7 +15,7 @@ object ViewBackupPhrase {
 
   case class Props(router: RouterCtl[Loc])
 
-  final case class State(phrase: String= new Mnemonic().toString, isChecked:Boolean=false)
+  final case class State(phrase: String= Mnemonic.generateMnemonic(), isChecked:Boolean=false)
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
