@@ -34,7 +34,7 @@ class WalletServiceImpl(
 
   override def mobileGetAccountDetails(publicKey: String): ServiceCall[NotUsed, UserDetails] = ServerServiceCall { _ =>
 
-    Future(UserDetails(publicKey, WalletDetails(publicKey, web3JUtils.getBalance(publicKey)), Nil))
+    Future(UserDetails(publicKey, WalletDetails(publicKey, web3JUtils.getBalance(publicKey))))
 
   }
 

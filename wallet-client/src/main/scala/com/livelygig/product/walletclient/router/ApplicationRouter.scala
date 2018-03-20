@@ -101,8 +101,8 @@ object ApplicationRouter {
         | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => LoginView.component(LoginView.Props(ctl)))
         | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => BackupAccountTerms.component(BackupAccountTerms.Props(ctl)))
         | staticRoute(s"#/backup/storephrase", ViewBackupPhraseLoc) ~> renderR(ctl => ViewBackupPhrase.component(ViewBackupPhrase.Props(ctl)))
-        | staticRoute(s"#/backup/putphrase", ConfirmBackupPhraseLoc) ~> renderR(ctl => ConfirmBakupPhrase.component(ConfirmBakupPhrase.Props(ctl)))
-        | staticRoute(s"#/backup/confirm", ConfirmedBackupPhraseLoc) ~> renderR(ctl => ConfirmedBackupPhrase.component(ConfirmedBackupPhrase.Props(ctl)))
+        //        | staticRoute(s"#/backup/putphrase", ConfirmBackupPhraseLoc) ~> renderR(ctl => ConfirmBakupPhrase.component(ConfirmBakupPhrase.Props(ctl)))
+        //        | staticRoute(s"#/backup/confirm", ConfirmedBackupPhraseLoc) ~> renderR(ctl => ConfirmedBackupPhrase.component(ConfirmedBackupPhrase.Props(ctl)))
         | staticRoute(s"#/setup/register", SetupRegisterLoc) ~> renderR(ctl => SetupRegisterView.component(SetupRegisterView.Props(ctl))))
     }
 

@@ -30,7 +30,7 @@ object MultisigHomeView {
   Toastr.options.positionClass = "toast-top-full-width"
   case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc], loc: String = "")
 
-  final case class State(currencySelected: String, coinExchange: CoinExchange, userDetails: UserDetails = UserDetails("", WalletDetails("", ""), Nil))
+  final case class State(currencySelected: String, coinExchange: CoinExchange, userDetails: UserDetails = UserDetails("", WalletDetails("", "")))
 
   final class Backend(t: BackendScope[Props, State]) {
     def getLiveCurrencyUpdate() = {
@@ -249,7 +249,7 @@ object MultisigHomeView {
   }
 
   val component = ScalaComponent.builder[Props]("MultisigHomeView")
-    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), UserDetails("", WalletDetails("", "0"), Nil)))
+    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), UserDetails("", WalletDetails("", "0"))))
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.updateCurrency())
     .componentDidMount(scope => scope.backend.updateTheme())
