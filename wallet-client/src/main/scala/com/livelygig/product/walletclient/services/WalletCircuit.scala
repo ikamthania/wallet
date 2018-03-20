@@ -16,7 +16,7 @@ case class RootModel(appRootModel: AppRootModel, user: UserRootModel,
 object WalletCircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
 
   // initial application model
-  override protected def initialModel = RootModel(AppRootModel(AppModel()), UserRootModel(UserDetails("", WalletDetails("", ""), Nil)), Empty, Empty,
+  override protected def initialModel = RootModel(AppRootModel(AppModel()), UserRootModel(UserDetails("", WalletDetails("", ""))), Empty, Empty,
     I18NRootModel(JSON.parse(I18N.en_us)), MarketPricesRootModel(CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, "")))))))
 
   val appHandler = new AppHandler(zoomRW(_.appRootModel)((m, v) => m.copy(appRootModel = v)))
