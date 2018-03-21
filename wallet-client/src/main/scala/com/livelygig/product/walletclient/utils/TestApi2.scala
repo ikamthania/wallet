@@ -1,17 +1,9 @@
 package com.livelygig.product.walletclient.utils
 
-import com.livelygig.product.shared.models.wallet.{ Account, Vault, VaultData }
 import com.livelygig.product.walletclient.facades.{ HDKey, _ }
-import com.livelygig.product.walletclient.handler.{ AddNewAccount, UpdateVault }
 import com.livelygig.product.walletclient.services.{ CoreApi, EthereumNodeApi, WalletCircuit }
-import diode.AnyAction._
-import io.scalajs.nodejs.buffer.Buffer
-import play.api.libs.json.{ Format, Json }
-import play.api.libs.functional.syntax._
-import scala.collection.immutable._
-
+import play.api.libs.json.{ Json }
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import scala.scalajs.js
 
 object TestApi2 {
   def printWorkflow = {

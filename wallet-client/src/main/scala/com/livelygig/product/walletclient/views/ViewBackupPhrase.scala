@@ -144,32 +144,12 @@ object ConfirmBakupPhrase {
       Callback.empty
     }
 
-    lazy val getAccountNumber = {
-      val wallets = WalletCircuit.zoomTo(_.appRootModel.appModel.data.keyrings.accounts).value
-      if (wallets.nonEmpty){
-        wallets.length -1
-      } else {
-        0
-      }
-    }
-
     def onBtnClicked(): react.Callback = {
       if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))) {
-        val addrNode =HDKey.fromMasterSeed(Mnemonic.mnemonicToSeed(t.props.runNow()
-          .phraseWords.mkString(" ")))
-          .derive(s"m/44'/60'/0'/${getAccountNumber}")
-        // store vault and update the root model
-//        val ethereumJSWallet = EthereumJSWallet.fromExtendedPrivateKey(addrNode.publicExtendedKey)
-        //        val newWallet = Wallet(ethereumJSWallet.getAddressString(), addrNode.privateExtendedKey, addrNode.publicExtendedKey)
-        //        WalletCircuit.dispatch(AddNewAccount(Account(newWallet.publicKey, s"Account ${getAccountNumber + 1}")))
-        /*BrowserPassworder.addWalletToVault(newWallet, t.props.runNow().password).map{
-          _ =>
-            t.props.flatMap(_.router.set(ConfirmedBackupPhraseLoc)).runNow()
-        }*/
         t.modState(s => s.copy(showLoader = true,showconfirmedScreen = true))
 
       } else {
-        //        todo add validator for mnemonic phrase
+        // todo add validator for mnemonic phrase
         t.modState(s => s.copy(isValidPhrase = true))
       }
     }

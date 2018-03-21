@@ -18,9 +18,6 @@ object LocalStorageApi {
     dom.window.localStorage.setItem("config", Json.toJson(WalletCircuit.zoomTo(_.appRootModel).value.appModel).toString())
   }
 
-  val emptyAppModel = AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Nil, "", None),
-    Preferences(true, Nil, "default", "en_us"), Nil, InfuraNetworkStatus("", "", "", "")))
-
   def updateRootModelFromStorage() = {
     val config = dom.window.localStorage.getItem("config")
     if (config == null) {
@@ -29,7 +26,7 @@ object LocalStorageApi {
       Json.parse(config).validate[AppModel].map {
         e =>
           WalletCircuit.dispatch(UpdateRootModer(e))
-          if (e.data.keyrings.vault.isDefined) {
+          if (e.data.keyrings.vault.data != "") {
             WalletCircuit.dispatch(LoginUser(true))
           }
       }.recover {
