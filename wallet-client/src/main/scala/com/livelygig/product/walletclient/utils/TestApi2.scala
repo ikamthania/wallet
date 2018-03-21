@@ -6,10 +6,12 @@ import com.livelygig.product.walletclient.handler.{ AddNewAccount, UpdateVault }
 import com.livelygig.product.walletclient.services.{ CoreApi, EthereumNodeApi, WalletCircuit }
 import diode.AnyAction._
 import io.scalajs.nodejs.buffer.Buffer
-import play.api.libs.json.Json
+import play.api.libs.json.{ Format, Json }
 import play.api.libs.functional.syntax._
+import scala.collection.immutable._
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import scala.scalajs.js
 
 object TestApi2 {
   def printWorkflow = {
@@ -46,22 +48,31 @@ object TestApi2 {
 
     EthereumNodeApi.getTransactionCount(s"0x${child1Address}").map {
       res =>
-        val res2 = (Json.parse(res) \ "result")
+        val res2 = (Json.parse(res) \ "result").get.toString()
         try {
           println(EthereumjsUnits.convert("0.01", "eth", "wei"))
         } catch {
           case e: Exception => e.printStackTrace()
         }
         println(res2)
-        val myTransaction = new Transaction(res, "0x1e8f1c10800", "0x301114", s"0x${child2Address}", s"0x${EthereumjsUnits.convert("0.1", "eth", "wei")}")
-        myTransaction.sign(child1.privateKey)
-        println(myTransaction.serialize().toString("hex"))
-        println(s"Verifying the sender : ${myTransaction.getSenderAddress().toString("hex")}")
-        CoreApi.mobileSendSignedTxn(s"0x${myTransaction.serialize().toString("hex")}").map {
-          res2 =>
-            println(res2)
-        }.recover {
-          case e: Exception => println(e.getMessage())
+        try {
+          //          val myTransaction = new Transaction(new TransactionParams("0x4", "0x1e8f1c10800", "0x301114", s"0x${child2Address}", s"0x${EthereumjsUnits.convert("0.1", "eth", "wei")}", None, None, None, None))
+          //          val myTransaction = new Transaction("0x4", "0x1e8f1c10800", "0x301114", s"0x${child2Address}", s"0x${EthereumjsUnits.convert("0.1", "eth", "wei")}")
+
+          val transactionParams = TransactionParams(res2, "21000000000", "31501330", s"0x${child2Address}", s"0x${EthereumjsUnits.convert("0.1", "eth", "wei")}")
+          println(transactionParams)
+          val myTransaction = Ethereumjstx(transactionParams)
+          myTransaction.sign(child1.privateKey)
+          println(myTransaction.serialize().toString("hex"))
+          println(s"Verifying the sender : ${myTransaction.getSenderAddress().toString("hex")}")
+          CoreApi.mobileSendSignedTxn(s"0x${myTransaction.serialize().toString("hex")}").map {
+            res2 =>
+              println(res2)
+          }.recover {
+            case e: Exception => println(e.getMessage())
+          }
+        } catch {
+          case e: Exception => e.printStackTrace()
         }
     }
 

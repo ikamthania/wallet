@@ -1,15 +1,18 @@
 package com.livelygig.product.walletclient.facades
 
 import io.scalajs.nodejs.buffer.Buffer
+import play.api.libs.json.{ Format, JsValue, Json }
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 @js.native
 @JSImport("ethereumjs-tx/index.js", JSImport.Namespace)
-class Transaction(nonce: String = js.native, gasPrice: String = js.native,
-  gasLimit: String = js.native, to: String = js.native, value: String = js.native,
-  s: String = js.native, v: String = js.native, r: String = js.native, chainId: Int = js.native) extends js.Object {
+class Transaction() extends js.Object {
+
+  @inline
+  def this(data: js.Dictionary[String]) = this()
+
   def sign(privateKey: Buffer = js.native): Unit = js.native
   def serialize(): Buffer = js.native
   def getSenderAddress(): Buffer = js.native
@@ -19,3 +22,9 @@ class Transaction(nonce: String = js.native, gasPrice: String = js.native,
   //  def Transaction(params: String): this.type = js.native
 }
 
+case class TransactionParams(nonce: String, gasPrice: String, gasLimit: String, to: String, value: String)
+
+object Ethereumjstx {
+  def apply(transactionParams: TransactionParams) =
+    new Transaction(js.Dictionary("nonce" -> transactionParams.nonce, "gasPrice" -> transactionParams.gasPrice, "gasLimit" -> transactionParams.gasLimit))
+}
