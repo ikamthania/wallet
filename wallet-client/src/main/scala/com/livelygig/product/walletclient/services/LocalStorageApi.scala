@@ -1,16 +1,12 @@
 package com.livelygig.product.walletclient.services
 
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.facades.BrowserPassworder
 import com.livelygig.product.walletclient.handler.{ LoginUser, UpdateRootModer }
+import com.livelygig.product.walletclient.utils.SessionKeys
 import play.api.libs.json.{ JsError, Json }
 import org.scalajs.dom
-
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import diode.AnyAction._
 import play.api.libs.json.JsResult.Exception
-
-import scala.concurrent.Future
 
 object LocalStorageApi {
 
@@ -26,7 +22,7 @@ object LocalStorageApi {
       Json.parse(config).validate[AppModel].map {
         e =>
           WalletCircuit.dispatch(UpdateRootModer(e))
-          if (e.data.keyrings.vault.data != "") {
+          if (e.data.keyrings.vault.data != "" && dom.window.sessionStorage.getItem(SessionKeys.isSessionVerified) != null) {
             WalletCircuit.dispatch(LoginUser(true))
           }
       }.recover {

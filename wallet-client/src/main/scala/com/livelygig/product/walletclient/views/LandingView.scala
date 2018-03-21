@@ -3,11 +3,13 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.services.WalletCircuit
+import com.livelygig.product.walletclient.utils.SessionKeys
 import diode.data.Pot
 import diode.react.ModelProxy
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
+import org.scalajs.dom
 
 object LandingView {
 
@@ -28,8 +30,10 @@ object LandingView {
     }
 
     def render(p: Props, s: State): VdomElement = {
-      if (!WalletCircuit.zoom(_.user.isloggedIn).value) {
+      if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.keyrings.vault.data).value == "") {
         StaticLandingView.component()
+      } else if (dom.window.sessionStorage.getItem(SessionKeys.isSessionVerified) == null) {
+        EnterPasswordView.component()
       } else {
         AccountView.component(AccountView.Props(t.props.runNow().proxy, t.props.runNow().router))
       }
