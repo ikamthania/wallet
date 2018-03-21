@@ -22,9 +22,11 @@ class Transaction() extends js.Object {
   //  def Transaction(params: String): this.type = js.native
 }
 
-case class TransactionParams(nonce: String, gasPrice: String, gasLimit: String, to: String, value: String)
+case class TransactionParams(nonce: String, gasPrice: String, gasLimit: String, to: String, value: String, data: String)
 
 object Ethereumjstx {
   def apply(transactionParams: TransactionParams) =
-    new Transaction(js.Dictionary("nonce" -> transactionParams.nonce, "gasPrice" -> transactionParams.gasPrice, "gasLimit" -> transactionParams.gasLimit))
+    new Transaction(js.Dictionary("nonce" -> transactionParams.nonce, "gasPrice" -> transactionParams.gasPrice,
+      "gasLimit" -> transactionParams.gasLimit, "to" -> transactionParams.to, "value" -> transactionParams.value,
+      "data" -> transactionParams.data, "chainId" -> "3"))
 }

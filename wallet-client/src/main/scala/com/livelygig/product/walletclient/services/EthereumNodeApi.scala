@@ -32,8 +32,12 @@ object EthereumNodeApi {
   }
 
   def getTransactionCount(publicAddress: String): Future[String] = {
-    val params = List(publicAddress, "latest")
+    val params = List(publicAddress, "pending")
     ajaxGet(s"${infuraUrl}/eth_getTransactionCount?params=${Json.toJson(params).toString()}")
+  }
+  def getBlockByNumber(): Future[String] = {
+    //    val params = List("latest", true)
+    ajaxGet(s"${infuraUrl}/eth_getBlockByNumber?params=[%22pending%22,true]")
   }
 
   def sendRawTransaction(rawTransaction: String): Future[String] = {
