@@ -41,7 +41,7 @@ object Shared {
   lazy val shared = (crossProject.crossType(CrossType.Pure) in file("shared")).settings(commonSettings: _*).settings(
     libraryDependencies ++= Seq(
       "org.scalatest" %%% "scalatest" % SharedDependencies.scalaTestVersion % "test",
-      SharedDependencies.derivedCodecs
+      "org.julienrf" %%% "play-json-derived-codecs" % SharedDependencies.derivedCodecsVersion
     )
   )
     .jvmSettings(
@@ -52,7 +52,8 @@ object Shared {
     )
     .jsSettings(
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %%% "play-json" % SharedDependencies.playJsonVersion
+        "com.typesafe.play" %%% "play-json" % SharedDependencies.playJsonVersion,
+        "ru.pavkin" %%% "scala-js-momentjs" % "0.9.1"
       )
     )
     .jsConfigure(_ enablePlugins ScalaJSWeb)

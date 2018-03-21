@@ -48,6 +48,8 @@ object TestApi2 {
         }
         println(res2)
         try {
+          //          val myTransaction = new Transaction(new TransactionParams("0x4", "0x1e8f1c10800", "0x301114", s"0x${child2Address}", s"0x${EthereumjsUnits.convert("0.1", "eth", "wei")}", None, None, None, None))
+          //          val myTransaction = new Transaction("0x4", "0x1e8f1c10800", "0x301114", s"0x${child2Address}", s"0x${EthereumjsUnits.convert("0.1", "eth", "wei")}")
           //todo the amount getting from EthereumjsUnits.convert("0.1", "eth", "wei") utility method is too high than actual amount.
           val transactionParams = TransactionParams(res2, "0x4E3B29200", "0x3D0900", s"0x${child2Address}", "0x001", "0x0")
           println(transactionParams)

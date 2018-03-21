@@ -18,8 +18,6 @@ case class AppData(
 
 case class Network(name: String, rpcTarget: String)
 
-case class Notice(read: Boolean, date: String, title: String, body: String, id: Int)
-
 case class Curency(currentCurrency: String, conversionRate: Double, conversionDate: Int)
 
 case class Keyring(vault: Vault)
@@ -60,7 +58,7 @@ case class InfuraNetworkStatus(
 object AppModel {
   implicit val format: Format[AppModel] = Json.format
   def apply(): AppModel =
-    AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Vault("", "", "")),
+    AppModel(UbundaConfig("v1.0"), AppData(Nil, Seq(TermsOfServiceNotice()), Nil, Keyring(Vault("", "", "")),
       AccountInfo(Nil, ""), Preferences(true, Nil, "default", "en_us"), Nil, InfuraNetworkStatus("", "", "", "")))
 }
 
@@ -74,10 +72,6 @@ object AppData {
 
 object Network {
   implicit val format: Format[Network] = Json.format
-}
-
-object Notice {
-  implicit val format: Format[Notice] = Json.format
 }
 
 object Curency {

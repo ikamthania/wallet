@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.facades
 
 import com.livelygig.product.shared.models.wallet.{ Vault, VaultData }
 import com.livelygig.product.walletclient.services.WalletCircuit
-import play.api.libs.json.{ JsError, JsObject, JsSuccess, Json }
+import play.api.libs.json.{ JsError, JsSuccess, Json }
 
 import scala.concurrent.Future
 import scala.scalajs.js
