@@ -96,9 +96,3 @@ case class KeyStoreContentList(keystorecontent: Seq[KeyStoreContent])
 object KeyStoreContentList {
   implicit val format: Format[KeyStoreContentList] = Json.format
 }
-
-case class SignedTxnParams(nonce: String, encodedFunction: String, amntInWei: String)
-
-object SignedTxnParams {
-  implicit val format: Format[SignedTxnParams] = Json.format
-}

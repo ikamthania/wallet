@@ -57,12 +57,6 @@ class WalletServiceImpl(
 
   }
 
-  override def mobileGetNonce(publicKey: String): ServiceCall[EtherTransaction, SignedTxnParams] = ServerServiceCall { etherTransaction =>
-    web3JUtils
-      .getNonce(publicKey, etherTransaction)
-      .map { e => e }
-  }
-
   override def mobileSendSignedTransaction(): ServiceCall[String, String] = ServerServiceCall { signedTxn =>
     web3JUtils
       .sendSignedTransaction(signedTxn)

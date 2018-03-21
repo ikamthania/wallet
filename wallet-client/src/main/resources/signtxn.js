@@ -1,13 +1,12 @@
 
 var Transaction = require('ethereumjs-tx/index.js')
-exports.postRawTxn=function(priKey,amount,txTo,txnType,nonce,encodedFunction){
+exports.getSignTxn=function(priKey,amount,txTo,txnType,nonce,encodedFunction){
 
 //Ethereum network chainId--->Mainnet-1,Ropsten-3
 // create a blank transaction
 var chainId=3
 var tx = new Transaction(null, chainId) // ropsten Tx EIP155
-
-console.log("Params--->"+txTo+" "+" "+amount+" "+nonce+" "+encodedFunction+" ")
+console.log("Params--->"+priKey+"  "+" "+amount+" "+nonce+" "+encodedFunction+" ")
 
  switch (txnType) {
 
@@ -21,6 +20,7 @@ console.log("Params--->"+txTo+" "+" "+amount+" "+nonce+" "+encodedFunction+" ")
         tx.data = encodedFunction
         var pvt=priKey
         var privateKey = new Buffer(pvt, 'hex')
+        console.log(""+tx.gasLimit.toString)
         tx.sign(privateKey)
           break;
         }

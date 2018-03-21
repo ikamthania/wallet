@@ -19,8 +19,6 @@ trait WalletService extends Service {
 
   def mobileAccountTokensDetails(publicKey: String): ServiceCall[Seq[ERC20ComplientToken], Seq[ERC20ComplientToken]]
 
-  def mobileGetNonce(publicKey: String): ServiceCall[EtherTransaction, SignedTxnParams]
-
   def mobileSendSignedTransaction(): ServiceCall[String, String]
 
   def getETHNetConnected(): ServiceCall[NotUsed, String]
@@ -36,7 +34,6 @@ trait WalletService extends Service {
       pathCall("/api/wallet/mobile/:publicKey/account/erctoken/details", mobileAccountTokensDetails _),
       pathCall("/api/wallet/mobile/status/:txnHash", mobileGetTransactionStatus _),
       pathCall("/api/wallet/mobile/:publicKey/transactions/", mobileGetAccountTransactionHistory _),
-      pathCall("/api/wallet/mobile/:publicKey/nonce/", mobileGetNonce _),
       pathCall("/api//wallet/mobile/signedTxn", mobileSendSignedTransaction _))
   }
 }
