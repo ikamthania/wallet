@@ -11,6 +11,7 @@ case class AppData(
   notices: Seq[Notice],
   currencies: Seq[Curency],
   keyrings: Keyring,
+  accountInfo: AccountInfo,
   preferencess: Preferences,
   tokens: Seq[ERC20ComplientToken],
   infuraNetworkStatus: InfuraNetworkStatus)
@@ -21,7 +22,13 @@ case class Notice(read: Boolean, date: String, title: String, body: String, id: 
 
 case class Curency(currentCurrency: String, conversionRate: Double, conversionDate: Int)
 
-case class Keyring(accounts: Seq[Account], selectedAddress: String, vault: Option[Vault])
+case class Keyring(vault: Vault)
+
+case class AccountInfo(accounts: Seq[Account], selectedAddress: String)
+
+object AccountInfo {
+  implicit val format: Format[AccountInfo] = Json.format
+}
 
 case class Vault(data: String, iv: String, salt: String)
 
@@ -32,7 +39,7 @@ object Vault {
 case class Account(address: String, accountName: String)
 
 // will be encrypted
-case class VaultData(mnemonicPhrase: String, hdDerivePath: String = "m/44'/60'/0'/0")
+case class VaultData(privateExtendedKey: String, mnemonicPhrase: String, hdDerivePath: String = "m/44'/60'/0'/0")
 
 object VaultData {
   implicit val format: Format[VaultData] = Json.format
@@ -52,10 +59,9 @@ case class InfuraNetworkStatus(
 
 object AppModel {
   implicit val format: Format[AppModel] = Json.format
-
   def apply(): AppModel =
-    AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Nil, "", None),
-      Preferences(true, Nil, "default", "en_us"), Nil, InfuraNetworkStatus("", "", "", "")))
+    AppModel(UbundaConfig("v1.0"), AppData(Nil, Nil, Nil, Keyring(Vault("", "", "")),
+      AccountInfo(Nil, ""), Preferences(true, Nil, "default", "en_us"), Nil, InfuraNetworkStatus("", "", "", "")))
 }
 
 object UbundaConfig {
