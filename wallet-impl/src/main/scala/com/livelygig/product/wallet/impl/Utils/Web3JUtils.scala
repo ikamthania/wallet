@@ -4,7 +4,7 @@ import java.io.{ File, FileNotFoundException, FileOutputStream }
 import java.math.BigInteger
 import java.util
 
-import com.livelygig.product.shared.models.wallet.{ ERC20ComplientToken, EtherTransaction, SignedTxnParams }
+import com.livelygig.product.shared.models.wallet.{ ERC20ComplientToken, EtherTransaction }
 import com.livelygig.product.wallet.api.models.ValidateWalletFile
 import net.ceedubs.ficus.Ficus._
 import org.web3j.abi.datatypes.generated.Uint256
@@ -250,22 +250,5 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
     Future(txnInfo)
   }
 
-  def getNonce(publicAddress: String, etherTransaction: EtherTransaction): Future[SignedTxnParams] = {
-    val ethGetTransactionCount = web3j.ethGetTransactionCount(
-      publicAddress, DefaultBlockParameterName.PENDING).sendAsync().get()
-    val rawTransactionEncodedFunction = etherTransaction.txnType match {
-      case "eth" => "0x0"
-      case _ =>
-        val function = new Function(
-          "transfer",
-          util.Arrays
-            .asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
-          util.Arrays.asList())
-        FunctionEncoder.encode(function)
-    }
-    val amntInWei = s"0x${Convert.toWei(etherTransaction.amount, Convert.Unit.ETHER).toBigInteger.toString(16)}"
-
-    Future(SignedTxnParams(s"0x${ethGetTransactionCount.getTransactionCount().intValue().toHexString}", rawTransactionEncodedFunction, amntInWei))
-  }
 }
 

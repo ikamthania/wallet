@@ -1,16 +1,17 @@
 package com.livelygig.product.walletclient.modals
 
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.facades.{ Toastr, WalletJS }
+import com.livelygig.product.walletclient.facades.{ EthereumjsUnits, Toastr, WalletJS }
 import com.livelygig.product.walletclient.handler._
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.router.ApplicationRouter.LandingLoc
-import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
+import com.livelygig.product.walletclient.services.{ CoreApi, EthereumNodeApi, WalletCircuit }
 import diode.AnyAction._
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
+import org.scalajs.dom
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -119,50 +120,35 @@ object ConfirmModal {
 
     def sendTransaction(e: ReactEventFromHtml): react.Callback = Callback {
       // redact password
-      val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
-      CoreApi.mobileGetNonce(etherTxn)
-        .map { e =>
-          Json.parse(e).validate[SignedTxnParams]
-            .asOpt match {
-              case Some(signedTxnParams) =>
-                //                Toastr.info(s"$signedTxnParams")
-                val (address, encodedFunction) = if (etherTxn.txnType.equalsIgnoreCase("eth")) {
-                  (etherTxn.receiver, signedTxnParams.encodedFunction)
+      val privKey = dom.window.localStorage.getItem("priKey")
+      val pubKey = dom.window.localStorage.getItem("pubKey")
+      EthereumNodeApi.getTransactionCount(pubKey).map {
+        res =>
+          val nonce = (Json.parse(res) \ "result").get.toString()
+          val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
+          val signedTxn = WalletJS.getSignTxn(privKey, s"0x${BigDecimal.apply(EthereumjsUnits.convert(etherTxn.amount, "eth", "wei")).toBigInt().toString(16)}", etherTxn.receiver,
+            etherTxn.txnType, nonce, "0x0")
+
+          if (signedTxn != "") {
+            //  Toastr.info(s"signed raw transaction ----> $signedTxn")
+
+            CoreApi
+              .mobileSendSignedTxn(s"0x${signedTxn}")
+              .map { transactionHashString =>
+                if (transactionHashString.matches("0x[a-z-0-9]+")) {
+                  Toastr.info(s"Transaction sent. Transaction reference no. is $transactionHashString")
+                  getTransactionNotification(transactionHashString)
+                  t.props.runNow().rc.set(LandingLoc).runNow()
                 } else {
-                  if (etherTxn.receiver.isEmpty()) {
-                    ("0x0", etherTxn.txnType)
-                  } else {
-                    (etherTxn.txnType, signedTxnParams.encodedFunction)
-                  }
+                  Toastr.error(transactionHashString)
+                  Callback.empty
                 }
-                val signedTxn = WalletJS.postRawTxn(etherTxn.password, signedTxnParams.amntInWei, address,
-                  etherTxn.txnType, signedTxnParams.nonce, encodedFunction)
+              }
+          } else {
 
-                if (signedTxn != "") {
-                  //  Toastr.info(s"signed raw transaction ----> $signedTxn")
-
-                  CoreApi
-                    .mobileSendSignedTxn(s"0x${signedTxn}")
-                    .map { transactionHashString =>
-                      if (transactionHashString.matches("0x[a-z-0-9]+")) {
-                        Toastr.info(s"Transaction sent. Transaction reference no. is $transactionHashString")
-                        getTransactionNotification(transactionHashString)
-                        t.props.runNow().rc.set(LandingLoc).runNow()
-                      } else {
-                        Toastr.error(transactionHashString)
-                        Callback.empty
-                      }
-                    }
-                } else {
-
-                  Toastr.info("Please try again....")
-                }
-
-              case None => Toastr.info("Error in serving request")
-
-            }
-
-        }
+            Toastr.info("Please try again....")
+          }
+      }
     }
 
     def render(p: Props, s: State): VdomElement =

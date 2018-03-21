@@ -90,24 +90,6 @@ class MobileApiWalletController(
     Future(Ok(mockdata.toString).withHeaders("Access-Control-Allow-Origin" -> "*"))
   }
 
-  def mobileGetNonce(publicKey: String) = Action.async { implicit request =>
-    request.body.asJson match {
-      case Some(json) => {
-        Json.fromJson[EtherTransaction](json).fold(
-          _ => Future.successful(BadRequest("Error in parsing json")),
-          etherTransaction => postTxnInfo(publicKey, etherTransaction))
-      }
-      case None => Future.successful(BadRequest("No Json Found"))
-    }
-
-  }
-  def postTxnInfo(publicKey: String, etherTransaction: EtherTransaction) = {
-    walletService
-      .mobileGetNonce(publicKey)
-      .invoke(etherTransaction)
-      .map(e => Ok(Json.toJson(e)).withHeaders("Access-Control-Allow-Origin" -> "*"))
-  }
-
   def mobileSendTransaction() = Action.async { implicit request =>
 
     request.body.asJson match {

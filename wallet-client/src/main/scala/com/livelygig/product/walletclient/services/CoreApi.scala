@@ -82,9 +82,6 @@ object CoreApi {
 
   def mobileGetTransactionStatus(txnHash: String) = ajaxGet(s"${apiVersion}/wallet/mobile/status/${txnHash}")
 
-  def mobileGetNonce(txnInfo: EtherTransaction) =
-    ajaxPost(Json.stringify(Json.toJson[EtherTransaction](txnInfo)), s"${apiVersion}/wallet/mobile/${dom.window.localStorage.getItem("pubKey")}/nonce")
-
   def mobileSendSignedTxn(signedTxn: String) =
     ajaxPost(Json.stringify(Json.toJson(signedTxn)), s"${apiVersion}/wallet/mobile/signedTxn")
 

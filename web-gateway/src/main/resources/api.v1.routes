@@ -16,7 +16,6 @@ GET        /wallet/mobile/ethnet/info                                   controll
 GET        /wallet/mobile/coin/prices                                   controllers.api.v1.wallet.MobileApiWalletController.mobileGetMarketPrice()
 GET        /wallet/mobile/language/:lang                                controllers.api.v1.wallet.MobileApiWalletController.language(lang:String)
 GET        /wallet/mobile/status/:txnHash                               controllers.api.v1.wallet.MobileApiWalletController.mobileGetTransactionStatus(txnHash:String)
-POST        /wallet/mobile/:publicKey/nonce                              controllers.api.v1.wallet.MobileApiWalletController.mobileGetNonce(publicKey:String)
 POST       /wallet/mobile/signedTxn                                     controllers.api.v1.wallet.MobileApiWalletController.mobileSendTransaction()
 
 ## adding a dummy route for twirl template actions
