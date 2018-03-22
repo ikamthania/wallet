@@ -1,0 +1,24 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /home/ubuntu/work/livelygig/test-deployment/wallet
+hooks:
+  AfterInstall:
+   - location: scripts/codedeploy-scripts/after-install/build-services.sh
+     timeout: 180000
+     runas: root
+  BeforeInstall:
+  - location:  scripts/codedeploy-scripts/before-install/Stop_server.sh
+    timeout: 180
+    runas: root
+  ApplicationStart:
+  - location:  scripts/codedeploy-scripts/application-start/start-services.sh
+    timeout: 180
+    runas: root
+  ValidateService:
+  - location:  scripts/codedeploy-scripts/validate-service/validate-services.sh
+    timeout: 200
+    runas: root
+    
+    
