@@ -124,10 +124,10 @@ object ConfirmModal {
       val pubKey = dom.window.localStorage.getItem("pubKey")
       EthereumNodeApi.getTransactionCount(pubKey).map {
         res =>
-          val nonce = (Json.parse(res) \ "result").get.toString()
+          val nonce = (Json.parse(res) \ "result").as[String]
           val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
           val signedTxn = WalletJS.getSignTxn(privKey, s"0x${BigDecimal.apply(EthereumjsUnits.convert(etherTxn.amount, "eth", "wei")).toBigInt().toString(16)}", etherTxn.receiver,
-            etherTxn.txnType, nonce, "0x0")
+            etherTxn.txnType, nonce, "0x0", "0x4E3B29200", "0x3D0900")
 
           if (signedTxn != "") {
             //  Toastr.info(s"signed raw transaction ----> $signedTxn")
