@@ -4,6 +4,7 @@ package com.livelygig.product.walletclient.router
  * Created by shubham.k on 16-03-2017.
  */
 
+import com.livelygig.product.walletclient.router.ApplicationRouter.AccountLoc
 import com.livelygig.product.walletclient.services.WalletCircuit
 import com.livelygig.product.walletclient.views._
 import japgolly.scalajs.react.CallbackTo
@@ -16,6 +17,8 @@ object ApplicationRouter {
   sealed trait Loc
 
   case object TermsOfServicesLoc extends Loc
+
+  case object AccountLoc extends Loc
 
   case object SetupLoc extends Loc
 
@@ -77,10 +80,6 @@ object ApplicationRouter {
 
   case object ViewBackupPhraseLoc extends Loc
 
-  case object ConfirmBackupPhraseLoc extends Loc
-
-  case object ConfirmedBackupPhraseLoc extends Loc
-
   case class PopulateQRCodeLoc(to: String) extends Loc
 
   def getLoggedInStatus: CallbackTo[Boolean] = {
@@ -96,6 +95,7 @@ object ApplicationRouter {
 
     def openRoutes: Rule = {
       (staticRoute(root, LandingLoc) ~> renderR(ctl => walletaccountProxy(proxy => LandingView.component(LandingView.Props(proxy, ctl))))
+        | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
         | staticRoute(s"#/terms", TermsOfServiceLoc) ~> render(TermsOfServiceView.component())
         | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => SetupView.component(SetupView.Props(ctl)))
         | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => LoginView.component(LoginView.Props(ctl)))

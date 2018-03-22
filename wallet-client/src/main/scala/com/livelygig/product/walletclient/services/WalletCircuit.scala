@@ -20,10 +20,15 @@ object WalletCircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
     I18NRootModel(JSON.parse(I18N.en_us)), MarketPricesRootModel(CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, "")))))))
 
   val appHandler = new AppHandler(zoomRW(_.appRootModel)((m, v) => m.copy(appRootModel = v)))
+
   val accountHandler = new KeyringHandler(zoomRW(_.appRootModel.appModel.data.keyrings)((m, v) =>
     m.copy(appRootModel = m.appRootModel
       .copy(appModel = m.appRootModel.appModel.copy(data = m.appRootModel.appModel.data.copy(keyrings = v))))))
-  val appRootHandler = foldHandlers(appHandler, accountHandler)
+
+  val noticesHandler = new NoticesHandler(zoomRW(_.appRootModel.appModel.data.notices)((m, v) =>
+    m.copy(appRootModel = m.appRootModel
+      .copy(appModel = m.appRootModel.appModel.copy(data = m.appRootModel.appModel.data.copy(notices = v))))))
+  val appRootHandler = foldHandlers(appHandler, accountHandler, noticesHandler)
 
   // combine all handlers into one
   override protected val actionHandler = composeHandlers(

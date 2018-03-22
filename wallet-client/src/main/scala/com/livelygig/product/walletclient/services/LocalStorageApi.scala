@@ -23,11 +23,10 @@ object LocalStorageApi {
         e =>
           WalletCircuit.dispatch(UpdateRootModer(e))
           if (e.data.keyrings.vault.data != "" && dom.window.sessionStorage.getItem(SessionKeys.isSessionVerified) != null) {
-            WalletCircuit.dispatch(LoginUser(true))
+            WalletCircuit.dispatch(LoginUser())
           }
       }.recover {
         case err: JsError => {
-          //          println(err)
           throw Exception(JsError("Error in parsing app root model"))
         }
       }

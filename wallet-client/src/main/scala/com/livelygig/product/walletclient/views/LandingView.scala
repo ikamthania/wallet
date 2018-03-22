@@ -32,8 +32,10 @@ object LandingView {
     def render(p: Props, s: State): VdomElement = {
       if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.keyrings.vault.data).value == "") {
         StaticLandingView.component()
+        //        EnterPasswordView.component(EnterPasswordView.Props(p.router))
+
       } else if (dom.window.sessionStorage.getItem(SessionKeys.isSessionVerified) == null) {
-        EnterPasswordView.component()
+        EnterPasswordView.component(EnterPasswordView.Props(p.router))
       } else {
         AccountView.component(AccountView.Props(t.props.runNow().proxy, t.props.runNow().router))
       }

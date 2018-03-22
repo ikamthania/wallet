@@ -2,12 +2,15 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
+import com.livelygig.product.walletclient.handler.CreateVault
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, SetupRegisterLoc }
+import com.livelygig.product.walletclient.services.WalletCircuit
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
+import diode.AnyAction._
 
 object SetupView {
 
@@ -22,6 +25,8 @@ object SetupView {
         jQuery("#setupForm").validator("update").on("submit", (e: JQueryEventObject) => {
           if (!e.isDefaultPrevented()) {
             e.preventDefault()
+            WalletCircuit.dispatch(CreateVault(t.state.runNow().password))
+            println("Vault created.")
             t.props.flatMap(_.router.set(SetupRegisterLoc)).runNow()
           } else {
             e.preventDefault()

@@ -1,6 +1,7 @@
 package com.livelygig.product.walletclient.facades
 
 import com.livelygig.product.shared.models.wallet.{ Vault, VaultData }
+import com.livelygig.product.walletclient.handler.UpdateVault
 import com.livelygig.product.walletclient.services.WalletCircuit
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 
@@ -9,6 +10,7 @@ import scala.scalajs.js
 import scala.scalajs.js.Promise
 import scala.scalajs.js.annotation.JSImport
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+import diode.AnyAction._
 
 @js.native
 @JSImport("browser-passworder", JSImport.Namespace)
@@ -17,6 +19,9 @@ object BrowserPassworder extends js.Object {
 
   def decrypt(password: String, blob: String): Promise[js.Any] = js.native
 
+}
+
+object VaultGaurd {
   def decryptVault(password: String): Future[VaultData] = {
     val currentVault = WalletCircuit.zoom(_.appRootModel.appModel.data.keyrings.vault).value
     BrowserPassworder.decrypt(password, Json.toJson(currentVault).toString()).toFuture.map {
@@ -29,13 +34,14 @@ object BrowserPassworder extends js.Object {
 
   }
 
-  def encryptWallet(vaultData: VaultData, password: String): Future[Option[Vault]] = {
-    encrypt(password, Json.toJson(vaultData).toString)
+  def encryptWallet(password: String, vaultData: VaultData): Future[Unit] = {
+    BrowserPassworder.encrypt(password, Json.toJson(vaultData).toString)
       .toFuture
       .map {
         str =>
-          Json.parse(str).validate[Vault].asOpt
+          val vault = Json.parse(str).validate[Vault].get
+          WalletCircuit.dispatch(UpdateVault(vault))
+
       }
   }
-
 }

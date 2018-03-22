@@ -8,10 +8,8 @@ import org.scalajs.dom
 object WalletMain extends Bundles {
 
   def main(args: Array[String]): Unit = {
-
     println("Application started, creating initial root model and subscribing to changes")
     LocalStorageApi.subscribeToAppRootChanges()
-    TestApi2.printWorkflow
     ApplicationRouter.router().renderIntoDOM(dom.document.getElementById("root"))
   }
 
