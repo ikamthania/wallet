@@ -1,8 +1,11 @@
 
 package com.livelygig.product.walletclient.views
+import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.Contracts.MultiSigWalletWithDailyLimit
 import com.livelygig.product.shared.models.Solidity._
 import com.livelygig.product.shared.models.wallet.EtherTransaction
+
+import scala.scalajs.js
 // import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.facades.{ EthereumjsABI, EthereumjsUnits }
@@ -12,6 +15,8 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
+
+import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
 
 object AddSharedWalletView {
 
@@ -120,10 +125,15 @@ object AddSharedWalletView {
           val required = new Uint(s.requiredConfirmations)
           val dailyLimit = new Uint(EthereumjsUnits.convert(s.dailyLimitEth.toString, "eth", "wei"))
           val multiSigWallet = new MultiSigWalletWithDailyLimit(ownerAddresses, required, dailyLimit)
-          val encodedConstructor: String = EthereumjsABI.rawEncode(multiSigWallet.constructorArgs).toString()
+          val encodedConstructor: String = EthereumjsABI.rawEncode(multiSigWallet.constructorArgs).toString("hex")
 
-          /*jQuery("#confirmModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))*/
-          s.copy(etherTransaction = EtherTransaction("", "", "", MultiSigWalletWithDailyLimit.BYTE_CODE + encodedConstructor, 0))
+          val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
+          options.show = true
+          options.keyboard = true
+          options.backdrop = "static"
+          jQuery("#confirmModal").modal(options)
+
+          s.copy(etherTransaction = EtherTransaction("", "", "0", MultiSigWalletWithDailyLimit.BYTE_CODE + encodedConstructor, 0))
         })
     }
 

@@ -1,10 +1,13 @@
 package com.livelygig.product.walletclient.views
 
 // import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.walletclient.facades.QRCode
 import com.livelygig.product.walletclient.modals.ShowQRCode
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
 import com.livelygig.product.walletclient.services.WalletCircuit
+
+import scala.scalajs.js
 //import QRCode
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import japgolly.scalajs.react
@@ -97,6 +100,12 @@ object RequestView {
 
     def updateModal(): Callback = {
       val state = t.state.runNow()
+      import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
+      val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
+      options.show = true
+      options.keyboard = true
+      options.backdrop = "static"
+      jQuery("#showQRCode").modal(options)
       //jQuery("#showQRCode").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
       ShowQRCode(ShowQRCode.Props(state.qrCode))
       t.modState(scope => scope.copy(showModal = true))

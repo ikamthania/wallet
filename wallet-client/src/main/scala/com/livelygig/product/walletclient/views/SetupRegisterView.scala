@@ -10,6 +10,7 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
+import org.scalajs.dom
 import org.scalajs.jquery.JQueryEventObject
 
 import scala.scalajs.js
@@ -46,11 +47,12 @@ object SetupRegisterView {
     }
 
     def onSubmitClicked(): react.Callback = {
-      val state = t.state.runNow().regMode
+      val state = t.state.runNow()
       //      println(s"In onSubmitbuttonClicked  ${state}")
-      state match {
+      state.regMode match {
         case "newId" => {
-          //          println("In backupAccountClicked")
+          dom.window.localStorage.setItem("accountName", state.accountName)
+          println(t.state.runNow().accountName)
           t.props.flatMap(_.router.set(BackupAccountLoc))
         }
         case "passPhrase" => {
@@ -83,6 +85,7 @@ object SetupRegisterView {
 
     def updateAccountName(e: ReactEventFromInput): react.Callback = {
       val newValue = e.target.value
+      println(t.state.runNow().accountName, newValue)
       t.modState(_.copy(accountName = newValue))
     }
 

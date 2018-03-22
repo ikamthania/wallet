@@ -83,17 +83,15 @@ object Sidebar {
 
     def userProfileImg = {
 
-      val userDetails = WalletCircuit.zoom(_.user.userDetails)
-
-      // todo fix blockies
-      val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = dom.window.localStorage.getItem("pubKey")))
-      //Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = dom.window.localStorage.getItem("pubKey")))
-      jQuery("#userProfileImg").append(blockies)
+      //      val userDetails = WalletCircuit.zoom(_.user.userDetails)
+      var pubKey = dom.window.localStorage.getItem("pubKey")
+      Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = s"${userDetails.value.walletDetails.publicKey}"))
+      val str = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = s"${pubKey}"))
+      jQuery("#userProfileImg").prepend(str)
     }
 
     def componentDidMount(): Callback = {
       userProfileImg
-      //      getNotification
       changeLang(I18N.Lang.en_us)
       WalletCircuit.subscribe(WalletCircuit.zoom(_.i18n.language))(e => updateLang(e))
       getETHNetInfo()
@@ -107,14 +105,7 @@ object Sidebar {
 
       Callback.empty
     }
-    /*   def getNotification(): Unit = {
-      js.timers.setTimeout(10000) {
-        CoreApi.getNotification().map { response =>
-          Toastr.info(response, Some("New Notification"))
-          // getNotification()
-        }
-      }
-    }*/
+
     def render(props: Props, state: State): VdomElement = {
       val currentPage = props.r.page
       if (isSimpleHeader(currentPage)) {
@@ -240,7 +231,7 @@ object Sidebar {
                     <.h3(state.lang.selectDynamic("ACCOUNT").toString), <.i(
                       ^.className := "fa fa-arrow-right",
                       VdomAttr("aria-hidden") := "true"),
-                    <.h3(userDetails.value.alias), <.i(
+                    <.h3(dom.window.localStorage.getItem("accountName")), <.i(
                       ^.className := "fa fa-arrow-right",
                       VdomAttr("aria-hidden") := "true"), {
                       <.h3(getHeaderName(props.r.page, state))
