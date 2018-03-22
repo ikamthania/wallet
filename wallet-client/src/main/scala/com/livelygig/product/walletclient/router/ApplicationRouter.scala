@@ -4,7 +4,6 @@ package com.livelygig.product.walletclient.router
  * Created by shubham.k on 16-03-2017.
  */
 
-import com.livelygig.product.walletclient.router.ApplicationRouter.AccountLoc
 import com.livelygig.product.walletclient.services.WalletCircuit
 import com.livelygig.product.walletclient.views._
 import japgolly.scalajs.react.CallbackTo

@@ -1,8 +1,8 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.walletclient.facades.Mnemonic
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
-import com.livelygig.product.walletclient.facades.{Mnemonic}
-import com.livelygig.product.walletclient.handler.{LoginUser}
+import com.livelygig.product.walletclient.handler.LoginUser
 import com.livelygig.product.walletclient.router.ApplicationRouter.{LandingLoc, Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
 import diode.AnyAction._

@@ -5,12 +5,12 @@ import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.CreateVault
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, SetupRegisterLoc }
 import com.livelygig.product.walletclient.services.WalletCircuit
+import diode.AnyAction._
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
-import diode.AnyAction._
 
 object SetupView {
 

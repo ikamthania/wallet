@@ -3,14 +3,14 @@ package com.livelygig.product.walletclient.facades
 import com.livelygig.product.shared.models.wallet.{ Vault, VaultData }
 import com.livelygig.product.walletclient.handler.UpdateVault
 import com.livelygig.product.walletclient.services.WalletCircuit
+import diode.AnyAction._
 import play.api.libs.json.{ JsError, JsSuccess, Json }
 
 import scala.concurrent.Future
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js
 import scala.scalajs.js.Promise
 import scala.scalajs.js.annotation.JSImport
-import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import diode.AnyAction._
 
 @js.native
 @JSImport("browser-passworder", JSImport.Namespace)

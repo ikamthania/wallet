@@ -1,16 +1,14 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.facades.{ BrowserPassworder, VaultGaurd }
+import com.livelygig.product.walletclient.facades.VaultGaurd
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc, SetupRegisterLoc }
-import com.livelygig.product.walletclient.services.WalletCircuit
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
-import play.api.libs.json.Json
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 

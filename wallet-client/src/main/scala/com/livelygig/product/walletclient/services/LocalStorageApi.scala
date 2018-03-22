@@ -3,10 +3,10 @@ package com.livelygig.product.walletclient.services
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.handler.{ LoginUser, UpdateRootModer }
 import com.livelygig.product.walletclient.utils.SessionKeys
-import play.api.libs.json.{ JsError, Json }
-import org.scalajs.dom
 import diode.AnyAction._
+import org.scalajs.dom
 import play.api.libs.json.JsResult.Exception
+import play.api.libs.json.{ JsError, Json }
 
 object LocalStorageApi {
 

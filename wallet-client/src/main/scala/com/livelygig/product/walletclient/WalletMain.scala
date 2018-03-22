@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient
 
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.services.LocalStorageApi
-import com.livelygig.product.walletclient.utils.{ Bundles, TestApi2 }
+import com.livelygig.product.walletclient.utils.Bundles
 import org.scalajs.dom
 
 object WalletMain extends Bundles {

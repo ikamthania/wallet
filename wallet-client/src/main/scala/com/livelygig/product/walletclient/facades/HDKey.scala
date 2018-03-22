@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.facades
 import io.scalajs.nodejs.buffer.Buffer
 
 import scala.scalajs.js
-import scala.scalajs.js.annotation.{ JSImport, JSName }
+import scala.scalajs.js.annotation.JSImport
 
 @js.native
 @JSImport("hdkey", JSImport.Namespace)

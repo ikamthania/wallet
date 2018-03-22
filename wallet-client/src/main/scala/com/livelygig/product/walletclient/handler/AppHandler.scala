@@ -1,10 +1,8 @@
 package com.livelygig.product.walletclient.handler
 
-import com.livelygig.product.shared.models.wallet.{ Account, AppModel }
+import com.livelygig.product.shared.models.wallet.AppModel
 import com.livelygig.product.walletclient.rootmodel.AppRootModel
 import diode.{ ActionHandler, ActionResult, ModelRW }
-
-import scala.scalajs.js
 
 case class UpdateRootModer(appModel: AppModel)
 

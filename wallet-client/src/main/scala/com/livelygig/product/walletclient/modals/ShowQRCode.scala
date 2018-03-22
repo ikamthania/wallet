@@ -5,8 +5,6 @@ import com.livelygig.product.walletclient.facades.QRCode
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
-import org.scalajs.dom
-import org.scalajs.dom.raw.HTMLCanvasElement
 
 object ShowQRCode {
 

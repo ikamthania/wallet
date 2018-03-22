@@ -1,7 +1,6 @@
 package com.livelygig.product.walletclient.facades
 
 import io.scalajs.nodejs.buffer.Buffer
-import play.api.libs.json.{ Format, JsValue, Json }
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport

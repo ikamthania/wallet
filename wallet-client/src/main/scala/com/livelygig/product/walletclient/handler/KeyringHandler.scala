@@ -1,11 +1,8 @@
 package com.livelygig.product.walletclient.handler
 
-import com.livelygig.product.shared.models.wallet.{ Account, Keyring, Vault, VaultData }
-import com.livelygig.product.walletclient.facades.{ BrowserPassworder, VaultGaurd }
-import diode.{ Action, ActionHandler, ActionResult, ModelRW }
-import play.api.libs.json.Json
-
-import scala.scalajs.js
+import com.livelygig.product.shared.models.wallet.{ Keyring, Vault, VaultData }
+import com.livelygig.product.walletclient.facades.VaultGaurd
+import diode.{ ActionHandler, ActionResult, ModelRW }
 
 case class UpdateVault(vault: Vault)
 case class CreateVault(password: String)
