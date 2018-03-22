@@ -1,6 +1,6 @@
 
 var Transaction = require('ethereumjs-tx/index.js')
-exports.getSignTxn=function(priKey,amount,txTo,txnType,nonce,encodedFunction){
+exports.getSignTxn=function(priKey,amount,txTo,txnType,nonce,encodedFunction,gasPrice,gasLimit){
 
 //Ethereum network chainId--->Mainnet-1,Ropsten-3
 // create a blank transaction
@@ -14,8 +14,8 @@ console.log("Params--->"+priKey+"  "+" "+amount+" "+nonce+" "+encodedFunction+" 
         {
         tx.to=txTo
         tx.nonce = nonce
-        tx.gasPrice = 21000000000
-        tx.gasLimit = 315010
+        tx.gasPrice =gasPrice// 21000000000
+        tx.gasLimit =gasLimit// 315010
         tx.value = amount
         tx.data = encodedFunction
         var pvt=priKey
@@ -28,8 +28,8 @@ console.log("Params--->"+priKey+"  "+" "+amount+" "+nonce+" "+encodedFunction+" 
         {
           tx.to=txTo
                  tx.nonce = nonce
-                 tx.gasPrice = 21000000000
-                 tx.gasLimit = 315010
+                 tx.gasPrice =gasPrice// 21000000000
+                 tx.gasLimit =gasLimit// 315010
                  tx.data = encodedFunction
                  var pvt=priKey
                  var privateKey = new Buffer(pvt, 'hex')

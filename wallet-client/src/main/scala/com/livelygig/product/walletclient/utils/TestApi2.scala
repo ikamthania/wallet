@@ -40,7 +40,7 @@ object TestApi2 {
 
     EthereumNodeApi.getTransactionCount(s"0x${child1Address}").map {
       res =>
-        val res2 = (Json.parse(res) \ "result").get.toString()
+        val res2 = (Json.parse(res) \ "result").as[String]
         try {
           println(EthereumjsUnits.convert("0.01", "eth", "wei"))
         } catch {
@@ -51,7 +51,7 @@ object TestApi2 {
           //          val myTransaction = new Transaction(new TransactionParams("0x4", "0x1e8f1c10800", "0x301114", s"0x${child2Address}", s"0x${EthereumjsUnits.convert("0.1", "eth", "wei")}", None, None, None, None))
           //          val myTransaction = new Transaction("0x4", "0x1e8f1c10800", "0x301114", s"0x${child2Address}", s"0x${EthereumjsUnits.convert("0.1", "eth", "wei")}")
           //todo the amount getting from EthereumjsUnits.convert("0.1", "eth", "wei") utility method is too high than actual amount.
-          val transactionParams = TransactionParams(res2, "0x4E3B29200", "0x3D0900", s"0x${child2Address}", "0x38d7ea4c68000", "0x0")
+          val transactionParams = TransactionParams(res2, "0x4E3B29200", "0x4CE82", s"0x${child2Address}", s"0x${BigDecimal.apply("0.001").toBigInt().toString(16)}", "0x0")
           println(transactionParams)
           val myTransaction = Ethereumjstx(transactionParams)
           myTransaction.sign(child1.privateKey)
