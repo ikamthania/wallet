@@ -31,7 +31,7 @@ class MobileApiWalletController(
       "web-gateway/src/main/scala/i18n/wallet/"
     } else {
       //s"${System.getProperty("user.home")}/work/livelygig/mockdata"
-      "/home/ubuntu/work/livelygig/staging/web-gateway/src/main/scala/i18n/wallet/"
+      "/home/ubuntu/work/livelygig/mockdata/languages/"
     }
   }
 
