@@ -20,7 +20,3 @@ hooks:
   - location:  scripts/codedeploy-scripts/validate-service/validate-services.sh
     timeout: 2000
     runas: root
-
-
-
-
