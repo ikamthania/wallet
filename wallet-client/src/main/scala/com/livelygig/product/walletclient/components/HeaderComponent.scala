@@ -86,11 +86,9 @@ object HeaderComponent {
     }
 
     def userProfileImg = {
-
-      val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3,
-        seed = s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}"))
-      println(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}")
-      jQuery("#userProfileImg").append(blockies)
+      Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = s"DO NOT REMOVE ME OR BLOCKIES WON'T WORK FOR SOME REASON"))
+      val str = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}"))
+      jQuery("#userProfileImg").prepend(str)
     }
 
     def componentDidMount(): Callback = {
