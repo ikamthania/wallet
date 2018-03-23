@@ -31,8 +31,8 @@ object ConfirmBakupPhrase {
         val privateExtendedKey=HDKey.fromMasterSeed(mnemonic.toSeed(t.props.runNow().phraseWords.mkString(" "))).derive("m/44'/60'/0'/0").privateExtendedKey
         val wallet=Wallet.fromExtendedPrivateKey(privateExtendedKey)
         dom.window.localStorage.setItem("pubKey",wallet.getAddressString())
-        dom.window.localStorage.setItem("priKey",wallet.getPrivateKeyString())
-//        dom.window.localStorage.setItem("keystoreData","")
+        dom.window.localStorage.setItem("priKey",wallet.getPrivateKeyString() replaceAll ("[0x]", ""))
+
         t.props.flatMap(_.router.set(ConfirmedBackupPhraseLoc))
 
       } else {
