@@ -34,9 +34,9 @@ object LandingView {
         StaticLandingView.component()
         //        EnterPasswordView.component(EnterPasswordView.Props(p.router))
 
-      } else if (dom.window.sessionStorage.getItem(SessionKeys.isSessionVerified) == null) {
+      } /*else if (dom.window.sessionStorage.getItem(SessionKeys.isSessionVerified) == null) {
         EnterPasswordView.component(EnterPasswordView.Props(p.router))
-      } else {
+      }*/ else {
         AccountView.component(AccountView.Props(t.props.runNow().proxy, t.props.runNow().router))
       }
     }

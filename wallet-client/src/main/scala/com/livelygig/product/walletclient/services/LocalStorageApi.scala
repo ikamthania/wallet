@@ -2,7 +2,6 @@ package com.livelygig.product.walletclient.services
 
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.handler.{ LoginUser, UpdateRootModer }
-import com.livelygig.product.walletclient.utils.SessionKeys
 import diode.AnyAction._
 import org.scalajs.dom
 import play.api.libs.json.JsResult.Exception
@@ -22,7 +21,7 @@ object LocalStorageApi {
       Json.parse(config).validate[AppModel].map {
         e =>
           WalletCircuit.dispatch(UpdateRootModer(e))
-          if (e.data.keyrings.vault.data != "" && dom.window.sessionStorage.getItem(SessionKeys.isSessionVerified) != null) {
+          if (e.data.keyrings.vault.data != "") {
             WalletCircuit.dispatch(LoginUser())
           }
       }.recover {

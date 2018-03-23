@@ -79,5 +79,7 @@
   "CREATE_NEW_ACCOUNT": "Add account",
   "VIEW_ACCOUNTS": "View accounts",
   "ALL_ACCOUNTS": "Accounts",
-  "ADD_SHARED_WALLET":"Add shared wallet"
+  "ADD_SHARED_WALLET":"Add shared wallet",
+  "MULTISIG": "Multisig",
+  "ADDTOKEN": "Addtoken"
 }

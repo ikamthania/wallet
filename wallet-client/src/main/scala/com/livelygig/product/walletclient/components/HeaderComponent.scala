@@ -31,6 +31,7 @@ object HeaderComponent {
   def getHeaderName(currentLoc: Loc, state: State) = {
     currentLoc match {
       case LandingLoc => state.lang.selectDynamic("HOME").toString
+      case AccountLoc => state.lang.selectDynamic("HOME").toString
       case SendLoc => state.lang.selectDynamic("SEND").toString
       case HistoryLoc => state.lang.selectDynamic("HISTORY").toString
       case RequestLoc => state.lang.selectDynamic("REQUEST").toString
@@ -45,6 +46,8 @@ object HeaderComponent {
       case PopulateQRCodeLoc("") => state.lang.selectDynamic("SEND").toString
       case AllAccountsLoc => state.lang.selectDynamic("ALL_ACCOUNTS").toString
       case AddSharedWalletLoc => state.lang.selectDynamic("ADD_SHARED_WALLET").toString
+      case MultisigHomeLoc => state.lang.selectDynamic("MULTISIG").toString
+      case AddTokenLoc => state.lang.selectDynamic("ADDTOKEN").toString
       case _ => "Send"
     }
   }
@@ -84,11 +87,8 @@ object HeaderComponent {
 
     def userProfileImg = {
 
-      val userDetails = WalletCircuit.zoom(_.user.userDetails)
-
-      // todo fix blockies
-      val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = dom.window.localStorage.getItem("pubKey")))
-      //Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = dom.window.localStorage.getItem("pubKey")))
+      val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3,
+        seed = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value))
       jQuery("#userProfileImg").append(blockies)
     }
 
@@ -109,158 +109,53 @@ object HeaderComponent {
       Callback.empty
     }
 
-    /*   def getNotification(): Unit = {
-      js.timers.setTimeout(10000) {
-        CoreApi.getNotification().map { response =>
-          Toastr.info(response, Some("New Notification"))
-          // getNotification()
-        }
-      }
-    }*/
     def render(props: Props, state: State): VdomElement = {
-      val currentPage = props.r.page
       val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
-      if (isSimpleHeader(currentPage)) {
-        <.div()(
+      <.div()(
+        <.div(
+          ^.className := "wallet-inner-navigation",
           <.div(
-            ^.className := "wallet-inner-navigation",
+            ^.className := "row",
             <.div(
-              ^.className := "row",
-              <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2"),
-              <.div(
-                ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
+              ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
+              <.span(^.className := "togglebtn", ^.onClick --> toggleNav, "☰"),
+              <.div(^.id := "mySidenav", ^.className := "sidenav", ^.onClick ==> onSideBarMenuClicked,
                 <.div(
-                  ^.className := "wallet-information",
-                  <.a(^.href := "javascript:void()", ^.className := "back-to"),
-                  <.p(state.ethNetInfo),
-                  <.h2(state.lang.selectDynamic("WALLET").toString),
-                  <.h3(getHeaderName(props.r.page, state)))),
-              <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2"))))
-      } else if (currentPage == NotificationLoc || currentPage == AllAccountsLoc || currentPage == AddSharedWalletLoc) {
-        <.div()(
-          <.div(
-            ^.className := "wallet-inner-navigation",
+                  ^.id := "closebtnContainer",
+                  <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
+                <.ul(
+                  ^.id := "menu",
+                  SidebarMenuComponent(props.c, props.r.page)))),
             <.div(
-              ^.className := "row",
+              ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
               <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
-                <.span(^.className := "togglebtn", ^.onClick --> toggleNav, "☰"),
-                <.div(^.id := "mySidenav", ^.className := "sidenav", ^.onClick ==> onSideBarMenuClicked,
-                  <.div(
-                    ^.id := "closebtnContainer",
-                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
-                  <.ul(
-                    ^.id := "menu",
-                    SidebarMenuComponent(props.c, props.r.page)))),
-              <.div(
-                ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
-                <.div(
-                  ^.className := "wallet-information",
-                  <.a(^.href := "javascript:void()", ^.className := "back-to"),
-                  <.p(state.ethNetInfo),
-                  <.h2(state.lang.selectDynamic("WALLET").toString),
-                  <.span(
-                    ^.className := "wallet-page",
-                    <.h3(getHeaderName(props.r.page, state))))),
-              <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
-                <.div(
-                  ^.className := "wallet-user-icon ",
-                  /* <.a(
-                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),*/
+                ^.className := "wallet-information",
+                <.a(^.href := "javascript:void()", ^.className := "back-to"),
+                <.p(state.ethNetInfo),
+                <.h2(state.lang.selectDynamic("WALLET").toString),
+                <.span(
+                  ^.className := "wallet-page",
+                  <.h3(state.lang.selectDynamic("ACCOUNT").toString), <.i(
+                    ^.className := "fa fa-arrow-right",
+                    VdomAttr("aria-hidden") := "true"),
+                  <.h3(
 
-                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
-      } else if (currentPage == IdentitiesLoc || currentPage == ManageIdentitiesLoc) {
-        var headerName = "Select"
-        if (currentPage == ManageIdentitiesLoc) headerName = getHeaderName(props.r.page, state)
-        <.div()(
-          <.div(
-            ^.className := "wallet-inner-navigation",
+                    accountInfo.accounts
+                      .find(_.address == accountInfo.selectedAddress).getOrElse(Account("No Address Selected", "No Address Selected")).accountName), <.i(
+                    ^.className := "fa fa-arrow-right",
+                    VdomAttr("aria-hidden") := "true"),
+                  {
+                    <.h3(getHeaderName(props.r.page, state))
+                  }))),
             <.div(
-              ^.className := "row",
+              ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
               <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
-                <.span(^.className := "togglebtn", ^.onClick --> toggleNav, "☰"),
-                <.div(^.id := "mySidenav", ^.className := "sidenav", ^.onClick ==> onSideBarMenuClicked,
-                  <.div(
-                    ^.id := "closebtnContainer",
-                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
-                  <.ul(
-                    ^.id := "menu",
-                    SidebarMenuComponent(props.c, props.r.page)))),
-              <.div(
-                ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
-                <.div(
-                  ^.className := "wallet-information",
-                  <.a(^.href := "javascript:void()", ^.className := "back-to"),
-                  <.p(state.ethNetInfo),
-                  <.h2(state.lang.selectDynamic("WALLET").toString),
-                  <.span(
-                    ^.className := "wallet-page",
-                    <.h3(state.lang.selectDynamic(headerName.toUpperCase()).toString), <.i(
-                      ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"),
-                    <.h3(state.lang.selectDynamic("IDENTITIES").toString),
-                    <.i(
-                      ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"),
-                    <.h3("username")))),
-              <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
-                <.div(
-                  ^.className := "wallet-user-icon ",
-                  /* <.a(
-                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),
-*/
-                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
-      } else {
-        <.div()(
-          <.div(
-            ^.className := "wallet-inner-navigation",
-            <.div(
-              ^.className := "row",
-              <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
-                <.span(^.className := "togglebtn", ^.onClick --> toggleNav, "☰"),
-                <.div(^.id := "mySidenav", ^.className := "sidenav", ^.onClick ==> onSideBarMenuClicked,
-                  <.div(
-                    ^.id := "closebtnContainer",
-                    <.span(^.className := "closebtn", ^.onClick --> toggleNav, "×")),
-                  <.ul(
-                    ^.id := "menu",
-                    SidebarMenuComponent(props.c, props.r.page)))),
-              <.div(
-                ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-8",
-                <.div(
-                  ^.className := "wallet-information",
-                  <.a(^.href := "javascript:void()", ^.className := "back-to"),
-                  <.p(state.ethNetInfo),
-                  <.h2(state.lang.selectDynamic("WALLET").toString),
-                  <.span(
-                    ^.className := "wallet-page",
-                    <.h3(state.lang.selectDynamic("ACCOUNT").toString), <.i(
-                      ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"),
-                    <.h3(
-
-                      accountInfo.accounts
-                        .find(_.address == accountInfo.selectedAddress).getOrElse(Account("No Address Selected", "No Address Selected")).accountName), <.i(
-                      ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"),
-                    {
-                      <.h3(getHeaderName(props.r.page, state))
-                    }))),
-              <.div(
-                ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
-                <.div(
-                  ^.className := "wallet-user-icon ", /*
+                ^.className := "wallet-user-icon ", /*
                   <.a(
                     ^.href := "#/notification",
                     <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),*/
-                  <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
-      }
+                <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
+
     }
   }
 

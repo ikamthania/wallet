@@ -104,8 +104,8 @@ object SidebarMenuComponent {
       val accountConfigureSubmenuItem = MenuItemWithCallback(state.selectDynamic("CONFIGURE").toString, emptyCallback)
       val accountExchangeSubmenuItem = MenuItemWithSubItems(state.selectDynamic("EXCHANGE").toString, Seq(test1SubmenuItem, test2SubmenuItem))
       val allAccountsHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("VIEW_ACCOUNTS").toString, AllAccountsLoc)
-      val multiSigHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("MULTI_SIG_WALLET").toString, MultisigHomeLoc)
-      val AddTokenSubmenuItem = MenuItemWithLocation(state.selectDynamic("ADD_TOKENS").toString, AddTokenLoc)
+      val multiSigHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("MULTISIG").toString, MultisigHomeLoc)
+      val AddTokenSubmenuItem = MenuItemWithLocation(state.selectDynamic("ADDTOKEN").toString, AddTokenLoc)
       val AddSharedWalletHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("ADD_SHARED_WALLET").toString, AddSharedWalletLoc)
       //Seetings
       //Themes
