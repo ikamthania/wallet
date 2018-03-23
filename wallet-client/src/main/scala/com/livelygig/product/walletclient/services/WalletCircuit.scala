@@ -21,14 +21,19 @@ object WalletCircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
 
   val appHandler = new AppHandler(zoomRW(_.appRootModel)((m, v) => m.copy(appRootModel = v)))
 
-  val accountHandler = new KeyringHandler(zoomRW(_.appRootModel.appModel.data.keyrings)((m, v) =>
+  val keyringHandler = new KeyringHandler(zoomRW(_.appRootModel.appModel.data.keyrings)((m, v) =>
     m.copy(appRootModel = m.appRootModel
       .copy(appModel = m.appRootModel.appModel.copy(data = m.appRootModel.appModel.data.copy(keyrings = v))))))
 
   val noticesHandler = new NoticesHandler(zoomRW(_.appRootModel.appModel.data.notices)((m, v) =>
     m.copy(appRootModel = m.appRootModel
       .copy(appModel = m.appRootModel.appModel.copy(data = m.appRootModel.appModel.data.copy(notices = v))))))
-  val appRootHandler = foldHandlers(appHandler, accountHandler, noticesHandler)
+
+  val accountHandler = new AccountHandler(zoomRW(_.appRootModel.appModel.data.accountInfo)((m, v) =>
+    m.copy(appRootModel = m.appRootModel
+      .copy(appModel = m.appRootModel.appModel.copy(data = m.appRootModel.appModel.data.copy(accountInfo = v))))))
+
+  val appRootHandler = foldHandlers(appHandler, keyringHandler, accountHandler, noticesHandler)
 
   // combine all handlers into one
   override protected val actionHandler = composeHandlers(

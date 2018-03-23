@@ -3,12 +3,15 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.walletclient.facades.VaultGaurd
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc }
+import com.livelygig.product.walletclient.handler.{ LoginUser, UpdatePassword }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc, SetupRegisterLoc, ViewBackupPhraseLoc }
+import com.livelygig.product.walletclient.services.WalletCircuit
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
+import diode.AnyAction._
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 
@@ -26,8 +29,18 @@ object EnterPasswordView {
           if (!e.isDefaultPrevented()) {
             e.preventDefault()
             VaultGaurd.decryptVault(
-              state.password).map {
-                _ => t.props.flatMap(_.router.set(AccountLoc)).runNow()
+              t.state.runNow().password).map {
+                e =>
+                  WalletCircuit.dispatch(LoginUser())
+                  WalletCircuit.dispatch(UpdatePassword(t.state.runNow().password))
+                  if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value == Nil) {
+                    t.props.flatMap(_.router.set(SetupRegisterLoc)).runNow()
+                  } else if (e.mnemonicPhrase == "") {
+                    t.props.flatMap(_.router.set(ViewBackupPhraseLoc)).runNow()
+                  } else {
+                    t.props.flatMap(_.router.set(AccountLoc)).runNow()
+                  }
+
               }.recover {
                 case _ =>
                   jQuery("div.form-group").removeClass("has-success").addClass("has-error has-danger")

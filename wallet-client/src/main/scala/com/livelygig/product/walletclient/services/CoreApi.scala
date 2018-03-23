@@ -26,7 +26,6 @@ object CoreApi {
   }
 
   private def ajaxGet(url: String): Future[String] = {
-    println(s"Url being called ${url}")
     Ajax.get(
       url = url).map(_.responseText)
   }

@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.handler.CreateVault
+import com.livelygig.product.walletclient.handler.{ CreateVault, LoginUser, UpdatePassword }
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, SetupRegisterLoc }
 import com.livelygig.product.walletclient.services.WalletCircuit
 import diode.AnyAction._
@@ -25,7 +25,9 @@ object SetupView {
         jQuery("#setupForm").validator("update").on("submit", (e: JQueryEventObject) => {
           if (!e.isDefaultPrevented()) {
             e.preventDefault()
+            WalletCircuit.dispatch(UpdatePassword(t.state.runNow().password))
             WalletCircuit.dispatch(CreateVault(t.state.runNow().password))
+            WalletCircuit.dispatch(LoginUser())
             println("Vault created.")
             t.props.flatMap(_.router.set(SetupRegisterLoc)).runNow()
           } else {

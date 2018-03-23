@@ -94,19 +94,19 @@ object ApplicationRouter {
 
     def openRoutes: Rule = {
       (staticRoute(root, LandingLoc) ~> renderR(ctl => walletaccountProxy(proxy => LandingView.component(LandingView.Props(proxy, ctl))))
-        | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
         | staticRoute(s"#/terms", TermsOfServiceLoc) ~> render(TermsOfServiceView.component())
         | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => SetupView.component(SetupView.Props(ctl)))
         | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => LoginView.component(LoginView.Props(ctl)))
-        | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => BackupAccountTerms.component(BackupAccountTerms.Props(ctl)))
-        | staticRoute(s"#/backup/phrase", ViewBackupPhraseLoc) ~> renderR(ctl => ViewBackupPhrase.component(ViewBackupPhrase.Props(ctl)))
         | staticRoute(s"#/setup/register", SetupRegisterLoc) ~> renderR(ctl => SetupRegisterView.component(SetupRegisterView.Props(ctl))))
     }
 
     def securedRoutes: Rule = {
       (emptyRule
         | staticRoute(s"#/send", SendLoc) ~> renderR(ctl => walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, ""))))
+        | staticRoute(s"#/account", AccountLoc) ~> renderR(ctl => walletaccountProxy(proxy => AccountView.component(AccountView.Props(proxy, ctl))))
         | staticRoute(s"#/request", RequestLoc) ~> renderR(ctl => RequestView(RequestView.Props(ctl)))
+        | staticRoute(s"#/backup", BackupAccountLoc) ~> renderR(ctl => BackupAccountTerms.component(BackupAccountTerms.Props(ctl)))
+        | staticRoute(s"#/backup/phrase", ViewBackupPhraseLoc) ~> renderR(ctl => ViewBackupPhrase.component(ViewBackupPhrase.Props(ctl)))
         | staticRoute(s"#/history", HistoryLoc) ~> renderR(ctl => wallethistoryProxy(proxy => HistoryView.component(HistoryView.Props(proxy))))
         | staticRoute(s"#/manageIdentities", ManageIdentitiesLoc) ~> renderR(ctl => ManageIdentitiesView(ManageIdentitiesView.Props()))
         | staticRoute(s"#/identities", IdentitiesLoc) ~> renderR(ctl => IdentitiesView(IdentitiesView.Props()))

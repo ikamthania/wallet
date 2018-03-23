@@ -1,5 +1,6 @@
 package com.livelygig.product.walletclient.components
 
+import com.livelygig.product.shared.models.wallet.Account
 import com.livelygig.product.walletclient.facades.Blockies
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.ChangeLang
@@ -107,6 +108,7 @@ object HeaderComponent {
 
       Callback.empty
     }
+
     /*   def getNotification(): Unit = {
       js.timers.setTimeout(10000) {
         CoreApi.getNotification().map { response =>
@@ -117,6 +119,7 @@ object HeaderComponent {
     }*/
     def render(props: Props, state: State): VdomElement = {
       val currentPage = props.r.page
+      val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
       if (isSimpleHeader(currentPage)) {
         <.div()(
           <.div(
@@ -240,9 +243,13 @@ object HeaderComponent {
                     <.h3(state.lang.selectDynamic("ACCOUNT").toString), <.i(
                       ^.className := "fa fa-arrow-right",
                       VdomAttr("aria-hidden") := "true"),
-                    <.h3(userDetails.value.alias), <.i(
+                    <.h3(
+
+                      accountInfo.accounts
+                        .find(_.address == accountInfo.selectedAddress).getOrElse(Account("No Address Selected", "No Address Selected")).accountName), <.i(
                       ^.className := "fa fa-arrow-right",
-                      VdomAttr("aria-hidden") := "true"), {
+                      VdomAttr("aria-hidden") := "true"),
+                    {
                       <.h3(getHeaderName(props.r.page, state))
                     }))),
               <.div(
@@ -256,6 +263,7 @@ object HeaderComponent {
       }
     }
   }
+
   val component = ScalaComponent.builder[Props]("Header")
     .initialState(State())
     .renderBackend[Backend]

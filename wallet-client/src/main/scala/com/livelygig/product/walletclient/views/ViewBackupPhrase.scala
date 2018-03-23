@@ -1,16 +1,20 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.facades.Mnemonic
+import com.livelygig.product.shared.models.wallet.Account
+import com.livelygig.product.walletclient.facades.{HDKey, Mnemonic, VaultGaurd}
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
-import com.livelygig.product.walletclient.handler.LoginUser
-import com.livelygig.product.walletclient.router.ApplicationRouter.{LandingLoc, Loc}
+import com.livelygig.product.walletclient.handler.{LoginUser, UpdateAccount, UpdateDefaultAccount}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{AccountLoc, LandingLoc, Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
+import com.livelygig.product.walletclient.utils.Defaults
 import diode.AnyAction._
+import io.scalajs.nodejs.buffer.Buffer
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.util.Random
 
 object ViewBackupPhrase {
@@ -141,12 +145,29 @@ object ConfirmBakupPhrase {
     }
 
     def onBtnClicked(): react.Callback = {
-      if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))) {
-        t.modState(s => s.copy(showLoader = true, showconfirmedScreen = true))
+      if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))/*true*/) {
+        val password = WalletCircuit.zoomTo(_.user.userPassword).value
+        VaultGaurd.decryptVault(password).map{
+          e =>
+            val mnemonicString = t.props.runNow().phraseWords.mkString(" ")
+            val seed = Mnemonic.mnemonicToSeed(mnemonicString)
+            val hdKey = HDKey.fromMasterSeed(seed)
+            val child = hdKey.derive(s"${e.hdDerivePath}/0")
+            WalletCircuit.dispatch(UpdateDefaultAccount(child.publicKey.toString("hex")))
+            VaultGaurd.encryptWallet(password,
+              e.copy(privateExtendedKey = hdKey.privateExtendedKey.toString(),
+                mnemonicPhrase = mnemonicString)).map{
+              _ =>
+                t.modState(_.copy(showconfirmedScreen = true)).runNow()
+            }
+
+        }
+
+        t.modState(s => s.copy(showLoader = true))
 
       } else {
         // todo add validator for mnemonic phrase
-        t.modState(s => s.copy(isValidPhrase = true))
+        t.modState(s => s.copy(isValidPhrase = false))
       }
     }
 
@@ -198,10 +219,10 @@ object ConfirmBakupPhrase {
                 <.ul(
                   ^.id := "phrase-container ",
                   ^.className := "col-xs-12 backupPhrase-container mnemonic-phrase-box")(s.phraseSelected.filter(_.nonEmpty) map generateWordList: _*)),
-              if (s.isValidPhrase) {
+              if (!s.isValidPhrase) {
                 <.div(^.className := "alert alert-danger alert-dismissible fade in",
                   <.a(^.href := "#", ^.className := "close", VdomAttr("data-dismiss") := "alert", VdomAttr("aria-label") := "close", "×"),
-                  <.strong("Mnemonic-phrase not matched!!!"),
+                  <.strong("Mnemonic-phrase not matched!!!")
                 )
               } else
                 <.div())),
@@ -230,7 +251,7 @@ object ConfirmBakupPhrase {
   }
 
   val component = ScalaComponent.builder[Props]("ConfirmBakupPhrase")
-    .initialState(State(Seq(""), Seq(""), false, false))
+    .initialState(State(Seq(""), Seq(""), true, false))
     .renderBackend[Backend]
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
@@ -251,9 +272,7 @@ object ConfirmedBackupPhrase {
     }
 
     def onBtnClicked(): react.Callback = {
-      val userDetails = WalletCircuit.zoom(_.user).value
-      WalletCircuit.dispatch(LoginUser())
-      t.props.flatMap(e => e.router.set(LandingLoc))
+      t.props.flatMap(e => e.router.set(AccountLoc))
     }
 
     def componentWillMount(props: Props): Callback = {

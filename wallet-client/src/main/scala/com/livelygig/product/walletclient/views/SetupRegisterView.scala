@@ -1,16 +1,20 @@
 package com.livelygig.product.walletclient.views
 
 import com.definitelyscala.bootstrap.ModalOptionsBackdropString
+import com.livelygig.product.shared.models.wallet.Account
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
+import com.livelygig.product.walletclient.handler.{ AddAccount, UpdatePassword }
 import com.livelygig.product.walletclient.modals.SetupPasswordModal
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ BackupAccountLoc, Loc, LoginLoc }
+import com.livelygig.product.walletclient.services.WalletCircuit
 import com.livelygig.product.walletclient.utils.Defaults
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
+import diode.AnyAction._
 
 import scala.scalajs.js
 
@@ -29,7 +33,9 @@ object SetupRegisterView {
         jQuery("#setupForm").validator("update").on("submit", (e: JQueryEventObject) => {
           if (!e.isDefaultPrevented()) {
             e.preventDefault()
-
+            // create an account in vault
+            WalletCircuit.dispatch(AddAccount(Account(Defaults.defaultAccountPublicKey, t.state.runNow().accountName)))
+            t.props.flatMap(_.router.set(BackupAccountLoc)).runNow()
           } else {
             e.preventDefault()
           }
@@ -194,7 +200,7 @@ object SetupRegisterView {
                 ^.className := "row",
                 <.div(
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
-                  <.button(^.id := "setSelectedItem", ^.`type` := "submit", ^.onClick --> onSubmitClicked(), ^.className := "btn btnDefault", "Next")))))),
+                  <.button(^.id := "setSelectedItem", ^.`type` := "submit", ^.className := "btn btnDefault", "Next")))))),
         <.div(
           SetupPasswordModal.component(SetupPasswordModal.Props(p.router))))
 

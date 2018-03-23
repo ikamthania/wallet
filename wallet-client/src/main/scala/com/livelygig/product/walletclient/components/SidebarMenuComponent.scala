@@ -95,7 +95,7 @@ object SidebarMenuComponent {
       val identityConnectionsSubmenuItem = MenuItemWithCallback(state.selectDynamic("CONNECTIONS").toString, emptyCallback)
       val identityTransactionSubmenuItem = MenuItemWithCallback(state.selectDynamic("TRANSACTIONS").toString, emptyCallback)
       //Account submenu items
-      val accountHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("HOME").toString, LandingLoc)
+      val accountHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("HOME").toString, AccountLoc)
       val accountSendSubmenuItem = MenuItemWithLocation(state.selectDynamic("SEND").toString, SendLoc)
       val accountRequestSubmenuItem = MenuItemWithLocation(state.selectDynamic("REQUEST").toString, RequestLoc)
       val accountViewRequestsSubmenuItem = MenuItemWithCallback(state.selectDynamic("VIEW_REQUESTS").toString, emptyCallback)
