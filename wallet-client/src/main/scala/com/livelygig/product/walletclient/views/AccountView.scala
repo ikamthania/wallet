@@ -34,7 +34,7 @@ object AccountView {
 
   final class Backend(t: BackendScope[Props, State]) {
     def getLiveCurrencyUpdate() = {
-      CoreApi.mobileGetUserDetails().map { userDetails =>
+      /*CoreApi.mobileGetUserDetails().map { userDetails =>
         Json.parse(userDetails).validate[UserDetails].asOpt match {
           case Some(response) =>
             WalletCircuit.dispatch(GetUserDetails(response))
@@ -42,7 +42,7 @@ object AccountView {
 
           case None => println("Error in parsing user details response")
         }
-      }
+      }*/
       CoreApi.mobileGetLivePrices()
         .map(prices =>
           Json.parse(prices)

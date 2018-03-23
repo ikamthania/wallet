@@ -88,7 +88,8 @@ object HeaderComponent {
     def userProfileImg = {
 
       val blockies = Blockies.create(js.Dynamic.literal(size = 15, scale = 3,
-        seed = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value))
+        seed = s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}"))
+      println(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}")
       jQuery("#userProfileImg").append(blockies)
     }
 

@@ -9,6 +9,7 @@ import diode.{ ActionHandler, ActionResult, ModelRW }
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 case class UpdateAccountTokenList(potResult: Pot[ERCTokenRootModel] = Empty, retryPolicy: RetryPolicy = Retry(3))
   extends PotActionRetriable[ERCTokenRootModel, UpdateAccountTokenList] {
@@ -21,7 +22,8 @@ class ERCTokenHandler[M](modelRW: ModelRW[M, Pot[ERCTokenRootModel]]) extends Ac
   override def handle: PartialFunction[Any, ActionResult[M]] = {
     case action: UpdateAccountTokenList => {
       val updatedERCTokenList = action.effectWithRetry {
-        CoreApi.mobileGetAccountDetails()
+        //        CoreApi.mobileGetAccountDetails()
+        Future("[]")
       } { tokenList =>
         ERCTokenRootModel(Json.parse(tokenList).validate[Seq[ERC20ComplientToken]].get)
       }

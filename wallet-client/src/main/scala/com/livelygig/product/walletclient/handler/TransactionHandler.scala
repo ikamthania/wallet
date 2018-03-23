@@ -9,6 +9,7 @@ import diode.{ ActionHandler, ActionResult, ModelRW }
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 case class GetAccountHistoryDetails(potResult: Pot[TransactionRootModel] = Empty, retryPolicy: RetryPolicy = Retry(3))
   extends PotActionRetriable[TransactionRootModel, GetAccountHistoryDetails] {
@@ -22,7 +23,8 @@ class TransactionHandler[M](modelRW: ModelRW[M, Pot[TransactionRootModel]]) exte
 
     case action: GetAccountHistoryDetails => {
       val updateF = action.effectWithRetry {
-        CoreApi.mobileGetAccountHistoryDetails()
+        /*CoreApi.mobileGetAccountHistoryDetails()*/
+        Future("[]")
       } { transactionListResponse =>
         val updatedTxnList = Json.parse(transactionListResponse)
           .validate[Seq[TransactionWithSymbol]].get
