@@ -41,77 +41,9 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
     Web3j.build(new HttpService(rpcServer))
   }
 
-  def getWeb3ClientVersion() = {
-    web3j.web3ClientVersion().sendAsync().get()
-  }
-
-  def createNewWallet(hashedPassword: String): String = {
-    val walletFileName = WalletUtils.generateLightNewWalletFile(
-      hashedPassword,
-      new File(uploadPath))
-    val newKeyStoreFilePath = s"$uploadPath$walletFileName"
-    val source = Source.fromFile(newKeyStoreFilePath)
-    val keyStoreContent = source.getLines.mkString
-    source.close()
-    new File(newKeyStoreFilePath).delete()
-    keyStoreContent
-  }
-
-  def sendTransaction(senderAddress: String, etherTransaction: EtherTransaction, walletFileContent: String): Future[String] = {
-    val txnInfo = try {
-
-      val credentials = obtainCredentials(ValidateWalletFile(walletFileContent, etherTransaction.password))
-      val value = Convert.toWei(etherTransaction.amount, Convert.Unit.ETHER).toBigInteger()
-      val ethGetTransactionCount = web3j.ethGetTransactionCount(
-        senderAddress, DefaultBlockParameterName.PENDING).sendAsync().get()
-      val nonce = ethGetTransactionCount.getTransactionCount()
-      val gasPrice = BigInteger.valueOf(walletConfig.as[Long]("defaultGasPrice"))
-      val gasLimit = BigInteger.valueOf(walletConfig.as[Int]("defaultGasLimit"))
-
-      val rawTransaction = etherTransaction.txnType match {
-        case "eth" => RawTransaction
-          .createEtherTransaction(
-            nonce, gasPrice,
-            gasLimit, etherTransaction.receiver, value)
-        case _ =>
-          val function = new Function(
-            "transfer",
-            util.Arrays
-              .asList(
-                new Address(etherTransaction.receiver),
-                new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
-
-            util.Arrays.asList())
-
-          val encodedFunction = FunctionEncoder.encode(function)
-          //offline creation of transaction
-          //todo gas limit must be from this function    val estimatedGas = Transaction.createEthCallTransaction(senderAddress, null, encodedFunction)
-          RawTransaction.createTransaction(
-            nonce, gasPrice, gasLimit, etherTransaction.txnType, encodedFunction)
-      }
-
-      val signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials)
-      val hexValue = Numeric.toHexString(signedMessage)
-      val ethSendTransaction = web3j.ethSendRawTransaction(hexValue).sendAsync().get()
-
-      if (!ethSendTransaction.hasError) {
-        ethSendTransaction.getTransactionHash()
-      } else {
-        ethSendTransaction.getError.getMessage
-      }
-
-    } catch {
-      case _: TransactionTimeoutException => "Transaction time-out"
-      case _: MessageDecodingException => "Invalid recipient address.Recipient address must be in format 0x[1-9]+[0-9]* or 0x0"
-      case _: MessageEncodingException => "Encountered error while encoding message"
-      case _: CipherException => "Invalid password provided"
-      case _: NumberFormatException => "Invalid ether amount"
-      case _: FileNotFoundException => "KeyStore file is not available"
-      case e => s"Encountered problem while making ether transaction $e"
-    }
-
-    Future(txnInfo)
-  }
+  //  def getWeb3ClientVersion() = {
+  //    web3j.web3ClientVersion().sendAsync().get()
+  //  }
 
   def getBalance(accountID: String): String = {
 
@@ -120,22 +52,17 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
 
   }
 
-  def getTransactionReceipt(transactionHash: String) = {
-    web3j.ethGetTransactionReceipt(transactionHash)
-
-  }
-
-  def obtainCredentials(validateWalletFile: ValidateWalletFile): Credentials = {
-    val ftmp = File.createTempFile("wa_", "json", new File("/tmp"))
-    val fos = new FileOutputStream(ftmp)
-    fos.write(validateWalletFile.fileContent.getBytes)
-    fos.close()
-    val credentials = WalletUtils.loadCredentials(
-      validateWalletFile.unlockPassword,
-      ftmp.getAbsolutePath)
-    ftmp.delete
-    credentials
-  }
+  //  def obtainCredentials(validateWalletFile: ValidateWalletFile): Credentials = {
+  //    val ftmp = File.createTempFile("wa_", "json", new File("/tmp"))
+  //    val fos = new FileOutputStream(ftmp)
+  //    fos.write(validateWalletFile.fileContent.getBytes)
+  //    fos.close()
+  //    val credentials = WalletUtils.loadCredentials(
+  //      validateWalletFile.unlockPassword,
+  //      ftmp.getAbsolutePath)
+  //    ftmp.delete
+  //    credentials
+  //  }
 
   def getNetworkInfo(): Future[String] = {
     val ntwrk = web3j.netVersion().send().getNetVersion match {
@@ -171,6 +98,7 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
 
     Future(erc20TokenSeq ++ ethereumToken)
   }
+  /*
 
   //Get token name using EIP20 std method
   def getTokenName(contractAddress: String, ownerAddress: String): String = {
@@ -225,6 +153,7 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
       response.getValue(), function.getOutputParameters())
     value.iterator().next().getValue.toString
   }
+*/
 
   def sendSignedTransaction(signedMessage: String): Future[String] = {
     val txnInfo = try {
