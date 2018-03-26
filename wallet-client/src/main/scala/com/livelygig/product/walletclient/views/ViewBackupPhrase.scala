@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.shared.models.wallet.Account
-import com.livelygig.product.walletclient.facades.{HDKey, Mnemonic, VaultGaurd}
+import com.livelygig.product.walletclient.facades.{EthereumJsUtils, HDKey, Mnemonic, VaultGaurd}
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
 import com.livelygig.product.walletclient.handler.{LoginUser, UpdateAccount, UpdateDefaultAccount}
 import com.livelygig.product.walletclient.router.ApplicationRouter.{AccountLoc, LandingLoc, Loc}
@@ -153,7 +153,7 @@ object ConfirmBakupPhrase {
             val seed = Mnemonic.mnemonicToSeed(mnemonicString)
             val hdKey = HDKey.fromMasterSeed(seed)
             val child = hdKey.derive(s"${e.hdDerivePath}/0")
-            WalletCircuit.dispatch(UpdateDefaultAccount(child.publicKey.toString("hex")))
+            WalletCircuit.dispatch(UpdateDefaultAccount(EthereumJsUtils.privateToAddress(child.privateKey).toString("hex")))
             VaultGaurd.encryptWallet(password,
               e.copy(privateExtendedKey = hdKey.privateExtendedKey.toString(),
                 mnemonicPhrase = mnemonicString)).map{

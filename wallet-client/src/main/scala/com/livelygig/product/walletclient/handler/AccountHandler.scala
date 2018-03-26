@@ -22,8 +22,8 @@ class AccountHandler[M](modelRW: ModelRW[M, AccountInfo]) extends ActionHandler(
     case UpdateDefaultAccount(address: String) => {
       updated(value.copy(
         accounts =
-        value.accounts.map(e =>
-          if (e.address == Defaults.defaultAccountPublicKey) e.copy(address = address) else e),
+          value.accounts.map(e =>
+            if (e.address == Defaults.defaultAccountPublicKey) e.copy(address = address) else e),
         selectedAddress = address))
     }
   }

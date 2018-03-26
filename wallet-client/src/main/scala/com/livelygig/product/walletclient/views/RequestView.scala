@@ -1,10 +1,13 @@
 package com.livelygig.product.walletclient.views
 
 // import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.walletclient.facades.QRCode
 import com.livelygig.product.walletclient.modals.ShowQRCode
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ LandingLoc, Loc }
 import com.livelygig.product.walletclient.services.WalletCircuit
+
+import scala.scalajs.js
 //import QRCode
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import japgolly.scalajs.react
@@ -12,12 +15,11 @@ import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
 import org.scalajs.dom
+import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
 
 object RequestView {
 
-  val userDetails = WalletCircuit.zoom(_.user.userDetails)
-
-  case class Props(router: RouterCtl[Loc], publicKey: String = WalletCircuit.zoom(_.user.userDetails.walletDetails.publicKey).value)
+  case class Props(router: RouterCtl[Loc], publicKey: String = WalletCircuit.zoom(_.appRootModel.appModel.data.accountInfo.selectedAddress).value)
 
   case class State(qrCode: String, showModal: Boolean = false)
 
@@ -86,19 +88,16 @@ object RequestView {
 
     def updateModal(): Callback = {
       val state = t.state.runNow()
-      //jQuery("#showQRCode").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
       ShowQRCode(ShowQRCode.Props(state.qrCode))
-      t.modState(scope => scope.copy(showModal = true))
-      //      Callback.empty
+      val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
+      options.show = true
+      options.keyboard = true
+      options.backdrop = "static"
+      jQuery("#showQRCode").modal(options)
+      Callback.empty
     }
 
     def onDoneClicked(): Callback = {
-      /*  val baseUrl = dom.window.location.href
-      val updatedUrl = baseUrl.split("#").head
-
-      dom.window.location.href = s"${updatedUrl}#/home"
-*/
-      //      Callback.empty
       t.props.runNow().router.set(LandingLoc).runNow()
       Callback.empty
 
@@ -171,7 +170,7 @@ object RequestView {
                     ^.className := "reaciving-add",
                     <.h4(
                       "Receiving address ",
-                      <.span(userDetails.value.alias)),
+                      <.span(WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value)),
                     <.input(
                       ^.id := "lblReceivingAddress",
                       ^.className := "ellipseText",

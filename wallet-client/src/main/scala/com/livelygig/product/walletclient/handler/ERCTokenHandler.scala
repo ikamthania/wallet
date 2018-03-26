@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.handler
 
 import com.livelygig.product.shared.models.wallet.ERC20ComplientToken
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
-import com.livelygig.product.walletclient.services.CoreApi
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.data.{ Empty, Pot, PotActionRetriable, Ready }
 import diode.util.{ Retry, RetryPolicy }
 import diode.{ ActionHandler, ActionResult, ModelRW }
@@ -22,8 +22,7 @@ class ERCTokenHandler[M](modelRW: ModelRW[M, Pot[ERCTokenRootModel]]) extends Ac
   override def handle: PartialFunction[Any, ActionResult[M]] = {
     case action: UpdateAccountTokenList => {
       val updatedERCTokenList = action.effectWithRetry {
-        //        CoreApi.mobileGetAccountDetails()
-        Future("[]")
+        CoreApi.mobileGetAccountDetails(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}")
       } { tokenList =>
         ERCTokenRootModel(Json.parse(tokenList).validate[Seq[ERC20ComplientToken]].get)
       }

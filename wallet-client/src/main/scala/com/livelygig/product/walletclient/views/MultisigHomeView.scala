@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails, UpdateAccountTokenList }
+import com.livelygig.product.walletclient.handler.{ GetCurrencies, UpdateAccountTokenList }
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
@@ -30,19 +30,10 @@ object MultisigHomeView {
   Toastr.options.positionClass = "toast-top-full-width"
   case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc], loc: String = "")
 
-  final case class State(currencySelected: String, coinExchange: CoinExchange, userDetails: UserDetails = UserDetails("", WalletDetails("", "")))
+  final case class State(currencySelected: String, coinExchange: CoinExchange)
 
   final class Backend(t: BackendScope[Props, State]) {
     def getLiveCurrencyUpdate() = {
-      CoreApi.mobileGetUserDetails().map { userDetails =>
-        Json.parse(userDetails).validate[UserDetails].asOpt match {
-          case Some(response) =>
-            WalletCircuit.dispatch(GetUserDetails(response))
-            t.modState(s => s.copy(userDetails = response)).runNow()
-
-          case None => println("Error in parsing user details response")
-        }
-      }
       CoreApi.mobileGetLivePrices()
         .map(prices =>
           Json.parse(prices)
@@ -249,7 +240,7 @@ object MultisigHomeView {
   }
 
   val component = ScalaComponent.builder[Props]("MultisigHomeView")
-    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), UserDetails("", WalletDetails("", "0"))))
+    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, "")))))))
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.updateCurrency())
     .componentDidMount(scope => scope.backend.updateTheme())

@@ -9,7 +9,6 @@
 #GET        /wallet/mobile/auth/login                                    controllers.api.v1.wallet.auth.MobileWalletController.walletLogin()
 #POST       /wallet/mobile/walletapp                                     controllers.api.v1.wallet.auth.MobileWalletController.walletApp()
 
-GET        /wallet/mobile/:publickey/account/details                    controllers.api.v1.wallet.MobileApiWalletController.mobileGetUserDetails(publickey:String)
 GET        /wallet/mobile/:publickey/account/erctoken/details           controllers.api.v1.wallet.MobileApiWalletController.mobileGetAccountTokenDetails(publickey:String)
 GET        /wallet/mobile/:publicKey/transactions                       controllers.api.v1.wallet.MobileApiWalletController.mobileGetTransactionHistory(publicKey:String)
 GET        /wallet/mobile/ethnet/info                                   controllers.api.v1.wallet.MobileApiWalletController.mobileGetNetworkInfo()
@@ -20,4 +19,3 @@ POST       /wallet/mobile/signedTxn                                     controll
 
 ## adding a dummy route for twirl template actions
 
-POST       /wallet/dummy                                                controllers.api.v1.wallet.WalletController.dummy()

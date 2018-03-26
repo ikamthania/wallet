@@ -35,12 +35,6 @@ object WalletDetails {
   implicit val format = Json.format[WalletDetails]
 }
 
-case class UserDetails(alias: String, walletDetails: WalletDetails)
-
-object UserDetails {
-  implicit val format = Json.format[UserDetails]
-}
-
 case class QrCode(qrcode: String)
 
 object QrCode {

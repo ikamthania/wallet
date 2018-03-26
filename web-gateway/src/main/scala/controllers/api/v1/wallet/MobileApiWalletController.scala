@@ -46,14 +46,6 @@ class MobileApiWalletController(
       .map(e => Ok(Json.toJson(e)).withHeaders("Access-Control-Allow-Origin" -> "*"))
   }
 
-  def mobileGetUserDetails(publicKey: String) = Action.async { implicit request =>
-
-    walletService.mobileGetAccountDetails(publicKey)
-      .invoke()
-      .map(e => Ok(Json.toJson(e)).withHeaders("Access-Control-Allow-Origin" -> "*"))
-
-  }
-
   def mobileGetAccountTokenDetails(publicKey: String) = Action.async { implicit request =>
     val ercComplientTokenList = getMockWalletTokenListResponse("accountTokensDetails")
     walletService
@@ -70,7 +62,7 @@ class MobileApiWalletController(
   }
 
   def mobileGetNetworkInfo() = Action.async { implicit request =>
-    walletService.getETHNetConnected()
+    walletService.mobileGetETHNetConnected()
       .invoke()
       .map(e => Ok(e).withHeaders("Access-Control-Allow-Origin" -> "*"))
   }

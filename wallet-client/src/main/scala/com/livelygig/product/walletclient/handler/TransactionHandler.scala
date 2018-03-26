@@ -2,7 +2,7 @@ package com.livelygig.product.walletclient.handler
 
 import com.livelygig.product.shared.models.wallet.TransactionWithSymbol
 import com.livelygig.product.walletclient.rootmodel.TransactionRootModel
-import com.livelygig.product.walletclient.services.CoreApi
+import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.data.{ Empty, Pot, PotActionRetriable, Ready }
 import diode.util.{ Retry, RetryPolicy }
 import diode.{ ActionHandler, ActionResult, ModelRW }
@@ -23,8 +23,7 @@ class TransactionHandler[M](modelRW: ModelRW[M, Pot[TransactionRootModel]]) exte
 
     case action: GetAccountHistoryDetails => {
       val updateF = action.effectWithRetry {
-        /*CoreApi.mobileGetAccountHistoryDetails()*/
-        Future("[]")
+        CoreApi.mobileGetAccountHistoryDetails(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}")
       } { transactionListResponse =>
         val updatedTxnList = Json.parse(transactionListResponse)
           .validate[Seq[TransactionWithSymbol]].get

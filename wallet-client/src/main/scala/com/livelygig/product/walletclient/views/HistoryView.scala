@@ -29,7 +29,7 @@ object HistoryView {
       val userProxy = WalletCircuit.zoom(_.user)
       def createItem(transactionWithSymbol: TransactionWithSymbol) = {
         try {
-          val isAmtDeducted = if (transactionWithSymbol.transaction.to.equals(userProxy.value.userDetails.walletDetails.publicKey)) false else true
+          val isAmtDeducted = if (transactionWithSymbol.transaction.to.equals(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}")) false else true
           <.div(
             ^.className := "row",
             <.div(

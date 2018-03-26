@@ -1,12 +1,13 @@
 package com.livelygig.product.walletclient.modals
 
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.facades.{ EthereumjsUnits, Toastr, WalletJS }
+import com.livelygig.product.walletclient.facades._
 import com.livelygig.product.walletclient.handler._
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.router.ApplicationRouter.LandingLoc
 import com.livelygig.product.walletclient.services.{ CoreApi, EthereumNodeApi, WalletCircuit }
 import diode.AnyAction._
+import io.scalajs.nodejs.buffer.Buffer
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
@@ -35,7 +36,6 @@ object ConfirmModal {
     Toastr.options.positionClass = "toast-top-full-width"
 
     val ercTokenList = WalletCircuit.zoom(_.ERCToken.get.accountTokenDetails)
-    val userDetails = WalletCircuit.zoom(_.user.userDetails)
     /*
     * get imput password and update EtherTransaction
     * */
@@ -55,7 +55,7 @@ object ConfirmModal {
           <.input(^.id := "txTo", ^.`type` := "hidden", ^.value := p.etherPropsTransaction.receiver, ^.onChange ==> updatePassword, ^.className := ""),
           <.input(^.id := "txSymbol", ^.`type` := "hidden", ^.value := p.symbol.toUpperCase, ^.onChange ==> updatePassword, ^.className := ""),
           ^.className := "passwordContainer",
-          <.p(s" You are sending from: ${userDetails.value.walletDetails.publicKey} To confirm, enter your application password."),
+          <.p(s" You are sending from: ${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value} To confirm, enter your application password."),
           <.input(^.id := "txPassword", ^.`type` := "password", ^.value := s.etherTransaction.password, ^.onChange ==> updatePassword, ^.className := ""),
           <.i(^.className := "fa fa-lock", VdomAttr("aria-hidden") := "true", VdomAttr("data-dismiss") := "modal")))
 
@@ -90,20 +90,20 @@ object ConfirmModal {
         CoreApi.getTransactionStatus(txnHash).map { txnResponse =>
           if (txnResponse.matches("0x[a-z-0-9]+")) {
             Toastr.success(s"$txnResponse block confirmed for transaction $txnHash", Some("Transaction completed!!!"))
-            CoreApi.getUserDetails().map { userDetails =>
-              Json.parse(userDetails).validate[UserDetails].asOpt match {
-                case Some(response) =>
-                  CoreApi.getAccountDetails().map {
-                    userTokenList =>
-                      Json.parse(userTokenList).validate[Seq[ERC20ComplientToken]].map(
-                        tokenList => {
-                          WalletCircuit.dispatch(GetUserDetails(response)) // dispatched to update balance
-                          tokenList.map { token => WalletCircuit.dispatch(AddTokens(token)) }
-                        })
-                  }
-                case None => println("Error in parsing user details response")
-              }
-            }
+            //            CoreApi.getUserDetails().map { userDetails =>
+            //              Json.parse(userDetails).validate[UserDetails].asOpt match {
+            //                case Some(response) =>
+            //                  CoreApi.getAccountDetails().map {
+            //                    userTokenList =>
+            //                      Json.parse(userTokenList).validate[Seq[ERC20ComplientToken]].map(
+            //                        tokenList => {
+            //                          WalletCircuit.dispatch(GetUserDetails(response)) // dispatched to update balance
+            //                          tokenList.map { token => WalletCircuit.dispatch(AddTokens(token)) }
+            //                        })
+            //                  }
+            //                case None => println("Error in parsing user details response")
+            //              }
+            //            }
           } else
             getTransactionNotification(txnHash)
         }
@@ -119,36 +119,37 @@ object ConfirmModal {
     * */
 
     def sendTransaction(e: ReactEventFromHtml): react.Callback = Callback {
-      // redact password
-      val privKey = dom.window.localStorage.getItem("priKey")
-      val pubKey = dom.window.localStorage.getItem("pubKey")
-      EthereumNodeApi.getTransactionCount(pubKey).map {
-        res =>
-          val nonce = (Json.parse(res) \ "result").as[String]
-          val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
-          val signedTxn = WalletJS.getSignTxn(privKey, s"0x${BigDecimal.apply(EthereumjsUnits.convert(etherTxn.amount, "eth", "wei")).toBigInt().toString(16)}", etherTxn.receiver,
-            etherTxn.txnType, nonce, "0x0", "0x4E3B29200", "0x3D0900")
+      VaultGaurd.decryptVault(t.state.runNow().etherTransaction.password).map { e =>
+        val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
+        val child = HDKey.fromExtendedKey(Buffer.from(e.privateExtendedKey, "hex"))
+        val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress)
+        val prvKey = child.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
+        EthereumNodeApi.getTransactionCount(s"0x${accountInfo.selectedAddress}").map {
+          res =>
+            val nonce = (Json.parse(res) \ "result").as[String]
+            val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
+            val signedTxn = WalletJS.getSignTxn(prvKey, s"0x${BigDecimal.apply(EthereumjsUnits.convert(etherTxn.amount, "eth", "wei")).toBigInt().toString(16)}", etherTxn.receiver,
+              etherTxn.txnType, nonce, "0x0", "0x4E3B29200", "0x3D0900")
 
-          if (signedTxn != "") {
-            //  Toastr.info(s"signed raw transaction ----> $signedTxn")
-
-            CoreApi
-              .mobileSendSignedTxn(s"0x${signedTxn}")
-              .map { transactionHashString =>
-                if (transactionHashString.matches("0x[a-z-0-9]+")) {
-                  Toastr.info(s"Transaction sent. Transaction reference no. is $transactionHashString")
-                  getTransactionNotification(transactionHashString)
-                  t.props.runNow().rc.set(LandingLoc).runNow()
-                } else {
-                  Toastr.error(transactionHashString)
-                  Callback.empty
+            if (signedTxn != "") {
+              CoreApi
+                .mobileSendSignedTxn(s"0x${signedTxn}")
+                .map { transactionHashString =>
+                  if (transactionHashString.matches("0x[a-z-0-9]+")) {
+                    Toastr.info(s"Transaction sent. Transaction reference no. is $transactionHashString")
+                    getTransactionNotification(transactionHashString)
+                    t.props.runNow().rc.set(LandingLoc).runNow()
+                  } else {
+                    Toastr.error(transactionHashString)
+                    Callback.empty
+                  }
                 }
-              }
-          } else {
+            } else {
 
-            Toastr.info("Please try again....")
-          }
-      }
+              Toastr.info("Please try again....")
+            }
+        }
+      }.recover { case _ => Toastr.error("Wrong password!!!!") }
     }
 
     def render(p: Props, s: State): VdomElement =

@@ -3,7 +3,7 @@ package com.livelygig.product.walletclient.views
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.facades.{ Toastr, WalletJS }
-import com.livelygig.product.walletclient.handler.{ GetCurrencies, GetUserDetails }
+import com.livelygig.product.walletclient.handler.{ GetCurrencies, UpdateAccountTokenList }
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
@@ -30,19 +30,11 @@ object AccountView {
   Toastr.options.positionClass = "toast-top-full-width"
   case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc])
 
-  final case class State(currencySelected: String, coinExchange: CoinExchange, userDetails: UserDetails = UserDetails("", WalletDetails("", "")))
+  final case class State(currencySelected: String, coinExchange: CoinExchange)
 
   final class Backend(t: BackendScope[Props, State]) {
     def getLiveCurrencyUpdate() = {
-      /*CoreApi.mobileGetUserDetails().map { userDetails =>
-        Json.parse(userDetails).validate[UserDetails].asOpt match {
-          case Some(response) =>
-            WalletCircuit.dispatch(GetUserDetails(response))
-            t.modState(s => s.copy(userDetails = response)).runNow()
 
-          case None => println("Error in parsing user details response")
-        }
-      }*/
       CoreApi.mobileGetLivePrices()
         .map(prices =>
           Json.parse(prices)
@@ -65,13 +57,11 @@ object AccountView {
     }
 
     def setCurrencyLocal(currSymbol: String): react.Callback = {
-      //      Toastr.info(currSymbol)
       dom.window.localStorage.setItem("currency", currSymbol)
       Callback.empty
     }
 
     def updateCurrency(): Callback = {
-      //      Toastr.info(dom.window.localStorage.getItem("currency"))
       getLiveCurrencyUpdate
       val slctedCurr = if (dom.window.localStorage.getItem("currency") == null) "USD" else dom.window.localStorage.getItem("currency")
       t.modState(s => s.copy(currencySelected = slctedCurr)).runNow()
@@ -82,8 +72,7 @@ object AccountView {
       jQuery(".select-currency-info").removeClass("active")
       jQuery(".select-currency-info").first().addClass("active")
       setCurrencyLocal(t.state.runNow().currencySelected)
-      //      Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
-      Callback.empty
+      Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
     }
 
     def updateURL(loc: String): Callback = {
@@ -202,7 +191,7 @@ object AccountView {
   }
 
   val component = ScalaComponent.builder[Props]("AccountView")
-    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, ""))))), UserDetails("", WalletDetails("", "0"))))
+    .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, "")))))))
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.updateCurrency())
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))

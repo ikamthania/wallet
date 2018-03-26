@@ -22,20 +22,10 @@ class WalletServiceImpl(
     }
   }
 
-  override def getETHNetConnected(): ServiceCall[NotUsed, String] = ServerServiceCall { _ =>
-    web3JUtils.getNetworkInfo().map(ethNet => ethNet)
-  }
-
   //Client authenticated API's for Mobile App
 
   override def mobileGetETHNetConnected(): ServiceCall[NotUsed, String] = ServerServiceCall { _ =>
     web3JUtils.getNetworkInfo().map(ethNet => ethNet)
-  }
-
-  override def mobileGetAccountDetails(publicKey: String): ServiceCall[NotUsed, UserDetails] = ServerServiceCall { _ =>
-
-    Future(UserDetails(publicKey, WalletDetails(publicKey, web3JUtils.getBalance(publicKey))))
-
   }
 
   override def mobileGetAccountTransactionHistory(publicKey: String): ServiceCall[Seq[ERC20ComplientToken], Seq[TransactionWithSymbol]] =

@@ -2,6 +2,7 @@ package com.livelygig.product.walletclient.views
 
 import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.wallet._
+import com.livelygig.product.walletclient.services.EthereumNodeApi
 // import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
@@ -26,8 +27,6 @@ import scala.scalajs.js
 
 object SendView {
 
-  val userDetails = WalletCircuit.zoom(_.user.userDetails)
-
   case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], rc: RouterCtl[ApplicationRouter.Loc], to: String = "")
 
   final case class State(etherTransaction: EtherTransaction, userUri: String, etherBalance: String,
@@ -38,7 +37,7 @@ object SendView {
 
   final class Backend(t: BackendScope[Props, State]) {
     val ethereumFee = 0.015 //get from API
-    val userDetails = WalletCircuit.zoom(_.user.userDetails)
+    val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
 
     def updateCurrency(): Callback = {
       val slctedCurr = if (dom.window.localStorage.getItem("currency") == null) "USD" else dom.window.localStorage.getItem("currency")
@@ -99,10 +98,10 @@ object SendView {
       var receiver = t.props.runNow().to.split("/").last.toString
       var amount = t.props.runNow().to.split("/").head
       jQuery("#lblDisplayFrom").text(jQuery("#slctAccount option:first").text())
-
-      t.modState(s => s.copy(etherBalance = userDetails.value.walletDetails.balance, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = receiver))).runNow()
       Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
-
+      val ethBlnc = t.props.runNow().proxy.value.get.accountTokenDetails.find(_.symbol == "ETH").get.balance
+      t.modState(s => s.copy(etherBalance = ethBlnc, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = receiver))).runNow()
+      Callback.empty
     }
 
     /*
@@ -247,7 +246,7 @@ object SendView {
       val ethTransaction = t.state.runNow().etherTransaction
       if (!ethTransaction.receiver.isEmpty) {
         if (!ethTransaction.amount.isEmpty) {
-          val etherBalance = BigDecimal.apply(userDetails.value.walletDetails.balance)
+          val etherBalance = BigDecimal.apply(t.state.runNow().etherBalance)
           val inputAmount = BigDecimal.apply(t.state.runNow().etherTransaction.amount)
           t.state.runNow().etherTransaction.txnType match {
             case "eth" => {
@@ -374,14 +373,14 @@ object SendView {
                 ^.className := "accountItem",
                 <.label("Identity: "),
                 <.select()(
-                  <.option(userDetails.value.alias))),
+                  <.option(s"${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}"))),
               <.div(
                 ^.className := "accountItem",
                 <.label("Account: "),
                 <.select(
                   ^.id := "slctAccount",
                   ^.onChange ==> onSelectAccountChange,
-                  <.option(s"${userDetails.value.alias}  ${userDetails.value.walletDetails.publicKey}"))),
+                  <.option(s"${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName} ${accountInfo.selectedAddress}"))),
               <.div(
                 ^.className := "accountItem",
                 <.label("Token: "),

@@ -12,6 +12,7 @@ import scala.concurrent.{ ExecutionContext, Future }
 /**
  * Created by shubham.k on 27-02-2017.
  */
+/*
 class WalletController(
   val controllerComponents: ControllerComponents,
   walletService: WalletService, configuration: Configuration,
@@ -45,12 +46,6 @@ class WalletController(
     Future(Ok(mockdata.toString))
   }
 
-  def getNetworkInfo() = Action.async { implicit request =>
-    walletService.getETHNetConnected()
-      .invoke()
-      .map(e => Ok(e))
-  }
-
   def getMarketPrice() = Action.async { implicit request =>
     val currList = getLiveMarketPrices()
     Future(
@@ -65,3 +60,4 @@ class WalletController(
 
 }
 
+*/
