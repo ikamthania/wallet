@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.views
 
 import com.livelygig.product.walletclient.components.HeaderComponent
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, SetupRegisterLoc, ViewBackupPhraseLoc }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ BackupAccountLoc, Loc, SetupRegisterLoc, ViewBackupPhraseLoc }
 import com.livelygig.product.walletclient.services.WalletCircuit
 import com.livelygig.product.walletclient.utils.SessionKeys
 import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
@@ -13,7 +13,7 @@ import org.scalajs.dom
  */
 // scalastyle:off
 object MainLayout {
-  val sidebarNotRequiredFor = Seq(ViewBackupPhraseLoc, SetupRegisterLoc)
+  val sidebarNotRequiredFor = Seq(ViewBackupPhraseLoc, SetupRegisterLoc, BackupAccountLoc)
   def layout(c: RouterCtl[Loc], r: Resolution[Loc]) = {
     <.div(^.className := "wallet-main")(
       <.div(^.className := "wallet-inner container-fluid")(
