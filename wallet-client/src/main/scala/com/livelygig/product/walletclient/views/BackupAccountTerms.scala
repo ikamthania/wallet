@@ -1,10 +1,10 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, ViewBackupPhraseLoc }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc, ViewBackupPhraseLoc}
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, VdomElement, ^, _ }
-import japgolly.scalajs.react.{ BackendScope, ScalaComponent }
+import japgolly.scalajs.react.vdom.html_<^.{<, VdomAttr, VdomElement, ^, _}
+import japgolly.scalajs.react.{BackendScope, ScalaComponent}
 
 object BackupAccountTerms {
 

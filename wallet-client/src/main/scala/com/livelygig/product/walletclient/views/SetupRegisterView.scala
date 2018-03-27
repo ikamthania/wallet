@@ -4,17 +4,17 @@ import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.wallet.Account
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.handler.{ AddAccount, UpdatePassword }
+import com.livelygig.product.walletclient.handler.AddAccount
 import com.livelygig.product.walletclient.modals.SetupPasswordModal
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ BackupAccountLoc, Loc, LoginLoc }
 import com.livelygig.product.walletclient.services.WalletCircuit
 import com.livelygig.product.walletclient.utils.Defaults
+import diode.AnyAction._
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
-import diode.AnyAction._
 
 import scala.scalajs.js
 

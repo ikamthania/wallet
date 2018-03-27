@@ -2,17 +2,13 @@ package com.livelygig.product.walletclient.modals
 
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades._
-import com.livelygig.product.walletclient.handler._
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.router.ApplicationRouter.LandingLoc
 import com.livelygig.product.walletclient.services.{ CoreApi, EthereumNodeApi, WalletCircuit }
-import diode.AnyAction._
-import io.scalajs.nodejs.buffer.Buffer
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
-import org.scalajs.dom
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -41,8 +37,8 @@ object ConfirmModal {
     * */
 
     def confirmMessage() = {
-      var p = t.props.runNow()
-      var s = t.state.runNow()
+      val p = t.props.runNow()
+      val s = t.state.runNow()
 
       <.div(
         ^.className := "confirmContainer",
@@ -107,7 +103,7 @@ object ConfirmModal {
     def sendTransaction(e: ReactEventFromHtml): react.Callback = Callback {
       VaultGaurd.decryptVault(t.state.runNow().etherTransaction.password).map { e =>
         val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
-        val child = HDKey.fromExtendedKey(Buffer.from(e.privateExtendedKey, "hex"))
+        val child = HDKey.fromExtendedKey(e.privateExtendedKey)
         val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress)
         val prvKey = child.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
         EthereumNodeApi.getTransactionCount(s"0x${accountInfo.selectedAddress}").map {

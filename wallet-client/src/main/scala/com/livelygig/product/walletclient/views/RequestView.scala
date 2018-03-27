@@ -9,13 +9,13 @@ import com.livelygig.product.walletclient.services.WalletCircuit
 
 import scala.scalajs.js
 //import QRCode
+import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, VdomAttr, ^, _ }
 import japgolly.scalajs.react.{ Callback, _ }
 import org.scalajs.dom
-import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
 
 object RequestView {
 

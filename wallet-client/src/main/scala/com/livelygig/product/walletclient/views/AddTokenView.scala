@@ -33,7 +33,7 @@ object AddTokenView {
   final class Backend(t: BackendScope[Props, State]) {
 
     def onTokenChecked(index: Int)(e: ReactEventFromInput) = {
-      var newValue = e.target.checked
+      val newValue = e.target.checked
 
       val tknLst = t.state.runNow().tokenList
       val resultList = tknLst.map(tkn => {

@@ -9,7 +9,6 @@ import diode.{ ActionHandler, ActionResult, ModelRW }
 import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
 
 case class GetAccountHistoryDetails(potResult: Pot[TransactionRootModel] = Empty, retryPolicy: RetryPolicy = Retry(3))
   extends PotActionRetriable[TransactionRootModel, GetAccountHistoryDetails] {

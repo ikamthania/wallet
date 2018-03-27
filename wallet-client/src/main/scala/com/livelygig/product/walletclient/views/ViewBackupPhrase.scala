@@ -1,14 +1,11 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.shared.models.wallet.Account
-import com.livelygig.product.walletclient.facades.{EthereumJsUtils, HDKey, Mnemonic, VaultGaurd}
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.imports.jQuery
-import com.livelygig.product.walletclient.handler.{LoginUser, UpdateAccount, UpdateDefaultAccount}
-import com.livelygig.product.walletclient.router.ApplicationRouter.{AccountLoc, LandingLoc, Loc}
+import com.livelygig.product.walletclient.facades.{EthereumJsUtils, HDKey, Mnemonic, VaultGaurd}
+import com.livelygig.product.walletclient.handler.UpdateDefaultAccount
+import com.livelygig.product.walletclient.router.ApplicationRouter.{AccountLoc, Loc}
 import com.livelygig.product.walletclient.services.WalletCircuit
-import com.livelygig.product.walletclient.utils.Defaults
 import diode.AnyAction._
-import io.scalajs.nodejs.buffer.Buffer
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
