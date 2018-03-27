@@ -4,7 +4,7 @@ import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.handler.UpdateAccountTokenList
+import com.livelygig.product.walletclient.handler.{ UpdateAccountTokenList }
 import com.livelygig.product.walletclient.modals.ConfirmModal
 import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter
@@ -392,7 +392,7 @@ object SendView {
                 ^.className := "accountItem",
                 <.label("Account: "),
                 <.div(
-                  ^.id := "slctAccount",
+                  ^.id := "slctAccount", ^.className := "ellipseText",
                   ^.onChange ==> onSelectAccountChange,
                   s"0x${accountInfo.selectedAddress}")),
               <.div(

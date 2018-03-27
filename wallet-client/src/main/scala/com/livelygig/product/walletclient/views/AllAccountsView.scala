@@ -1,5 +1,5 @@
 package com.livelygig.product.walletclient.views
-import com.livelygig.product.shared.models.wallet.AccountInfo
+import com.livelygig.product.shared.models.wallet.{ Account, AccountInfo }
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ AddNewAccountLoc, LandingLoc, Loc }
 import diode.data.Pot

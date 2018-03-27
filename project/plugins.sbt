@@ -45,6 +45,3 @@ addSbtPlugin("com.lightbend.paradox" % "sbt-paradox" % "0.3.1")
 addSbtPlugin("com.typesafe.sbt" % "sbt-site" % "1.3.1" exclude("com.lightbend.paradox", "sbt-paradox"))
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-ghpages" % "0.6.2")
-
-// scala build server
-//addSbtPlugin("ch.epfl.scala" % "sbt-bloop" % "1.0.0-M7")
