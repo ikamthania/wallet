@@ -10,10 +10,12 @@ case class UpdateAccount(account: Account)
 
 case class UpdateDefaultAccount(address: String)
 
+case class SelectAddress(address: String)
+
 class AccountHandler[M](modelRW: ModelRW[M, AccountInfo]) extends ActionHandler(modelRW) {
   override def handle: PartialFunction[Any, ActionResult[M]] = {
     case AddAccount(newAccount: Account) => {
-      updated(value.copy(accounts = value.accounts :+ newAccount, selectedAddress = newAccount.address))
+      updated(value.copy(accounts = value.accounts :+ newAccount))
     }
     case UpdateAccount(account: Account) => {
       updated(value.copy(accounts = value.accounts.map(e => if (e.address == account.address) account else e)))
@@ -25,6 +27,10 @@ class AccountHandler[M](modelRW: ModelRW[M, AccountInfo]) extends ActionHandler(
           value.accounts.map(e =>
             if (e.address == Defaults.defaultAccountPublicKey) e.copy(address = address) else e),
         selectedAddress = address))
+    }
+
+    case SelectAddress(address) => {
+      updated(value.copy(selectedAddress = address))
     }
   }
 }

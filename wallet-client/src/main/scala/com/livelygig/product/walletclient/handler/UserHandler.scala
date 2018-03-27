@@ -1,7 +1,9 @@
 package com.livelygig.product.walletclient.handler
 
 import com.livelygig.product.walletclient.rootmodel.UserRootModel
+import com.livelygig.product.walletclient.utils.SessionKeys
 import diode.{ ActionHandler, ActionResult, ModelRW }
+import org.scalajs.dom
 
 case class LoginUser()
 case class UpdatePassword(password: String)

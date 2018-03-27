@@ -23,7 +23,7 @@ object HeaderComponent {
 
   case class Props(c: RouterCtl[Loc], r: Resolution[Loc])
 
-  case class State(lang: js.Dynamic = WalletCircuit.zoom(_.i18n.language).value, ethNetInfo: String = "", walletPublicKey: String = "")
+  case class State(lang: js.Dynamic = WalletCircuit.zoom(_.i18n.language).value, ethNetInfo: String = "", walletPublicKey: String = "", selectedAddress: String = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value)
 
   def getHeaderName(currentLoc: Loc, state: State) = {
     currentLoc match {
@@ -101,6 +101,10 @@ object HeaderComponent {
       jQuery("#mySidenav").toggleClass("fullWidth")
       jQuery("#closebtnContainer").toggleClass("active")
       jQuery("#bodyWallet").toggleClass("blurBackground")
+      WalletCircuit.subscribe(WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress)) {
+        selected =>
+          t.modState(state => state.copy(selectedAddress = selected.value)).runNow()
+      }
 
       Callback.empty
     }
@@ -137,7 +141,7 @@ object HeaderComponent {
                   <.h3(
 
                     accountInfo.accounts
-                      .find(_.address == accountInfo.selectedAddress).getOrElse(Account("No Address Selected", "No Address Selected")).accountName), <.i(
+                      .find(_.address == state.selectedAddress).getOrElse(Account("No Address Selected", "No Address Selected")).accountName), <.i(
                     ^.className := "fa fa-arrow-right",
                     VdomAttr("aria-hidden") := "true"),
                   {

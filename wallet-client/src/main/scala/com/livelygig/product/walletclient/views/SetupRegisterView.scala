@@ -2,11 +2,12 @@ package com.livelygig.product.walletclient.views
 
 import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.wallet.Account
+import com.livelygig.product.walletclient.facades.{ EthereumJsUtils, HDKey, Mnemonic, VaultGaurd }
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.handler.AddAccount
+import com.livelygig.product.walletclient.handler.{ AddAccount, UpdateDefaultAccount }
 import com.livelygig.product.walletclient.modals.SetupPasswordModal
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ BackupAccountLoc, Loc, LoginLoc }
+import com.livelygig.product.walletclient.router.ApplicationRouter._
 import com.livelygig.product.walletclient.services.WalletCircuit
 import com.livelygig.product.walletclient.utils.Defaults
 import diode.AnyAction._
@@ -16,6 +17,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
 
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
 import scala.scalajs.js
 
 object SetupRegisterView {
@@ -33,9 +35,7 @@ object SetupRegisterView {
         jQuery("#setupForm").validator("update").on("submit", (e: JQueryEventObject) => {
           if (!e.isDefaultPrevented()) {
             e.preventDefault()
-            // create an account in vault
-            WalletCircuit.dispatch(AddAccount(Account(Defaults.defaultAccountPublicKey, t.state.runNow().accountName)))
-            t.props.flatMap(_.router.set(BackupAccountLoc)).runNow()
+            onSubmitClicked()
           } else {
             e.preventDefault()
           }
@@ -51,13 +51,35 @@ object SetupRegisterView {
       t.modState(_.copy(regMode = regItem))
     }
 
-    def onSubmitClicked(): react.Callback = {
+    def onSubmitClicked() = {
       val state = t.state.runNow().regMode
       //      println(s"In onSubmitbuttonClicked  ${state}")
       state match {
         case "newId" => {
           //          println("In backupAccountClicked")
-          t.props.flatMap(_.router.set(BackupAccountLoc))
+          if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value.isEmpty) {
+            // create a default account in vault
+            WalletCircuit.dispatch(AddAccount(Account(Defaults.defaultAccountPublicKey, t.state.runNow().accountName)))
+            t.props.flatMap(_.router.set(BackupAccountLoc)).runNow()
+
+          } // if user is logged in create an account and then navigate back to all account view
+          else if (WalletCircuit.zoomTo(_.user.isloggedIn).value) {
+
+            val password = WalletCircuit.zoomTo(_.user.userPassword).value
+            if (password == "") {
+              t.props.flatMap(_.router.set(EnterPasswordLoc)).runNow()
+            } else {
+              VaultGaurd.decryptVault(password).map {
+                e =>
+                  val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
+                  val child = hdKey.derive(s"${e.hdDerivePath}/${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value.length}")
+                  WalletCircuit.dispatch(AddAccount(Account(EthereumJsUtils.privateToAddress(child.privateKey).toString("hex"), t.state.runNow().accountName)))
+                  t.props.flatMap(_.router.set(AllAccountsLoc)).runNow()
+              }
+
+            }
+          }
+
         }
         case "passPhrase" => {
           import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
@@ -68,7 +90,9 @@ object SetupRegisterView {
           jQuery("#setupPasswordModal").modal(options)
           Callback.empty
         }
-        case "privateKey" => { t.props.flatMap(_.router.set(LoginLoc)) }
+        case "privateKey" => {
+          t.props.flatMap(_.router.set(LoginLoc))
+        }
         case "keyStoreJson" => {
           import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
           val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
@@ -78,10 +102,18 @@ object SetupRegisterView {
           jQuery("#setupPasswordModal").modal(options)
           Callback.empty
         }
-        case "keyStoreFile" => { t.props.flatMap(_.router.set(LoginLoc)) }
-        case "sharedWallet" => { t.props.flatMap(_.router.set(LoginLoc)) }
-        case "web3Provider" => { t.props.flatMap(_.router.set(LoginLoc)) }
-        case "ledgerWallet" => { t.props.flatMap(_.router.set(LoginLoc)) }
+        case "keyStoreFile" => {
+          t.props.flatMap(_.router.set(LoginLoc))
+        }
+        case "sharedWallet" => {
+          t.props.flatMap(_.router.set(LoginLoc))
+        }
+        case "web3Provider" => {
+          t.props.flatMap(_.router.set(LoginLoc))
+        }
+        case "ledgerWallet" => {
+          t.props.flatMap(_.router.set(LoginLoc))
+        }
       }
       //      Callback.empty
       //      t.modState(_.copy(regMode =))
@@ -200,6 +232,11 @@ object SetupRegisterView {
                 ^.className := "row",
                 <.div(
                   ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
+                  if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value.nonEmpty) {
+                    <.button(^.id := "", ^.className := "btn btnDefault", "Cancel")
+                  } else {
+                    EmptyVdom
+                  },
                   <.button(^.id := "setSelectedItem", ^.`type` := "submit", ^.className := "btn btnDefault", "Next")))))),
         <.div(
           SetupPasswordModal.component(SetupPasswordModal.Props(p.router))))

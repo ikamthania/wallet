@@ -17,6 +17,8 @@ object ApplicationRouter {
 
   case object TermsOfServicesLoc extends Loc
 
+  case object EnterPasswordLoc extends Loc
+
   case object AccountLoc extends Loc
 
   case object SetupLoc extends Loc
@@ -95,6 +97,7 @@ object ApplicationRouter {
 
     def openRoutes: Rule = {
       (staticRoute(root, LandingLoc) ~> renderR(ctl => walletaccountProxy(proxy => LandingView.component(LandingView.Props(proxy, ctl))))
+        | staticRoute(s"#/authenticate", EnterPasswordLoc) ~> renderR(ctl => EnterPasswordView.component(EnterPasswordView.Props(ctl)))
         | staticRoute(s"#/terms", TermsOfServiceLoc) ~> render(TermsOfServiceView.component())
         | staticRoute(s"#/setup", SetupLoc) ~> renderR(ctl => SetupView.component(SetupView.Props(ctl)))
         | staticRoute(s"#/login", LoginLoc) ~> renderR(ctl => LoginView.component(LoginView.Props(ctl)))

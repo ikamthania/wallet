@@ -170,7 +170,7 @@ object ConfirmBakupPhrase {
 
     def generateWordList(e: String): VdomElement = {
 
-      <.li(^.onClick --> generateWordListSelected(e), e)
+      <.li(^.cursor:="pointer", ^.onClick --> generateWordListSelected(e), e)
     }
 
     def generateWordListSelected(e: String) = {
