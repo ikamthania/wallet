@@ -103,14 +103,16 @@ object ConfirmModal {
     def sendTransaction(e: ReactEventFromHtml): react.Callback = Callback {
       VaultGaurd.decryptVault(t.state.runNow().etherTransaction.password).map { e =>
         val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
-        val child = HDKey.fromExtendedKey(e.privateExtendedKey)
-        val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress)
-        val prvKey = child.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
+        val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
+        val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress) - 1
+        val prvKey = hdKey.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
         EthereumNodeApi.getTransactionCount(s"0x${accountInfo.selectedAddress}").map {
           res =>
             val nonce = (Json.parse(res) \ "result").as[String]
             val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
-            val signedTxn = WalletJS.getSignTxn(prvKey, s"0x${BigDecimal.apply(EthereumjsUnits.convert(etherTxn.amount, "eth", "wei")).toBigInt().toString(16)}", etherTxn.receiver,
+            val signedTxn = WalletJS.getSignTxn(
+              prvKey,
+              s"0x${BigDecimal.apply(EthereumjsUnits.convert(etherTxn.amount, "eth", "wei")).toBigInt().toString(16)}", etherTxn.receiver,
               etherTxn.txnType, nonce, "0x0", "0x4E3B29200", "0x3D0900")
 
             if (signedTxn != "") {
