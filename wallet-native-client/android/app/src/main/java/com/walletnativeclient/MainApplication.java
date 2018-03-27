@@ -3,14 +3,15 @@ package com.walletnativeclient;
 import android.app.Application;
 import android.webkit.WebView;
 import com.facebook.react.ReactApplication;
+import com.lwansbrough.RCTCamera.RCTCameraPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.jamesisaac.rnbackgroundtask.BackgroundTaskPackage;
-
 import java.util.Arrays;
 import java.util.List;
+
 
 public class MainApplication extends Application implements ReactApplication {
 
@@ -23,8 +24,10 @@ public class MainApplication extends Application implements ReactApplication {
     @Override
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
-          new MainReactPackage(),
-            new BackgroundTaskPackage()
+              new MainReactPackage(),
+            new RCTCameraPackage(),
+
+              new BackgroundTaskPackage()
       );
     }
 

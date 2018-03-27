@@ -4,7 +4,7 @@ import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.facades.{ Toastr, WalletJS }
 import com.livelygig.product.walletclient.handler.{ GetCurrencies, UpdateAccountTokenList }
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
+import com.livelygig.product.walletclient.rootmodel.TokenDetailsRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.AnyAction._
@@ -28,7 +28,7 @@ object AccountView {
   Toastr.options.extendedTimeOut = 60; // How long the toast will display after a user hovers over it
   Toastr.options.closeButton = true
   Toastr.options.positionClass = "toast-top-full-width"
-  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc])
+  case class Props(proxy: ModelProxy[Pot[TokenDetailsRootModel]], router: RouterCtl[Loc])
 
   final case class State(currencySelected: String, coinExchange: CoinExchange)
 
@@ -106,7 +106,7 @@ object AccountView {
     def render(p: Props, s: State): VdomElement = {
       val coinList = s.coinExchange.coinExchangeList
 
-      def createItem(userERCToken: ERC20ComplientToken) = {
+      def createItem(userERCToken: TokenDetails) = {
         val coin = coinList.filter(e => e.coin.equalsIgnoreCase(userERCToken.symbol))
           .flatMap(_.currencies.filter(e => e.symbol == s.currencySelected.toUpperCase))
 

@@ -1,6 +1,6 @@
 package com.livelygig.product.wallet.impl
 
-import com.livelygig.product.shared.models.wallet.{ERC20ComplientToken, EtherTransaction, TransactionWithSymbol}
+import com.livelygig.product.shared.models.wallet.{TokenDetails, EtherTransaction, TransactionWithSymbol}
 import com.livelygig.product.wallet.api.models.ValidateWalletFile
 import com.livelygig.product.wallet.impl.Utils.{EtherscanUtils, Web3JUtils}
 import com.softwaremill.macwire._
@@ -46,7 +46,7 @@ class Web3JUtilsSpec extends WordSpec with Matchers with BeforeAndAfterAll with 
 
     "getTransactionList" should {
       "gives all transactions of an account" in {
-        etherscanUtils.getTransactionList("0x83990Ef93FE61166d2DDBe3C2Dc320d766E116AE",Seq(ERC20ComplientToken("0xec5a3314ac5e3ac7fd696d66133aac3a8e6b71ba","bth","Bethereum",5,"0"))) shouldBe an[Future[Seq[TransactionWithSymbol]]]
+        etherscanUtils.getTransactionList("0x83990Ef93FE61166d2DDBe3C2Dc320d766E116AE",Seq(TokenDetails("0xec5a3314ac5e3ac7fd696d66133aac3a8e6b71ba","bth","Bethereum",5,"0"))) shouldBe an[Future[Seq[TransactionWithSymbol]]]
 
 
       }
@@ -80,7 +80,7 @@ class Web3JUtilsSpec extends WordSpec with Matchers with BeforeAndAfterAll with 
 
     "getTokenBalance" should {
       "gives contract token balance" in {
-        web3jUtils.getTokenBalance(Seq(ERC20ComplientToken("0xec5a3314ac5e3ac7fd696d66133aac3a8e6b71ba","bth","Bethereum",5,"0")),"0x50c14E127B7dc237dE42EDf1ed6796B06893eFCc") shouldBe an[Future[Seq[ERC20ComplientToken]]]
+        web3jUtils.getTokenBalance(Seq(TokenDetails("0xec5a3314ac5e3ac7fd696d66133aac3a8e6b71ba","bth","Bethereum",5,"0")),"0x50c14E127B7dc237dE42EDf1ed6796B06893eFCc") shouldBe an[Future[Seq[TokenDetails]]]
               }
     }
      "getNetwork" should {
@@ -100,7 +100,7 @@ class Web3JUtilsSpec extends WordSpec with Matchers with BeforeAndAfterAll with 
 //  }
     "getTransactionToken" should {
       "gives token balance from event logs of perticular bloch height" in {
-        etherscanUtils.tokenTransactionBalance(ERC20ComplientToken("0xec5a3314ac5e3ac7fd696d66133aac3a8e6b71ba","bth","Bethereum",5,"0"),"2088504") shouldBe an[BigDecimal]
+        etherscanUtils.tokenTransactionBalance(TokenDetails("0xec5a3314ac5e3ac7fd696d66133aac3a8e6b71ba","bth","Bethereum",5,"0"),"2088504") shouldBe an[BigDecimal]
       }
     }
 

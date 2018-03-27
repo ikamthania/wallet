@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
+import com.livelygig.product.walletclient.rootmodel.TokenDetailsRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.services.WalletCircuit
 import com.livelygig.product.walletclient.utils.SessionKeys
@@ -13,7 +13,7 @@ import org.scalajs.dom
 
 object LandingView {
 
-  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc])
+  case class Props(proxy: ModelProxy[Pot[TokenDetailsRootModel]], router: RouterCtl[Loc])
 
   final case class State()
 

@@ -4,7 +4,7 @@ import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.{ GetCurrencies, UpdateAccountTokenList }
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
+import com.livelygig.product.walletclient.rootmodel.TokenDetailsRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.AnyAction._
@@ -28,7 +28,7 @@ object MultisigHomeView {
   Toastr.options.extendedTimeOut = 60; // How long the toast will display after a user hovers over it
   Toastr.options.closeButton = true
   Toastr.options.positionClass = "toast-top-full-width"
-  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc], loc: String = "")
+  case class Props(proxy: ModelProxy[Pot[TokenDetailsRootModel]], router: RouterCtl[Loc], loc: String = "")
 
   final case class State(currencySelected: String, coinExchange: CoinExchange)
 
@@ -122,7 +122,7 @@ object MultisigHomeView {
     def render(p: Props, s: State): VdomElement = {
       val coinList = s.coinExchange.coinExchangeList
 
-      def createItem(userERCToken: ERC20ComplientToken) = {
+      def createItem(userERCToken: TokenDetails) = {
         val coin = coinList.filter(e => e.coin.equalsIgnoreCase(userERCToken.symbol))
           .flatMap(_.currencies.filter(e => e.symbol == s.currencySelected.toUpperCase))
 

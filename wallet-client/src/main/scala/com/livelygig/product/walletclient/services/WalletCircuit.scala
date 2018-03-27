@@ -11,7 +11,7 @@ import diode.react.ReactConnector
 import scala.scalajs.js.JSON
 
 case class RootModel(appRootModel: AppRootModel, user: UserRootModel,
-  ERCToken: Pot[ERCTokenRootModel], transaction: Pot[TransactionRootModel], i18n: I18NRootModel, currencies: MarketPricesRootModel)
+  ERCToken: Pot[TokenDetailsRootModel], transaction: Pot[TransactionRootModel], i18n: I18NRootModel, currencies: MarketPricesRootModel)
 
 object WalletCircuit extends Circuit[RootModel] with ReactConnector[RootModel] {
 

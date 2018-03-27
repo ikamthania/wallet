@@ -6,7 +6,7 @@ import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.{ UpdateAccountTokenList }
 import com.livelygig.product.walletclient.modals.ConfirmModal
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
+import com.livelygig.product.walletclient.rootmodel.TokenDetailsRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.AnyAction._
@@ -25,7 +25,7 @@ import scala.scalajs.js
 
 object SendView {
 
-  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], rc: RouterCtl[ApplicationRouter.Loc], to: String = "")
+  case class Props(proxy: ModelProxy[Pot[TokenDetailsRootModel]], rc: RouterCtl[ApplicationRouter.Loc], to: String = "")
 
   final case class State(etherTransaction: EtherTransaction, userUri: String, etherBalance: String,
     coinSymbol: String, currSymbol: String, ethereumPrice: String,
@@ -98,17 +98,9 @@ object SendView {
       jQuery("#lblDisplayFrom").text(jQuery("#slctAccount option:first").text())
       Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList()))) >>
         CallbackTo {
-          t.props.map {
-            props =>
-              props.proxy.value.map {
-                erc20token =>
-                  val ethBlnc = erc20token.accountTokenDetails.find(_.symbol == "ETH").getOrElse(ERC20ComplientToken("", "", "", 0, "")).balance
-                  t.modState(s => s.copy(
-                    etherBalance = ethBlnc,
-                    etherTransaction =
-                      s.etherTransaction.copy(amount = amount, receiver = receiver))).runNow()
-              }
-          }
+          t.props.runNow().proxy.value.map(e => e.accountTokenDetails.filter(_.symbol.equalsIgnoreCase("ETH")).map(e =>
+
+            t.modState(s => s.copy(etherBalance = e.balance, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = receiver))).runNow()))
         }
 
     }
@@ -313,15 +305,16 @@ object SendView {
 
     def onQRCodeClick(): Callback = {
       val amount = t.state.runNow().etherTransaction.amount
-      dom.window.navigator.appVersion.contains("Android") match {
-        case true => dom.window.location.href = s"#/captureqrnative/${amount}"
-        //        case true => dom.window.location.href = "#/captureqrnative"
-        case false => {
-          val baseUrl = dom.window.location.href
-          val updatedUrl = baseUrl.split("#").head
-          dom.window.location.href = s"${updatedUrl}/captureQRCode"
-        }
-      }
+      //      dom.window.navigator.appVersion.contains("Android") match {
+      //        case true => dom.window.location.href = s"#/captureqrnative/${amount}"
+      //        //        case true => dom.window.location.href = "#/captureqrnative"
+      //        case false => {
+      //          val baseUrl = dom.window.location.href
+      //          val updatedUrl = baseUrl.split("#").head
+      //          dom.window.location.href = s"${updatedUrl}/captureQRCode"
+      //        }
+      //      }
+      dom.window.postMessage("camera-roll", "*")
       Callback.empty
     }
 
@@ -348,7 +341,7 @@ object SendView {
       s"https://ropsten.etherscan.io/tx/$txn"
     }
 
-    def createDropDownItem(tokenSymbol: ERC20ComplientToken) = {
+    def createDropDownItem(tokenSymbol: TokenDetails) = {
       <.option(^.value := tokenSymbol.contractAddress, tokenSymbol.tokenName)
     }
 
@@ -404,12 +397,16 @@ object SendView {
                       <.option(^.id := ercToken.contractAddress, ^.key := ercToken.contractAddress, ^.value := ercToken.contractAddress,
                         ercToken.tokenName)
                     }.toVdomArray))),
-              <.div(
-                ^.className := "accountSpendable",
-                <.label("Spendable: "),
-                <.div(
-                  ^.className := "accountSpendableResult",
-                  <.p(s"${s.etherBalance} ${s.coinSymbol}"))),
+              t.props.runNow().proxy().render(e =>
+                e.accountTokenDetails.find(_.symbol.equalsIgnoreCase(s.coinSymbol)).map { tkn =>
+
+                  <.div(
+                    ^.className := "accountSpendable",
+                    <.label("Spendable: "),
+                    <.div(
+                      ^.className := "accountSpendableResult",
+                      <.p(s"${s.etherBalance} ${s.coinSymbol}")))
+                }.get),
               <.div(
                 ^.className := "accountSpendable",
                 <.div(

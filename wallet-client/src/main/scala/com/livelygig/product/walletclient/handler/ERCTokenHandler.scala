@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.handler
 
-import com.livelygig.product.shared.models.wallet.ERC20ComplientToken
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
+import com.livelygig.product.shared.models.wallet.TokenDetails
+import com.livelygig.product.walletclient.rootmodel.TokenDetailsRootModel
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.data.{ Empty, Pot, PotActionRetriable, Ready }
 import diode.util.{ Retry, RetryPolicy }
@@ -10,25 +10,25 @@ import play.api.libs.json.Json
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
-case class UpdateAccountTokenList(potResult: Pot[ERCTokenRootModel] = Empty, retryPolicy: RetryPolicy = Retry(3))
-  extends PotActionRetriable[ERCTokenRootModel, UpdateAccountTokenList] {
-  override def next(newValue: Pot[ERCTokenRootModel], newRetryPolicy: RetryPolicy): UpdateAccountTokenList = UpdateAccountTokenList(newValue, newRetryPolicy)
+case class UpdateAccountTokenList(potResult: Pot[TokenDetailsRootModel] = Empty, retryPolicy: RetryPolicy = Retry(3))
+  extends PotActionRetriable[TokenDetailsRootModel, UpdateAccountTokenList] {
+  override def next(newValue: Pot[TokenDetailsRootModel], newRetryPolicy: RetryPolicy): UpdateAccountTokenList = UpdateAccountTokenList(newValue, newRetryPolicy)
 }
 
-case class AddTokens(newToken: ERC20ComplientToken)
+case class AddTokens(newToken: TokenDetails)
 
-class ERCTokenHandler[M](modelRW: ModelRW[M, Pot[ERCTokenRootModel]]) extends ActionHandler(modelRW) {
+class ERCTokenHandler[M](modelRW: ModelRW[M, Pot[TokenDetailsRootModel]]) extends ActionHandler(modelRW) {
   override def handle: PartialFunction[Any, ActionResult[M]] = {
     case action: UpdateAccountTokenList => {
       val updatedERCTokenList = action.effectWithRetry {
         CoreApi.mobileGetAccountDetails(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}")
       } { tokenList =>
-        ERCTokenRootModel(Json.parse(tokenList).validate[Seq[ERC20ComplientToken]].get)
+        TokenDetailsRootModel(Json.parse(tokenList).validate[Seq[TokenDetails]].get)
       }
       action.handleWith(this, updatedERCTokenList)(PotActionRetriable.handler())
     }
-    case AddTokens(newTokenList: Seq[ERC20ComplientToken]) => {
-      updated(Ready(ERCTokenRootModel(newTokenList)))
+    case AddTokens(newTokenList: Seq[TokenDetails]) => {
+      updated(Ready(TokenDetailsRootModel(newTokenList)))
 
     }
   }

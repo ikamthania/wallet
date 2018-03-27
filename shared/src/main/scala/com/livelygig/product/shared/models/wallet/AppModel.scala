@@ -13,7 +13,7 @@ case class AppData(
   keyrings: Keyring,
   accountInfo: AccountInfo,
   preferencess: Preferences,
-  tokens: Seq[ERC20ComplientToken],
+  tokens: Seq[TokenDetails],
   infuraNetworkStatus: InfuraNetworkStatus)
 
 case class Network(name: String, rpcTarget: String)

@@ -14,11 +14,11 @@ hooks:
     runas: root
   ApplicationStart:
   - location:  scripts/codedeploy-scripts/application-start/start-services.sh
-    timeout: 180
+    timeout: 1800000
     runas: root
   ValidateService:
   - location:  scripts/codedeploy-scripts/validate-service/validate-services.sh
-    timeout: 200
+    timeout: 200000
     runas: root
     
     

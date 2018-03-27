@@ -4,7 +4,7 @@ import java.io.IOException
 import java.math.BigInteger
 
 import com.lightbend.lagom.scaladsl.api.transport.BadRequest
-import com.livelygig.product.shared.models.wallet.{ ERC20ComplientToken, Transaction, TransactionWithSymbol }
+import com.livelygig.product.shared.models.wallet.{ TokenDetails, Transaction, TransactionWithSymbol }
 import net.ceedubs.ficus.Ficus._
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.{ CloseableHttpClient, HttpClients }
@@ -22,7 +22,7 @@ class EtherscanUtils(configuration: Configuration)(implicit ec: ExecutionContext
   private val API_KEY: String = walletConfig.as[String]("etherscan.api_key")
   private val httpClient: CloseableHttpClient = HttpClients.createDefault()
 
-  def getTransactionList(address: String, eRC20ComplientTokenList: Seq[ERC20ComplientToken]): Future[Seq[TransactionWithSymbol]] = {
+  def getTransactionList(address: String, eRC20ComplientTokenList: Seq[TokenDetails]): Future[Seq[TransactionWithSymbol]] = {
     val get = new HttpGet(PUBLIC_URL + "?module=account&action=txlist&address=" + address + "&startblock=earliest&endblock=latest&sort=asc" + "&apikey=" + API_KEY)
     var response: String = ""
     try {
@@ -67,7 +67,7 @@ class EtherscanUtils(configuration: Configuration)(implicit ec: ExecutionContext
         "null")
   }
 
-  def tokenTransactionBalance(erc20ComplientToken: ERC20ComplientToken, topicId: String): String = {
+  def tokenTransactionBalance(erc20ComplientToken: TokenDetails, topicId: String): String = {
     val get = new HttpGet(PUBLIC_URL + "?module=logs&action=getLogs&fromBlock=" + topicId + "&toBlock=" + topicId + "&address=" + erc20ComplientToken.contractAddress + "&apikey=" + API_KEY)
     var response: String = ""
     try {

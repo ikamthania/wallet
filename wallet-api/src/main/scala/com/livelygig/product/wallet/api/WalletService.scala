@@ -12,11 +12,11 @@ trait WalletService extends Service {
 
   def mobileGetETHNetConnected(): ServiceCall[NotUsed, String]
 
-  def mobileGetAccountTransactionHistory(publicKey: String): ServiceCall[Seq[ERC20ComplientToken], Seq[TransactionWithSymbol]]
+  def mobileGetAccountTransactionHistory(publicKey: String): ServiceCall[Seq[TokenDetails], Seq[TransactionWithSymbol]]
 
   def mobileGetTransactionStatus(txnHash: String): ServiceCall[NotUsed, String]
 
-  def mobileAccountTokensDetails(publicKey: String): ServiceCall[Seq[ERC20ComplientToken], Seq[ERC20ComplientToken]]
+  def mobileAccountTokensDetails(publicKey: String): ServiceCall[Seq[TokenDetails], Seq[TokenDetails]]
 
   def mobileSendSignedTransaction(): ServiceCall[String, String]
 

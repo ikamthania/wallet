@@ -9,8 +9,8 @@ import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy
 import diode.react.ReactPot._
-import japgolly.scalajs.react.vdom.html_<^.{EmptyVdom, ^, _}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
+import japgolly.scalajs.react.vdom.html_<^.{ EmptyVdom, ^, _ }
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
 import moment.Moment
 
 object HistoryView {

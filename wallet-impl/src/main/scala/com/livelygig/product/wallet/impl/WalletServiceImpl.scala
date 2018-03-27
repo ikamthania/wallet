@@ -28,7 +28,7 @@ class WalletServiceImpl(
     web3JUtils.getNetworkInfo().map(ethNet => ethNet)
   }
 
-  override def mobileGetAccountTransactionHistory(publicKey: String): ServiceCall[Seq[ERC20ComplientToken], Seq[TransactionWithSymbol]] =
+  override def mobileGetAccountTransactionHistory(publicKey: String): ServiceCall[Seq[TokenDetails], Seq[TransactionWithSymbol]] =
     ServerServiceCall { eRC20ComplientToken =>
       etherScanUtils.getTransactionList(publicKey, eRC20ComplientToken)
         .map { txnList => txnList }
@@ -39,7 +39,7 @@ class WalletServiceImpl(
     etherScanUtils.getTransactionStatus(txnHash).map { txnHash => txnHash.replace("\"", "") }
   }
 
-  override def mobileAccountTokensDetails(publicKey: String): ServiceCall[Seq[ERC20ComplientToken], Seq[ERC20ComplientToken]] = ServerServiceCall { tokens =>
+  override def mobileAccountTokensDetails(publicKey: String): ServiceCall[Seq[TokenDetails], Seq[TokenDetails]] = ServerServiceCall { tokens =>
 
     web3JUtils
       .getTokenBalance(tokens, publicKey)

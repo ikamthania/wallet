@@ -20,7 +20,6 @@ console.log("Params--->"+priKey+"  "+" "+amount+" "+nonce+" "+encodedFunction+" 
         tx.data = encodedFunction
         var pvt=priKey
         var privateKey = new Buffer(pvt, 'hex')
-        console.log(""+tx.gasLimit.toString)
         tx.sign(privateKey)
           break;
         }

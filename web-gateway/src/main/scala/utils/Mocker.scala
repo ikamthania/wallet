@@ -1,6 +1,6 @@
 package utils
 
-import com.livelygig.product.shared.models.wallet.{ CoinExchange, CurrencyList, ERC20ComplientToken, Transaction }
+import com.livelygig.product.shared.models.wallet.{ CoinExchange, CurrencyList, TokenDetails, Transaction }
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.{ CloseableHttpClient, HttpClients }
 import org.apache.http.util.EntityUtils
@@ -15,7 +15,7 @@ trait Mocker {
   def getMockWalletTokenListResponse(responseType: String) = {
     try {
       val mock = scala.io.Source.fromFile(s"${mockdataLocation}/${responseType}.json", "utf-8").mkString
-      Json.parse(mock).validate[Seq[ERC20ComplientToken]]
+      Json.parse(mock).validate[Seq[TokenDetails]]
         .asEither match {
           case Left(err) =>
             //            log.error(s"Error in parsing content for $responseType : ${err}")
@@ -52,7 +52,7 @@ trait Mocker {
 
     val coinList = scala.io.Source.fromFile(s"${mockdataLocation}/accountTokensDetails.json", "utf-8").mkString
 
-    val coinSymbolList = Json.parse(coinList).validate[Seq[ERC20ComplientToken]].get.map { token => token.symbol.toUpperCase }
+    val coinSymbolList = Json.parse(coinList).validate[Seq[TokenDetails]].get.map { token => token.symbol.toUpperCase }
 
     val mock = scala.io.Source.fromFile(s"${mockdataLocation}/currencyExchange.json", "utf-8").mkString
 

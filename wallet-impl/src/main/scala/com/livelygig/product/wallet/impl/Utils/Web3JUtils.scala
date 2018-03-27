@@ -4,7 +4,7 @@ import java.io.{ File, FileNotFoundException, FileOutputStream }
 import java.math.BigInteger
 import java.util
 
-import com.livelygig.product.shared.models.wallet.{ ERC20ComplientToken, EtherTransaction }
+import com.livelygig.product.shared.models.wallet.{ TokenDetails, EtherTransaction }
 import com.livelygig.product.wallet.api.models.ValidateWalletFile
 import net.ceedubs.ficus.Ficus._
 import org.web3j.abi.datatypes.generated.Uint256
@@ -78,8 +78,8 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
   }
 
   //Get token balance using EIP20 std method
-  def getTokenBalance(eRC20ComplientTokenList: Seq[ERC20ComplientToken], ownerAddress: String): Future[Seq[ERC20ComplientToken]] = {
-    val erc20TokenSeq = eRC20ComplientTokenList.filterNot(e => e.symbol.equalsIgnoreCase("ETH")).map { eRC20ComplientToken =>
+  def getTokenBalance(TokenList: Seq[TokenDetails], ownerAddress: String): Future[Seq[TokenDetails]] = {
+    val TokenSeq = TokenList.filterNot(e => e.symbol.equalsIgnoreCase("ETH")).map { eRC20ComplientToken =>
       val function = new Function(
         "balanceOf",
         util.Arrays.asList(new Address(ownerAddress)), util.Arrays.asList(new TypeReference[Uint256]() {}))
@@ -94,9 +94,9 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
         case e => eRC20ComplientToken.copy(balance = s"${BigDecimal(e) / Math.pow(10, eRC20ComplientToken.decimal)}")
       }
     }
-    val ethereumToken = eRC20ComplientTokenList.filter(e => e.symbol.equalsIgnoreCase("ETH")).map { e => e.copy(balance = getBalance(ownerAddress)) }
+    val ethereumToken = TokenList.filter(e => e.symbol.equalsIgnoreCase("ETH")).map { e => e.copy(balance = getBalance(ownerAddress)) }
 
-    Future(erc20TokenSeq ++ ethereumToken)
+    Future(TokenSeq ++ ethereumToken)
   }
   /*
 
