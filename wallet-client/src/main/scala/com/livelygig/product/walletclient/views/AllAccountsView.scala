@@ -1,18 +1,21 @@
 package com.livelygig.product.walletclient.views
+import com.livelygig.product.shared.models.wallet.AccountInfo
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.router.ApplicationRouter.{AddNewAccountLoc, LandingLoc, Loc}
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AddNewAccountLoc, LandingLoc, Loc }
+import diode.data.Pot
+import diode.react.ModelProxy
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
 import org.scalajs.dom
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{ JsValue, Json }
 
 object AllAccountsView {
 
-  case class Props(router: RouterCtl[Loc])
+  case class Props(router: RouterCtl[Loc], proxy: ModelProxy[AccountInfo])
 
-  case class State(data: Seq[((String, String), String)] = Seq((("", ""), "")))
+  case class State()
 
   final class Backend(t: BackendScope[Props, State]) {
 
@@ -62,7 +65,7 @@ object AllAccountsView {
     }
 
     def componentDidMount(): Callback = {
-      jQuery("#accountList li").first().addClass("selected")
+      /*jQuery("#accountList li").first().addClass("selected")
 
       val keystoreContent = dom.window.localStorage.getItem("keystoreData")
       //      val keystoreContent = "[{\"keystorePvtKey\":\"john\",\"keystorePubKey\":\"0x13427c61c0b4391a54b6405cc3bb014d38887f4a\" , \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"},{\"keystorePvtKey\":\"john\",\"keystorePubKey\":\"0xec71c074ea5573ddf1a7767773bbd324cfa971d2\", \"timestamp\":\"Fri, 02 Feb 2018 06:07:37 GMT\"}]"
@@ -79,11 +82,11 @@ object AllAccountsView {
 
       //      pubKey.map(e => Toastr.info(e))
 
-      val keystoredata = priKey zip pubKey zip timestamp
+      val keystoredata = priKey zip pubKey zip timestamp*/
 
-      t.modState(s => s.copy(data = keystoredata))
+      //      t.modState(s => s.copy(data = keystoredata))
 
-      //      Callback.empty
+      Callback.empty
     }
 
     def render(p: Props, s: State): VdomElement =
@@ -96,29 +99,30 @@ object AllAccountsView {
               ^.className := "identify-screen-profileslist scrollableArea",
               <.ul(
                 ^.id := "accountList",
-                s.data.map(keystoreKey =>
+                p.proxy.value.accounts.map(account =>
                   <.li(
-                    ^.key := keystoreKey._1._2,
-                    ^.onClick ==> onItemClicked(keystoreKey._1._1, keystoreKey._1._2),
+                    (^.className := "selected").when(account.address == p.proxy.value.selectedAddress),
+                    ^.key := account.address,
+                    ^.onClick ==> onItemClicked("keystoreKey._1._1", "keystoreKey._1._2"),
                     <.a(
                       ^.href := "javascript:void(0)",
                       <.div(
                         ^.className := "row",
                         <.div(^.className := "col-lg-4 col-md-4 col-sm-4 col-xs-3")(
                           <.p(
-                            ^.id := keystoreKey._1._2)(
-                              "Savings")),
+                            ^.id := "keystoreKey._1._2")(
+                              account.accountName)),
                         <.div(^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-9")(
                           <.p(
-                            ^.id := keystoreKey._1._2,
+                            ^.id := "keystoreKey._1._2",
                             ^.className := "ellipseText",
-                            keystoreKey._2)),
+                            "")),
                         <.div(
                           ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
                           <.p(
-                            ^.id := keystoreKey._1._2,
+                            ^.id := "keystoreKey._1._2",
                             ^.className := "ellipseText publicAdd",
-                            keystoreKey._1._2)))))).toVdomArray)))),
+                            account.address)))))).toVdomArray)))),
         <.div(
           ^.className := "container btnDefault-container homeButtonContainer",
           <.div(

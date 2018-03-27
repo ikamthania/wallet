@@ -87,6 +87,7 @@ object ApplicationRouter {
 
   private val walletaccountProxy = WalletCircuit.connect(_.ERCToken)
   private val walletuserProxy = WalletCircuit.connect(_.user)
+  private val walletAppAccountProxy = WalletCircuit.connect(_.appRootModel.appModel.data.accountInfo)
   private val wallethistoryProxy = WalletCircuit.connect(_.transaction)
   // configure the router
   private val routerConfig = RouterConfigDsl[Loc].buildConfig { dsl =>
@@ -111,7 +112,7 @@ object ApplicationRouter {
         | staticRoute(s"#/manageIdentities", ManageIdentitiesLoc) ~> renderR(ctl => ManageIdentitiesView(ManageIdentitiesView.Props()))
         | staticRoute(s"#/identities", IdentitiesLoc) ~> renderR(ctl => IdentitiesView(IdentitiesView.Props()))
         | staticRoute(s"#/notification", NotificationLoc) ~> renderR(ctl => NotificationView(NotificationView.Props()))
-        | staticRoute(s"#/allAccounts", AllAccountsLoc) ~> renderR(ctl => AllAccountsView(AllAccountsView.Props(ctl)))
+        | staticRoute(s"#/allAccounts", AllAccountsLoc) ~> renderR(ctl => walletAppAccountProxy(proxy => AllAccountsView(AllAccountsView.Props(ctl, proxy))))
         | staticRoute(s"#/addSharedWallet", AddSharedWalletLoc) ~> renderR(ctl => AddSharedWalletView.component(AddSharedWalletView.Props(ctl)))
         | staticRoute(s"#/multisig", MultisigHomeLoc) ~> renderR(ctl => walletaccountProxy(proxy => MultisigHomeView.component(MultisigHomeView.Props(proxy, ctl))))
         | staticRoute(s"#/addToken", AddTokenLoc) ~> renderR(ctl => AddTokenView(AddTokenView.Props()))

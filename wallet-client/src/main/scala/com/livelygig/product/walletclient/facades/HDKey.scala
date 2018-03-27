@@ -12,7 +12,6 @@ object HDKey extends js.Object {
   def derive(path: String): HDKey.type = js.native
   def deriveChild(index: Int): HDKey.type = js.native
   def privateKey: Buffer = js.native
-  def publicKey: Buffer = js.native
   def privateExtendedKey: Buffer = js.native
   def publicExtendedKey: Buffer = js.native
 }
