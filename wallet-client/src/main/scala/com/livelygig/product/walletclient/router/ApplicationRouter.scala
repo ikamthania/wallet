@@ -123,8 +123,11 @@ object ApplicationRouter {
         | staticRoute(s"#/addSharedWallet", AddSharedWalletLoc) ~> renderR(ctl => AddSharedWalletView.component(AddSharedWalletView.Props(ctl)))
         | staticRoute(s"#/multisig", MultisigHomeLoc) ~> renderR(ctl => walletaccountProxy(proxy => MultisigHomeView.component(MultisigHomeView.Props(proxy, ctl))))
         | staticRoute(s"#/addToken", AddTokenLoc) ~> renderR(ctl => AddTokenView(AddTokenView.Props()))
-        | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props())))
+        | staticRoute(s"#/test", TestLoc) ~> renderR(ctl => TestView(TestView.Props()))
+        | dynamicRouteCT(s"#/send" / remainingPath.caseClass[PopulateQRCodeLoc]) ~> dynRenderR((loc, ctl) =>
+          walletaccountProxy(proxy => SendView.component(SendView.Props(proxy, ctl, s"${loc.to}")))))
         .addCondition(getLoggedInStatus)(e => Some(redirectToPage(LandingLoc)(Redirect.Push)))
+
     }
 
     (
@@ -133,5 +136,5 @@ object ApplicationRouter {
 
   }
     .renderWith(MainLayout.layout _)
-  val router = Router(BaseUrl.until_#, routerConfig)
+  val router = Router(BaseUrl.until_#, routerConfig.logToConsole)
 }
