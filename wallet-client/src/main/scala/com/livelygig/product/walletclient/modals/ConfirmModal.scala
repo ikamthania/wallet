@@ -90,20 +90,6 @@ object ConfirmModal {
         CoreApi.getTransactionStatus(txnHash).map { txnResponse =>
           if (txnResponse.matches("0x[a-z-0-9]+")) {
             Toastr.success(s"$txnResponse block confirmed for transaction $txnHash", Some("Transaction completed!!!"))
-            //            CoreApi.getUserDetails().map { userDetails =>
-            //              Json.parse(userDetails).validate[UserDetails].asOpt match {
-            //                case Some(response) =>
-            //                  CoreApi.getAccountDetails().map {
-            //                    userTokenList =>
-            //                      Json.parse(userTokenList).validate[Seq[ERC20ComplientToken]].map(
-            //                        tokenList => {
-            //                          WalletCircuit.dispatch(GetUserDetails(response)) // dispatched to update balance
-            //                          tokenList.map { token => WalletCircuit.dispatch(AddTokens(token)) }
-            //                        })
-            //                  }
-            //                case None => println("Error in parsing user details response")
-            //              }
-            //            }
           } else
             getTransactionNotification(txnHash)
         }
@@ -149,7 +135,11 @@ object ConfirmModal {
               Toastr.info("Please try again....")
             }
         }
-      }.recover { case _ => Toastr.error("Wrong password!!!!") }
+      }.recover {
+        case e: Exception =>
+          println(e)
+          Toastr.error("Wrong password!!!!")
+      }
     }
 
     def render(p: Props, s: State): VdomElement =

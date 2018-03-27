@@ -2,8 +2,6 @@ package com.livelygig.product.walletclient.views
 
 import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.services.EthereumNodeApi
-// import com.livelygig.product.walletclient.facades.Bootstrap._
 import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.UpdateAccountTokenList
@@ -98,10 +96,21 @@ object SendView {
       var receiver = t.props.runNow().to.split("/").last.toString
       var amount = t.props.runNow().to.split("/").head
       jQuery("#lblDisplayFrom").text(jQuery("#slctAccount option:first").text())
-      Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
-      val ethBlnc = t.props.runNow().proxy.value.get.accountTokenDetails.find(_.symbol == "ETH").get.balance
-      t.modState(s => s.copy(etherBalance = ethBlnc, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = receiver))).runNow()
-      Callback.empty
+      Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList()))) >>
+        CallbackTo {
+          t.props.map {
+            props =>
+              props.proxy.value.map {
+                erc20token =>
+                  val ethBlnc = erc20token.accountTokenDetails.find(_.symbol == "ETH").getOrElse(ERC20ComplientToken("", "", "", 0, "")).balance
+                  t.modState(s => s.copy(
+                    etherBalance = ethBlnc,
+                    etherTransaction =
+                      s.etherTransaction.copy(amount = amount, receiver = receiver))).runNow()
+              }
+          }
+        }
+
     }
 
     /*
@@ -250,7 +259,9 @@ object SendView {
           val inputAmount = BigDecimal.apply(t.state.runNow().etherTransaction.amount)
           t.state.runNow().etherTransaction.txnType match {
             case "eth" => {
-              if (etherBalance > inputAmount) true else { Toastr.error("Ether balance is not sufficient to make transaction"); false }
+              if (etherBalance > inputAmount) true else {
+                Toastr.error("Ether balance is not sufficient to make transaction"); false
+              }
             }
             case e =>
               val token = t.props.runNow().proxy.value.get.accountTokenDetails.find(_.contractAddress.equalsIgnoreCase(e))
@@ -373,14 +384,17 @@ object SendView {
                 ^.className := "accountItem",
                 <.label("Identity: "),
                 <.select()(
-                  <.option(s"${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}"))),
+                  accountInfo.accounts.map(e =>
+                    <.option(e.accountName)).toTagMod
+                //                  <.option(s"${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}")
+                )),
               <.div(
                 ^.className := "accountItem",
                 <.label("Account: "),
-                <.select(
+                <.div(
                   ^.id := "slctAccount",
                   ^.onChange ==> onSelectAccountChange,
-                  <.option(s"${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName} ${accountInfo.selectedAddress}"))),
+                  s"0x${accountInfo.selectedAddress}")),
               <.div(
                 ^.className := "accountItem",
                 <.label("Token: "),
@@ -414,7 +428,9 @@ object SendView {
                 ^.className := "form-control ellipseText",
                 VdomAttr("data-error") := "Recipient address required!",
                 ^.required := true,
-                ^.defaultValue := { if (p.to != "") p.to.split("/").last.toString else s.etherTransaction.receiver },
+                ^.defaultValue := {
+                  if (p.to != "") p.to.split("/").last.toString else s.etherTransaction.receiver
+                },
                 ^.onChange ==> onStateChange("receiver")),
               <.a(^.onClick --> onQRCodeClick, <.i(^.id := "captureQRCode", ^.className := "fa fa-qrcode", VdomAttr("aria-hidden") := "true")))),
           <.div(
@@ -460,7 +476,9 @@ object SendView {
                       <.td("≈"),
                       <.td(
                         ^.className := "fee",
-                        { ethereumFee }),
+                        {
+                          ethereumFee
+                        }),
                       <.td("ETH")),
                     <.tr(
                       <.td(
@@ -468,17 +486,25 @@ object SendView {
                       <.td(
                         <.p("≈")),
                       <.td(
-                        <.p(^.id := "ethTotal", { s.totalInCoin })),
+                        <.p(^.id := "ethTotal", {
+                          s.totalInCoin
+                        })),
                       <.td(
-                        <.p({ s.coinSymbol }))),
+                        <.p({
+                          s.coinSymbol
+                        }))),
                     <.tr(
                       <.td(),
                       <.td(
                         <.p("≈")),
                       <.td(
-                        <.p(^.id := "usdTotal", { s.totalInCurr })),
+                        <.p(^.id := "usdTotal", {
+                          s.totalInCurr
+                        })),
                       <.td(
-                        <.p({ s.currSymbol }))))))),
+                        <.p({
+                          s.currSymbol
+                        }))))))),
             <.div(
               ^.className := "accountAmount passwordSection",
               <.h4("Password"),
@@ -505,6 +531,7 @@ object SendView {
     .componentDidMount(scope => scope.backend.getLiveCurrencyUpdate())
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
+
   def apply(props: Props) = component(props)
 }
 
