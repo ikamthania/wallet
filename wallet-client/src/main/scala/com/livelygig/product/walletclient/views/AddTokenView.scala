@@ -123,7 +123,7 @@ object AddTokenView {
             <.div(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
               <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton ", "Add", ^.onClick --> showAddTokenModal()),
-              <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton ", "Done")))))
+              <.button(^.`type` := "button", ^.className := "btn btnDefault goupButton ", "Done", ^.onClick --> showAddTokenModal())))))
   }
 
   val component = ScalaComponent.builder[Props]("AddTokenView")

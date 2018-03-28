@@ -140,7 +140,7 @@ object SidebarMenuComponent {
 
       val hiddenMenuItems = Seq(
         MenuItemWithSubItems(s"${state.selectDynamic("ACCOUNT_SAVINGS").toString}: ${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}", Seq(accountHomeSubmenuItem, accountSendSubmenuItem, accountRequestSubmenuItem,
-          accountTransactionHistorySubmenuItem, allAccountsHomeSubmenuItem, multiSigHomeSubmenuItem, AddTokenSubmenuItem, AddSharedWalletHomeSubmenuItem /*, accountBackUpSubmenuItem*/ )),
+          accountTransactionHistorySubmenuItem, allAccountsHomeSubmenuItem, multiSigHomeSubmenuItem, AddSharedWalletHomeSubmenuItem /*, accountBackUpSubmenuItem*/ )),
         MenuItemWithSubItems(state.selectDynamic("SETTINGS").toString, Seq(seetingsDisplaySettingSubmenuItem, settingsLanguageSubmenuitem /*, settinTokenUnitsDecimalsSubmenuItem*/ )),
         //MenuItemWithSubItems(state.selectDynamic("HELP_SUPPORT").toString, Seq(helpsupportgOverviewSubmenuItem, helpsupportBulletinSubmenuItem)),
         MenuItemWithSubItems(state.selectDynamic("ABOUT").toString, Seq( /*aboutCopyrightSubmenuItem, */ aboutPrivacyPolicySubmenuItem, aboutTermsConditionsSubmenuItem)),
