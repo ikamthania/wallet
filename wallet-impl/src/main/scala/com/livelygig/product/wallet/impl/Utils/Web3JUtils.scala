@@ -122,17 +122,11 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
 
   def getEncodedFunction(etherTransaction: EtherTransaction): Future[String] = {
 
-    val rawTransactionEncodedFunction = etherTransaction match {
-      case EtherTransaction(_, _, _, "eth", _) => "0x0"
-      case EtherTransaction(_, receiver, _, _, _) if receiver.isEmpty() => ""
-      case EtherTransaction(_, receiver, _, _, _) if !receiver.isEmpty() =>
-        val function = new Function(
-          "transfer",
-          util.Arrays.asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
-          util.Arrays.asList())
-        FunctionEncoder.encode(function)
-    }
-
+    val function = new Function(
+      "transfer",
+      util.Arrays.asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
+      util.Arrays.asList())
+    val rawTransactionEncodedFunction = FunctionEncoder.encode(function)
     Future(rawTransactionEncodedFunction)
   }
 
