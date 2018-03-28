@@ -4,7 +4,7 @@ import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades._
 import com.livelygig.product.walletclient.handler.UpdatePassword
 import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.router.ApplicationRouter.LandingLoc
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, LandingLoc }
 import com.livelygig.product.walletclient.services.{ CoreApi, EthereumNodeApi, WalletCircuit }
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
@@ -106,7 +106,7 @@ object ConfirmModal {
         WalletCircuit.dispatch(UpdatePassword(t.state.runNow().etherTransaction.password))
         val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
         val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
-        val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress) - 1
+        val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress)
         val prvKey = hdKey.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
         EthereumNodeApi.getTransactionCount(s"0x${accountInfo.selectedAddress}").map {
           res =>
@@ -124,7 +124,7 @@ object ConfirmModal {
                   if (transactionHashString.matches("0x[a-z-0-9]+")) {
                     Toastr.info(s"Transaction sent. Transaction reference no. is $transactionHashString")
                     getTransactionNotification(transactionHashString)
-                    t.props.runNow().rc.set(LandingLoc).runNow()
+                    t.props.runNow().rc.set(AccountLoc).runNow()
                   } else {
                     Toastr.error(transactionHashString)
                     Callback.empty

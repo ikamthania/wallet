@@ -21,7 +21,10 @@ class ERCTokenHandler[M](modelRW: ModelRW[M, Pot[TokenDetailsRootModel]]) extend
   override def handle: PartialFunction[Any, ActionResult[M]] = {
     case action: UpdateAccountTokenList => {
       val updatedERCTokenList = action.effectWithRetry {
-        CoreApi.mobileGetAccountDetails(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}")
+        val slctAddress = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value
+
+        val slctdAddress = s"0x${slctAddress}"
+        CoreApi.mobileGetAccountDetails(slctdAddress)
       } { tokenList =>
         TokenDetailsRootModel(Json.parse(tokenList).validate[Seq[TokenDetails]].get)
       }

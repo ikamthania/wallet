@@ -56,7 +56,6 @@ return tx.serialize().toString('hex');
       .serialize()
       .toString('hex');
     //  walletjs.setflag = true;
-    console.log("walletjs.serializedTx  ---> " + signedTxn);
     return signedTxn;
   };
 

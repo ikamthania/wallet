@@ -12,10 +12,15 @@ import japgolly.scalajs.react.vdom.html_<^._
 // scalastyle:off
 object MainLayout {
   val sidebarNotRequiredFor = Seq(ViewBackupPhraseLoc, SetupRegisterLoc, BackupAccountLoc)
+  val sidebarRequiredFor = Seq(SendLoc, PopulateQRCodeLoc)
   def layout(c: RouterCtl[Loc], r: Resolution[Loc]) = {
+    val isSidebarRequired = r.page match {
+      case PopulateQRCodeLoc(to) => true
+      case _ => false
+    }
     <.div(^.className := "wallet-main")(
       <.div(^.className := "wallet-inner container-fluid")(
-        if (WalletCircuit.zoomTo(_.user.isloggedIn).value || r.page == SendLoc) {
+        if (WalletCircuit.zoomTo(_.user.isloggedIn).value || isSidebarRequired) {
           if (!sidebarNotRequiredFor.contains(r.page)) {
             HeaderComponent.component(HeaderComponent.Props(c, r))
           } else {

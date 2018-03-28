@@ -88,6 +88,8 @@ object SendView {
     * */
 
     def componentDidMount(props: Props): Callback = {
+      Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList())))
+
       //      val baseUrl = dom.window.location.href
       //      val updatedUrl = baseUrl.split("#").head
       //      dom.window.location.href = s"${updatedUrl}#/send"
@@ -95,14 +97,19 @@ object SendView {
 
       var receiver = t.props.runNow().to.split("/").last.toString
       var amount = t.props.runNow().to.split("/").head
-      jQuery("#lblDisplayFrom").text(jQuery("#slctAccount option:first").text())
-      Callback.when(!props.proxy().isPending)(props.proxy.dispatchCB((UpdateAccountTokenList()))) >>
-        CallbackTo {
-          t.props.runNow().proxy.value.map(e => e.accountTokenDetails.filter(_.symbol.equalsIgnoreCase("ETH")).map(e =>
+      val pattern = "(0x[0-9A-Za-z]+)".r
+      val rcvrAddress = pattern.findFirstIn(receiver).getOrElse("")
 
-            t.modState(s => s.copy(etherBalance = e.balance, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = receiver))).runNow()))
+      jQuery("#lblDisplayFrom").text(jQuery("#slctAccount option:first").text())
+      Callback {
+        CoreApi.mobileGetAccountDetails(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}").map { e =>
+          Json.parse(e).validate[Seq[TokenDetails]].get.filter(_.symbol.equalsIgnoreCase("ETH")).map { token =>
+            println(token.balance)
+            t.modState(s => s.copy(etherBalance = token.balance, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = rcvrAddress))).runNow()
+          }
         }
 
+      }
     }
 
     /*
@@ -252,7 +259,8 @@ object SendView {
           t.state.runNow().etherTransaction.txnType match {
             case "eth" => {
               if (etherBalance > inputAmount) true else {
-                Toastr.error("Ether balance is not sufficient to make transaction"); false
+                Toastr.error("Ether balance is not sufficient to make transaction");
+                false
               }
             }
             case e =>
@@ -397,17 +405,16 @@ object SendView {
                       <.option(^.id := ercToken.contractAddress, ^.key := ercToken.contractAddress, ^.value := ercToken.contractAddress,
                         ercToken.tokenName)
                     }.toVdomArray))),
-              t.props.runNow().proxy().render(e =>
-                e.accountTokenDetails.find(_.symbol.equalsIgnoreCase(s.coinSymbol)).map { tkn =>
+              //              t.props.runNow().proxy().render(e =>
+              //                e.accountTokenDetails.find(_.symbol.equalsIgnoreCase(s.coinSymbol)).map { tkn =>
 
-                  <.div(
-                    ^.className := "accountSpendable",
-                    <.label("Spendable: "),
-                    <.div(
-                      ^.className := "accountSpendableResult",
-                      <.p(s"${s.etherBalance} ${s.coinSymbol}")))
-                }.get),
               <.div(
+                ^.className := "accountSpendable",
+                <.label("Spendable: "),
+                <.div(
+                  ^.className := "accountSpendableResult",
+                  <.p(s"${s.etherBalance} ${s.coinSymbol}"))) //                }.get),
+                  , <.div(
                 ^.className := "accountSpendable",
                 <.div(
                   ^.className := "accountSpendableResult",
@@ -472,8 +479,7 @@ object SendView {
                       <.td("Fee"),
                       <.td("≈"),
                       <.td(
-                        ^.className := "fee",
-                        {
+                        ^.className := "fee", {
                           ethereumFee
                         }),
                       <.td("ETH")),
