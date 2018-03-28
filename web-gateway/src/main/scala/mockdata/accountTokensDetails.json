@@ -2,7 +2,7 @@
   {
     "contractAddress":"ethereum",
     "symbol":"ETH",
-    "tokenName":"Ethereum",
+    "tokenName":"Ether",
     "decimal":18,
     "balance":"0"
   },
