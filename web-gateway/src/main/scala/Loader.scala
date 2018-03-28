@@ -66,7 +66,7 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
 
   // controllers
   lazy val viewController: ViewController = wire[ViewController]
-  lazy val walletController: WalletController = wire[WalletController]
+  //  lazy val walletController: WalletController = wire[WalletController]
 
   // For Mobile
   lazy val mobileWalletController: MobileWalletController = wire[MobileWalletController]

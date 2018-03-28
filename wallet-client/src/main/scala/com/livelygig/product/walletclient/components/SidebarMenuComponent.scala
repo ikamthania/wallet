@@ -18,9 +18,9 @@ import scala.scalajs.js.JSON
 import scala.scalajs.{ LinkingInfo, js }
 import scala.util.{ Failure, Success }
 
-object SidebarMenu {
+object SidebarMenuComponent {
 
-  val userDetails = WalletCircuit.zoom(_.user.userDetails)
+  val accountInfo = WalletCircuit.zoom(_.appRootModel.appModel.data.accountInfo).value
 
   case class Props(router: RouterCtl[Loc], currentLoc: Loc)
 
@@ -104,8 +104,8 @@ object SidebarMenu {
       val accountConfigureSubmenuItem = MenuItemWithCallback(state.selectDynamic("CONFIGURE").toString, emptyCallback)
       val accountExchangeSubmenuItem = MenuItemWithSubItems(state.selectDynamic("EXCHANGE").toString, Seq(test1SubmenuItem, test2SubmenuItem))
       val allAccountsHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("VIEW_ACCOUNTS").toString, AllAccountsLoc)
-      val multiSigHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("MULTI_SIG_WALLET").toString, MultisigHomeLoc)
-      val AddTokenSubmenuItem = MenuItemWithLocation(state.selectDynamic("ADD_TOKENS").toString, AddTokenLoc)
+      val multiSigHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("MULTISIG").toString, MultisigHomeLoc)
+      val AddTokenSubmenuItem = MenuItemWithLocation(state.selectDynamic("ADDTOKEN").toString, AddTokenLoc)
       val AddSharedWalletHomeSubmenuItem = MenuItemWithLocation(state.selectDynamic("ADD_SHARED_WALLET").toString, AddSharedWalletLoc)
       //Seetings
       //Themes
@@ -139,7 +139,7 @@ object SidebarMenu {
       val aboutTermsConditionsSubmenuItem = MenuItemWithCallback(state.selectDynamic("TERMS_CONDITION").toString, emptyCallback)
 
       val hiddenMenuItems = Seq(
-        MenuItemWithSubItems(s"${state.selectDynamic("ACCOUNT_SAVINGS").toString} : ${dom.window.localStorage.getItem("accountName")}", Seq(accountHomeSubmenuItem, accountSendSubmenuItem, accountRequestSubmenuItem,
+        MenuItemWithSubItems(s"${state.selectDynamic("ACCOUNT_SAVINGS").toString} : ${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}", Seq(accountHomeSubmenuItem, accountSendSubmenuItem, accountRequestSubmenuItem,
           accountTransactionHistorySubmenuItem, allAccountsHomeSubmenuItem, multiSigHomeSubmenuItem, AddTokenSubmenuItem, AddSharedWalletHomeSubmenuItem /*, accountBackUpSubmenuItem*/ )),
         MenuItemWithSubItems(state.selectDynamic("SETTINGS").toString, Seq(seetingsDisplaySettingSubmenuItem, settingsLanguageSubmenuitem /*, settinTokenUnitsDecimalsSubmenuItem*/ )),
         //MenuItemWithSubItems(state.selectDynamic("HELP_SUPPORT").toString, Seq(helpsupportgOverviewSubmenuItem, helpsupportBulletinSubmenuItem)),
@@ -151,7 +151,7 @@ object SidebarMenu {
         MenuItemWithSubItems(state.selectDynamic("IDENTITY").toString, Seq(identityHomeSubmenuItem, identityPortifolioSubmenuItem,
           identityAccountsSubmenuItem, identityUpdateSubmenuItem, identityAttributesSubmenuItem, identityCredentialsSubmenuItem, identityConnectionsSubmenuItem,
           identityTransactionSubmenuItem)),
-        MenuItemWithSubItems(s"${state.selectDynamic("ACCOUNT_SAVINGS").toString} : ${dom.window.localStorage.getItem("accountName")}", Seq(accountHomeSubmenuItem, accountSendSubmenuItem, accountRequestSubmenuItem,
+        MenuItemWithSubItems(s"${state.selectDynamic("ACCOUNT_SAVINGS").toString} : ${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}", Seq(accountHomeSubmenuItem, accountSendSubmenuItem, accountRequestSubmenuItem,
           accountViewRequestsSubmenuItem, accountTransactionHistorySubmenuItem, accountBackUpSubmenuItem, accountConfigureSubmenuItem,
           accountExchangeSubmenuItem)),
         MenuItemWithCallback(state.selectDynamic("CONTACTS").toString, emptyCallback),

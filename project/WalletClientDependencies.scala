@@ -46,7 +46,8 @@ object WalletClientDependencies {
       "hdkey"->"0.8.0",
       "ethereumjs-wallet"->"0.6.0",
       "qrcode-generator"->"1.3.1",
-      "pseudoloc"->"1.1.0"
+      "browser-passworder" -> "2.0.3",
+      "bip39" -> "2.5.0"
       //      "react" -> "15.6.1",
     )
   )

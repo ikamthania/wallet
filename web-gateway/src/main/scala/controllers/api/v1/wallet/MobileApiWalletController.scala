@@ -4,7 +4,7 @@ import com.livelygig.product.content.api.WalletService
 import com.livelygig.product.shared.models.wallet.EtherTransaction
 import net.ceedubs.ficus.Ficus._
 import play.api.libs.json.Json
-import play.api.mvc.{ Action, Controller }
+import play.api.mvc.{ Action, BaseController, Controller, ControllerComponents }
 import play.api.{ Configuration, Environment, Mode }
 import utils.Mocker
 
@@ -15,8 +15,9 @@ import scala.concurrent.{ ExecutionContext, Future }
  */
 class MobileApiWalletController(
   walletService: WalletService,
+  val controllerComponents: ControllerComponents,
   configuration: Configuration,
-  environment: Environment)(implicit val ec: ExecutionContext) extends Controller with Mocker {
+  environment: Environment)(implicit val ec: ExecutionContext) extends BaseController with Mocker {
 
   override val mockdataLocation: String = {
     if (environment.mode == Mode.Dev) {
@@ -45,14 +46,6 @@ class MobileApiWalletController(
       .map(e => Ok(Json.toJson(e)).withHeaders("Access-Control-Allow-Origin" -> "*"))
   }
 
-  def mobileGetUserDetails(publicKey: String) = Action.async { implicit request =>
-
-    walletService.mobileGetAccountDetails(publicKey)
-      .invoke()
-      .map(e => Ok(Json.toJson(e)).withHeaders("Access-Control-Allow-Origin" -> "*"))
-
-  }
-
   def mobileGetAccountTokenDetails(publicKey: String) = Action.async { implicit request =>
     val ercComplientTokenList = getMockWalletTokenListResponse("accountTokensDetails")
     walletService
@@ -69,7 +62,7 @@ class MobileApiWalletController(
   }
 
   def mobileGetNetworkInfo() = Action.async { implicit request =>
-    walletService.getETHNetConnected()
+    walletService.mobileGetETHNetConnected()
       .invoke()
       .map(e => Ok(e).withHeaders("Access-Control-Allow-Origin" -> "*"))
   }
@@ -87,24 +80,6 @@ class MobileApiWalletController(
         .io
         .Source.fromFile(s"${i18ndataLocation + lang}.json", "utf-8").mkString
     Future(Ok(mockdata.toString).withHeaders("Access-Control-Allow-Origin" -> "*"))
-  }
-
-  def mobileGetNonce(publicKey: String) = Action.async { implicit request =>
-    request.body.asJson match {
-      case Some(json) => {
-        Json.fromJson[EtherTransaction](json).fold(
-          _ => Future.successful(BadRequest("Error in parsing json")),
-          etherTransaction => postTxnInfo(publicKey, etherTransaction))
-      }
-      case None => Future.successful(BadRequest("No Json Found"))
-    }
-
-  }
-  def postTxnInfo(publicKey: String, etherTransaction: EtherTransaction) = {
-    walletService
-      .mobileGetNonce(publicKey)
-      .invoke(etherTransaction)
-      .map(e => Ok(Json.toJson(e)).withHeaders("Access-Control-Allow-Origin" -> "*"))
   }
 
   def mobileSendTransaction() = Action.async { implicit request =>

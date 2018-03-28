@@ -1,56 +1,40 @@
 
 var Transaction = require('ethereumjs-tx/index.js')
-exports.postRawTxn=function(userPassword,amount,txTo,txnType,nonce,encodedFunction){
+exports.getSignTxn=function(priKey,amount,txTo,txnType,nonce,encodedFunction,gasPrice,gasLimit){
 
 //Ethereum network chainId--->Mainnet-1,Ropsten-3
 // create a blank transaction
 var chainId=3
 var tx = new Transaction(null, chainId) // ropsten Tx EIP155
-
-console.log("Params--->"+txTo+" "+" "+amount+" "+nonce+" "+encodedFunction+" ")
-
  switch (txnType) {
 
       case "eth":
         {
         tx.to=txTo
         tx.nonce = nonce
-        tx.gasPrice = 21000000000
-        tx.gasLimit = 315010
+        tx.gasPrice =gasPrice// 21000000000
+        tx.gasLimit =gasLimit// 315010
         tx.value = amount
         tx.data = encodedFunction
-        var pvt=window.localStorage.getItem("priKey")
+        var pvt=priKey
         var privateKey = new Buffer(pvt, 'hex')
         tx.sign(privateKey)
           break;
         }
       default:
-        if (txTo == "0x0")
-          {
-                 tx.nonce = nonce
-                 tx.gasPrice = 21000000000
-                 tx.gasLimit = 3057640
-                 tx.data = encodedFunction
-                 var pvt=window.localStorage.getItem("priKey")
-                 var privateKey = new Buffer(pvt, 'hex')
-                 tx.sign(privateKey)
-                   break;
-          }
-        else
-          {
-            tx.to=txTo
-                   tx.nonce = nonce
-                   tx.gasPrice = 21000000000
-                   tx.gasLimit = 315010
-                   tx.data = encodedFunction
-                   var pvt=window.localStorage.getItem("priKey")
-                   var privateKey = new Buffer(pvt, 'hex')
-                   tx.sign(privateKey)
-                     break;
-          }
+         {
+         tx.to=txTo
+         tx.nonce = nonce
+         tx.gasPrice =gasPrice// 21000000000
+         tx.gasLimit =gasLimit// 315010
+         tx.data = encodedFunction
+         var pvt=priKey
+         var privateKey = new Buffer(pvt, 'hex')
+         tx.sign(privateKey)
+           break;
+         }
 
     }
-    console.log("Signed txn--->"+tx.serialize().toString('hex'));
 return tx.serialize().toString('hex');
 }
 
@@ -72,7 +56,6 @@ return tx.serialize().toString('hex');
       .serialize()
       .toString('hex');
     //  walletjs.setflag = true;
-    console.log("walletjs.serializedTx  ---> " + signedTxn);
     return signedTxn;
   };
 

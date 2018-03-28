@@ -12,4 +12,5 @@ object AppUtils {
     mapstring.get(name)
   }
   lazy val errorMessage = "We having trouble in loading results at this time. Please try after sometime"
+
 }

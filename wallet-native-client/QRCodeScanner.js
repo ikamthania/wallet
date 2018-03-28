@@ -4,7 +4,7 @@ import Camera from 'react-native-camera';
 import Config from './config.json';
 
 
-var URI = (__DEV__) ? Config.LOCAL_URI : Config.PRODUCTION_URI
+var URI = (__DEV__) ? Config.PRODUCTION_URI : Config.PRODUCTION_URI
 
 export default class QRCodeScanner extends React.Component {
 

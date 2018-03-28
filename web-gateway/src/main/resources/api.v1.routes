@@ -9,16 +9,13 @@
 #GET        /wallet/mobile/auth/login                                    controllers.api.v1.wallet.auth.MobileWalletController.walletLogin()
 #POST       /wallet/mobile/walletapp                                     controllers.api.v1.wallet.auth.MobileWalletController.walletApp()
 
-GET        /wallet/mobile/:publickey/account/details                    controllers.api.v1.wallet.MobileApiWalletController.mobileGetUserDetails(publickey:String)
 GET        /wallet/mobile/:publickey/account/erctoken/details           controllers.api.v1.wallet.MobileApiWalletController.mobileGetAccountTokenDetails(publickey:String)
 GET        /wallet/mobile/:publicKey/transactions                       controllers.api.v1.wallet.MobileApiWalletController.mobileGetTransactionHistory(publicKey:String)
 GET        /wallet/mobile/ethnet/info                                   controllers.api.v1.wallet.MobileApiWalletController.mobileGetNetworkInfo()
 GET        /wallet/mobile/coin/prices                                   controllers.api.v1.wallet.MobileApiWalletController.mobileGetMarketPrice()
 GET        /wallet/mobile/language/:lang                                controllers.api.v1.wallet.MobileApiWalletController.language(lang:String)
 GET        /wallet/mobile/status/:txnHash                               controllers.api.v1.wallet.MobileApiWalletController.mobileGetTransactionStatus(txnHash:String)
-POST        /wallet/mobile/:publicKey/nonce                              controllers.api.v1.wallet.MobileApiWalletController.mobileGetNonce(publicKey:String)
 POST       /wallet/mobile/signedTxn                                     controllers.api.v1.wallet.MobileApiWalletController.mobileSendTransaction()
 
 ## adding a dummy route for twirl template actions
 
-POST       /wallet/dummy                                                controllers.api.v1.wallet.WalletController.dummy()

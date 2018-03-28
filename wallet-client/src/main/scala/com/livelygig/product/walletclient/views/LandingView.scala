@@ -1,17 +1,19 @@
 package com.livelygig.product.walletclient.views
 
-import com.livelygig.product.walletclient.rootmodel.ERCTokenRootModel
+import com.livelygig.product.walletclient.rootmodel.TokenDetailsRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter.Loc
 import com.livelygig.product.walletclient.services.WalletCircuit
+import com.livelygig.product.walletclient.utils.SessionKeys
 import diode.data.Pot
 import diode.react.ModelProxy
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
+import org.scalajs.dom
 
 object LandingView {
 
-  case class Props(proxy: ModelProxy[Pot[ERCTokenRootModel]], router: RouterCtl[Loc])
+  case class Props(proxy: ModelProxy[Pot[TokenDetailsRootModel]], router: RouterCtl[Loc])
 
   final case class State()
 
@@ -28,8 +30,12 @@ object LandingView {
     }
 
     def render(p: Props, s: State): VdomElement = {
-      if (!WalletCircuit.zoom(_.user.isloggedIn).value) {
+      if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.keyrings.vault.data).value == "") {
         StaticLandingView.component()
+        //        EnterPasswordView.component(EnterPasswordView.Props(p.router))
+
+      } else if (dom.window.sessionStorage.getItem(SessionKeys.isSessionVerified) == null) {
+        EnterPasswordView.component(EnterPasswordView.Props(p.router))
       } else {
         AccountView.component(AccountView.Props(t.props.runNow().proxy, t.props.runNow().router))
       }

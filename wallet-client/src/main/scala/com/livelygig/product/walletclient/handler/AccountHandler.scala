@@ -1,19 +1,36 @@
 package com.livelygig.product.walletclient.handler
 
-import com.livelygig.product.shared.models.wallet.{ Account, Keyring }
+import com.livelygig.product.shared.models.wallet._
+import com.livelygig.product.walletclient.utils.Defaults
 import diode.{ ActionHandler, ActionResult, ModelRW }
 
-import scala.scalajs.js
+case class AddAccount(newAccount: Account)
 
-case class AddNewAccount(account: Account)
+case class UpdateAccount(account: Account)
 
-class AccountHandler[M](modelRW: ModelRW[M, Keyring]) extends ActionHandler(modelRW) {
+case class UpdateDefaultAccount(address: String)
+
+case class SelectAddress(address: String)
+
+class AccountHandler[M](modelRW: ModelRW[M, AccountInfo]) extends ActionHandler(modelRW) {
   override def handle: PartialFunction[Any, ActionResult[M]] = {
-    case AddNewAccount(account) => {
-      println(value.accounts :+ account)
-      updated(value.copy(accounts = value.accounts :+ account))
+    case AddAccount(newAccount: Account) => {
+      updated(value.copy(accounts = value.accounts :+ newAccount))
+    }
+    case UpdateAccount(account: Account) => {
+      updated(value.copy(accounts = value.accounts.map(e => if (e.address == account.address) account else e)))
     }
 
-  }
+    case UpdateDefaultAccount(address: String) => {
+      updated(value.copy(
+        accounts =
+          value.accounts.map(e =>
+            if (e.address == Defaults.defaultAccountPublicKey) e.copy(address = address) else e),
+        selectedAddress = address))
+    }
 
+    case SelectAddress(address) => {
+      updated(value.copy(selectedAddress = address))
+    }
+  }
 }

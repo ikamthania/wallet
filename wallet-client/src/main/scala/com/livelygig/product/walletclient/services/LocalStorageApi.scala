@@ -1,17 +1,42 @@
 package com.livelygig.product.walletclient.services
 
-import com.livelygig.product.shared.models.wallet.Account
-import play.api.libs.json.Json
+import com.livelygig.product.shared.models.wallet._
+import com.livelygig.product.walletclient.handler.{ LoginUser, UpdateRootModer }
+import diode.AnyAction._
 import org.scalajs.dom
+import play.api.libs.json.JsResult.Exception
+import play.api.libs.json.{ JsError, Json }
 
 object LocalStorageApi {
 
-  def init(): Unit = {
-
+  def updateModelInLocalStorage() = {
+    dom.window.localStorage.setItem("config", Json.toJson(WalletCircuit.zoomTo(_.appRootModel).value.appModel).toString())
   }
+
+  def updateRootModelFromStorage() = {
+    val config = dom.window.localStorage.getItem("config")
+    if (config == null) {
+      updateModelInLocalStorage()
+    } else {
+      Json.parse(config).validate[AppModel].map {
+        e =>
+          WalletCircuit.dispatch(UpdateRootModer(e))
+        /*if (e.data.keyrings.vault.data != "") {
+            WalletCircuit.dispatch(LoginUser())
+          }*/
+      }.recover {
+        case err: JsError => {
+          throw Exception(JsError("Error in parsing app root model"))
+        }
+      }
+    }
+  }
+
   def subscribeToAppRootChanges() = {
-    WalletCircuit.subscribe(WalletCircuit.zoomTo(_.appRootModel))(yo =>
-      println(Json.toJson(WalletCircuit.zoom(_.appRootModel.appModel).value)))
+    updateRootModelFromStorage()
+    WalletCircuit.subscribe(WalletCircuit.zoomTo(_.appRootModel)) { modelRO =>
+      updateModelInLocalStorage()
+    }
   }
 
 }

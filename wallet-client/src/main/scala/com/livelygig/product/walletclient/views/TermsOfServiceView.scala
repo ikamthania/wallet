@@ -1,5 +1,8 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.walletclient.handler.AcceptTermsOfServices
+import com.livelygig.product.walletclient.services.WalletCircuit
+import diode.AnyAction._
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^._
 import org.scalajs.dom
@@ -7,6 +10,7 @@ import org.scalajs.dom
 object TermsOfServiceView {
   def acceptBtnClick() = {
     Callback {
+      WalletCircuit.dispatch(AcceptTermsOfServices())
       dom.window.location.href = "#/setup"
     }
   }

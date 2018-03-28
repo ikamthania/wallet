@@ -1,9 +1,10 @@
 package com.livelygig.product.walletclient.views
 
+import com.livelygig.product.walletclient.facades.VaultGaurd
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.handler.{ CreateVault, LoginUser, UpdatePassword }
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, SetupRegisterLoc }
+import com.livelygig.product.walletclient.handler.{ LoginUser, UpdatePassword }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, Loc, SetupRegisterLoc, ViewBackupPhraseLoc }
 import com.livelygig.product.walletclient.services.WalletCircuit
 import diode.AnyAction._
 import japgolly.scalajs.react
@@ -12,24 +13,40 @@ import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
 
-object SetupView {
+import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
+
+object EnterPasswordView {
 
   case class Props(router: RouterCtl[Loc])
 
-  final case class State(password: String = "", setRegAccount: String = "")
+  final case class State(password: String)
 
   final class Backend(t: BackendScope[Props, State]) {
 
-    def componentDidMount(props: Props): Callback = {
+    def componentDidMount(props: Props, state: State): Callback = {
       Callback {
         jQuery("#setupForm").validator("update").on("submit", (e: JQueryEventObject) => {
           if (!e.isDefaultPrevented()) {
             e.preventDefault()
-            WalletCircuit.dispatch(UpdatePassword(t.state.runNow().password))
-            WalletCircuit.dispatch(CreateVault(t.state.runNow().password))
-            WalletCircuit.dispatch(LoginUser())
-            println("Vault created.")
-            t.props.flatMap(_.router.set(SetupRegisterLoc)).runNow()
+            VaultGaurd.decryptVault(
+              t.state.runNow().password).map {
+                e =>
+                  WalletCircuit.dispatch(LoginUser())
+                  WalletCircuit.dispatch(UpdatePassword(t.state.runNow().password))
+                  if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value == Nil) {
+                    t.props.flatMap(_.router.set(SetupRegisterLoc)).runNow()
+                  } else if (e.mnemonicPhrase == "") {
+                    t.props.flatMap(_.router.set(ViewBackupPhraseLoc)).runNow()
+                  } else {
+                    t.props.flatMap(_.router.set(AccountLoc)).runNow()
+                  }
+
+              }.recover {
+                case _ =>
+                  jQuery("div.form-group").removeClass("has-success").addClass("has-error has-danger")
+                  jQuery("h4.help-block").html("<ul class=\"list-unstyled\"><li>Wrong Password</li></ul>").css("with-errors")
+
+              }
           } else {
             e.preventDefault()
           }
@@ -58,7 +75,7 @@ object SetupView {
               <.div(
                 ^.className := "wallet-information",
                 <.h2("Wallet"),
-                <.h3("Create new account"))))),
+                <.h3("Authenticate"))))),
         <.div(
           ^.className := "initialSetup-password",
           <.div(
@@ -66,20 +83,14 @@ object SetupView {
             <.div(
               ^.className := "col-xs-12 col-sm-12 col-md-12 col-lg-12",
               <.h4(
-                """Please create the password that will be used to unlock the ubunda application.
-                    This password will also be used to locally encrypt the application.
-                    Your password must be at least 4 characters long."""))),
+                """Please enter the password for the application."""))),
           <.div(
             ^.className := "row",
             <.div(
               ^.className := "col-xs-12 col-sm-12 col-md-12 col-lg-12",
               <.div(
                 ^.className := "form-group has-feedback",
-                <.input(^.id := "inputPassword", ^.className := "form-control", ^.placeholder := "Enter your password", ^.`type` := "password", VdomAttr("data-minlength") := "4", ^.required := true, VdomAttr("data-error") := "Please enter at least 4 characters", ^.onChange ==> onPasswordStateChange, ^.value := s.password),
-                <.h4(^.className := "help-block with-errors")),
-              <.div(
-                ^.className := "form-group has-feedback",
-                <.input(^.id := "inputPasswordConfirm", ^.className := "form-control", ^.placeholder := "Confirm your password", ^.`type` := "password", VdomAttr("data-minlength") := "4", ^.required := true, VdomAttr("data-match") := "#inputPassword", VdomAttr("data-match-error") := "The passwords do not match"),
+                <.input(^.id := "inputPassword", ^.className := "form-control", ^.placeholder := "Enter your password", ^.`type` := "password", ^.required := true, VdomAttr("data-error") := "Please enter password", ^.onChange ==> onPasswordStateChange, ^.value := s.password),
                 <.h4(^.className := "help-block with-errors")))),
           <.div(
             ^.className := "container btnDefault-container container-NoBorder",
@@ -91,11 +102,11 @@ object SetupView {
     }
   }
 
-  val component = ScalaComponent.builder[Props]("AccountView")
-    .initialState(State())
+  val component = ScalaComponent.builder[Props]("EnterPasswordView")
+    .initialState(State(""))
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.componentWillMount(scope.props))
-    .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
+    .componentDidMount(scope => scope.backend.componentDidMount(scope.props, scope.state))
     .build
 
   def apply(props: Props) = component(props)
