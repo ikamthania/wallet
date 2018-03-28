@@ -82,6 +82,26 @@ class MobileApiWalletController(
     Future(Ok(mockdata.toString).withHeaders("Access-Control-Allow-Origin" -> "*"))
   }
 
+  def getEncodedFunction(etherTransaction: EtherTransaction) = {
+    walletService
+      .mobileGetEncodedFunction()
+      .invoke(etherTransaction)
+      .map(e => Ok(Json.toJson(e)).withHeaders("Access-Control-Allow-Origin" -> "*"))
+  }
+
+  def mobilePost() = Action.async { implicit request =>
+
+    request.body.asJson match {
+      case Some(json) => {
+        Json.fromJson[EtherTransaction](json).fold(
+          _ => Future.successful(BadRequest("Error in parsing json")),
+          etherTxnModal => getEncodedFunction(etherTxnModal))
+      }
+      case None => Future.successful(BadRequest("No Json Found"))
+    }
+
+  }
+
   def mobileSendTransaction() = Action.async { implicit request =>
 
     request.body.asJson match {

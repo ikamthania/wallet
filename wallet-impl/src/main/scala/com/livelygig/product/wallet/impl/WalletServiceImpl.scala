@@ -52,5 +52,11 @@ class WalletServiceImpl(
       .sendSignedTransaction(signedTxn)
       .map { e => e }
   }
+
+  override def mobileGetEncodedFunction(): ServiceCall[EtherTransaction, String] = ServerServiceCall { signedTxn =>
+    web3JUtils
+      .getEncodedFunction(signedTxn)
+      .map { e => e }
+  }
 }
 

@@ -1,5 +1,7 @@
 package com.livelygig.product.walletclient.services
 
+import com.livelygig.product.shared.models.wallet.EtherTransaction
+import org.scalajs.dom
 import org.scalajs.dom.ext.Ajax
 import play.api.libs.json.Json
 
@@ -49,6 +51,8 @@ object CoreApi {
 
   def mobileSendSignedTxn(signedTxn: String) =
     ajaxPost(Json.stringify(Json.toJson(signedTxn)), s"${apiVersion}/wallet/mobile/signedTxn")
+  def mobileGetEncodedFunction(txnInfo: EtherTransaction) =
+    ajaxPost(Json.stringify(Json.toJson[EtherTransaction](txnInfo)), s"${apiVersion}/wallet/mobile/encodedfunction")
 
 }
 

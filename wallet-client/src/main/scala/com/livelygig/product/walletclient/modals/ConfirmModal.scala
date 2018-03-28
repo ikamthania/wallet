@@ -112,27 +112,40 @@ object ConfirmModal {
           res =>
             val nonce = (Json.parse(res) \ "result").as[String]
             val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
-            val signedTxn = WalletJS.getSignTxn(
-              prvKey,
-              s"0x${BigDecimal.apply(EthereumjsUnits.convert(etherTxn.amount, "eth", "wei")).toBigInt().toString(16)}", etherTxn.receiver,
-              etherTxn.txnType, nonce, "0x0", "0x4E3B29200", "0x3D0900")
+            CoreApi.mobileGetEncodedFunction(etherTxn).map { encodedFunction =>
 
-            if (signedTxn != "") {
-              CoreApi
-                .mobileSendSignedTxn(s"0x${signedTxn}")
-                .map { transactionHashString =>
-                  if (transactionHashString.matches("0x[a-z-0-9]+")) {
-                    Toastr.info(s"Transaction sent. Transaction reference no. is $transactionHashString")
-                    getTransactionNotification(transactionHashString)
-                    t.props.runNow().rc.set(AccountLoc).runNow()
-                  } else {
-                    Toastr.error(transactionHashString)
-                    Callback.empty
-                  }
+              val (address, encdedFunction) = if (etherTxn.txnType.equalsIgnoreCase("eth")) {
+                (etherTxn.receiver, encodedFunction)
+              } else {
+                if (etherTxn.receiver.isEmpty()) {
+                  ("0x0", etherTxn.txnType)
+                } else {
+                  (etherTxn.txnType, encodedFunction)
                 }
-            } else {
+              }
 
-              Toastr.info("Please try again....")
+              val signedTxn = WalletJS.getSignTxn(
+                prvKey,
+                s"0x${BigDecimal.apply(EthereumjsUnits.convert(etherTxn.amount, "eth", "wei")).toBigInt().toString(16)}", address,
+                etherTxn.txnType, nonce, encdedFunction, "0x4E3B29200", "0x3D0900")
+
+              if (signedTxn != "") {
+                CoreApi
+                  .mobileSendSignedTxn(s"0x${signedTxn}")
+                  .map { transactionHashString =>
+                    if (transactionHashString.matches("0x[a-z-0-9]+")) {
+                      Toastr.info(s"Transaction sent. Transaction reference no. is $transactionHashString")
+                      getTransactionNotification(transactionHashString)
+                      t.props.runNow().rc.set(AccountLoc).runNow()
+                    } else {
+                      Toastr.error(transactionHashString)
+                      Callback.empty
+                    }
+                  }
+              } else {
+
+                Toastr.info("Please try again....")
+              }
             }
         }
       }.recover {

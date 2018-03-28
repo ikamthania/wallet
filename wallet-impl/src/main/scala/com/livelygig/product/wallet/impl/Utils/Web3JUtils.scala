@@ -1,27 +1,24 @@
 package com.livelygig.product.wallet.impl.Utils
 
-import java.io.{ File, FileNotFoundException, FileOutputStream }
-import java.math.BigInteger
+import java.io.{ File, FileNotFoundException }
 import java.util
 
-import com.livelygig.product.shared.models.wallet.{ TokenDetails, EtherTransaction }
-import com.livelygig.product.wallet.api.models.ValidateWalletFile
+import com.livelygig.product.shared.models.wallet.{ EtherTransaction, TokenDetails }
 import net.ceedubs.ficus.Ficus._
 import org.web3j.abi.datatypes.generated.Uint256
-import org.web3j.abi.datatypes.{ Address, Function, Utf8String }
+import org.web3j.abi.datatypes.{ Address, Function }
 import org.web3j.abi.{ FunctionEncoder, FunctionReturnDecoder, TypeReference }
-import org.web3j.crypto.{ CipherException, Credentials, TransactionEncoder, WalletUtils }
+import org.web3j.crypto.CipherException
 import org.web3j.protocol.Web3j
 import org.web3j.protocol.core.DefaultBlockParameterName
 import org.web3j.protocol.core.methods.request._
 import org.web3j.protocol.exceptions._
 import org.web3j.protocol.http.HttpService
 import org.web3j.protocol.infura.InfuraHttpService
-import org.web3j.utils.{ Convert, Numeric }
+import org.web3j.utils.Convert
 import play.api.Configuration
 
 import scala.concurrent.{ ExecutionContext, Future }
-import scala.io.Source
 import scala.math.BigDecimal.RoundingMode
 
 class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
@@ -98,62 +95,6 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
 
     Future(TokenSeq ++ ethereumToken)
   }
-  /*
-
-  //Get token name using EIP20 std method
-  def getTokenName(contractAddress: String, ownerAddress: String): String = {
-    val function = new Function(
-      "name",
-      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
-    val encodedFunction = FunctionEncoder.encode(function)
-    val response = web3j
-      .ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
-      .sendAsync().get()
-    val value = FunctionReturnDecoder.decode(
-      response.getValue(), function.getOutputParameters())
-    value.iterator().next().getValue.toString
-  }
-
-  //Get token name using EIP20 std method
-  def getTokenSymbol(contractAddress: String, ownerAddress: String) = {
-    val function = new Function(
-      "symbol",
-      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
-    val encodedFunction = FunctionEncoder.encode(function)
-    val response = web3j
-      .ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
-      .sendAsync().get()
-    val value = FunctionReturnDecoder.decode(
-      response.getValue(), function.getOutputParameters())
-    value.iterator().next().getValue.toString
-  }
-
-  def getTokenVersion(contractAddress: String, ownerAddress: String): String = {
-    val function = new Function(
-      "version",
-      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Utf8String]() {}))
-    val encodedFunction = FunctionEncoder.encode(function)
-    val response = web3j
-      .ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
-      .sendAsync().get()
-    val value = FunctionReturnDecoder.decode(
-      response.getValue(), function.getOutputParameters())
-    value.iterator().next().getValue.toString
-  }
-
-  def getTokenTotalSupply(contractAddress: String, ownerAddress: String): String = {
-    val function = new Function(
-      "totalSupply",
-      util.Arrays.asList(), util.Arrays.asList(new TypeReference[Uint256]() {}))
-    val encodedFunction = FunctionEncoder.encode(function)
-    val response = web3j
-      .ethCall(Transaction.createEthCallTransaction(ownerAddress, contractAddress, encodedFunction), DefaultBlockParameterName.LATEST)
-      .sendAsync().get()
-    val value = FunctionReturnDecoder.decode(
-      response.getValue(), function.getOutputParameters())
-    value.iterator().next().getValue.toString
-  }
-*/
 
   def sendSignedTransaction(signedMessage: String): Future[String] = {
     val txnInfo = try {
@@ -177,6 +118,22 @@ class Web3JUtils(configuration: Configuration)(implicit ec: ExecutionContext) {
     }
 
     Future(txnInfo)
+  }
+
+  def getEncodedFunction(etherTransaction: EtherTransaction): Future[String] = {
+
+    val rawTransactionEncodedFunction = etherTransaction match {
+      case EtherTransaction(_, _, _, "eth", _) => "0x0"
+      case EtherTransaction(_, receiver, _, _, _) if receiver.isEmpty() => ""
+      case EtherTransaction(_, receiver, _, _, _) if !receiver.isEmpty() =>
+        val function = new Function(
+          "transfer",
+          util.Arrays.asList(new Address(etherTransaction.receiver), new Uint256((etherTransaction.amount.toDouble * Math.pow(10, etherTransaction.decimal)).toLong)),
+          util.Arrays.asList())
+        FunctionEncoder.encode(function)
+    }
+
+    Future(rawTransactionEncodedFunction)
   }
 
 }

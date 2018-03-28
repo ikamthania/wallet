@@ -20,6 +20,8 @@ trait WalletService extends Service {
 
   def mobileSendSignedTransaction(): ServiceCall[String, String]
 
+  def mobileGetEncodedFunction(): ServiceCall[EtherTransaction, String]
+
   def descriptor = {
     import Service._
     named("wallet").withCalls(
@@ -28,7 +30,8 @@ trait WalletService extends Service {
       pathCall("/api/wallet/mobile/:publicKey/account/erctoken/details", mobileAccountTokensDetails _),
       pathCall("/api/wallet/mobile/status/:txnHash", mobileGetTransactionStatus _),
       pathCall("/api/wallet/mobile/:publicKey/transactions/", mobileGetAccountTransactionHistory _),
-      pathCall("/api//wallet/mobile/signedTxn", mobileSendSignedTransaction _))
+      pathCall("/api//wallet/mobile/signedTxn", mobileSendSignedTransaction _),
+      pathCall("/api//wallet/mobile/encodedfunction", mobileGetEncodedFunction _))
   }
 }
 
