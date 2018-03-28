@@ -19,10 +19,10 @@ object ConfirmDeleteModal {
       val state = t.props.runNow()
       if (state.publicK == dom.window.localStorage.getItem("pubKey")) {
         Toastr.info(dom.window.localStorage.getItem("pubKey"))
-        WalletJS.deleteAccount(state.publicK, "currentAccount")
+        //        WalletJS.deleteAccount(state.publicK, "currentAccount")
         t.props.runNow().router.set(AllAccountsLoc).runNow()
       } else {
-        WalletJS.deleteAccount(state.publicK, "")
+        //        WalletJS.deleteAccount(state.publicK, "")
         t.props.runNow().router.set(AllAccountsLoc).runNow()
       }
       Callback.empty

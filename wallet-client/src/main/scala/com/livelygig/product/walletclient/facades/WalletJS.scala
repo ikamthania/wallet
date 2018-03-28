@@ -8,9 +8,6 @@ import scala.scalajs.js.annotation.JSImport
 object WalletJS extends js.Object {
 
   def getSignTxn(privKey: String, amount: String, txTo: String, txnType: String, nonce: String, encodedFunction: String, gasPrice: String, gasLimit: String): String = js.native
-  def getKey(): String = js.native
   def getnumberFormat(curr: String): String = js.native
-  def deleteAccount(publicKey: String, currentAccount: String): String = js.native
-
 }
 
