@@ -6,8 +6,6 @@ exports.getSignTxn=function(priKey,amount,txTo,txnType,nonce,encodedFunction,gas
 // create a blank transaction
 var chainId=3
 var tx = new Transaction(null, chainId) // ropsten Tx EIP155
-console.log("Params--->"+priKey+"  "+" "+amount+" "+nonce+" "+encodedFunction+" ")
-
  switch (txnType) {
 
       case "eth":
@@ -24,20 +22,19 @@ console.log("Params--->"+priKey+"  "+" "+amount+" "+nonce+" "+encodedFunction+" 
           break;
         }
       default:
-        {
-          tx.to=txTo
-                 tx.nonce = nonce
-                 tx.gasPrice =gasPrice// 21000000000
-                 tx.gasLimit =gasLimit// 315010
-                 tx.data = encodedFunction
-                 var pvt=priKey
-                 var privateKey = new Buffer(pvt, 'hex')
-                 tx.sign(privateKey)
-                   break;
-          }
+         {
+         tx.to=txTo
+         tx.nonce = nonce
+         tx.gasPrice =gasPrice// 21000000000
+         tx.gasLimit =gasLimit// 315010
+         tx.data = encodedFunction
+         var pvt=priKey
+         var privateKey = new Buffer(pvt, 'hex')
+         tx.sign(privateKey)
+           break;
+         }
 
     }
-    console.log("Signed txn--->"+tx.serialize().toString('hex'));
 return tx.serialize().toString('hex');
 }
 

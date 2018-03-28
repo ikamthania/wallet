@@ -2,6 +2,7 @@ package com.livelygig.product.walletclient.modals
 
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades._
+import com.livelygig.product.walletclient.handler.UpdatePassword
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.router.ApplicationRouter.LandingLoc
 import com.livelygig.product.walletclient.services.{ CoreApi, EthereumNodeApi, WalletCircuit }
@@ -10,7 +11,7 @@ import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import play.api.libs.json.Json
-
+import diode.AnyAction._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
 
@@ -102,6 +103,7 @@ object ConfirmModal {
 
     def sendTransaction(e: ReactEventFromHtml): react.Callback = Callback {
       VaultGaurd.decryptVault(t.state.runNow().etherTransaction.password).map { e =>
+        WalletCircuit.dispatch(UpdatePassword(t.state.runNow().etherTransaction.password))
         val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
         val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
         val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress) - 1
