@@ -1,6 +1,6 @@
 package com.livelygig.product.walletclient
 
-import com.livelygig.product.walletclient.handler.LoginUser
+import com.livelygig.product.walletclient.handler.{ LoginUser, UpdateAccountTokenList }
 import com.livelygig.product.walletclient.router.ApplicationRouter
 import com.livelygig.product.walletclient.services.{ LocalStorageApi, WalletCircuit }
 import com.livelygig.product.walletclient.utils.{ Bundles, SessionKeys }
