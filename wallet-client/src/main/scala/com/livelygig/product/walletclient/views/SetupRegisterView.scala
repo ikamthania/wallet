@@ -99,6 +99,9 @@ object SetupRegisterView {
 
             }
           }
+          case "createSharedWallet" => {
+            t.props.flatMap(_.router.set(AddSharedWalletLoc)).runNow()
+          }
           case "privateKey" => {
             t.props.flatMap(_.router.set(LoginLoc))
           }
@@ -210,6 +213,15 @@ object SetupRegisterView {
                   <.label(
                     <.input(^.id := "keyStoreFile", ^.onClick --> onRegClicked("keyStoreFile"), ^.name := "initialIdentifierExisting", ^.disabled := false, ^.value := "on", ^.`type` := "radio"),
                     "Keystore file (UTC / JSON)")),
+                if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value.length.>(0)) {
+                  <.div(
+                    ^.className := "radio",
+                    <.label(
+                      <.input(^.id := "createSharedWallet", ^.onClick --> onRegClicked("createSharedWallet"), ^.name := "initialIdentifierExisting", ^.disabled := false, ^.value := "on", ^.`type` := "radio"),
+                      "Create shared wallet"))
+                } else {
+                  EmptyVdom
+                },
                 <.div(
                   ^.className := "radio",
                   <.label(
