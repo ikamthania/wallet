@@ -140,7 +140,7 @@ object SidebarMenuComponent {
 
       val hiddenMenuItems = Seq(
         MenuItemWithSubItems(s"${state.selectDynamic("ACCOUNT_SAVINGS").toString}: ${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}", Seq(accountHomeSubmenuItem, accountSendSubmenuItem, accountRequestSubmenuItem,
-          accountTransactionHistorySubmenuItem, allAccountsHomeSubmenuItem, multiSigHomeSubmenuItem, AddSharedWalletHomeSubmenuItem /*, accountBackUpSubmenuItem*/ )),
+          accountTransactionHistorySubmenuItem, allAccountsHomeSubmenuItem, multiSigHomeSubmenuItem /*, accountBackUpSubmenuItem*/ )),
         MenuItemWithSubItems(state.selectDynamic("SETTINGS").toString, Seq(seetingsDisplaySettingSubmenuItem, settingsLanguageSubmenuitem /*, settinTokenUnitsDecimalsSubmenuItem*/ )),
         //MenuItemWithSubItems(state.selectDynamic("HELP_SUPPORT").toString, Seq(helpsupportgOverviewSubmenuItem, helpsupportBulletinSubmenuItem)),
         MenuItemWithSubItems(state.selectDynamic("ABOUT").toString, Seq( /*aboutCopyrightSubmenuItem, */ aboutPrivacyPolicySubmenuItem, aboutTermsConditionsSubmenuItem)),
@@ -151,7 +151,7 @@ object SidebarMenuComponent {
         MenuItemWithSubItems(state.selectDynamic("IDENTITY").toString, Seq(identityHomeSubmenuItem, identityPortifolioSubmenuItem,
           identityAccountsSubmenuItem, identityUpdateSubmenuItem, identityAttributesSubmenuItem, identityCredentialsSubmenuItem, identityConnectionsSubmenuItem,
           identityTransactionSubmenuItem)),
-        MenuItemWithSubItems(s"${state.selectDynamic("ACCOUNT_SAVINGS").toString} : ${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}", Seq(accountHomeSubmenuItem, accountSendSubmenuItem, accountRequestSubmenuItem,
+        MenuItemWithSubItems(s"${state.selectDynamic("ACCOUNT_SAVINGS").toString}: ${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}", Seq(accountHomeSubmenuItem, accountSendSubmenuItem, accountRequestSubmenuItem,
           accountViewRequestsSubmenuItem, accountTransactionHistorySubmenuItem, accountBackUpSubmenuItem, accountConfigureSubmenuItem,
           accountExchangeSubmenuItem)),
         MenuItemWithCallback(state.selectDynamic("CONTACTS").toString, emptyCallback),
