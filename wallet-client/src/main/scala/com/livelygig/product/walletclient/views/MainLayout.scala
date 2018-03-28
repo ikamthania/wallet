@@ -14,12 +14,10 @@ object MainLayout {
   val sidebarNotRequiredFor = Seq(ViewBackupPhraseLoc, SetupRegisterLoc, BackupAccountLoc)
   val sidebarRequiredFor = Seq(SendLoc, PopulateQRCodeLoc)
   def layout(c: RouterCtl[Loc], r: Resolution[Loc]) = {
-    println(sidebarRequiredFor.contains(r.page))
     val isSidebarRequired = r.page match {
       case PopulateQRCodeLoc(to) => true
       case _ => false
     }
-    println(r.page)
     <.div(^.className := "wallet-main")(
       <.div(^.className := "wallet-inner container-fluid")(
         if (WalletCircuit.zoomTo(_.user.isloggedIn).value || isSidebarRequired) {

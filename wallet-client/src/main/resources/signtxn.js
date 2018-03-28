@@ -6,7 +6,6 @@ exports.getSignTxn=function(priKey,amount,txTo,txnType,nonce,encodedFunction,gas
 // create a blank transaction
 var chainId=3
 var tx = new Transaction(null, chainId) // ropsten Tx EIP155
-console.log("Params--->"+priKey+"  "+" "+amount+" "+nonce+" "+encodedFunction+" ")
 
  switch (txnType) {
 
@@ -37,7 +36,6 @@ console.log("Params--->"+priKey+"  "+" "+amount+" "+nonce+" "+encodedFunction+" 
           }
 
     }
-    console.log("Signed txn--->"+tx.serialize().toString('hex'));
 return tx.serialize().toString('hex');
 }
 
@@ -59,7 +57,6 @@ return tx.serialize().toString('hex');
       .serialize()
       .toString('hex');
     //  walletjs.setflag = true;
-    console.log("walletjs.serializedTx  ---> " + signedTxn);
     return signedTxn;
   };
 
