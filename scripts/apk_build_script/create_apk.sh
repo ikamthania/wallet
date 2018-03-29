@@ -15,7 +15,7 @@ yes | unzip ./web-gateway/target/universal/webgateway*.zip -d ./temporary
 # unzip the dist jar
 yes | unzip ./temporary/lib/Livelygig.webgateway-0.3.jar -d ./temporary/
 
-
+rm -rf ./wallet-native-client/android/app/src/main/assets/javascripts/
 # copy main stylesheet
 
 yes | cp ./temporary/META-INF/resources/webjars/webgateway/0.3/stylesheets/wallet/wallet-app-main.min.css -d ./wallet-native-client/android/app/src/main/assets/stylesheets
