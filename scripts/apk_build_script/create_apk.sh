@@ -15,17 +15,17 @@ yes | unzip ./web-gateway/target/universal/webgateway*.zip -d ./temporary
 # unzip the dist jar
 yes | unzip ./temporary/lib/Livelygig.webgateway-0.3.jar -d ./temporary/
 
-rm -rf ./wallet-native-client/android/app/src/main/assets/javascripts/
+#rm -rf ./wallet-native-client/android/app/src/main/assets/javascripts/
 # copy main stylesheet
 
-yes | cp ./temporary/META-INF/resources/webjars/webgateway/0.3/stylesheets/wallet/wallet-app-main.min.css -d ./wallet-native-client/android/app/src/main/assets/stylesheets
+yes | cp /home/ubuntu/work/livelygig/test-deployment/wallet/temporary/META-INF/resources/webjars/webgateway/0.3/stylesheets/wallet/wallet-app-main.min.css -d /home/ubuntu/work/livelygig/test-deployment/wallet/wallet-native-client/android/app/src/main/assets/stylesheets
 
 # copy theme stylesheet
-yes | cp ./temporary/META-INF/resources/webjars/webgateway/0.3/stylesheets/wallet/themes/{wallet-main-theme-default.min.css,wallet-main-theme-light.min.css} -d ./wallet-native-client/android/app/src/main/assets/stylesheets
+yes | cp /home/ubuntu/work/livelygig/test-deployment/wallet/temporary/META-INF/resources/webjars/webgateway/0.3/stylesheets/wallet/themes/{wallet-main-theme-default.min.css,wallet-main-theme-light.min.css} -d /home/ubuntu/work/livelygig/test-deployment/wallet/wallet-native-client/android/app/src/main/assets/stylesheets
 
 
 # copy javascripts
-yes | cp ./temporary/META-INF/resources/webjars/webgateway/0.3/{wallet-client-opt-library.js,wallet-client-opt.js} -d ./wallet-native-client/android/app/src/main/assets/javascripts/
+yes | cp /home/ubuntu/work/livelygig/test-deployment/wallet/temporary/META-INF/resources/webjars/webgateway/0.3/{wallet-client-opt-library.js,wallet-client-opt.js} -d /home/ubuntu/work/livelygig/test-deployment/wallet/wallet-native-client/android/app/src/main/assets/javascripts/
 
 # enter wallet-native directory
 cd wallet-native-client/

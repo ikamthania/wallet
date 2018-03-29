@@ -433,7 +433,8 @@ object SendView {
                 VdomAttr("data-error") := "Recipient address required!",
                 ^.required := true,
                 ^.defaultValue := {
-                  if (p.to != "") p.to.split("/").last.toString else s.etherTransaction.receiver
+                  if (p.to != "")
+                    "(0x[0-9A-Za-z]+)".r.findFirstIn(p.to.split("/").last.toString).getOrElse("") else s.etherTransaction.receiver
                 },
                 ^.onChange ==> onStateChange("receiver")),
               <.a(^.onClick --> onQRCodeClick, <.i(^.id := "captureQRCode", ^.className := "fa fa-qrcode", VdomAttr("aria-hidden") := "true")))),
