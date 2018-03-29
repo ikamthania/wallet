@@ -8,6 +8,7 @@ import org.scalatest.{BeforeAndAfterAll, Matchers, OptionValues, WordSpec}
 import org.web3j.crypto.Credentials
 import org.web3j.protocol.core.methods.response.Web3ClientVersion
 import play.api.{Configuration, Environment}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 /**
@@ -103,6 +104,16 @@ class Web3JUtilsSpec extends WordSpec with Matchers with BeforeAndAfterAll with 
         etherscanUtils.tokenTransactionBalance(TokenDetails("0xec5a3314ac5e3ac7fd696d66133aac3a8e6b71ba","bth","Bethereum",5,"0"),"2088504") shouldBe an[BigDecimal]
       }
     }
+
+    "getEncodedFunction" should {
+      "give encoded function" in {
+        web3jUtils.getEncodedFunction(EtherTransaction("","0xd241333517bA52A932Ddf580702242C4287c3bfB", "0.01","test",5)).map{
+          res =>
+            println(res)
+        }
+      }
+    }
+
 
   }
 

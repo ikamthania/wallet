@@ -26,6 +26,7 @@ object AllAccountsView {
       loc match {
         case "AddNewAccountLoc" => t.props.runNow().router.set(AddNewAccountLoc).runNow()
         case "AccountLoc" => t.props.runNow().router.set(LandingLoc).runNow()
+        case "AddToken" => t.props.runNow().router.set(AddTokenLoc).runNow()
       }
       Callback.empty
     }
@@ -99,7 +100,7 @@ object AllAccountsView {
             <.div(
               ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
               <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton notAlphaV", "Delete", ^.onClick --> updateURL("")),
-              <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton notAlphaV", "Configure", ^.onClick --> updateURL("")),
+              <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton", "Configure", ^.onClick --> updateURL("AddToken")),
               <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton", "Add", ^.onClick --> setSetupScreenView()),
               <.button(^.`type` := "button", ^.className := "btn btnDefault accountBtn goupButton", "Select", ^.onClick --> onSelectAccountClicked())))))
   }
