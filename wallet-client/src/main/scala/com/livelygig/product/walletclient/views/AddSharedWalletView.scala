@@ -4,6 +4,7 @@ import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.Contracts.MultiSigWalletWithDailyLimit
 import com.livelygig.product.shared.models.Solidity._
 import com.livelygig.product.shared.models.wallet.EtherTransaction
+import com.livelygig.product.walletclient.services.WalletCircuit
 
 import scala.scalajs.js
 // import com.livelygig.product.walletclient.facades.Bootstrap._
@@ -38,8 +39,12 @@ object AddSharedWalletView {
     address: Address)
 
   object State {
-    def init: State =
-      State("", 2, 0, "", "", Nil, EtherTransaction("", "", "", "", 0))
+    def init: State = {
+      val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
+      val selectedAccountAddress: String = accountInfo.selectedAddress
+      val selectedAccountAlias: String = accountInfo.accounts.find(_.address == selectedAccountAddress).get.accountName
+      State("", 2, 0, "", "", List(Owner(selectedAccountAlias, new Address("0x" + selectedAccountAddress))), EtherTransaction("", "", "", "", 0))
+    }
   }
 
   def onSelectOwner(e: ReactEventFromHtml): react.Callback = {

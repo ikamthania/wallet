@@ -30,7 +30,7 @@ class ViewController(
 
     os match {
       case "android" =>
-        val file = new java.io.File(s"$filePath/$os/app-release.apk")
+        val file = new java.io.File(s"$filePath/$os/app-debug.apk")
 
         Future(Ok.sendFile(
           content = file,

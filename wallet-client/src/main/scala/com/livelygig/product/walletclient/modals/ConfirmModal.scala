@@ -116,7 +116,8 @@ object ConfirmModal {
               signAndSendRawTransaction(prvKey, etherTxn.amount, etherTxn.receiver, nonce, "0x0")
             } else {
               CoreApi.mobileGetEncodedFunction(etherTxn).map { encodedFunction =>
-                signAndSendRawTransaction(prvKey, "0", etherTxn.txnType, nonce, encodedFunction)
+                val e = Json.parse(encodedFunction).as[String]
+                signAndSendRawTransaction(prvKey, "0", etherTxn.txnType, nonce, e)
               }
 
             }

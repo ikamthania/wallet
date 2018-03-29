@@ -40,7 +40,7 @@ react-native bundle --platform android --dev false --entry-file index.js --bundl
 cd android
 
 # gradle assemble debug
-#./gradlew assembleDebug
+./gradlew assembleDebug
 
 # gradle assemble release
-./gradlew assembleRelease
+#./gradlew assembleRelease
