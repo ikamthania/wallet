@@ -190,7 +190,7 @@ object SetupRegisterView {
                       <.input(^.id := "passPhrase", ^.onClick --> onRegClicked("passPhrase"), ^.name := "initialIdentifierExisting", ^.disabled := false, VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#passphraseText", ^.value := "on", ^.`type` := "radio"),
                       "Mnemonic phrase"),
                     <.div(^.id := "passphraseText", ^.className := "collapse",
-                      <.textarea(^.id := "passphraseTxt", ^.rows := 3, ^.className := "form-control", ^.value := s.mnemonicPhrase, ^.onChange ==> updateMnemonicPhrase)))
+                      <.textarea(^.id := "passphraseTxt", ^.placeholder := "Enter 12 word mnemonic phrase", ^.rows := 3, ^.className := "form-control", ^.value := s.mnemonicPhrase, ^.onChange ==> updateMnemonicPhrase)))
                 } else {
                   EmptyVdom
                 },
@@ -200,14 +200,14 @@ object SetupRegisterView {
                     <.input(^.id := "privateKey", ^.onClick --> onRegClicked("privateKey"), ^.name := "initialIdentifierExisting", ^.disabled := false, VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#privateKeyText", ^.value := "on", ^.`type` := "radio"),
                     "Private key"),
                   <.div(^.id := "privateKeyText", ^.className := "collapse",
-                    <.textarea(^.id := "privateKeyTexta", ^.rows := 1, ^.className := "form-control"))),
+                    <.textarea(^.id := "privateKeyTexta", ^.placeholder := "Enter private key", ^.rows := 1, ^.className := "form-control"))),
                 <.div(
                   ^.className := "radio",
                   <.label(
                     <.input(^.id := "keyStoreJson", ^.onClick --> onRegClicked("keyStoreJson"), ^.name := "initialIdentifierExisting", ^.disabled := false, VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#jsonText", ^.value := "on", ^.`type` := "radio"),
                     "Keystore text (UTC / JSON)"),
                   <.div(^.id := "jsonText", ^.className := "collapse",
-                    <.textarea(^.id := "jsonTxt", ^.rows := 3, ^.className := "form-control", ^.value := s.keystoreText, ^.onChange ==> updateKeystoreText))),
+                    <.textarea(^.id := "jsonTxt", ^.rows := 3, ^.placeholder := "Enter keystore text", ^.className := "form-control", ^.value := s.keystoreText, ^.onChange ==> updateKeystoreText))),
                 <.div(
                   ^.className := "radio",
                   <.label(
@@ -225,10 +225,10 @@ object SetupRegisterView {
                 <.div(
                   ^.className := "radio",
                   <.label(
-                    <.input(^.id := "sharedWallet", ^.onClick --> onRegClicked("sharedWallet"), ^.name := "initialIdentifierExisting", ^.disabled := false, VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#shrdWallet", ^.value := "on", ^.`type` := "radio"),
+                    <.input(^.id := "sharedWallet", ^.disabled := true, ^.onClick --> onRegClicked("sharedWallet"), ^.name := "initialIdentifierExisting", ^.disabled := false, VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#shrdWallet", ^.value := "on", ^.`type` := "radio"),
                     "Join shared wallet"),
                   <.div(^.id := "shrdWallet", ^.className := "collapse",
-                    <.textarea(^.id := "sharedWalletKeyText", ^.rows := 1, ^.className := "form-control"))),
+                    <.textarea(^.id := "sharedWalletKeyText", ^.placeholder := "Enter multisig contract", ^.rows := 1, ^.className := "form-control"))),
                 <.div(
                   ^.className := "radio notAlpha",
                   <.label(

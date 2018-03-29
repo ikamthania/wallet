@@ -120,18 +120,20 @@ object AccountView {
                 ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText",
                 WalletJS.getnumberFormat(BigDecimal.apply(userERCToken.balance).setScale(2, BigDecimal.RoundingMode.UP).toString)),
               <.span(^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol", s"${userERCToken.symbol}")),
-            coin.map { e =>
-              <.div(
-                ^.className := "row",
-                <.span(
-                  ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4 ellipseText",
-                  s"@ ${e.price} ${e.symbol}"),
-                <.span(
-                  ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText",
-                  WalletJS.getnumberFormat(BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString())),
-                <.span(
-                  ^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol",
-                  e.symbol))
+            coin.zipWithIndex.map {
+              case (e, index) =>
+                <.div(
+                  ^.key := index,
+                  ^.className := "row",
+                  <.span(
+                    ^.className := "col-lg-8 col-md-8 col-sm-8 col-xs-4 ellipseText",
+                    s"@ ${e.price} ${e.symbol}"),
+                  <.span(
+                    ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-4 tokenUSDValue ellipseText",
+                    WalletJS.getnumberFormat(BigDecimal.apply(e.price.toDouble * userERCToken.balance.toDouble).setScale(2, BigDecimal.RoundingMode.UP).toString())),
+                  <.span(
+                    ^.className := "col-lg-2 col-lg-2 col-md-2 col-sm-2 col-xs-4 symbol",
+                    e.symbol))
             }.toVdomArray))
       }
       <.div(^.id := "bodyWallet")(
@@ -159,7 +161,7 @@ object AccountView {
                   s.coinExchange.coinExchangeList.filter(e => e.coin.equalsIgnoreCase("ETH")).flatMap(_.currencies
                     .map { currency =>
                       if (s.currencySelected.equalsIgnoreCase(currency.symbol)) {
-                        <.option(^.value := currency.symbol, currency.symbol, ^.selected := "selected")
+                        <.option(^.value := currency.symbol, currency.symbol)
                       } else {
                         <.option(^.value := currency.symbol, currency.symbol)
                       }

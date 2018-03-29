@@ -46,9 +46,7 @@ object StaticLandingView {
                 ^.className := "col-xs-12",
                 <.div(
                   ^.className := "main",
-                  <.h3(^.id := "confidential", "LivelyGig confidential"),
-                  <.img(^.src := "./assets/images/LivelyGigIcon.png", ^.title := "LivelyGigIcon"),
-                  <.h3("Ubunda Suite"),
+                  <.h3("Ubunda wallet"),
                   <.div(
                     ^.className := "networkOption",
                     <.p("Network:"),
@@ -121,12 +119,7 @@ object StaticLandingView {
                     <.div(
                       ^.className := "col-lg-12 col-md-12 col-sm-12 col-xs-12",
                       <.a(^.id := "btnNext", ^.href := "#myCarousel", ^.onClick --> nextBtnClick(), VdomAttr("data-slide") := "next", ^.className := "btn btnDefault goupButton", "Next"),
-                      <.a(^.id := "btnPrevious", ^.onClick --> previousBtnClick(), ^.href := "#myCarousel", VdomAttr("data-slide") := "prev", ^.className := "btn btnDefault goupButton btnPrevious", "Previous"),
-                      <.br,
-                      <.div(
-                        ^.className := "download-apk",
-                        <.div(^.className := "app-download", "Ubunda for mobile"),
-                        <.a(^.href := "/wallet/app/%20android%20", ^.className := "app-link pull-right", "Android")))))))))))
+                      <.a(^.id := "btnPrevious", ^.onClick --> previousBtnClick(), ^.href := "#myCarousel", VdomAttr("data-slide") := "prev", ^.className := "btn btnDefault goupButton btnPrevious", "Previous"))))))))))
   }
 
 }

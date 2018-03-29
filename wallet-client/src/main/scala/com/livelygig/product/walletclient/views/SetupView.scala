@@ -65,10 +65,7 @@ object SetupView {
             ^.className := "row",
             <.div(
               ^.className := "col-xs-12 col-sm-12 col-md-12 col-lg-12",
-              <.h4(
-                """Please create the password that will be used to unlock the ubunda application.
-                    This password will also be used to locally encrypt the application.
-                    Your password must be at least 4 characters long."""))),
+              <.h4("Create the password that will be use to unlock the Ubunda application and encrypt local data"))),
           <.div(
             ^.className := "row",
             <.div(
