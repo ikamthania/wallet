@@ -134,6 +134,9 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <p>The build uses <code>BundlingMode.LibraryOnly()</code> to get much faster change source and reload workflow. More details can be found <a href="https://scalacenter.github.io/scalajs-bundler/reference.html#bundling-mode-library-only">here</a>.</p>
 <p>This mode separates out the bundle into separate bundles for scalajs and the libraries.</p>
 <p>These bundles are included in the templates with <a href="https://github.com/vmunier/sbt-web-scalajs">sbt-web-scalajs</a> plugin. This plugin takes care of copying over the bundles and the source maps.</p>
+<h2><a href="#webgateway" name="webgateway" class="anchor"><span class="anchor-link"></span></a>WebGateway</h2>
+<p>The build setup for this project can be found <a href="https://github.com/LivelyGig/wallet/blob/master/project/Server.scala">here</a></p>
+<p>It has an entry for each scala js project with key <code>scalaJSProjects := Seq(WalletClient.walletClient)</code> which is just one in this case. It is a typical play server setup. The Lagom <code>runAll</code> command triggers the full opt compilation for the client. To stop that this key <code>devCommands in scalaJSPipeline += &quot;runAll&quot;</code> is there to basically tell the <code>WebScalaJSBundlerPlugin</code> to consider this command as a dev mode command and trigger the fast opt compilation for the scalajs project.</p>
 <div class="source-github">
 The source code for this page can be found <a href="https://github.com/LivelyGig/wallet/tree/master/docs/src/main/paradox/build/index.md">here</a>.
 </div>
@@ -152,6 +155,7 @@ The source code for this page can be found <a href="https://github.com/LivelyGig
   <ul>
     <li><a href="../build/index.html#overview" class="header">Overview</a></li>
     <li><a href="../build/index.html#wallet-client" class="header">Wallet Client</a></li>
+    <li><a href="../build/index.html#webgateway" class="header">WebGateway</a></li>
   </ul></li>
 </ul>
 </div>
