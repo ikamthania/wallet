@@ -114,6 +114,26 @@ C16.952,7,17,6.553,17,6c0-0.553-0.048-1-0.6-1H3.6C3.048,5,3,5.447,3,6C3,6.553,3.
 <div class="page-content row">
 <div class="small-12 large-9 column" id="docs">
 <h1><a href="#build" name="build" class="anchor"><span class="anchor-link"></span></a>Build</h1>
+<h2><a href="#overview" name="overview" class="anchor"><span class="anchor-link"></span></a>Overview</h2>
+<p>The entire build is divided into <a href="https://github.com/LivelyGig/wallet/tree/master/project">multiple projects</a></p>
+<p>The <a href="https://github.com/LivelyGig/wallet/blob/master/build.sbt">build.sbt</a> file has higher level project declaration.</p>
+<p><code>WalletClient</code> is the project which has source for the scalajs-react client.</p>
+<p><code>Server</code> is the project which holds sources for the web gateway. It is a layer of communication between the client and the wallet service and in turn Infura and Etherscan.</p>
+<p><code>WalletApi</code> is the api declaration for the wallet service endpoint.</p>
+<p><code>WalletImpl</code> is the implementation of the service declaration endpoint.</p>
+<p><code>Shared</code> the shared models and code which is shared across all projects.</p>
+<p><code>Documentation</code> project contains the sources of the documentation.</p>
+<h2><a href="#wallet-client" name="wallet-client" class="anchor"><span class="anchor-link"></span></a>Wallet Client</h2>
+<p>The build setup for this project can be found <a href="https://github.com/LivelyGig/wallet/blob/master/project/WalletClient.scala">here</a></p>
+<p>This is a typical scala.js project setup.</p>
+<p>There are 3 types of dependencies</p>
+<p><code>libraryDependencies</code> which are pure scalajs dependencies which are meant to be used only in the scalajs projects.</p>
+<p><code>ProvidedJs</code> dependencies for the sources which are directly included in the repository and</p>
+<p><code>npmDependencies</code> the npm dependencies which are meant to be downloaded and included in the bundle.</p>
+<p>This project uses <a href="https://scalacenter.github.io/scalajs-bundler/">scalajs-bundler</a> for bundling the modules which in turn uses npm and webpack under the hood.</p>
+<p>The build uses <code>BundlingMode.LibraryOnly()</code> to get much faster change source and reload workflow. More details can be found <a href="https://scalacenter.github.io/scalajs-bundler/reference.html#bundling-mode-library-only">here</a>.</p>
+<p>This mode separates out the bundle into separate bundles for scalajs and the libraries.</p>
+<p>These bundles are included in the templates with <a href="https://github.com/vmunier/sbt-web-scalajs">sbt-web-scalajs</a> plugin. This plugin takes care of copying over the bundles and the source maps.</p>
 <div class="source-github">
 The source code for this page can be found <a href="https://github.com/LivelyGig/wallet/tree/master/docs/src/main/paradox/build/index.md">here</a>.
 </div>
@@ -123,6 +143,20 @@ The source code for this page can be found <a href="https://github.com/LivelyGig
 </div>
 </div>
 <div class="large-3 show-for-large column" data-sticky-container>
+<nav class="sidebar sticky" data-sticky data-anchor="docs" data-sticky-on="large">
+<div class="page-nav">
+<div class="nav-title">On this page:</div>
+<div class="nav-toc">
+<ul>
+  <li><a href="../build/index.html#build" class="header">Build</a>
+  <ul>
+    <li><a href="../build/index.html#overview" class="header">Overview</a></li>
+    <li><a href="../build/index.html#wallet-client" class="header">Wallet Client</a></li>
+  </ul></li>
+</ul>
+</div>
+</div>
+</nav>
 </div>
 </div>
 
