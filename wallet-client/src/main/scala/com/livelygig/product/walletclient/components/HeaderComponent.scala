@@ -154,7 +154,8 @@ object HeaderComponent {
                   <.a(
                     ^.href := "#/notification",
                     <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),*/
-                <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
+//                <.div(^.id := "userProfileImg", ^.className := "img-userIcon")
+              )))))
 
     }
   }
