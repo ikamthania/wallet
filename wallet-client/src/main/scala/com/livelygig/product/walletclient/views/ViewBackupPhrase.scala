@@ -228,7 +228,7 @@ object ConfirmBakupPhrase {
             <.div(
               ^.className := "col-xs-12 wordsList",
               <.ul(
-                ^.id := "mnemonic-list")(Random.shuffle(s.phraseSelection.filter(_.nonEmpty)) map generateWordList: _*))),
+                ^.id := "mnemonic-list")(s.phraseSelection.sorted map generateWordList: _*))),
 
           <.div(
             ^.className := "container btnDefault-container",
