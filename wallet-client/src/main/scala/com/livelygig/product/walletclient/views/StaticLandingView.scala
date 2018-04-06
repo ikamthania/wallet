@@ -100,9 +100,9 @@ object StaticLandingView {
                       <.div(
                         ^.className := "row itemSetup dg-wallet",
                         <.img(^.id := "imgRight", ^.className := "col-md-push-10 col-sm-push-9 col-xs-4 col-xs-push-8", ^.src := "./assets/images/dw.PNG"),
-                        <.h4(^.className := "col-md-pull-2 col-xs-8 col-xs-pull-4", "Digital Wallet"),
+                        <.h4(^.className := "col-lg-8 col-lg-pull-1 col-md-8 col-md-pull-2 col-sm-8 col-sm-pull-2 col-xs-8 col-xs-pull-4", "Digital Wallet"),
                         <.p(
-                          ^.className := "col-md-pull-2 col-sm-pull-2 col-xs-8 col-xs-pull-4",
+                          ^.className := "col-lg-8 col-lg-pull-1 col-md-8 col-md-pull-2 col-sm-8 col-sm-pull-2 col-xs-8 col-xs-pull-4",
                           """Create and manage personal and shared accounts to transact on the Ethereum network. Send
                                     and receive payments. View and annotate transactions.""")),
                       <.div(
