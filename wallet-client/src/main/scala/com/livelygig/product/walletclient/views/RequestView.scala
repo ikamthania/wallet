@@ -169,13 +169,12 @@ object RequestView {
                   <.div(
                     ^.className := "reaciving-add",
                     <.h4(
-                      "Receiving address ",
-                      <.span(WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value)),
+                      "Receiving address "),
                     <.input(
                       ^.id := "lblReceivingAddress",
                       ^.className := "ellipseText",
                       // ^.disabled := true,
-                      ^.`defaultValue` := p.publicKey)),
+                      ^.`defaultValue` := s"0x${p.publicKey}")),
                   <.div(
                     ^.className := "desscription notAlpha",
                     <.h4("Description"),
