@@ -10,11 +10,11 @@ object WalletClientDependencies {
   /** Dependencies only used by the JS project (note the use of %%% instead of %%) */
   val scalajsDependencies = Def.setting(
     Seq(
-      "com.github.japgolly.scalajs-react" %%% "core" % "1.1.1",
-      "com.github.japgolly.scalajs-react" %%% "extra" % "1.1.1",
+      "com.github.japgolly.scalajs-react" %%% "core" % "1.2.0",
+      "com.github.japgolly.scalajs-react" %%% "extra" % "1.2.0",
       "org.scala-js" %%% "scalajs-dom" % "0.9.4",
-      "io.suzaku" %%% "diode" % "1.1.2",
-      "io.suzaku" %%% "diode-react" % "1.1.2",
+      "io.suzaku" %%% "diode" % "1.1.3",
+      "io.suzaku" %%% "diode-react" % "1.1.3",
       "ru.pavkin" %%% "scala-js-momentjs" % "0.9.1",
       "be.doeraene" %%% "scalajs-jquery" % "0.9.2",
       "com.definitelyscala" %%% "scala-js-bootstrap" % "1.0.2",
@@ -23,7 +23,7 @@ object WalletClientDependencies {
   /** Dependencies for external JS libs that are bundled into a single .js file according to dependency order */
   val jsDependencies = Def.setting(
     Seq(
-//      "org.webjars.bower" % "github-com-MyEtherWallet-blockies" % "0.1.0" / "blockies.js"
+      //      "org.webjars.bower" % "github-com-MyEtherWallet-blockies" % "0.1.0" / "blockies.js"
 
       //      "org.webjars" % "jquery" % "3.2.1" / "jquery.min.js",
     ))

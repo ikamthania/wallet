@@ -19,13 +19,15 @@ addSbtPlugin("org.scala-js" % "sbt-scalajs" % "0.6.22")
 
 //addSbtPlugin("com.vmunier" % "sbt-web-scalajs" % "1.0.6")
 
-addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.10.0")
+addSbtPlugin("ch.epfl.scala" % "sbt-web-scalajs-bundler" % "0.12.0")
 
 // Dependency Resolution
-addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0")
+addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.3")
 
 // Code Quality
 addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "1.0.0") // scalastyle
+
+addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.2.1") // wartremover
 
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.0") // dependencyGraph
 
