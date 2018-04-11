@@ -29,6 +29,6 @@ class WebGatewayErrorHandler(
     log.error("Server error " + exception + "for uri" + request.uri)
     log.error("Server error", exception)
     Future.successful(
-      InternalServerError("A server error occurred: " + exception))
+      InternalServerError("We are encountering errors in serving this request."))
   }
 }

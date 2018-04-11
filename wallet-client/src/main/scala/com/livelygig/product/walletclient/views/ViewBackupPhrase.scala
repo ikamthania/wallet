@@ -12,7 +12,6 @@ import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import scala.util.Random
 
 object ViewBackupPhrase {
 
@@ -142,18 +141,21 @@ object ConfirmBakupPhrase {
     }
 
     def onBtnClicked(): react.Callback = {
-      if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty))/*true*/) {
+      if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty)) /*true*/ ) {
         val password = WalletCircuit.zoomTo(_.user.userPassword).value
-        VaultGaurd.decryptVault(password).map{
+        VaultGaurd.decryptVault(password).map {
           e =>
             val mnemonicString = t.props.runNow().phraseWords.mkString(" ")
             val seed = Mnemonic.mnemonicToSeed(mnemonicString)
             val hdKey = HDKey.fromMasterSeed(seed)
             val child = hdKey.derive(s"${e.hdDerivePath}/0")
-            WalletCircuit.dispatch(UpdateDefaultAccount(EthereumJsUtils.privateToAddress(child.privateKey).toString("hex")))
+            WalletCircuit
+              .dispatch(
+                UpdateDefaultAccount(s"0x${EthereumJsUtils.privateToAddress(child.privateKey).toString("hex")}")
+              )
             VaultGaurd.encryptWallet(password,
               e.copy(privateExtendedKey = hdKey.privateExtendedKey.toString(),
-                mnemonicPhrase = mnemonicString)).map{
+                mnemonicPhrase = mnemonicString)).map {
               _ =>
                 t.modState(_.copy(showconfirmedScreen = true)).runNow()
             }
@@ -170,7 +172,7 @@ object ConfirmBakupPhrase {
 
     def generateWordList(e: String): VdomElement = {
 
-      <.li(^.cursor:="pointer", ^.onClick --> generateWordListSelected(e), e)
+      <.li(^.cursor := "pointer", ^.onClick --> generateWordListSelected(e), e)
     }
 
     def generateWordListSelected(e: String) = {

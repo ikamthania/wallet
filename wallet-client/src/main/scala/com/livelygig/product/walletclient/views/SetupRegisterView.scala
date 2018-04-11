@@ -1,10 +1,9 @@
 package com.livelygig.product.walletclient.views
 
-import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.wallet.Account
-import com.livelygig.product.walletclient.facades.{ EthereumJsUtils, HDKey, Mnemonic, VaultGaurd }
 import com.livelygig.product.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
+import com.livelygig.product.walletclient.facades.{ EthereumJsUtils, HDKey, Mnemonic, VaultGaurd }
 import com.livelygig.product.walletclient.handler.{ AddAccount, SelectAddress }
 import com.livelygig.product.walletclient.modals.SetupPasswordModal
 import com.livelygig.product.walletclient.router.ApplicationRouter._
@@ -18,7 +17,6 @@ import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, Sca
 import org.scalajs.jquery.JQueryEventObject
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
-import scala.scalajs.js
 
 object SetupRegisterView {
 
@@ -69,8 +67,14 @@ object SetupRegisterView {
               VaultGaurd.decryptVault(password).map {
                 e =>
                   val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
-                  val child = hdKey.derive(s"${e.hdDerivePath}/${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value.length}")
-                  WalletCircuit.dispatch(AddAccount(Account(EthereumJsUtils.privateToAddress(child.privateKey).toString("hex"), t.state.runNow().accountName)))
+                  val child = hdKey.derive(s"${e.hdDerivePath}/${
+                    WalletCircuit
+                      .zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value.length
+                  }")
+                  WalletCircuit.dispatch(AddAccount(Account(s"0x${
+                    EthereumJsUtils.privateToAddress(child.privateKey)
+                      .toString("hex")
+                  }", t.state.runNow().accountName)))
                   t.props.flatMap(_.router.set(AllAccountsLoc)).runNow()
               }
 
@@ -85,7 +89,7 @@ object SetupRegisterView {
                 val seed = Mnemonic.mnemonicToSeed(mnemonicString)
                 val hdKey = HDKey.fromMasterSeed(seed)
                 val child = hdKey.derive(s"${e.hdDerivePath}/0")
-                val address = EthereumJsUtils.privateToAddress(child.privateKey).toString("hex")
+                val address = s"0x${EthereumJsUtils.privateToAddress(child.privateKey).toString("hex")}"
                 WalletCircuit.dispatch(AddAccount(Account(address, t.state.runNow().accountName)))
                 WalletCircuit.dispatch(SelectAddress(address))
                 VaultGaurd.encryptWallet(

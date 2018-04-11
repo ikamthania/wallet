@@ -1,14 +1,5 @@
 package controllers.api.v1.wallet
 
-import com.livelygig.product.content.api.WalletService
-import net.ceedubs.ficus.Ficus._
-import play.api.libs.json.Json
-import play.api.mvc.{ BaseController, ControllerComponents }
-import play.api.{ Configuration, Environment, Mode }
-import utils.Mocker
-
-import scala.concurrent.{ ExecutionContext, Future }
-
 /**
  * Created by shubham.k on 27-02-2017.
  */

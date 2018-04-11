@@ -1,11 +1,10 @@
 package controllers
 
 import org.webjars.play.WebJarsUtil
-import play.api.Mode
-import play.api.i18n.{ I18nSupport, Messages }
+import play.api.i18n.I18nSupport
 import play.api.mvc.{ BaseController, ControllerComponents }
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 /**
  * Created by shubham.k on 27-02-2017.

@@ -1,15 +1,12 @@
 package com.livelygig.product.wallet.impl
 
-import com.livelygig.product.shared.models.wallet.{TokenDetails, EtherTransaction, TransactionWithSymbol}
-import com.livelygig.product.wallet.api.models.ValidateWalletFile
+import com.livelygig.product.shared.models.wallet.{EtherTransaction, TokenDetails, TransactionWithSymbol}
 import com.livelygig.product.wallet.impl.Utils.{EtherscanUtils, Web3JUtils}
 import com.softwaremill.macwire._
 import org.scalatest.{BeforeAndAfterAll, Matchers, OptionValues, WordSpec}
-import org.web3j.crypto.Credentials
-import org.web3j.protocol.core.methods.response.Web3ClientVersion
 import play.api.{Configuration, Environment}
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 /**
   * Created by shubham on 6/4/17.

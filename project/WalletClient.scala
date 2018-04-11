@@ -1,10 +1,9 @@
 import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 import sbt.Keys._
 import sbt._
-import webscalajs.ScalaJSWeb
-
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin
 import scalajsbundler.sbtplugin.ScalaJSBundlerPlugin.autoImport._
+import webscalajs.ScalaJSWeb
 
 
 object WalletClient {

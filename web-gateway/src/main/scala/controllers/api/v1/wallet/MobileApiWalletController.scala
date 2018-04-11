@@ -4,7 +4,7 @@ import com.livelygig.product.content.api.WalletService
 import com.livelygig.product.shared.models.wallet.EtherTransaction
 import net.ceedubs.ficus.Ficus._
 import play.api.libs.json.Json
-import play.api.mvc.{ Action, BaseController, Controller, ControllerComponents }
+import play.api.mvc.{ BaseController, ControllerComponents }
 import play.api.{ Configuration, Environment, Mode }
 import utils.Mocker
 

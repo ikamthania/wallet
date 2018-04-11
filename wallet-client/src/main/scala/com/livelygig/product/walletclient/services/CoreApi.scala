@@ -1,7 +1,6 @@
 package com.livelygig.product.walletclient.services
 
 import com.livelygig.product.shared.models.wallet.EtherTransaction
-import org.scalajs.dom
 import org.scalajs.dom.ext.Ajax
 import play.api.libs.json.Json
 

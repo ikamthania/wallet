@@ -4,7 +4,7 @@ import com.definitelyscala.bootstrap.ModalOptionsBackdropString
 import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades.Toastr
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.handler.{ UpdateAccountTokenList }
+import com.livelygig.product.walletclient.handler.UpdateAccountTokenList
 import com.livelygig.product.walletclient.modals.ConfirmModal
 import com.livelygig.product.walletclient.rootmodel.TokenDetailsRootModel
 import com.livelygig.product.walletclient.router.ApplicationRouter
@@ -95,17 +95,19 @@ object SendView {
       //      dom.window.location.href = s"${updatedUrl}#/send"
       updateTokenPrice(t.state.runNow().coinExchange)
 
-      var receiver = t.props.runNow().to.split("/").last.toString
-      var amount = t.props.runNow().to.split("/").head
+      val receiver = t.props.runNow().to.split("/").last.toString
+      val amount = t.props.runNow().to.split("/").head
       val pattern = "(0x[0-9A-Za-z]+)".r
       val rcvrAddress = pattern.findFirstIn(receiver).getOrElse("")
 
       jQuery("#lblDisplayFrom").text(jQuery("#slctAccount option:first").text())
       Callback {
-        CoreApi.mobileGetAccountDetails(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}").map { e =>
+        CoreApi.mobileGetAccountDetails(WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value).map { e =>
           Json.parse(e).validate[Seq[TokenDetails]].get.filter(_.symbol.equalsIgnoreCase("ETH")).map { token =>
-            println(token.balance)
-            t.modState(s => s.copy(etherBalance = token.balance, etherTransaction = s.etherTransaction.copy(amount = amount, receiver = rcvrAddress))).runNow()
+            t.modState(s =>
+              s.copy(
+                etherBalance = token.balance,
+                etherTransaction = s.etherTransaction.copy(amount = amount, receiver = rcvrAddress))).runNow()
           }
         }
 
@@ -149,7 +151,7 @@ object SendView {
     }
 
     def onStateChange(value: String)(e: ReactEventFromInput): react.Callback = {
-      var newValue = e.target.value
+      val newValue = e.target.value
       value match {
         case "amount" => calAmount("amount", newValue)
         case "amountUSD" => calAmount("amountUSD", newValue)
@@ -229,11 +231,11 @@ object SendView {
     def toAlphaNumeric(value: String): String = {
       val numPattern = "^[0-9]+(?:\\.[0-9]{0,5})?$".r
       val isValid = numPattern.findFirstIn(value)
-      var str = value
-
-      if (isValid == None) str = value.take(value.length - 1)
-
-      str
+      if (isValid == None) {
+        value.take(value.length - 1)
+      } else {
+        value
+      }
     }
 
     def changeInputButtonsVisibility(value: String, inputId: String): Callback = {
@@ -395,7 +397,7 @@ object SendView {
                 <.div(
                   ^.id := "slctAccount", ^.className := "ellipseText",
                   ^.onChange ==> onSelectAccountChange,
-                  s"0x${accountInfo.selectedAddress}")),
+                  accountInfo.selectedAddress)),
               <.div(
                 ^.className := "accountItem",
                 <.label("Token: "),

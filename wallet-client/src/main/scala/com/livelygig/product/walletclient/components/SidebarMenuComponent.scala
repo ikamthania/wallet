@@ -215,7 +215,7 @@ object SidebarMenuComponent {
             t.props.runNow().router.link(ml.location)(ml.itemLabel))
         }
         case ms: MenuItemWithSubItems =>
-          var id = ms.itemLabel.toLowerCase.replaceAll("\\[|\\]|\\&|\\: | ", "_")
+          val id = ms.itemLabel.toLowerCase.replaceAll("\\[|\\]|\\&|\\: | ", "_")
 
           <.li(
             (^.className := "openSubmenu").when(isChildCurrentLocation(ms.submenuItems)),

@@ -38,24 +38,24 @@ object RequestView {
     }
 
     def onBtnClicked(id: String)(e: ReactEventFromInput): react.Callback = {
-      var el = jQuery("#lblReceivingAddress")
+      val el = jQuery("#lblReceivingAddress")
       el.select()
       dom.document.execCommand("Copy")
       Callback.empty
     }
 
     def onStateChange(value: String)(e: ReactEventFromInput): react.Callback = {
-      var newValue = e.target.value
+      val newValue = e.target.value
       value match {
         case "coinAmount" => {
-          newValue = toAlphaNumeric(newValue)
-          jQuery("#coinTxtValue").value(newValue)
-          changeEraseButtonVisibility(newValue, "coinTxtValue")
+          val newAlphaNumValue = toAlphaNumeric(newValue)
+          jQuery("#coinTxtValue").value(newAlphaNumValue)
+          changeEraseButtonVisibility(newAlphaNumValue, "coinTxtValue")
         }
         case "usdAmount" => {
-          newValue = toAlphaNumeric(newValue)
-          jQuery("#usdTxtValue").value(newValue)
-          changeEraseButtonVisibility(newValue, "usdTxtValue")
+          val newAlphaNumValue = toAlphaNumeric(newValue)
+          jQuery("#usdTxtValue").value(newAlphaNumValue)
+          changeEraseButtonVisibility(newAlphaNumValue, "usdTxtValue")
         }
       }
     }
@@ -63,12 +63,13 @@ object RequestView {
     def toAlphaNumeric(value: String): String = {
       val numPattern = "^[0-9][\\.\\d]*(,\\d+)?$".r
       val isValid = numPattern.findFirstIn(value)
-      var str = value
-
-      if (isValid == None) str = value.take(value.length - 1)
-
-      str
+      if (isValid == None) {
+        value.take(value.length - 1)
+      } else {
+        value
+      }
     }
+
     def changeEraseButtonVisibility(value: String, inputId: String): Callback = {
       if (value != "") {
         jQuery("#" + inputId + " +  i").removeClass("eraseButtonHidden")
@@ -218,5 +219,6 @@ object RequestView {
     .renderBackend[Backend]
     .componentDidMount(scope => scope.backend.getQRCode())
     .build
+
   def apply(props: Props) = component(props)
 }

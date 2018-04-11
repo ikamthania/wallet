@@ -4,20 +4,20 @@ import com.livelygig.product.shared.models.wallet.Account
 import com.livelygig.product.walletclient.facades.Blockies
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.ChangeLang
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
-import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
+import com.livelygig.product.walletclient.router.ApplicationRouter.{Loc, _}
+import com.livelygig.product.walletclient.services.{CoreApi, WalletCircuit}
 import com.livelygig.product.walletclient.utils.I18N
 import diode.AnyAction._
 import diode.ModelRO
 import japgolly.scalajs.react
-import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
-import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
-import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
+import japgolly.scalajs.react.extra.router.{Resolution, RouterCtl}
+import japgolly.scalajs.react.vdom.html_<^.{^, _}
+import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
 import scala.scalajs.js.JSON
-import scala.util.{ Failure, Success }
+import scala.util.{Failure, Success}
 
 object HeaderComponent {
 

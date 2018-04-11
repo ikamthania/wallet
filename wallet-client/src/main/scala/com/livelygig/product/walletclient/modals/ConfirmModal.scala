@@ -4,14 +4,15 @@ import com.livelygig.product.shared.models.wallet._
 import com.livelygig.product.walletclient.facades._
 import com.livelygig.product.walletclient.handler.UpdatePassword
 import com.livelygig.product.walletclient.router.ApplicationRouter
-import com.livelygig.product.walletclient.router.ApplicationRouter.{ AccountLoc, LandingLoc }
+import com.livelygig.product.walletclient.router.ApplicationRouter.AccountLoc
 import com.livelygig.product.walletclient.services.{ CoreApi, EthereumNodeApi, WalletCircuit }
+import diode.AnyAction._
 import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 import play.api.libs.json.Json
-import diode.AnyAction._
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
 
@@ -108,7 +109,7 @@ object ConfirmModal {
         val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
         val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress)
         val prvKey = hdKey.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
-        EthereumNodeApi.getTransactionCount(s"0x${accountInfo.selectedAddress}").map {
+        EthereumNodeApi.getTransactionCount(accountInfo.selectedAddress).map {
           res =>
             val nonce = (Json.parse(res) \ "result").as[String]
             val etherTxn = t.state.runNow().etherTransaction.copy(password = "")

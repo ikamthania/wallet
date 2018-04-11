@@ -17,7 +17,6 @@ object JQueryFacade {
     @js.native
     @JSImport("jquery", JSImport.Namespace) // scalastyle:off org.scalastyle.scalariform.ObjectNamesChecker
     object jQuery extends JQueryStatic
-
   }
 
   def useStatic(): Unit = {

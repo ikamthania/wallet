@@ -22,7 +22,7 @@ class TransactionHandler[M](modelRW: ModelRW[M, Pot[TransactionRootModel]]) exte
 
     case action: GetAccountHistoryDetails => {
       val updateF = action.effectWithRetry {
-        CoreApi.mobileGetAccountHistoryDetails(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}")
+        CoreApi.mobileGetAccountHistoryDetails(WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value)
       } { transactionListResponse =>
         val updatedTxnList = Json.parse(transactionListResponse)
           .validate[Seq[TransactionWithSymbol]].get

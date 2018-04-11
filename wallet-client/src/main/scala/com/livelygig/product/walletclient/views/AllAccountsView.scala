@@ -1,5 +1,5 @@
 package com.livelygig.product.walletclient.views
-import com.livelygig.product.shared.models.wallet.{ Account, AccountInfo }
+import com.livelygig.product.shared.models.wallet.AccountInfo
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.handler.SelectAddress
 import com.livelygig.product.walletclient.router.ApplicationRouter._
@@ -92,7 +92,7 @@ object AllAccountsView {
                           <.p(
                             ^.id := "keystoreKey._1._2",
                             ^.className := "ellipseText publicAdd",
-                            s"0x${account.address}")))))).toVdomArray)))),
+                            account.address)))))).toVdomArray)))),
         <.div(
           ^.className := "container btnDefault-container homeButtonContainer",
           <.div(

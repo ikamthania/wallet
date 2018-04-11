@@ -23,7 +23,7 @@ class ERCTokenHandler[M](modelRW: ModelRW[M, Pot[TokenDetailsRootModel]]) extend
       val updatedERCTokenList = action.effectWithRetry {
         val slctAddress = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value
 
-        val slctdAddress = s"0x${slctAddress}"
+        val slctdAddress = { slctAddress }
         CoreApi.mobileGetAccountDetails(slctdAddress)
       } { tokenList =>
         TokenDetailsRootModel(Json.parse(tokenList).validate[Seq[TokenDetails]].get)

@@ -8,6 +8,7 @@ import com.livelygig.product.walletclient.services.WalletCircuit
 
 import scala.scalajs.js
 // import com.livelygig.product.walletclient.facades.Bootstrap._
+import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.product.walletclient.facades.{ EthereumjsABI, EthereumjsUnits }
 import com.livelygig.product.walletclient.modals.ConfirmModal
@@ -16,8 +17,6 @@ import japgolly.scalajs.react
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-
-import com.livelygig.product.walletclient.facades.bootstrap.Bootstrap.bundle._
 
 object AddSharedWalletView {
 

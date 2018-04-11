@@ -8,8 +8,6 @@ trait WalletService extends Service {
 
   def ping(): ServiceCall[String, String]
 
-  //Non-secured API's for Mobile App
-
   def mobileGetETHNetConnected(): ServiceCall[NotUsed, String]
 
   def mobileGetAccountTransactionHistory(publicKey: String): ServiceCall[Seq[TokenDetails], Seq[TransactionWithSymbol]]
