@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.services
 
 import com.livelygig.product.shared.models.wallet._
-import com.livelygig.product.walletclient.handler.UpdateRootModer
+import com.livelygig.product.walletclient.handler.{ SelectTheme, UpdateRootModer }
 import diode.AnyAction._
 import org.scalajs.dom
 import play.api.libs.json.JsResult.Exception
@@ -20,6 +20,7 @@ object LocalStorageApi {
     } else {
       Json.parse(config).validate[AppModel].map {
         e =>
+          WalletCircuit.dispatch(SelectTheme(e.data.preferencess.selectedTheme))
           WalletCircuit.dispatch(UpdateRootModer(e))
         /*if (e.data.keyrings.vault.data != "") {
             WalletCircuit.dispatch(LoginUser())

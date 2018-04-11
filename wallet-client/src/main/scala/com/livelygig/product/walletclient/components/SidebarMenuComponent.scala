@@ -1,7 +1,7 @@
 package com.livelygig.product.walletclient.components
 
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.product.walletclient.handler.ChangeLang
+import com.livelygig.product.walletclient.handler.{ ChangeLang, SelectTheme }
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ Loc, _ }
 import com.livelygig.product.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.product.walletclient.utils.I18N
@@ -48,16 +48,7 @@ object SidebarMenuComponent {
   def changeTheme(themeName: String) = Callback {
     dom.window.localStorage.setItem("theme", themeName)
     toggleNav()
-    val themeUrl = if (LinkingInfo.productionMode) {
-      s"./assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"
-
-    } else {
-      s"../assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"
-    }
-    jQuery("#theme-stylesheet")
-      .each((ele: Element) =>
-        ele
-          .setAttribute("href", themeUrl))
+    WalletCircuit.dispatch(SelectTheme(themeName))
   }
 
   private class Backend(t: BackendScope[Props, State]) {
