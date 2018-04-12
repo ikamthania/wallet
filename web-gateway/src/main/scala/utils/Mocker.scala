@@ -1,6 +1,6 @@
 package utils
 
-import com.livelygig.product.shared.models.wallet.{ CoinExchange, CurrencyList, TokenDetails, Transaction }
+import com.livelygig.shared.models.wallet.{ CoinExchange, CurrencyList, TokenDetails, Transaction }
 import org.apache.http.client.methods.HttpGet
 import org.apache.http.impl.client.{ CloseableHttpClient, HttpClients }
 import org.apache.http.util.EntityUtils

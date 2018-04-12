@@ -27,6 +27,8 @@ addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.0")
 // Code Quality
 addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "1.0.0") // scalastyle
 
+addSbtPlugin("ch.epfl.scala" % "sbt-scalafix" % "0.5.10")
+
 addSbtPlugin("net.virtual-void" % "sbt-dependency-graph" % "0.9.0") // dependencyGraph
 
 // dependencyUpdates

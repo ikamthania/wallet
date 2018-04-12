@@ -1,7 +1,7 @@
 package controllers.api.v1.wallet
 
 import com.livelygig.product.content.api.WalletService
-import com.livelygig.product.shared.models.wallet.EtherTransaction
+import com.livelygig.shared.models.wallet.EtherTransaction
 import net.ceedubs.ficus.Ficus._
 import play.api.libs.json.Json
 import play.api.mvc.{ BaseController, ControllerComponents }
