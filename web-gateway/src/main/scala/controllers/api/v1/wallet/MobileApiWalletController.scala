@@ -1,7 +1,7 @@
 package controllers.api.v1.wallet
 
 import com.livelygig.product.content.api.WalletService
-import com.livelygig.shared.models.wallet.EtherTransaction
+import com.livelygig.shared.models.wallet.{ EtherTransaction, SignedTransaction }
 import net.ceedubs.ficus.Ficus._
 import play.api.libs.json.Json
 import play.api.mvc.{ BaseController, ControllerComponents }
@@ -106,9 +106,9 @@ class MobileApiWalletController(
 
     request.body.asJson match {
       case Some(json) => {
-        Json.fromJson[String](json).fold(
+        Json.fromJson[SignedTransaction](json).fold(
           _ => Future.successful(BadRequest("Error in parsing json")),
-          signedTxn => mobilePostTransaction(signedTxn))
+          signedTxn => mobilePostTransaction(signedTxn.data))
       }
       case None => Future.successful(BadRequest("No Json Found"))
     }

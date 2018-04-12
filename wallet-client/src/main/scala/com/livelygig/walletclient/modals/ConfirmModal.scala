@@ -143,6 +143,7 @@ object ConfirmModal {
         nonce, encodedFunction, "0x4E3B29200", "0x3D0900")
 
       if (signedTxn != "") {
+        println(signedTxn)
         CoreApi
           .mobileSendSignedTxn(s"0x${signedTxn}")
           .map { transactionHashString =>

@@ -2,6 +2,12 @@ package com.livelygig.shared.models.wallet
 
 import play.api.libs.json.{ Format, Json }
 
+case class SignedTransaction(data: String)
+
+object SignedTransaction {
+  implicit val format: Format[SignedTransaction] = Json.format
+}
+
 case class EtherTransaction(password: String, receiver: String, amount: String, txnType: String, decimal: Int)
 
 case class Transaction(blockNumber: String, timeStamp: String, hash: String, nonce: String, blockHash: String,
