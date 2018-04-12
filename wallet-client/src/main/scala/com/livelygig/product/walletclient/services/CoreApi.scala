@@ -20,7 +20,7 @@ object CoreApi {
     Ajax.post(
       url = apiUrl,
       data = requestContent,
-      headers = Map("Content-Type" -> "application/json;charset=UTF-8" /*, "Csrf-Token" -> AppUtils.getCookie("livelygig-csrf").get*/ )).map(_.responseText)
+      headers = Map("Content-Type" -> "application/jsumjs ton;charset=UTF-8" /*, "Csrf-Token" -> AppUtils.getCookie("livelygig-csrf").get*/ )).map(_.responseText)
   }
 
   private def ajaxGet(url: String): Future[String] = {

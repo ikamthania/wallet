@@ -6,6 +6,7 @@ import com.livelygig.product.walletclient.facades.QRCode
 import com.livelygig.product.walletclient.modals.ShowQRCode
 import com.livelygig.product.walletclient.router.ApplicationRouter.{ LandingLoc, Loc }
 import com.livelygig.product.walletclient.services.WalletCircuit
+import com.livelygig.product.walletclient.utils.AppUtils
 
 import scala.scalajs.js
 //import QRCode
@@ -26,10 +27,7 @@ object RequestView {
   final class Backend(t: BackendScope[Props, State]) {
 
     def getQRCode() = Callback {
-      val qrCode = new QRCode("3", "L")
-      qrCode.addData(s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress)}")
-      qrCode.make()
-      val imgData = qrCode.createSvgTag()
+      val imgData = AppUtils.getQRCode().createSvgTag()
       jQuery("#qrCode").prepend(imgData)
     }
 
@@ -89,7 +87,7 @@ object RequestView {
 
     def updateModal(): Callback = {
       val state = t.state.runNow()
-      ShowQRCode(ShowQRCode.Props(state.qrCode))
+      ShowQRCode(ShowQRCode.Props())
       val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
       options.show = true
       options.keyboard = true
@@ -200,7 +198,7 @@ object RequestView {
                       <.option("None"),
                       <.option("1"),
                       <.option("2"))))))),
-          ShowQRCode.component(ShowQRCode.Props(p.publicKey))),
+          ShowQRCode.component(ShowQRCode.Props())),
         <.div(
           ^.className := "container btnDefault-container container-NoBorder",
           <.h5(

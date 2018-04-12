@@ -1,27 +1,21 @@
 package com.livelygig.product.walletclient.modals
 
-//import QRCode
-import com.livelygig.product.walletclient.facades.QRCode
 import com.livelygig.product.walletclient.facades.jquery.JQueryFacade.jQuery
+import com.livelygig.product.walletclient.utils.AppUtils
 import japgolly.scalajs.react._
 import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
 
 object ShowQRCode {
 
-  case class Props(imgsrc: String = "")
+  case class Props()
 
   final case class State()
 
   final class Backend(t: BackendScope[Props, State]) {
 
     def getImgSrc(): Callback = {
-      val props = t.props.runNow()
-      val qrCode = new QRCode("3", "L")
-      qrCode.addData(props.imgsrc)
-      qrCode.make()
-      val imgData = qrCode.createImgTag()
+      val imgData = AppUtils.getQRCode().createImgTag(8)
       jQuery("#qrCodeinmodal").prepend(imgData)
-
       Callback.empty
     }
 

@@ -40,7 +40,7 @@ object TestView {
       val qrCode = new QRCode("3", "L")
       qrCode.addData(dom.window.localStorage.getItem("pubKey"))
       qrCode.make()
-      val imgData = qrCode.createImgTag()
+      val imgData = qrCode.createImgTag(4)
       println(imgData)
       jQuery("#qrCode").prepend(imgData)
       //      qrCode.clear()

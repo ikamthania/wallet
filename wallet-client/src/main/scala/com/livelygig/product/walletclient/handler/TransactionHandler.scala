@@ -12,8 +12,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 case class GetAccountHistoryDetails(potResult: Pot[TransactionRootModel] = Empty, retryPolicy: RetryPolicy = Retry(3))
   extends PotActionRetriable[TransactionRootModel, GetAccountHistoryDetails] {
-  override def next(newValue: Pot[TransactionRootModel], newRetryPolicy: RetryPolicy): GetAccountHistoryDetails = GetAccountHistoryDetails(newValue, newRetryPolicy)
+  override def next(
+    newValue: Pot[TransactionRootModel],
+    newRetryPolicy: RetryPolicy): GetAccountHistoryDetails = {
+    GetAccountHistoryDetails(newValue, newRetryPolicy)
+  }
 }
+
 case class AddTransactions(newTransaction: TransactionWithSymbol)
 
 class TransactionHandler[M](modelRW: ModelRW[M, Pot[TransactionRootModel]]) extends ActionHandler(modelRW) {

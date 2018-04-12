@@ -10,7 +10,7 @@ import scala.scalajs.js.annotation.JSImport
 class QRCode(typeNumber: String, errorCorrectLevel: String) extends js.Object {
   def addData(data: String): Any = js.native
   def make(): Any = js.native
-  def createImgTag(): HTMLCanvasElement = js.native
+  def createImgTag(cellSize: Int): HTMLCanvasElement = js.native
   def createSvgTag(): HTMLCanvasElement = js.native
 }
 
