@@ -38,24 +38,26 @@ object SendView {
     val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
 
     def updateCurrency(): Callback = {
-      val slctedCurr = if (dom.window.localStorage.getItem("currency") == null) "USD" else dom.window.localStorage.getItem("currency")
-      t.modState(s => s.copy(currSymbol = slctedCurr)).runNow()
-      Callback.empty
+      val slctedCurr = "USD"
+      t.modState(s => s.copy(currSymbol = slctedCurr))
     }
 
     def getLiveCurrencyUpdate(): Callback = {
-      CoreApi.mobileGetLivePrices()
-        .map(prices =>
-          Json.parse(prices)
-            .validate[CoinExchange].asEither match {
-              case Left(err) => println(err)
-              case Right(res) =>
-                t.modState(s => s.copy(
-                  coinExchange = res.coinExchangeList))
-                .runNow()
-                updateETHPrice(t.state.runNow().coinSymbol)
-            })
-      Callback.empty
+      Callback {
+        CoreApi.mobileGetLivePrices()
+          .map(prices =>
+            Json.parse(prices)
+              .validate[CoinExchange].asEither match {
+                case Left(fieldErrors) => fieldErrors.foreach(x => {
+                  println("field: " + x._1 + ", errors: " + x._2)
+                })
+                case Right(res) =>
+                  t.modState(s => s.copy(
+                    coinExchange = res.coinExchangeList))
+                  .runNow()
+                  updateETHPrice(t.state.runNow().coinSymbol)
+              })
+      }
     }
 
     def updateTokenPrice(currList: Seq[CurrencyList]) = {
@@ -119,11 +121,11 @@ object SendView {
     * */
 
     def onFocusChange(inputId: String)(e: ReactEventFromInput): react.Callback = {
-      if (jQuery("#" + inputId).value() == "") {
-        if (jQuery("#" + inputId + " ~  div").hasClass("maxButtonHidden")) jQuery("#" + inputId + " ~  div").removeClass("maxButtonHidden")
+      Callback {
+        if (jQuery("#" + inputId).value() == "") {
+          if (jQuery("#" + inputId + " ~  div").hasClass("maxButtonHidden")) jQuery("#" + inputId + " ~  div").removeClass("maxButtonHidden")
+        }
       }
-
-      Callback.empty
     }
 
     def onBlurChange(inputId: String)(e: ReactEventFromInput): react.Callback = {
@@ -134,20 +136,20 @@ object SendView {
     }
 
     def onMaxButtonClicked()(e: ReactEventFromInput): react.Callback = {
-      val total = if (t.state.runNow().etherBalance == "") "0.0" else t.state.runNow().etherBalance
+      t.state.map {
+        state =>
+          val total = if (state.etherBalance == "") "0.0" else state.etherBalance
 
-      val ethPriceInCurr = if (total != "0.0") round(total.toDouble * t.state.runNow().ethereumPrice.toDouble - ethereumFee, 2) else total
-      val totalIncoin = round(total.toDouble + ethereumFee, 5)
-      val totalInCurr = round(ethPriceInCurr.toDouble + (ethereumFee * t.state.runNow().ethereumPrice.toDouble), 2)
+          val ethPriceInCurr = if (total != "0.0") round(total.toDouble * state.ethereumPrice.toDouble - ethereumFee, 2) else total
+          val totalIncoin = round(total.toDouble + ethereumFee, 5)
+          val totalInCurr = round(ethPriceInCurr.toDouble + (ethereumFee * state.ethereumPrice.toDouble), 2)
 
-      t.modState(s => s.copy(
-        etherTransaction = s.etherTransaction.copy(amount = total),
-        amntInCurr = ethPriceInCurr, totalInCoin = totalIncoin, totalInCurr = totalInCurr)).runNow()
-
-      changeInputButtonsVisibility(ethPriceInCurr, "usdTxtValue")
-      changeInputButtonsVisibility(totalInCurr, "coinTxtValue")
-
-      Callback.empty
+          changeInputButtonsVisibility(ethPriceInCurr, "usdTxtValue")
+          changeInputButtonsVisibility(totalInCurr, "coinTxtValue")
+          t.modState(s => s.copy(
+            etherTransaction = s.etherTransaction.copy(amount = total),
+            amntInCurr = ethPriceInCurr, totalInCoin = totalIncoin, totalInCurr = totalInCurr)).runNow()
+      }
     }
 
     def onStateChange(value: String)(e: ReactEventFromInput): react.Callback = {
@@ -239,17 +241,18 @@ object SendView {
     }
 
     def changeInputButtonsVisibility(value: String, inputId: String): Callback = {
-      if (value != "") {
-        if (!jQuery("#" + inputId + " ~  div").hasClass("maxButtonHidden")) jQuery("#" + inputId + " ~  div").addClass("maxButtonHidden")
+      Callback {
+        if (value != "") {
+          if (!jQuery("#" + inputId + " ~  div").hasClass("maxButtonHidden")) jQuery("#" + inputId + " ~  div").addClass("maxButtonHidden")
 
-        if (jQuery("#" + inputId + " +  i").hasClass("eraseButtonHidden")) jQuery("#" + inputId + " +  i").removeClass("eraseButtonHidden")
-      } else {
-        if (!jQuery("#" + inputId + " +  i").hasClass("eraseButtonHidden")) jQuery("#" + inputId + " +  i").addClass("eraseButtonHidden")
+          if (jQuery("#" + inputId + " +  i").hasClass("eraseButtonHidden")) jQuery("#" + inputId + " +  i").removeClass("eraseButtonHidden")
+        } else {
+          if (!jQuery("#" + inputId + " +  i").hasClass("eraseButtonHidden")) jQuery("#" + inputId + " +  i").addClass("eraseButtonHidden")
 
-        if (!jQuery("#" + inputId + " ~  div").hasClass("maxButtonHidden")) jQuery("#" + inputId + " ~  div").addClass("maxButtonHidden")
+          if (!jQuery("#" + inputId + " ~  div").hasClass("maxButtonHidden")) jQuery("#" + inputId + " ~  div").addClass("maxButtonHidden")
+        }
       }
 
-      Callback.empty
     }
 
     def fieldsValidation(): Boolean = {

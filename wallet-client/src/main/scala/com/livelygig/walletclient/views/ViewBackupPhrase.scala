@@ -28,11 +28,12 @@ object ViewBackupPhrase {
     def onBtnClicked(): react.Callback = {
 
       if (jQuery("#chkbSecure").is(":checked")) {
-        t.modState(s => s.copy(isChecked = true, showConfirmScreen = true)).runNow()
+        t.modState(s => s.copy(isChecked = true, showConfirmScreen = true))
         //        t.props.runNow().router.set(ConfirmBackupPhraseLoc).runNow()
       } else
-        t.modState(s => s.copy(isChecked = true)).runNow()
-      Callback.empty
+        {
+          t.modState(s => s.copy(isChecked = true))
+        }
     }
 
     def render(p: Props, s: State): VdomElement = {
@@ -136,8 +137,7 @@ object ConfirmBakupPhrase {
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-      t.modState(s => s.copy(phraseSelection = t.props.runNow().phraseWords)).runNow()
-      Callback.empty
+      t.modState(s => s.copy(phraseSelection = t.props.runNow().phraseWords))
     }
 
     def onBtnClicked(): react.Callback = {
@@ -175,19 +175,22 @@ object ConfirmBakupPhrase {
       <.li(^.cursor := "pointer", ^.onClick --> generateWordListSelected(e), e)
     }
 
-    def generateWordListSelected(e: String) = {
-      if (t.state.runNow().phraseSelected.contains(e)) {
-        val selected = t.state.runNow().phraseSelection :+ e
-        val diselect = t.state.runNow().phraseSelected.filterNot(_.equals(e))
-        t.modState(s => s.copy(phraseSelected = diselect, phraseSelection = selected))
-      }
-      else if (t.state.runNow().phraseSelection.contains(e)) {
-        val selected = t.state.runNow().phraseSelected :+ e
-        val diselect = t.state.runNow().phraseSelection.filterNot(_.equals(e))
-        t.modState(s => s.copy(phraseSelected = selected, phraseSelection = diselect))
+    def generateWordListSelected(e: String): Callback = {
+      t.modState{
+        state =>
+          if (state.phraseSelected.contains(e)) {
+            val selected = state.phraseSelection :+ e
+            val diselect = state.phraseSelected.filterNot(_.equals(e))
+            state.copy(phraseSelected = diselect, phraseSelection = selected)
+          }
+          else if (state.phraseSelection.contains(e)) {
+            val selected = state.phraseSelected :+ e
+            val diselect = state.phraseSelection.filterNot(_.equals(e))
+            state.copy(phraseSelected = selected, phraseSelection = diselect)
 
-      } else {
-        Callback.empty
+          } else {
+            state
+          }
       }
     }
 

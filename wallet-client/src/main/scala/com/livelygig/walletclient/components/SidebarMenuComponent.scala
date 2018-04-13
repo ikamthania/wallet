@@ -63,7 +63,7 @@ object SidebarMenuComponent {
 
     def signOut() = {
       Callback({
-        dom.window.location.href = "./login.html"
+        dom.window.location.href = "/"
       })
     }
 
