@@ -13,10 +13,9 @@ object ShowQRCode {
 
   final class Backend(t: BackendScope[Props, State]) {
 
-    def getImgSrc(): Callback = {
+    def getImgSrc(): Callback = Callback {
       val imgData = AppUtils.getQRCode().createImgTag(8)
       jQuery("#qrCodeinmodal").prepend(imgData)
-      Callback.empty
     }
 
     def render(p: Props, s: State): VdomElement =

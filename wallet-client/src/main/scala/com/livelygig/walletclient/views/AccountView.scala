@@ -28,6 +28,7 @@ object AccountView {
   Toastr.options.extendedTimeOut = 60; // How long the toast will display after a user hovers over it
   Toastr.options.closeButton = true
   Toastr.options.positionClass = "toast-top-full-width"
+
   case class Props(proxy: ModelProxy[Pot[TokenDetailsRootModel]], router: RouterCtl[Loc])
 
   final case class State(currencySelected: String, coinExchange: CoinExchange)
@@ -56,16 +57,14 @@ object AccountView {
 
     }
 
-    def setCurrencyLocal(currSymbol: String): react.Callback = {
+    def setCurrencyLocal(currSymbol: String): react.Callback = Callback {
       dom.window.localStorage.setItem("currency", currSymbol)
-      Callback.empty
     }
 
     def updateCurrency(): Callback = {
       getLiveCurrencyUpdate
       val slctedCurr = if (dom.window.localStorage.getItem("currency") == null) "USD" else dom.window.localStorage.getItem("currency")
-      t.modState(s => s.copy(currencySelected = slctedCurr)).runNow()
-      Callback.empty
+      t.modState(s => s.copy(currencySelected = slctedCurr))
     }
 
     def componentDidMount(props: Props): Callback = {
@@ -77,15 +76,18 @@ object AccountView {
 
     def updateURL(loc: String): Callback = {
 
-      loc match {
-        case "SendLoc" => t.props.runNow().router.set(SendLoc).runNow()
-        case "HistoryLoc" => t.props.runNow().router.set(HistoryLoc).runNow()
-        case "RequestLoc" => t.props.runNow().router.set(RequestLoc).runNow()
+      t.props.flatMap {
+        props =>
+          loc match {
+            case "SendLoc" => props.router.set(SendLoc)
+            case "HistoryLoc" => props.router.set(HistoryLoc)
+            case "RequestLoc" => props.router.set(RequestLoc)
+          }
       }
-      Callback.empty
+
     }
 
-    def onItemClicked(e: ReactEventFromHtml): react.Callback = {
+    def onItemClicked(e: ReactEventFromHtml): react.Callback = Callback {
       e.preventDefault()
       jQuery(".select-currency-info").removeClass("active")
       if (!jQuery(e.target).is(".select-currency-info")) {
@@ -93,14 +95,12 @@ object AccountView {
       } else {
         jQuery(e.target).addClass("active")
       }
-      Callback.empty
     }
 
     def updateCurrencyState(e: ReactEventFromInput): react.Callback = {
       val newValue = e.target.value
       setCurrencyLocal(newValue)
-      t.modState(s => s.copy(currencySelected = newValue)).runNow()
-      Callback.empty
+      t.modState(s => s.copy(currencySelected = newValue))
     }
 
     //scalastyle: off
@@ -137,6 +137,7 @@ object AccountView {
                     e.symbol))
             }.toVdomArray))
       }
+
       <.div(^.id := "bodyWallet")(
         <.div(
           ^.className := "wallet-information-bottom",
@@ -199,5 +200,6 @@ object AccountView {
     .componentWillMount(scope => scope.backend.updateCurrency())
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
+
   def apply(props: Props) = component(props)
 }

@@ -46,7 +46,7 @@ object AddSharedWalletView {
     }
   }
 
-  def onSelectOwner(e: ReactEventFromHtml): react.Callback = {
+  def onSelectOwner(e: ReactEventFromHtml): react.Callback = Callback {
     e.preventDefault()
     jQuery(".walletData").removeClass("active")
     if (!jQuery(e.target).is(".walletData")) {
@@ -54,7 +54,6 @@ object AddSharedWalletView {
     } else {
       jQuery(e.target).addClass("active")
     }
-    Callback.empty
   }
 
   val OwnerList = ScalaFnComponent[List[Owner]] { props =>

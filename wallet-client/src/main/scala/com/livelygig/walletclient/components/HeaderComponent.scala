@@ -61,25 +61,24 @@ object HeaderComponent {
         .contains(page)
     }
 
-    def changeLang(lang: String): react.Callback = {
+    def changeLang(lang: String): react.Callback = Callback{
       CoreApi.getLang(lang).onComplete {
         case Success(res) => {
           WalletCircuit.dispatch(ChangeLang(JSON.parse(res)))
         }
         case Failure(_) => println(s"failed to load language for ${lang}")
       }
-      Callback.empty
     }
 
     def updateLang(reader: ModelRO[js.Dynamic]) = {
       t.modState(s => s.copy(lang = reader.value)).runNow()
     }
 
-    def onSideBarMenuClicked(e: ReactEventFromHtml): react.Callback = {
+    def onSideBarMenuClicked(e: ReactEventFromHtml): react.Callback = Callback{
       val cw = e.target.clientWidth
       val w = jQuery("#mySidenav").width()
-      if (cw == w) toggleNav()
-      react.Callback.empty
+      if (cw == w)
+        toggleNav()
     }
 
     def userProfileImg = {
@@ -90,14 +89,12 @@ object HeaderComponent {
 
     def componentDidMount(): Callback = {
       userProfileImg
-      //      getNotification
-      changeLang(I18N.Lang.en_us)
       WalletCircuit.subscribe(WalletCircuit.zoom(_.i18n.language))(e => updateLang(e))
       getETHNetInfo()
-      Callback.empty
+      changeLang(I18N.Lang.en_us)
     }
 
-    def toggleNav(): Callback = {
+    def toggleNav(): Callback = Callback{
       jQuery("#mySidenav").toggleClass("fullWidth")
       jQuery("#closebtnContainer").toggleClass("active")
       jQuery("#bodyWallet").toggleClass("blurBackground")
@@ -105,8 +102,6 @@ object HeaderComponent {
         selected =>
           t.modState(state => state.copy(selectedAddress = selected.value)).runNow()
       }
-
-      Callback.empty
     }
 
     def render(props: Props, state: State): VdomElement = {

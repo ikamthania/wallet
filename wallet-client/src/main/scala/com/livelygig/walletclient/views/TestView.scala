@@ -31,29 +31,22 @@ object TestView {
     def tryOut(): Callback = {
       val str = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = "0x7cB57B5A97eAbe94205C07890BE4c1aD31E486A8"))
       jQuery("#blockies").append(str)
-      /* val qrCode = new QRCode(3, "L")
-      println(qrCode.addData("Hello"))
-      jQuery("#qrcode").append(qrCode.make())*/
-      //      var res = Pseudoloc.str("A test string with a %token%.")
-      //      println(s"Result ===> ${res}")
-
       val qrCode = new QRCode("3", "L")
       qrCode.addData(dom.window.localStorage.getItem("pubKey"))
       qrCode.make()
       val imgData = qrCode.createImgTag(4)
-      println(imgData)
       jQuery("#qrCode").prepend(imgData)
       //      qrCode.clear()
 
       Callback.empty
     }
 
-    def onToastrClick(toastrType: String): Callback = {
-      if (toastrType == "error")
+    def onToastrClick(toastrType: String): Callback = Callback {
+      if (toastrType == "error") {
         Toastr.error("Please try once again. ", Some("Oops cant open it...!"))
-      else if (toastrType == "success")
+      } else if (toastrType == "success") {
         Toastr.success("Successful ", Some("Its going to work now...!"))
-      Callback.empty
+      }
     }
 
     def render(p: Props): VdomElement = <.div()(
@@ -71,6 +64,7 @@ object TestView {
   val component = ScalaComponent.builder[Props]("TestView")
     .renderBackend[Backend]
     .build
+
   def apply(props: Props) = component(props)
 
 }

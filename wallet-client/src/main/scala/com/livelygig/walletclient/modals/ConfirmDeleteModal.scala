@@ -16,16 +16,17 @@ object ConfirmDeleteModal {
   final class Backend(t: BackendScope[Props, State]) {
 
     def onDeleteAccount(): Callback = {
-      val state = t.props.runNow()
-      if (state.publicK == dom.window.localStorage.getItem("pubKey")) {
-        Toastr.info(dom.window.localStorage.getItem("pubKey"))
-        //        WalletJS.deleteAccount(state.publicK, "currentAccount")
-        t.props.runNow().router.set(AllAccountsLoc).runNow()
-      } else {
-        //        WalletJS.deleteAccount(state.publicK, "")
-        t.props.runNow().router.set(AllAccountsLoc).runNow()
+      t.props.flatMap {
+        props =>
+          if (props.publicK == dom.window.localStorage.getItem("pubKey")) {
+            Toastr.info(dom.window.localStorage.getItem("pubKey"))
+            //        WalletJS.deleteAccount(state.publicK, "currentAccount")
+            props.router.set(AllAccountsLoc)
+          } else {
+            //        WalletJS.deleteAccount(state.publicK, "")
+            props.router.set(AllAccountsLoc)
+          }
       }
-      Callback.empty
     }
 
     def render(p: Props, s: State): VdomElement =
@@ -58,6 +59,7 @@ object ConfirmDeleteModal {
     .renderBackend[Backend]
     .componentWillReceiveProps(scope => scope.setState(State()))
     .build
+
   def apply(props: Props) = component(props)
 }
 

@@ -44,9 +44,7 @@ object AddTokenView {
         }
       })
 
-      t.modState(_.copy(tokenList = resultList)).runNow()
-
-      Callback.empty
+      t.modState(_.copy(tokenList = resultList))
     }
 
     def renderTokenList(): VdomElement = {
@@ -87,8 +85,6 @@ object AddTokenView {
     // }
 
     def showAddTokenModal(): Callback = {
-      //      jQuery("#addTokenModal").modal(js.Dynamic.literal("backdrop" -> "static", "keyboard" -> true, "show" -> true))
-
       Callback.empty
     }
 

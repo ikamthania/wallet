@@ -18,25 +18,15 @@ object LandingView {
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-
-      /*if (dom.window.localStorage.getItem("pubKey") == null) {
-        t.props.flatMap(_.router.set(AccountLoc)) >> t.props.flatMap(_.router.refresh)
-      } else {
-        Callback.empty
-      }*/
       Callback.empty
     }
 
     def render(p: Props, s: State): VdomElement = {
       if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.keyrings.vault.data).value == "") {
         StaticLandingView.component()
-        //        EnterPasswordView.component(EnterPasswordView.Props(p.router))
-
-      } else /*if (LinkingInfo.productionMode)*/ {
+      } else {
         EnterPasswordView.component(EnterPasswordView.Props(p.router))
-      } /*else {
-        AccountView.component(AccountView.Props(t.props.runNow().proxy, t.props.runNow().router))
-      }*/
+      }
     }
 
   }

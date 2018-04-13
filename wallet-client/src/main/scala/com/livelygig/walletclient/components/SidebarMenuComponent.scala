@@ -35,11 +35,10 @@ object SidebarMenuComponent {
 
   private case class MenuItemWithNewTabLink(itemLabel: String, link: String) extends MenuItem(itemLabel)
 
-  def toggleNav(): Callback = {
+  def toggleNav(): Callback = Callback {
     jQuery("#mySidenav").toggleClass("fullWidth")
     jQuery("#closebtnContainer").toggleClass("active")
     jQuery("#bodyWallet").toggleClass("blurBackground")
-    Callback.empty
   }
 
   def emptyCallback = Callback.empty
@@ -186,9 +185,8 @@ object SidebarMenuComponent {
       }.isDefined
     }
 
-    def mounted(props: Props): Callback = {
+    def mounted(props: Props): Callback = Callback {
       WalletCircuit.subscribe(WalletCircuit.zoom(_.i18n.language))(e => updateLang(e))
-      Callback.empty
     }
 
     def updateLang(reader: ModelRO[js.Dynamic]) = {

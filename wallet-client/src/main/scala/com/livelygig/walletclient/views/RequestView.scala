@@ -34,11 +34,10 @@ object RequestView {
       jQuery(s"#$id").toggleClass("active")
     }
 
-    def onBtnClicked(id: String)(e: ReactEventFromInput): react.Callback = {
+    def onBtnClicked(id: String)(e: ReactEventFromInput): react.Callback = Callback {
       val el = jQuery("#lblReceivingAddress")
       el.select()
       dom.document.execCommand("Copy")
-      Callback.empty
     }
 
     def onStateChange(value: String)(e: ReactEventFromInput): react.Callback = {
@@ -79,26 +78,18 @@ object RequestView {
     def onEraseButtonClicked(id: String)(e: ReactEventFromInput): react.Callback = {
       jQuery("#" + id).value("")
       changeEraseButtonVisibility("", id)
-
-      Callback.empty
-
     }
 
-    def updateModal(): Callback = {
-      t.state.runNow()
-      ShowQRCode(ShowQRCode.Props())
+    def updateModal(): Callback = Callback {
       val options = js.Object().asInstanceOf[ModalOptionsBackdropString]
       options.show = true
       options.keyboard = true
       options.backdrop = "static"
       jQuery("#showQRCode").modal(options)
-      Callback.empty
     }
 
     def onDoneClicked(): Callback = {
-      t.props.runNow().router.set(LandingLoc).runNow()
-      Callback.empty
-
+      t.props.flatMap(_.router.set(LandingLoc))
     }
 
     def render(p: Props, s: State): VdomElement =

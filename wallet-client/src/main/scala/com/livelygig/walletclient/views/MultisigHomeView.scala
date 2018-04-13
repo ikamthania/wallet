@@ -55,17 +55,15 @@ object MultisigHomeView {
 
     }
 
-    def setCurrencyLocal(currSymbol: String): react.Callback = {
+    def setCurrencyLocal(currSymbol: String): react.Callback = Callback {
       //      Toastr.info(currSymbol)
       dom.window.localStorage.setItem("currency", currSymbol)
-      Callback.empty
     }
 
     def updateCurrency(): Callback = {
       //      Toastr.info(dom.window.localStorage.getItem("currency"))
       val slctedCurr = if (dom.window.localStorage.getItem("currency") == null) "USD" else dom.window.localStorage.getItem("currency")
-      t.modState(s => s.copy(currencySelected = slctedCurr)).runNow()
-      Callback.empty
+      t.modState(s => s.copy(currencySelected = slctedCurr))
     }
 
     def componentDidMount(props: Props): Callback = {
@@ -77,13 +75,12 @@ object MultisigHomeView {
 
     }
 
-    def updateTheme(): Callback = {
+    def updateTheme(): Callback = Callback {
       val theme = if (dom.window.localStorage.getItem("theme") == null) "default" else dom.window.localStorage.getItem("theme")
       jQuery("#theme-stylesheet")
         .each((ele: Element) =>
           ele
             .setAttribute("href", s"../assets/stylesheets/wallet/themes/wallet-main-theme-${theme}.min.css"))
-      Callback.empty
     }
 
     def updateURL(loc: String): Callback = {
