@@ -163,7 +163,7 @@ object RequestView {
                       ^.id := "lblReceivingAddress",
                       ^.className := "ellipseText",
                       // ^.disabled := true,
-                      ^.`defaultValue` := s"0x${p.publicKey}")),
+                      ^.`defaultValue` := s"${p.publicKey}")),
                   <.div(
                     ^.className := "desscription notAlpha",
                     <.h4("Description"),

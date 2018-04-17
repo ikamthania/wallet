@@ -1,5 +1,6 @@
 package com.livelygig.walletclient.modals
 
+import com.livelygig.shared.models.Solidity.{ Address, Uint }
 import com.livelygig.shared.models.wallet._
 import com.livelygig.walletclient.facades._
 import com.livelygig.walletclient.handler.UpdatePassword
@@ -108,32 +109,42 @@ object ConfirmModal {
     *   initiate send ether transaction
     * */
 
-    def sendTransaction(e: ReactEventFromHtml): react.Callback = Callback {
-      VaultGaurd.decryptVault(t.state.runNow().etherTransaction.password).map { e =>
-        WalletCircuit.dispatch(UpdatePassword(t.state.runNow().etherTransaction.password))
-        val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
-        val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
-        val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress)
-        val prvKey = hdKey.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
-        EthereumNodeApi.getTransactionCount(accountInfo.selectedAddress).map {
-          res =>
-            val nonce = (Json.parse(res) \ "result").as[String]
-            val etherTxn = t.state.runNow().etherTransaction.copy(password = "")
-            if (etherTxn.txnType.equalsIgnoreCase("eth")) {
-              signAndSendRawTransaction(prvKey, etherTxn.amount, etherTxn.receiver, nonce, "0x0")
-            } else {
-              CoreApi.mobileGetEncodedFunction(etherTxn).map { encodedFunction =>
-                val e = Json.parse(encodedFunction).as[String]
-                signAndSendRawTransaction(prvKey, "0", etherTxn.txnType, nonce, e)
+    def sendTransaction(e: ReactEventFromHtml): react.Callback = {
+      t.state.zip(t.props) >>= {
+        case (state, _) =>
+          Callback {
+            VaultGaurd.decryptVault(state.etherTransaction.password).map { e =>
+              WalletCircuit.dispatch(UpdatePassword(state.etherTransaction.password))
+              val accountInfo = WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo).value
+              val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
+              val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress)
+              val prvKey = hdKey.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
+              println(prvKey)
+              EthereumNodeApi.getTransactionCount(accountInfo.selectedAddress).map {
+                res =>
+                  val nonce = (Json.parse(res) \ "result").as[String]
+                  val etherTxn = state.etherTransaction.copy(password = "")
+                  if (etherTxn.txnType.equalsIgnoreCase("eth")) {
+                    signAndSendRawTransaction(prvKey, etherTxn.amount, etherTxn.receiver, nonce, "0x0")
+                  } else {
+                    val txAmount = (etherTxn.amount.toDouble * Math.pow(10, etherTxn.decimal)).toString
+                    val encodedFunction = EthereumjsABI
+                      .rawEncode(Seq(new Address(etherTxn.receiver), new Uint(txAmount))).toString("hex")
+                    // hard coded 0xa9059cbb for token transaction
+                    signAndSendRawTransaction(
+                      prvKey,
+                      "0", etherTxn.txnType, nonce, s"0xa9059cbb${encodedFunction}")
+                  }
+
               }
-
+            }.recover {
+              case e: Exception =>
+                Toastr.error("Wrong password!!!!")
             }
+          }
 
-        }
-      }.recover {
-        case e: Exception =>
-          Toastr.error("Wrong password!!!!")
       }
+
     }
 
     def signAndSendRawTransaction(privKey: String, amount: String, txTo: String, nonce: String, encodedFunction: String): Unit = {
@@ -151,7 +162,7 @@ object ConfirmModal {
               getTransactionNotification(transactionHashString)
               t.props.runNow().rc.set(AccountLoc).runNow()
             } else {
-              Callback(Toastr.error(transactionHashString))
+              Callback(Toastr.error(transactionHashString)).runNow()
             }
           }
       } else {

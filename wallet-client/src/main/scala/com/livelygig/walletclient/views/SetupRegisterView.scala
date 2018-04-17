@@ -3,8 +3,8 @@ package com.livelygig.walletclient.views
 import com.livelygig.shared.models.wallet.Account
 import com.livelygig.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.walletclient.facades.{EthereumJsUtils, HDKey, Mnemonic, VaultGaurd}
-import com.livelygig.walletclient.handler.{AddAccount, SelectAddress}
+import com.livelygig.walletclient.facades.{ EthereumJsUtils, HDKey, Mnemonic, VaultGaurd }
+import com.livelygig.walletclient.handler.{ AddAccount, SelectAddress }
 import com.livelygig.walletclient.modals.SetupPasswordModal
 import com.livelygig.walletclient.router.ApplicationRouter._
 import com.livelygig.walletclient.services.WalletCircuit
@@ -13,7 +13,7 @@ import diode.AnyAction._
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{BackendScope, Callback, ReactEventFromInput, ScalaComponent}
+import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
 import org.scalajs.jquery.JQueryEventObject
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
@@ -23,7 +23,7 @@ object SetupRegisterView {
   case class Props(router: RouterCtl[Loc])
 
   final case class State(accountName: String = "", mnemonicPhrase: String = "",
-                         privateKey: String = "", keystoreText: String = Defaults.keyStoreText, regMode: String = "newId")
+    privateKey: String = "", keystoreText: String = Defaults.keyStoreText, regMode: String = "newId")
 
   final class Backend(t: BackendScope[Props, State]) {
 
@@ -77,7 +77,7 @@ object SetupRegisterView {
       }
     }
 
-    def createNewWalletWithPassphrase(): Callback = {
+    def createNewWalletWithPassphrase() = {
       val password = WalletCircuit.zoomTo(_.user.userPassword).value
       t.state.zip(t.props) >>= {
         case (state, props) =>
@@ -96,9 +96,9 @@ object SetupRegisterView {
                   e.copy(
                     privateExtendedKey = hdKey.privateExtendedKey.toString(),
                     mnemonicPhrase = mnemonicString)).map {
-                  _ =>
-                    props.router.set(AccountLoc).runNow()
-                }
+                    _ =>
+                      props.router.set(AccountLoc).runNow()
+                  }
 
             }
           }
@@ -113,11 +113,11 @@ object SetupRegisterView {
       } else {
         regMode match {
           case "newId" => {
-            createNewWallet()
+            createNewWallet().runNow()
           }
           case "passPhrase" => {
             // create an account with mnemonic phrase
-            createNewWalletWithPassphrase()
+            createNewWalletWithPassphrase().runNow()
 
           }
           case "createSharedWallet" => {
@@ -177,7 +177,7 @@ object SetupRegisterView {
             <.div(
               ^.className := "radio radio-top",
               <.label(
-                <.input(^.id := "newId", ^.onChange --> onRegClicked("newId"), ^.name := "initialIdentifier", ^.value := "on", ^.`type` := "radio" /*, VdomAttr("checked") := true*/),
+                <.input(^.id := "newId", ^.onChange --> onRegClicked("newId"), ^.name := "initialIdentifier", ^.value := "on", ^.`type` := "radio" /*, VdomAttr("checked") := true*/ ),
                 "Create a new account")),
             <.button(^.id := "btnAdvOpt", ^.`type` := "button", VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#advOpt", ^.className := "btn btnAdvOpt", "Advanced",
               <.i(VdomAttr("aria-hidden") := "true", ^.className := "fa fa-chevron-down")),
