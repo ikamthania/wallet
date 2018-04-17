@@ -30,10 +30,9 @@ object ViewBackupPhrase {
       if (jQuery("#chkbSecure").is(":checked")) {
         t.modState(s => s.copy(isChecked = true, showConfirmScreen = true))
         //        t.props.runNow().router.set(ConfirmBackupPhraseLoc).runNow()
-      } else
-        {
-          t.modState(s => s.copy(isChecked = true))
-        }
+      } else {
+        t.modState(s => s.copy(isChecked = true))
+      }
     }
 
     def render(p: Props, s: State): VdomElement = {
@@ -137,37 +136,44 @@ object ConfirmBakupPhrase {
   final class Backend(t: BackendScope[Props, State]) {
 
     def componentDidMount(props: Props): Callback = {
-      t.modState(s => s.copy(phraseSelection = t.props.runNow().phraseWords))
+      t.props >>= {
+        case (p) =>
+          t.modState(s => s.copy(phraseSelection = p.phraseWords))
+      }
     }
 
     def onBtnClicked(): react.Callback = {
-      if (t.props.runNow().phraseWords.equals(t.state.runNow().phraseSelected.filter(_.nonEmpty)) /*true*/ ) {
-        val password = WalletCircuit.zoomTo(_.user.userPassword).value
-        VaultGaurd.decryptVault(password).map {
-          e =>
-            val mnemonicString = t.props.runNow().phraseWords.mkString(" ")
-            val seed = Mnemonic.mnemonicToSeed(mnemonicString)
-            val hdKey = HDKey.fromMasterSeed(seed)
-            val child = hdKey.derive(s"${e.hdDerivePath}/0")
-            WalletCircuit
-              .dispatch(
-                UpdateDefaultAccount(s"0x${EthereumJsUtils.privateToAddress(child.privateKey).toString("hex")}")
-              )
-            VaultGaurd.encryptWallet(password,
-              e.copy(privateExtendedKey = hdKey.privateExtendedKey.toString(),
-                mnemonicPhrase = mnemonicString)).map {
-              _ =>
-                t.modState(_.copy(showconfirmedScreen = true)).runNow()
+      t.state.zip(t.props) >>= {
+        case(state, props) =>
+          if (props.phraseWords.equals(state.phraseSelected.filter(_.nonEmpty)) /*true*/ ) {
+            val password = WalletCircuit.zoomTo(_.user.userPassword).value
+            VaultGaurd.decryptVault(password).map {
+              e =>
+                val mnemonicString = props.phraseWords.mkString(" ")
+                val seed = Mnemonic.mnemonicToSeed(mnemonicString)
+                val hdKey = HDKey.fromMasterSeed(seed)
+                val child = hdKey.derive(s"${e.hdDerivePath}/0")
+                WalletCircuit
+                  .dispatch(
+                    UpdateDefaultAccount(s"0x${EthereumJsUtils.privateToAddress(child.privateKey).toString("hex")}")
+                  )
+                VaultGaurd.encryptWallet(password,
+                  e.copy(privateExtendedKey = hdKey.privateExtendedKey.toString(),
+                    mnemonicPhrase = mnemonicString)).map {
+                  _ =>
+                    t.modState(_.copy(showconfirmedScreen = true)).runNow()
+                }
+
             }
 
-        }
+            t.modState(s => s.copy(showLoader = true))
 
-        t.modState(s => s.copy(showLoader = true))
-
-      } else {
-        // todo add validator for mnemonic phrase
-        t.modState(s => s.copy(isValidPhrase = false))
+          } else {
+            // todo add validator for mnemonic phrase
+            t.modState(s => s.copy(isValidPhrase = false))
+          }
       }
+
     }
 
     def generateWordList(e: String): VdomElement = {
@@ -176,7 +182,7 @@ object ConfirmBakupPhrase {
     }
 
     def generateWordListSelected(e: String): Callback = {
-      t.modState{
+      t.modState {
         state =>
           if (state.phraseSelected.contains(e)) {
             val selected = state.phraseSelection :+ e

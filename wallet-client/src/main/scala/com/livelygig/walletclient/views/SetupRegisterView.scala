@@ -3,8 +3,8 @@ package com.livelygig.walletclient.views
 import com.livelygig.shared.models.wallet.Account
 import com.livelygig.walletclient.facades.bootstrapvalidator.BootstrapValidator.bundle._
 import com.livelygig.walletclient.facades.jquery.JQueryFacade.jQuery
-import com.livelygig.walletclient.facades.{ EthereumJsUtils, HDKey, Mnemonic, VaultGaurd }
-import com.livelygig.walletclient.handler.{ AddAccount, SelectAddress }
+import com.livelygig.walletclient.facades.{EthereumJsUtils, HDKey, Mnemonic, VaultGaurd}
+import com.livelygig.walletclient.handler.{AddAccount, SelectAddress}
 import com.livelygig.walletclient.modals.SetupPasswordModal
 import com.livelygig.walletclient.router.ApplicationRouter._
 import com.livelygig.walletclient.services.WalletCircuit
@@ -13,7 +13,7 @@ import diode.AnyAction._
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{ BackendScope, Callback, ReactEventFromInput, ScalaComponent }
+import japgolly.scalajs.react.{BackendScope, Callback, ReactEventFromInput, ScalaComponent}
 import org.scalajs.jquery.JQueryEventObject
 
 import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
@@ -23,7 +23,7 @@ object SetupRegisterView {
   case class Props(router: RouterCtl[Loc])
 
   final case class State(accountName: String = "", mnemonicPhrase: String = "",
-    privateKey: String = "", keystoreText: String = Defaults.keyStoreText, regMode: String = "newId")
+                         privateKey: String = "", keystoreText: String = Defaults.keyStoreText, regMode: String = "newId")
 
   final class Backend(t: BackendScope[Props, State]) {
 
@@ -49,22 +49,17 @@ object SetupRegisterView {
       t.modState(_.copy(regMode = regItem))
     }
 
-    def onSubmitClicked() = {
-      val state = t.state.runNow().regMode
-      val password = WalletCircuit.zoomTo(_.user.userPassword).value
-      if (password.isEmpty) {
-        t.props.flatMap(_.router.set(EnterPasswordLoc)).runNow()
-      } else {
-        state match {
-          case "newId" => {
-            if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value.isEmpty) {
-              // create a default account in vault
-              WalletCircuit.dispatch(AddAccount(Account(Defaults.defaultAccountPublicKey, t.state.runNow().accountName)))
-              t.props.flatMap(_.router.set(BackupAccountLoc)).runNow()
-
-            } // if user is logged in create an account and then navigate back to all account view
-            else {
-              VaultGaurd.decryptVault(password).map {
+    def createNewWallet(): Callback = {
+      t.state.zip(t.props) >>= {
+        case (_, props) =>
+          if (WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.accounts).value.isEmpty) {
+            // create a default account in vault
+            WalletCircuit.dispatch(AddAccount(Account(Defaults.defaultAccountPublicKey, t.state.runNow().accountName)))
+            props.router.set(BackupAccountLoc)
+          } // if user is logged in create an account and then navigate back to all account view
+          else {
+            Callback {
+              VaultGaurd.decryptVault(WalletCircuit.zoomTo(_.user.userPassword).value).map {
                 e =>
                   val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
                   val child = hdKey.derive(s"${e.hdDerivePath}/${
@@ -75,54 +70,61 @@ object SetupRegisterView {
                     EthereumJsUtils.privateToAddress(child.privateKey)
                       .toString("hex")
                   }", t.state.runNow().accountName)))
-                  t.props.flatMap(_.router.set(AllAccountsLoc)).runNow()
+                  props.router.set(AllAccountsLoc)
               }
-
             }
-
           }
-          case "passPhrase" => {
-            // create an account with mnemonic phrase
+      }
+    }
+
+    def createNewWalletWithPassphrase(): Callback = {
+      val password = WalletCircuit.zoomTo(_.user.userPassword).value
+      t.state.zip(t.props) >>= {
+        case (state, props) =>
+          Callback {
             VaultGaurd.decryptVault(password).map {
               e =>
-                val mnemonicString = t.state.runNow().mnemonicPhrase
+                val mnemonicString = state.mnemonicPhrase
                 val seed = Mnemonic.mnemonicToSeed(mnemonicString)
                 val hdKey = HDKey.fromMasterSeed(seed)
                 val child = hdKey.derive(s"${e.hdDerivePath}/0")
                 val address = s"0x${EthereumJsUtils.privateToAddress(child.privateKey).toString("hex")}"
-                WalletCircuit.dispatch(AddAccount(Account(address, t.state.runNow().accountName)))
+                WalletCircuit.dispatch(AddAccount(Account(address, state.accountName)))
                 WalletCircuit.dispatch(SelectAddress(address))
                 VaultGaurd.encryptWallet(
                   password,
                   e.copy(
                     privateExtendedKey = hdKey.privateExtendedKey.toString(),
                     mnemonicPhrase = mnemonicString)).map {
-                    _ =>
-                      t.props.flatMap(_.router.set(AccountLoc)).runNow()
-                  }
+                  _ =>
+                    props.router.set(AccountLoc).runNow()
+                }
 
             }
+          }
+      }
+    }
+
+    def onSubmitClicked() = {
+      val regMode = t.state.runNow().regMode
+      val password = WalletCircuit.zoomTo(_.user.userPassword).value
+      if (password.isEmpty) {
+        t.props.flatMap(_.router.set(EnterPasswordLoc)).runNow()
+      } else {
+        regMode match {
+          case "newId" => {
+            createNewWallet()
+          }
+          case "passPhrase" => {
+            // create an account with mnemonic phrase
+            createNewWalletWithPassphrase()
+
           }
           case "createSharedWallet" => {
             t.props.flatMap(_.router.set(AddSharedWalletLoc)).runNow()
           }
-          case "privateKey" => {
-            t.props.flatMap(_.router.set(LoginLoc))
-          }
-          case "keyStoreJson" => {
+          case "privateKey" | "keyStoreJson" | "keyStoreFile" | "sharedWallet" | "web3Provider" | "ledgerWallet" => {
             Callback.empty
-          }
-          case "keyStoreFile" => {
-            t.props.flatMap(_.router.set(LoginLoc))
-          }
-          case "sharedWallet" => {
-            t.props.flatMap(_.router.set(LoginLoc))
-          }
-          case "web3Provider" => {
-            t.props.flatMap(_.router.set(LoginLoc))
-          }
-          case "ledgerWallet" => {
-            t.props.flatMap(_.router.set(LoginLoc))
           }
         }
 
@@ -175,7 +177,7 @@ object SetupRegisterView {
             <.div(
               ^.className := "radio radio-top",
               <.label(
-                <.input(^.id := "newId", ^.onChange --> onRegClicked("newId"), ^.name := "initialIdentifier", ^.value := "on", ^.`type` := "radio" /*, VdomAttr("checked") := true*/ ),
+                <.input(^.id := "newId", ^.onChange --> onRegClicked("newId"), ^.name := "initialIdentifier", ^.value := "on", ^.`type` := "radio" /*, VdomAttr("checked") := true*/),
                 "Create a new account")),
             <.button(^.id := "btnAdvOpt", ^.`type` := "button", VdomAttr("data-toggle") := "collapse", VdomAttr("data-target") := "#advOpt", ^.className := "btn btnAdvOpt", "Advanced",
               <.i(VdomAttr("aria-hidden") := "true", ^.className := "fa fa-chevron-down")),
