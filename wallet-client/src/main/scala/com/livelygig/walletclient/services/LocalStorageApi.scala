@@ -4,7 +4,6 @@ import com.livelygig.shared.models.wallet._
 import com.livelygig.walletclient.handler.{ SelectTheme, UpdateRootModer }
 import diode.AnyAction._
 import org.scalajs.dom
-import play.api.libs.json.JsResult.Exception
 import play.api.libs.json.{ JsError, Json }
 
 object LocalStorageApi {
@@ -22,12 +21,12 @@ object LocalStorageApi {
         e =>
           WalletCircuit.dispatch(SelectTheme(e.data.preferencess.selectedTheme))
           WalletCircuit.dispatch(UpdateRootModer(e))
-        /*if (e.data.keyrings.vault.data != "") {
-            WalletCircuit.dispatch(LoginUser())
-          }*/
       }.recover {
         case err: JsError => {
-          throw Exception(JsError("Error in parsing app root model"))
+          // incompatible version of app data in local storage
+          println(s"Error in parsing root model ${err.toString}")
+          dom.window.localStorage.removeItem("config")
+          dom.window.location.href = "/wallet"
         }
       }
     }

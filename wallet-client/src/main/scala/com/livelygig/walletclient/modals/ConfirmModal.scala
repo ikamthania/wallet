@@ -119,7 +119,6 @@ object ConfirmModal {
               val hdKey = HDKey.fromExtendedKey(e.privateExtendedKey)
               val slctedAccntIndex = accountInfo.accounts.indexWhere(_.address == accountInfo.selectedAddress)
               val prvKey = hdKey.derive(s"${e.hdDerivePath}/${slctedAccntIndex}").privateKey.toString("hex")
-              println(prvKey)
               EthereumNodeApi.getTransactionCount(accountInfo.selectedAddress).map {
                 res =>
                   val nonce = (Json.parse(res) \ "result").as[String]

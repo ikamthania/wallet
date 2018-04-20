@@ -8,15 +8,15 @@ import com.livelygig.walletclient.handler.UpdateAccountTokenList
 import com.livelygig.walletclient.modals.ConfirmModal
 import com.livelygig.walletclient.rootmodel.TokenDetailsRootModel
 import com.livelygig.walletclient.router.ApplicationRouter
-import com.livelygig.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.walletclient.services.{ CoreApi, WalletCircuit }
 import diode.AnyAction._
 import diode.data.Pot
 import diode.react.ModelProxy
 import diode.react.ReactPot._
 import japgolly.scalajs.react
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^.{<, ^, _}
-import japgolly.scalajs.react.{Callback, _}
+import japgolly.scalajs.react.vdom.html_<^.{ <, ^, _ }
+import japgolly.scalajs.react.{ Callback, _ }
 import org.scalajs.dom
 import play.api.libs.json.Json
 
@@ -28,10 +28,10 @@ object SendView {
   case class Props(proxy: ModelProxy[Pot[TokenDetailsRootModel]], rc: RouterCtl[ApplicationRouter.Loc], to: String = "")
 
   final case class State(etherTransaction: EtherTransaction, userUri: String, etherBalance: String,
-                         coinSymbol: String, currSymbol: String, ethereumPrice: String,
-                         coinExchange: Seq[CurrencyList] = Seq(CurrencyList("", Seq(Currency("", 0, "")))),
-                         appName: String = "", amntInCurr: String = "",
-                         totalInCurr: String = "0.0", totalInCoin: String = "0.0")
+    coinSymbol: String, currSymbol: String, ethereumPrice: String,
+    coinExchange: Seq[CurrencyList] = Seq(CurrencyList("", Seq(Currency("", 0, "")))),
+    appName: String = "", amntInCurr: String = "",
+    totalInCurr: String = "0.0", totalInCoin: String = "0.0")
 
   final class Backend(t: BackendScope[Props, State]) {
     val ethereumFee = 0.015 //get from API
@@ -48,15 +48,15 @@ object SendView {
           .map(prices =>
             Json.parse(prices)
               .validate[CoinExchange].asEither match {
-              case Left(fieldErrors) => fieldErrors.foreach(x => {
-                println("field: " + x._1 + ", errors: " + x._2)
-              })
-              case Right(res) =>
-                t.modState(s => s.copy(
-                  coinExchange = res.coinExchangeList))
+                case Left(fieldErrors) => fieldErrors.foreach(x => {
+                  println("field: " + x._1 + ", errors: " + x._2)
+                })
+                case Right(res) =>
+                  t.modState(s => s.copy(
+                    coinExchange = res.coinExchangeList))
                   .runNow()
-                updateETHPrice(t.state.runNow().coinSymbol)
-            })
+                  updateETHPrice(t.state.runNow().coinSymbol)
+              })
       }
     }
 
@@ -156,29 +156,29 @@ object SendView {
         case "password" => t.modState(s => s.copy(etherTransaction = s.etherTransaction.copy(password = newValue)))
         case "receiver" => t.modState(s => s.copy(etherTransaction = s.etherTransaction.copy(receiver = newValue)))
         case "txnType" =>
-        {
+          {
 
-          t.props.runNow().proxy.value.get.accountTokenDetails.map { token =>
-            newValue match {
-              case token.contractAddress =>
-                t.modState(s => s.copy(
-                  etherTransaction = s.etherTransaction
-                    .copy(txnType = token.contractAddress, decimal = token.decimal),
-                  etherBalance = token.balance, coinSymbol = token.symbol.toUpperCase)).runNow()
-                updateETHPrice(token.symbol)
+            t.props.runNow().proxy.value.get.accountTokenDetails.map { token =>
+              newValue match {
+                case token.contractAddress =>
+                  t.modState(s => s.copy(
+                    etherTransaction = s.etherTransaction
+                      .copy(txnType = token.contractAddress, decimal = token.decimal),
+                    etherBalance = token.balance, coinSymbol = token.symbol.toUpperCase)).runNow()
+                  updateETHPrice(token.symbol)
 
-              case "eth" =>
-                t.modState(s => s
-                  .copy(
-                    etherTransaction = s.etherTransaction.copy(txnType = newValue, decimal = 18),
-                    etherBalance = token.balance, coinSymbol = "ETH")).runNow()
-                updateETHPrice("eth")
+                case "eth" =>
+                  t.modState(s => s
+                    .copy(
+                      etherTransaction = s.etherTransaction.copy(txnType = newValue, decimal = 18),
+                      etherBalance = token.balance, coinSymbol = "ETH")).runNow()
+                  updateETHPrice("eth")
 
-              case _ =>
-                None
+                case _ =>
+                  None
+              }
             }
           }
-        }
           Callback.empty
       }
     }
@@ -203,14 +203,12 @@ object SendView {
           case "amountUSD" =>
             val priceInETH = if (value != "0") {
               round(value.toDouble / t.state.runNow().ethereumPrice.toDouble, 5)
-            }
-            else {
+            } else {
               ""
             }
             val totalIncoin = if (value != "0") {
               round(priceInETH.toDouble + ethereumFee, 5)
-            }
-            else {
+            } else {
               "0.0"
             }
             val totalInCur = if (value != "0") {
@@ -390,7 +388,7 @@ object SendView {
                 <.select()(
                   accountInfo.accounts.map(e =>
                     <.option(e.accountName)).toTagMod
-                  //                  <.option(s"${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}")
+                //                  <.option(s"${accountInfo.accounts.find(_.address == accountInfo.selectedAddress).get.accountName}")
                 )),
               <.div(
                 ^.className := "accountItem",
@@ -417,7 +415,7 @@ object SendView {
                 <.div(
                   ^.className := "accountSpendableResult",
                   <.p(s"${s.etherBalance} ${s.coinSymbol}"))) //                }.get),
-              , <.div(
+                  , <.div(
                 ^.className := "accountSpendable",
                 <.div(
                   ^.className := "accountSpendableResult",

@@ -6,7 +6,6 @@ import com.lightbend.lagom.scaladsl.devmode.LagomDevModeComponents
 import com.livelygig.product.content.api.WalletService
 import com.softwaremill.macwire.wire
 import controllers.api.v1.wallet._
-import controllers.api.v1.wallet.auth.MobileWalletController
 import controllers.{ AssetsComponents, ViewController }
 import org.webjars.play.{ RequireJS, WebJarAssets, WebJarsUtil }
 import play.api.ApplicationLoader.Context
@@ -69,8 +68,7 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
   //  lazy val walletController: WalletController = wire[WalletController]
 
   // For Mobile
-  lazy val mobileWalletController: MobileWalletController = wire[MobileWalletController]
-  lazy val mobileApiWalletController: MobileApiWalletController = wire[MobileApiWalletController]
+  lazy val mobileApiWalletController: WalletAPIController = wire[WalletAPIController]
 
   override lazy val httpRequestHandler: HttpRequestHandler = wire[RequestHandler]
   override lazy val httpErrorHandler: HttpErrorHandler = wire[WebGatewayErrorHandler]
