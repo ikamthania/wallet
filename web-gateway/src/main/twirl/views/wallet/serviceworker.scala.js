@@ -10,7 +10,9 @@ self.addEventListener('install', function (e) {
             return cache.addAll([
                 '../wallet',
                 './manifest.json',
-
+                @appJs.map{js =>
+                "@js",
+                }
                 './serviceworker.js',
                 "https://fonts.googleapis.com/css?family=Montserrat",
                 '@routes.Assets.versioned("stylesheets/wallet/wallet-app-main.min.css")',
