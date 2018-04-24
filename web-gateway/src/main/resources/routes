@@ -15,12 +15,8 @@ GET         /                                       controllers.ViewController.a
 GET         /wallet/                                controllers.ViewController.wallet()
 GET         /wallet                                 controllers.ViewController.wallet()
 
-#wallet app
-GET         /wallet/app/:os                         controllers.ViewController.serveAppFile(os: String)
-
-
-
 # Map static resources from the /public folder to the /assets URL path
+GET         /assets/serviceworker.js                controllers.ViewController.serviceWorker()
 GET         /assets/stylesheets/fonts/*file         controllers.Assets.at(path="/public/lib/font-awesome/fonts", file)
 GET         /assets/fonts/*file                     controllers.Assets.at(path="/public/lib/font-awesome/fonts", file)
 GET         /assets/*file                           controllers.Assets.versioned(path="/public", file: Asset)
