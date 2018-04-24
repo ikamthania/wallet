@@ -16,7 +16,16 @@
     <body>
         <div id="root">
         </div>
-        @addScripts(projectName = "wallet-client", routes.Assets.versioned(_).toString, name => getClass.getResource(s"/public/$name") != null)
+
+
+        @Seq(s"wallet-client-opt-library.js", s"wallet-client-fastopt-library.js").find(asset => getClass.getResource(s"/public/$asset") != null).map(name => jsScript(routes.Assets.versioned(name).toString))
+        <script language="JavaScript">
+            var exports = window;
+            exports.require = window["ScalaJSBundlerLibrary"].require;
+        </script>
+        @Seq(s"wallet-client-opt.js", s"wallet-client-fastopt.js").find(asset => getClass.getResource(s"/public/$asset") != null).map(name => jsScript(routes.Assets.versioned(name).toString))
+
+
     </body>
 
 </html>
