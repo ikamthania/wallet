@@ -15,7 +15,6 @@ object WalletClientDependencies {
       "org.scala-js" %%% "scalajs-dom" % "0.9.4",
       "io.suzaku" %%% "diode" % "1.1.2",
       "io.suzaku" %%% "diode-react" % "1.1.2",
-      "ru.pavkin" %%% "scala-js-momentjs" % "0.9.1",
       "be.doeraene" %%% "scalajs-jquery" % "0.9.2",
       "com.definitelyscala" %%% "scala-js-bootstrap" % "1.0.2",
       "io.scalajs" %%% "nodejs" % "0.4.2"))

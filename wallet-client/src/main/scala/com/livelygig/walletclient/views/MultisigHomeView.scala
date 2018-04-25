@@ -240,7 +240,6 @@ object MultisigHomeView {
     .initialState(State("ETH", CoinExchange(Seq(CurrencyList("", Seq(Currency("", 0, "")))))))
     .renderBackend[Backend]
     .componentWillMount(scope => scope.backend.updateCurrency())
-    .componentDidMount(scope => scope.backend.updateTheme())
     .componentDidMount(scope => scope.backend.componentDidMount(scope.props))
     .build
   def apply(props: Props) = component(props)

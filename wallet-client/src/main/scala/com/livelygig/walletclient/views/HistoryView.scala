@@ -11,7 +11,6 @@ import diode.react.ModelProxy
 import diode.react.ReactPot._
 import japgolly.scalajs.react.vdom.html_<^.{ EmptyVdom, ^, _ }
 import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent }
-import moment.Moment
 
 object HistoryView {
 
@@ -34,7 +33,7 @@ object HistoryView {
             ^.className := "row",
             <.div(
               ^.className := "col-lg-6 col-md-6 col-sm-6 col-xs-6",
-              <.label(Moment(s"${transactionWithSymbol.transaction.timeStamp}000", "x").format("llll"))),
+              <.label(transactionWithSymbol.transaction.timeStamp)),
             <.div(
               ^.className := "col-lg-6 col-md-6 col-sm-6 col-xs-6 section-right",
               <.label(^.className := "notAlpha", transactionWithSymbol.transaction.value),
