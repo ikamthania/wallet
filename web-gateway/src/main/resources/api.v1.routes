@@ -3,12 +3,12 @@
 
 ### Mobile API
 
-GET        /wallet/mobile/:publickey/account/erctoken/details          controllers.api.v1.wallet.WalletAPIController.mobileGetAccountTokenDetails(publickey:String)
-GET        /wallet/mobile/:publicKey/transactions                      controllers.api.v1.wallet.WalletAPIController.mobileGetTransactionHistory(publicKey:String)
-GET        /wallet/mobile/ethnet/info                                  controllers.api.v1.wallet.WalletAPIController.mobileGetNetworkInfo()
-GET        /wallet/mobile/coin/prices                                  controllers.api.v1.wallet.WalletAPIController.mobileGetMarketPrice()
-GET        /wallet/mobile/language/:lang                               controllers.api.v1.wallet.WalletAPIController.language(lang:String)
-GET        /wallet/mobile/status/:txnHash                              controllers.api.v1.wallet.WalletAPIController.mobileGetTransactionStatus(txnHash:String)
-POST       /wallet/mobile/signedTxn                                    controllers.api.v1.wallet.WalletAPIController.mobileSendTransaction()
-POST       /wallet/mobile/encodedfunction                              controllers.api.v1.wallet.WalletAPIController.mobilePost()
+GET   /:publickey/account/erctoken/details    controllers.api.v1.wallet.WalletAPIController.mobileGetAccountTokenDetails(publickey:String)
+GET   /:publicKey/transactions                controllers.api.v1.wallet.WalletAPIController.mobileGetTransactionHistory(publicKey:String)
+GET   /ethnet/info                            controllers.api.v1.wallet.WalletAPIController.mobileGetNetworkInfo()
+GET   /coin/prices                            controllers.api.v1.wallet.WalletAPIController.mobileGetMarketPrice()
+GET   /language/:lang                         controllers.api.v1.wallet.WalletAPIController.language(lang:String)
+GET   /status/:txnHash                        controllers.api.v1.wallet.WalletAPIController.mobileGetTransactionStatus(txnHash:String)
+POST  /signedTxn                              controllers.api.v1.wallet.WalletAPIController.mobileSendTransaction()
+POST  /encodedfunction                        controllers.api.v1.wallet.WalletAPIController.mobilePost()
 

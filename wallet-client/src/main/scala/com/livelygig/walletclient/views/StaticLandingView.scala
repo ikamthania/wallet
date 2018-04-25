@@ -75,13 +75,13 @@ object StaticLandingView {
                     <.div(
                       ^.id := "language-settings-item",
                       ^.className := "item",
-                      <.img(^.src := "./assets/images/languageIcon.png"),
+                      <.img(^.src := "./wallet/assets/images/languageIcon.png"),
                       <.h4("Language"),
                       <.select(
                         ^.className := "form-control",
                         <.option("English"),
                         <.option("Pseudolocalized")),
-                      <.img(^.src := "./assets/images/regionIcon.png"),
+                      <.img(^.src := "./wallet/assets/images/regionIcon.png"),
                       <.h4("Region"),
                       <.select(
                         ^.className := "form-control",
@@ -92,14 +92,14 @@ object StaticLandingView {
                       ^.className := "item",
                       <.div(
                         ^.className := "row itemSetup",
-                        <.img(^.className := "col-xs-4", ^.src := "./assets/images/dim.PNG"),
+                        <.img(^.className := "col-xs-4", ^.src := "./wallet/assets/images/dim.PNG"),
                         <.h4("Digital Identity Management"),
                         <.p(
                           """Use Ubunda to create and manage your independent digital identities, to control and share
                                     your credentials, and to issue and verify claims.""")),
                       <.div(
                         ^.className := "row itemSetup dg-wallet",
-                        <.img(^.id := "imgRight", ^.className := "col-md-push-10 col-sm-push-9 col-xs-4 col-xs-push-8", ^.src := "./assets/images/dw.PNG"),
+                        <.img(^.id := "imgRight", ^.className := "col-md-push-10 col-sm-push-9 col-xs-4 col-xs-push-8", ^.src := "./wallet/assets/images/dw.PNG"),
                         <.h4(^.className := "col-lg-8 col-lg-pull-1 col-md-8 col-md-pull-2 col-sm-8 col-sm-pull-2 col-xs-8 col-xs-pull-4", "Digital Wallet"),
                         <.p(
                           ^.className := "col-lg-8 col-lg-pull-1 col-md-8 col-md-pull-2 col-sm-8 col-sm-pull-2 col-xs-8 col-xs-pull-4",
@@ -107,7 +107,7 @@ object StaticLandingView {
                                     and receive payments. View and annotate transactions.""")),
                       <.div(
                         ^.className := "row itemSetup",
-                        <.img(^.className := "col-xs-4", ^.src := "./assets/images/kmr.PNG"),
+                        <.img(^.className := "col-xs-4", ^.src := "./wallet/assets/images/kmr.PNG"),
                         <.h4("Key Management and Recovery"),
                         <.p(
                           """Manage and protect your digital identity and accounts using an encrypted key backup and recovery.

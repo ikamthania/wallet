@@ -14,10 +14,10 @@ class PreferencesHandler[M](modelRW: ModelRW[M, Preferences]) extends ActionHand
     case SelectTheme(themeName) =>
       {
         val themeUrl = if (LinkingInfo.productionMode) {
-          s"./assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"
+          s"./wallet/assets/stylesheets/themes/wallet-main-theme-${themeName}.min.css"
 
         } else {
-          s"../assets/stylesheets/wallet/themes/wallet-main-theme-${themeName}.min.css"
+          s"../wallet/assets/stylesheets/themes/wallet-main-theme-${themeName}.min.css"
         }
         jQuery("#theme-stylesheet")
           .each((ele: Element) =>

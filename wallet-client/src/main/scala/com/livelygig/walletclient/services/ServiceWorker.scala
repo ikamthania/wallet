@@ -9,7 +9,7 @@ import scala.scalajs.js.annotation.{ JSExportTopLevel }
 
 @JSExportTopLevel("ServiceWorker")
 object ServiceWorker {
-  def serviceWorker = "/assets/serviceworker.js"
+  def serviceWorker = "/wallet/serviceworker.js"
 
   def init(): Unit = {
     if (!js.isUndefined(dom.window.navigator.serviceWorker)) {

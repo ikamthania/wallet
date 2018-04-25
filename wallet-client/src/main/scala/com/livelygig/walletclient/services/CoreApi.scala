@@ -12,7 +12,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  * Created by shubham.k on 22-03-2017.
  */
 object CoreApi {
-  private val apiVersion = if (LinkingInfo.productionMode) "https://dev4:devops777@ubunda.com/v1" else "/v1"
+  private val apiVersion = if (LinkingInfo.productionMode) "https://dev4:devops777@ubunda.com/api/v1" else "/api/v1"
 
   private def ajaxPost(requestContent: String, apiUrl: String): Future[String] = {
     Ajax.post(
@@ -30,26 +30,26 @@ object CoreApi {
     ajaxGet(s"${apiVersion}/auth/")
   }
 
-  def getLang(lang: String) = ajaxGet(s"${apiVersion}/wallet/mobile/language/${lang}")
+  def getLang(lang: String) = ajaxGet(s"${apiVersion}/language/${lang}")
 
-  def getTransactionStatus(txnHash: String) = ajaxGet(s"${apiVersion}/wallet/mobile/status/${txnHash}")
+  def getTransactionStatus(txnHash: String) = ajaxGet(s"${apiVersion}/status/${txnHash}")
 
-  def mobileGetAccountDetails(pubKey: String) = ajaxGet(s"${apiVersion}/wallet/mobile/${pubKey}/account/erctoken/details")
+  def mobileGetAccountDetails(pubKey: String) = ajaxGet(s"${apiVersion}/${pubKey}/account/erctoken/details")
 
-  def mobileGetAccountHistoryDetails(pubKey: String) = ajaxGet(s"${apiVersion}/wallet/mobile/${pubKey}/transactions")
+  def mobileGetAccountHistoryDetails(pubKey: String) = ajaxGet(s"${apiVersion}/${pubKey}/transactions")
 
-  def mobileGetLivePrices() = ajaxGet(s"${apiVersion}/wallet/mobile/coin/prices")
+  def mobileGetLivePrices() = ajaxGet(s"${apiVersion}/coin/prices")
 
-  def mobileGetETHNetInfo() = ajaxGet(s"${apiVersion}/wallet/mobile/ethnet/info")
+  def mobileGetETHNetInfo() = ajaxGet(s"${apiVersion}/ethnet/info")
 
-  def mobileGetLang(lang: String) = ajaxGet(s"${apiVersion}/wallet/mobile/language/${lang}")
+  def mobileGetLang(lang: String) = ajaxGet(s"${apiVersion}/language/${lang}")
 
-  def mobileGetTransactionStatus(txnHash: String) = ajaxGet(s"${apiVersion}/wallet/mobile/status/${txnHash}")
+  def mobileGetTransactionStatus(txnHash: String) = ajaxGet(s"${apiVersion}/status/${txnHash}")
 
   def mobileSendSignedTxn(signedTxn: String) =
-    ajaxPost(Json.stringify(Json.toJson(SignedTransaction(signedTxn))), s"${apiVersion}/wallet/mobile/signedTxn")
+    ajaxPost(Json.stringify(Json.toJson(SignedTransaction(signedTxn))), s"${apiVersion}/signedTxn")
   def mobileGetEncodedFunction(txnInfo: EtherTransaction) =
-    ajaxPost(Json.stringify(Json.toJson[EtherTransaction](txnInfo)), s"${apiVersion}/wallet/mobile/encodedfunction")
+    ajaxPost(Json.stringify(Json.toJson[EtherTransaction](txnInfo)), s"${apiVersion}/encodedfunction")
 
 }
 
