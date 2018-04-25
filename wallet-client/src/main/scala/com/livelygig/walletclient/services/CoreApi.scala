@@ -12,7 +12,7 @@ import scala.scalajs.concurrent.JSExecutionContext.Implicits.queue
  * Created by shubham.k on 22-03-2017.
  */
 object CoreApi {
-  private val apiVersion = if (LinkingInfo.productionMode) "https://dev4:devops777@ubunda.com/api/v1" else "/v1"
+  private val apiVersion = if (LinkingInfo.productionMode) "https://dev4:devops777@ubunda.com/v1" else "/v1"
 
   private def ajaxPost(requestContent: String, apiUrl: String): Future[String] = {
     Ajax.post(
