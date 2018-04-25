@@ -13,12 +13,7 @@ class PreferencesHandler[M](modelRW: ModelRW[M, Preferences]) extends ActionHand
   override def handle: PartialFunction[Any, ActionResult[M]] = {
     case SelectTheme(themeName) =>
       {
-        val themeUrl = if (LinkingInfo.productionMode) {
-          s"./wallet/assets/stylesheets/themes/wallet-main-theme-${themeName}.min.css"
-
-        } else {
-          s"../wallet/assets/stylesheets/themes/wallet-main-theme-${themeName}.min.css"
-        }
+        val themeUrl = s"/wallet/assets/stylesheets/themes/wallet-main-theme-${themeName}.min.css"
         jQuery("#theme-stylesheet")
           .each((ele: Element) =>
             ele

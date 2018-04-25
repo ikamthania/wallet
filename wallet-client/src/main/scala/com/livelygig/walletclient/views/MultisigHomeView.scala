@@ -80,7 +80,7 @@ object MultisigHomeView {
       jQuery("#theme-stylesheet")
         .each((ele: Element) =>
           ele
-            .setAttribute("href", s"../assets/stylesheets/wallet/themes/wallet-main-theme-${theme}.min.css"))
+            .setAttribute("href", s"/wallet/assets/stylesheets/wallet/themes/wallet-main-theme-${theme}.min.css"))
     }
 
     def updateURL(loc: String): Callback = {
@@ -220,7 +220,7 @@ object MultisigHomeView {
                 <.label(^.className := "warn-text", "Error while loading available token list"))),
               p.proxy().renderPending(e =>
                 <.div()(
-                  <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img")))))),
+                  <.img(^.src := "/wallet/assets/images/processing-img.svg", ^.className := "loading-img")))))),
         <.div(
           ^.className := "container btnDefault-container homeButtonContainer",
           <.div(

@@ -446,7 +446,7 @@ object SendView {
               <.h4("Amount"),
               <.div(
                 ^.className := "accountAmountItem",
-                <.img(^.src := "/assets/images/ethereumIcon.png"),
+                <.img(^.src := "/wallet/assets/images/ethereumIcon.png"),
                 <.input(^.id := "coinTxtValue", ^.`type` := "text", ^.className := "form-control",
                   ^.required := true,
                   ^.value := s.etherTransaction.amount,

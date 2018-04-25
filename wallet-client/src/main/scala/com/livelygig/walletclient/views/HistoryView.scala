@@ -89,7 +89,7 @@ object HistoryView {
               <.label(^.className := "warn-text", "Error while loading transaction history "))),
             p.proxy().renderPending(e =>
               <.div()(
-                <.img(^.src := "../assets/images/processing-img.svg", ^.className := "loading-img"))))),
+                <.img(^.src := "/wallet/assets/images/processing-img.svg", ^.className := "loading-img"))))),
         <.div(
           ^.className := "container btnDefault-container notAlpha",
           <.h5("Click to view or annotate"),

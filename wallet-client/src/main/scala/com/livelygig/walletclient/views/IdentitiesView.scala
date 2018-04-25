@@ -27,7 +27,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -40,7 +40,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -53,7 +53,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -66,7 +66,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -79,7 +79,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -92,7 +92,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -105,7 +105,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -118,7 +118,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -131,7 +131,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -144,7 +144,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -157,7 +157,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(
@@ -170,7 +170,7 @@ object IdentitiesView {
                       ^.className := "row",
                       <.div(
                         ^.className := "col-lg-3 col-md-3 co-sm-3 col-xs-3",
-                        <.img(^.src := "../assets/images/boy.png")),
+                        <.img(^.src := "/wallet/assets/images/boy.png")),
                       <.div(
                         ^.className := "col-lg-9 col-md-9 co-sm-9 col-xs-9",
                         <.p(

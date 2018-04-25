@@ -79,7 +79,8 @@ class WalletAPIController(
       scala
         .io
         .Source.fromFile(s"${i18ndataLocation + lang}.json", "utf-8").mkString
-    Future(Ok(mockdata.toString).withHeaders("Access-Control-Allow-Origin" -> "*"))
+    Future(Ok(mockdata.toString).withHeaders("Access-Control-Allow-Origin" -> "*") withHeaders (
+      CACHE_CONTROL -> "max-age=31536000"))
   }
 
   def getEncodedFunction(etherTransaction: EtherTransaction) = {

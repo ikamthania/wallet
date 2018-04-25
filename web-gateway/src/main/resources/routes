@@ -8,7 +8,7 @@
 
 
 # api
-->          /api/v1                                 api.v1.Routes
+->          /v1                                     api.v1.Routes
 
 # wallet
 GET         /                                       controllers.ViewController.app()

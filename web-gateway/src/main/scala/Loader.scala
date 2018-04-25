@@ -38,6 +38,7 @@ abstract class WebGateway(context: Context) extends BuiltInComponentsFromContext
   lazy val routerOption = None
   override lazy val router = {
     // split route
+
     lazy val apiRoute: api.v1.Routes = {
       val prefix = "/v1"
       wire[api.v1.Routes]

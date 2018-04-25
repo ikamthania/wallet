@@ -18,11 +18,13 @@ class ViewController(
   }
 
   def wallet() = Action { implicit request =>
-    Ok(views.html.wallet.wallet())
+    Ok(views.html.wallet.wallet()) withHeaders (
+      CACHE_CONTROL -> "max-age=31536000")
   }
 
   def serviceWorker() = Action { implicit request =>
-    Ok(views.js.wallet.serviceworker())
+    Ok(views.js.wallet.serviceworker()) withHeaders (
+      CACHE_CONTROL -> "max-age=31536000")
   }
 
 }

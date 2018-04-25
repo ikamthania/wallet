@@ -12,7 +12,7 @@ class RequestHandler(
   router: Router) extends DefaultHttpRequestHandler(router, errorHandler, configuration, filters) /*with AppLogger */ {
 
   override def routeRequest(request: RequestHeader) = {
-    if (!Option(request.path).exists(_.startsWith("/assets"))) {
+    if (!Option(request.path).exists(_.startsWith("/wallet/assets"))) {
       //      log.info(s"Request from [${request.remoteAddress}]: ${request.toString()}")
     }
     super.routeRequest(request)

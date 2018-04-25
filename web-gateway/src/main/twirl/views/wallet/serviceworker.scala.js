@@ -16,9 +16,9 @@ self.addEventListener('install', function (e) {
                 "/wallet/serviceworker.js",
                 "https://fonts.googleapis.com/css?family=Montserrat",
                 "@routes.Assets.versioned("stylesheets/wallet-app-main.min.css")",
-                "@routes.Assets.versioned("stylesheets/themes/wallet-main-theme-default.min.css")",
-                "@routes.Assets.versioned("stylesheets/themes/wallet-main-theme-light.min.css")",
-                "@routes.Assets.versioned("images/favicon.ico")"
+                "/wallet/assets/stylesheets/themes/wallet-main-theme-default.min.css",
+                "/wallet/assets/stylesheets/themes/wallet-main-theme-light.min.css",
+                "/wallet/assets/images/favicon.ico"
             ]).then(function () {
                 self.skipWaiting();
             });
