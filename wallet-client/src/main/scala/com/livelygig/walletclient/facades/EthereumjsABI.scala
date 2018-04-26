@@ -7,10 +7,10 @@ import scala.collection.generic.CanBuildFrom
 import scala.collection.mutable
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters._
-import scala.scalajs.js.annotation.JSGlobal
+import scala.scalajs.js.annotation.{ JSGlobal, JSImport }
 
 @js.native
-@JSGlobal("EthereumjsABI")
+@JSImport("ethereumjs-abi", JSImport.Namespace)
 object EthereumjsABIFacade extends js.Object {
   def rawEncode(types: js.Array[String], values: js.Array[js.Any]): Buffer = js.native
 }

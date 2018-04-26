@@ -4,20 +4,20 @@ import com.livelygig.shared.models.wallet.Account
 import com.livelygig.walletclient.facades.Blockies
 import com.livelygig.walletclient.facades.jquery.JQueryFacade.jQuery
 import com.livelygig.walletclient.handler.ChangeLang
-import com.livelygig.walletclient.router.ApplicationRouter.{Loc, _}
-import com.livelygig.walletclient.services.{CoreApi, WalletCircuit}
+import com.livelygig.walletclient.router.ApplicationRouter.{ Loc, _ }
+import com.livelygig.walletclient.services.{ CoreApi, WalletCircuit }
 import com.livelygig.walletclient.utils.I18N
 import diode.AnyAction._
 import diode.ModelRO
 import japgolly.scalajs.react
-import japgolly.scalajs.react.extra.router.{Resolution, RouterCtl}
-import japgolly.scalajs.react.vdom.html_<^.{^, _}
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent, _}
+import japgolly.scalajs.react.extra.router.{ Resolution, RouterCtl }
+import japgolly.scalajs.react.vdom.html_<^.{ ^, _ }
+import japgolly.scalajs.react.{ BackendScope, Callback, ScalaComponent, _ }
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.scalajs.js
 import scala.scalajs.js.JSON
-import scala.util.{Failure, Success}
+import scala.util.{ Failure, Success }
 
 object HeaderComponent {
 
@@ -61,7 +61,7 @@ object HeaderComponent {
         .contains(page)
     }
 
-    def changeLang(lang: String): react.Callback = Callback{
+    def changeLang(lang: String): react.Callback = Callback {
       CoreApi.getLang(lang).onComplete {
         case Success(res) => {
           WalletCircuit.dispatch(ChangeLang(JSON.parse(res)))
@@ -74,7 +74,7 @@ object HeaderComponent {
       t.modState(s => s.copy(lang = reader.value)).runNow()
     }
 
-    def onSideBarMenuClicked(e: ReactEventFromHtml): react.Callback = Callback{
+    def onSideBarMenuClicked(e: ReactEventFromHtml): react.Callback = Callback {
       val cw = e.target.clientWidth
       val w = jQuery("#mySidenav").width()
       if (cw == w)
@@ -82,6 +82,7 @@ object HeaderComponent {
     }
 
     def userProfileImg = {
+
       Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = s"DO NOT REMOVE ME OR BLOCKIES WON'T WORK FOR SOME REASON"))
       val str = Blockies.create(js.Dynamic.literal(size = 15, scale = 3, seed = s"0x${WalletCircuit.zoomTo(_.appRootModel.appModel.data.accountInfo.selectedAddress).value}"))
       jQuery("#userProfileImg").prepend(str)
@@ -94,7 +95,7 @@ object HeaderComponent {
       changeLang(I18N.Lang.en_us)
     }
 
-    def toggleNav(): Callback = Callback{
+    def toggleNav(): Callback = Callback {
       jQuery("#mySidenav").toggleClass("fullWidth")
       jQuery("#closebtnContainer").toggleClass("active")
       jQuery("#bodyWallet").toggleClass("blurBackground")
@@ -145,12 +146,11 @@ object HeaderComponent {
             <.div(
               ^.className := "col-lg-2 col-md-2 col-sm-2 col-xs-2",
               <.div(
-                ^.className := "wallet-user-icon ", /*
-                  <.a(
-                    ^.href := "#/notification",
-                    <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),*/
-//                <.div(^.id := "userProfileImg", ^.className := "img-userIcon")
-              )))))
+                ^.className := "wallet-user-icon ",
+                <.a(
+                  ^.href := "#/notification",
+                  <.i(^.className := "fa fa-bell-o", VdomAttr("aria-hidden") := "true")),
+                <.div(^.id := "userProfileImg", ^.className := "img-userIcon"))))))
 
     }
   }

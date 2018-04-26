@@ -4,7 +4,7 @@ import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
 
 @js.native
-@JSImport("toastr/", JSImport.Default)
+@JSImport("toastr/", JSImport.Namespace)
 object Toastr extends js.Object {
   def success(message: String, title: Option[String] = None, overrideOptions: Option[String] = None): Unit = js.native
   def info(message: String, title: Option[String] = None, overrideOptions: Option[String] = None): Unit = js.native

@@ -17,9 +17,11 @@ object WalletClient {
     useYarn := true,
     webpackBundlingMode := BundlingMode.LibraryOnly(),
     scalacOptions += "-P:scalajs:sjsDefinedByDefault",
-
+    version in webpack := "4.1.1",
+    version in startWebpackDevServer := "3.1.1",
     // Add a dependency to the expose-loader (which will expose react to the global namespace)
     npmDevDependencies in Compile ++= Seq(
+      "uglifyjs-webpack-plugin" -> "1.2.5",
       "webpack-merge" -> "4.1.0",
       "imports-loader" -> "0.7.0",
       "expose-loader" -> "0.7.1"

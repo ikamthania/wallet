@@ -8,14 +8,14 @@ import play.api.mvc._
 import play.api.routing.Router
 import play.core.SourceMapper
 
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 
 /**
  * Created by shubham.k on 03-01-2017.
  */
 class WebGatewayErrorHandler(
   env: play.api.Environment, config: Configuration,
-  sourceMapper: Option[SourceMapper], router: Option[Router]) extends DefaultHttpErrorHandler(env, config, sourceMapper, router) {
+  sourceMapper: Option[SourceMapper], router: Option[Router])(implicit val ec: ExecutionContext) extends DefaultHttpErrorHandler(env, config, sourceMapper, router) {
 
   private val log = LoggerFactory.getLogger(classOf[WebGatewayErrorHandler])
 
@@ -28,7 +28,7 @@ class WebGatewayErrorHandler(
   override def onServerError(request: RequestHeader, exception: Throwable) = {
     log.error("Server error " + exception + "for uri" + request.uri)
     log.error("Server error", exception)
-    Future.successful(
+    Future(
       InternalServerError(s"Woops!!! We are encountering problem in serving this request."))
   }
 }

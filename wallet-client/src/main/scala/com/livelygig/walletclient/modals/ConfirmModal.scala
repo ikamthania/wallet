@@ -110,6 +110,7 @@ object ConfirmModal {
     * */
 
     def sendTransaction(e: ReactEventFromHtml): react.Callback = {
+      Toastr.error("Wrong password!!!!")
       t.state.zip(t.props) >>= {
         case (state, _) =>
           Callback {
