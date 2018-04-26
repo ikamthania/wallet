@@ -8,8 +8,7 @@ var commonConfig = require('./common.webpack.config');
 
 // Exported modules (here, React and ReactDOM)
 var globalModules = {
-  "ethereumjs-abi": "EthereumjsABI",
-  "ethereumjs-units": "EthereumjsUnits"
+
 };
 
 Object.keys(config.entry).forEach(function(key) {
@@ -20,8 +19,7 @@ Object.keys(config.entry).forEach(function(key) {
 // Globally expose the JS dependencies
 config.module = {rules: Object.keys(globalModules).map(function (pkg) {
   return {
-    test: require.resolve(pkg),
-    loader: "expose-loader?" + globalModules[pkg]
+    test: require.resolve(pkg)
   }
 })};
 

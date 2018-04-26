@@ -110,7 +110,6 @@ object ConfirmModal {
     * */
 
     def sendTransaction(e: ReactEventFromHtml): react.Callback = {
-      Toastr.error("Wrong password!!!!")
       t.state.zip(t.props) >>= {
         case (state, _) =>
           Callback {
@@ -152,7 +151,6 @@ object ConfirmModal {
         privKey,
         s"0x${BigDecimal.apply(EthereumjsUnits.convert(amount, "eth", "wei")).toBigInt().toString(16)}", txTo,
         nonce, encodedFunction, "0x4E3B29200", "0x3D0900")
-
       if (signedTxn != "") {
         CoreApi
           .mobileSendSignedTxn(s"0x${signedTxn}")
